@@ -1,36 +1,44 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-:root {
+@import "./components/componentStyle.css";
+@import "./styles/index.css";
+/* :root {
   --background: #ffffff;
-  --foreground: #121212;
+  --foreground: #171717;
 }
 
-/* @media (prefers-color-scheme: dark) {
+@media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
   }
 } */
-@font-face {
-  font-family: 'Mada';
-  src: url('/fonts/Mada-VariableFont_wght.ttf') format('truetype');
-  font-weight: 100 900;
-  font-style: normal;
+:root {
+  --text-color: #2c2c2c;
+  --secondary-color: #21d0b3;
+  --border-color: #2c2c2c;
 }
 
-
+html,
 body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: 'Mada', sans-serif;
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+  max-width: 100vw;
+  overflow-x: hidden;
 }
 
+* {
+  font-family: var(--font-mada);
+  color: var(--text-color);
+  border-color: var(--border-color);
+}
 
+a {
+  color: inherit;
+  text-decoration: none;
+}
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
+/* @media (prefers-color-scheme: dark) {
+  html {
+    color-scheme: dark;
   }
-}
+} */

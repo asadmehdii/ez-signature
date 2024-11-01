@@ -1,0 +1,50 @@
+import React, { FC } from "react";
+import Button from "../button";
+import Link from "next/link";
+import Image from "next/image";
+
+// import icons here
+import HamburgerIcon from "../../assests/images/menu-hamburger.svg";
+
+const Navbar: FC = () => {
+  return (
+    <nav className="navbar">
+      <Link href={"/"}>
+        <h1 className="logo">EzSignature</h1>
+      </Link>
+      <ul>
+        <li>Feature</li>
+        <li>Pricing</li>
+        <li>Help Center</li>
+        <li>Developer</li>
+      </ul>
+      <div className="btnDiv">
+        <Button
+          borderRadius={10}
+          width={90}
+          height={40}
+          fontSize={18}
+          fontWeight="600"
+          borderWidth={2}
+          backgroundColor="#ffffff"
+        >
+          Login
+        </Button>
+        <Button
+          borderRadius={10}
+          width={90}
+          height={40}
+          fontSize={18}
+          fontWeight="600"
+          backgroundColor="var(--secondary-color)"
+        >
+          Sign up
+        </Button>
+      </div>
+        {/* show hamburger icon on small screen */}
+      <Image className="hamIcon" src={HamburgerIcon} alt="icon_here" priority />
+    </nav>
+  );
+};
+
+export default Navbar;

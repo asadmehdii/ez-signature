@@ -1,0 +1,60 @@
+.backgroundImage {
+  background-image: url("../assests/images/home/Ellipse\ 11.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-position-y: bottom;
+  padding: 0px 20px;
+  height: auto;
+  object-fit: contain;
+}
+.home .grid_4 {
+  background-image: url("../assests/images/home/backgroundImage.png");
+  background-repeat: no-repeat;
+  background-color: #66efdc;
+  object-fit: contain;
+  width: 100%;
+  height: 100%;
+}
+.home .grid_5 .financtionalDepartmentCard {
+    position: relative;
+    display: inline-block; /* Adjust as necessary */
+    padding: 2px; /* Border width */
+    border-radius: 12px; /* Controls border rounding */
+    background: linear-gradient(
+      101.82deg,
+      #263238 2.51%,
+      #66efdc 39.22%,
+      #263238 97.85%
+    );
+    width: 700px;
+    height: 400px;
+    margin: 30px 0;
+}
+@media screen and (max-width: 1070px) {
+  .home .grid_2 .card {
+    margin: auto !important;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .home .grid_1 .head_1,
+  .home .grid_2 .head_1,
+  .home .grid_4 .head_1 {
+    font-size: 40px !important;
+  }
+}
+@media screen and (max-width: 860px) {
+  .home .removeBreak {
+    display: none;
+  }
+  /* .home .grid_2 .card{
+        width: 50% !important;
+        margin: auto;
+    } */
+}
+@media screen and (max-width: 530px) {
+  .home .grid_2 .card {
+    width: 100% !important;
+    height: fit-content !important;
+  }
+}

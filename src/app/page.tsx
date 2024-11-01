@@ -1,13 +1,9 @@
-import Image from "next/image";
-import TopNav from "./components/topnav";
-import Footer from "./components/footer";
+import Home from "./pages/home/page";
 
-export default function Home() {
+export default function app() {
   return (
-    <div>
-      <TopNav />
-      
-      <Footer />
-    </div>
+    <main>
+      <Home />
+    </main>
   );
 }
