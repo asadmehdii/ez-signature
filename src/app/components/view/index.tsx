@@ -20,7 +20,7 @@ type ViewProps = {
   textAlign: "left" | "center" | "right";
   className: string;
   style: CSSProperties;
-  background: any;
+  background: string;
   width: number | string;
   height: number | string;
 };

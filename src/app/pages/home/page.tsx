@@ -249,9 +249,9 @@ const Home: FC = () => {
           Go paperless with trusted electronic signatures
         </Text>
         <Text fontSize="26px" fontWeight="500" marginTop={20} marginBottom={20}>
-          Individuals, small & medium-sized businesses, and large corporations –
+          Individuals&#39; small & medium-sized businesses&#39; and large corporations –
           EzSignature is tailored to all. <br className="removeBreak" />
-          We're here to help you securely sign documents online, get paperwork
+          We are here to help you securely sign documents online &#39; get paperwork
           out of the way and close important deals faster.
         </Text>
         <Grid container justifyContent={"center"}  margin={"auto"} spacing={5}>
