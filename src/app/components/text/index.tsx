@@ -5,7 +5,7 @@ type TextVariant = "body" | "title" | "caption";
 type TextProps = {
   color?: string;
   fontFamily?: string;
-  fontSize?: string;
+  fontSize?: number | string;
   pointer?: boolean;
   fontWeight?: string;
   style?: CSSProperties;

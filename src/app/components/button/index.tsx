@@ -5,7 +5,7 @@ type ButtonProps = {
   children: ReactNode;
   height?: number | string;
   width?: number | string;
-  fontWeight?: string;
+  fontWeight?: number | string;
   fontSize?: number;
   backgroundColor?: string;
   onClick?: () => void;
@@ -13,7 +13,7 @@ type ButtonProps = {
   onFocus?: () => void;
   className?: string;
   style?: CSSProperties;
-  borderWidth?: number;
+  borderWidth?: number | string;
   borderColor?: string;
   color?: string;
   borderRadius?: number;
