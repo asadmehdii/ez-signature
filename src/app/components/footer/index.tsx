@@ -14,8 +14,8 @@ const Footer: FC = () => {
         component={"div"}
         container
         rowSpacing={3}
-        sx={{
-          padding: "30px",
+        sx={{    
+          paddingX: "20px",
           justifyContent: {
             sm: "flex-start",
             lg: "center",
@@ -36,7 +36,7 @@ const Footer: FC = () => {
             sx={{
               display: { xs: "flex", sm: "block" },
               flexWrap: { xs: "wrap", sm: "nowrap" },
-              columnGap: 3,
+              columnGap: 2,
             }}
           >
             <Text
@@ -100,7 +100,7 @@ const Footer: FC = () => {
             sx={{
               display: { xs: "flex", sm: "block" },
               flexWrap: { xs: "wrap", sm: "nowrap" },
-              columnGap: 3,
+              columnGap: 2,
             }}
           >
             <Text
@@ -173,7 +173,7 @@ const Footer: FC = () => {
             sx={{
               display: { xs: "flex", sm: "block" },
               flexWrap: { xs: "wrap", sm: "nowrap" },
-              columnGap: 3,
+              columnGap: 2,
             }}
           >
             <Text
@@ -228,7 +228,7 @@ const Footer: FC = () => {
             sx={{
               display: { xs: "flex", sm: "block" },
               flexWrap: { xs: "wrap", sm: "nowrap" },
-              columnGap: 3,
+              columnGap: 2,
             }}
           >
             <Text
