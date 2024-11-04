@@ -1,7 +1,7 @@
 import React, { CSSProperties, FC, ReactNode } from "react";
 type CardProps = {
-  width?: number | string;
-  height?:number | string;
+  width?: string;
+  height?: string;
   style?: CSSProperties;
   borderColor?: string;
   borderWidth?: number;
