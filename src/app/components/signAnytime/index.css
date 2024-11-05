@@ -1,0 +1,72 @@
+.SignAnytime_Div {
+  background-color: #2f455c !important;
+  background: url("../../assests/images/signAnytimebg.png") no-repeat center;
+  background-position: center;
+  padding: 40px 30px;
+  margin: 40px 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  align-items: center;
+  gap: 10px;
+}
+.SignAnytime_Div .head_1 {
+  font-weight: 800px;
+  font-size: 56px;
+  color: #fff;
+}
+.SignAnytime_Div .text_1 {
+  font-weight: 500px;
+  font-size: 24px;
+  color: #fff;
+  margin: 30px 0 !important;
+}
+.SignAnytime_Div .button {
+  width: 200px !important;
+  height: 60px !important;
+  border-radius: 19px !important;
+  font-size: 24px !important;
+  font-weight: 500 !important;
+  color: #2f455c !important;
+  background: #fff !important;
+}
+
+.SignAnytime_Div .leftDiv {
+  width: 60%;
+}
+.SignAnytime_Div .rightDiv {
+  width: 35%;
+}
+
+@media screen and (max-width: 870px) {
+  .SignAnytime_Div {
+    flex-direction: column-reverse;
+    justify-content: space-evenly;
+    align-items: center;
+    gap: 20px;
+    padding: 30px 10px;
+  }
+  .SignAnytime_Div .leftDiv {
+    width: 90%;
+  }
+  .SignAnytime_Div .rightDiv {
+    width: 60%;
+  }
+}
+@media screen and (max-width: 550px) {
+  .SignAnytime_Div .rightDiv {
+    width: 90%;
+    object-fit: contain;
+  }
+  .SignAnytime_Div .head_1 {
+    font-size: 38px;
+  }
+  .SignAnytime_Div .text_1 {
+    font-size: 20px;
+  }
+  .SignAnytime_Div .button {
+    width: 160px !important;
+    height: 50px !important;
+    font-size: 18px !important;
+  }
+}

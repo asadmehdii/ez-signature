@@ -1,0 +1,70 @@
+.morequestion_Div {
+  background: #2f455c1a;
+  padding: 30px;
+  margin: 40px 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  align-items: center;
+  gap: 10px;
+}
+.morequestion_Div .head_1 {
+  font-weight: 800px;
+  font-size: 56px;
+  color: #2f455c;
+}
+.morequestion_Div .text_1 {
+  font-weight: 500px;
+  font-size: 24px;
+  color: #2f455c;
+  margin: 30px 0 !important;
+}
+.morequestion_Div .button {
+  width: 220px !important;
+  height: 60px !important;
+  border-radius: 19px !important;
+  font-size: 24px !important;
+  font-weight: 500 !important;
+  color: #fff !important;
+  background: #1dcdfe !important;
+}
+
+.morequestion_Div .leftDiv {
+  width: 60%;
+}
+.morequestion_Div .rightDiv {
+  width: 35%;
+}
+
+@media screen and (max-width:870px) {
+    .morequestion_Div {
+        flex-direction: column-reverse;
+        justify-content: space-evenly;
+        align-items: center;
+        gap: 20px;
+        padding: 30px 10px;
+      }
+      .morequestion_Div .leftDiv {
+        width: 90%;
+      }
+      .morequestion_Div .rightDiv {
+        width: 60%;
+      }
+}
+@media screen and (max-width:550px) {
+      .morequestion_Div .rightDiv {
+        width: 90%;
+        object-fit: contain;
+      }
+      .morequestion_Div .head_1 {
+        font-size: 38px;
+      }
+      .morequestion_Div .text_1 {
+        font-size: 20px;
+      }
+      .morequestion_Div .button {
+        width: 170px !important;
+        height: 50px !important;
+        font-size: 18px !important;
+      }
+}

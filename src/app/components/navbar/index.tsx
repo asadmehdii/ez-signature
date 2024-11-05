@@ -13,10 +13,10 @@ const Navbar: FC = () => {
         <h1 className="logo">EzSignature</h1>
       </Link>
       <ul>
-        <li>Feature</li>
-        <li>Pricing</li>
-        <li>Help Center</li>
-        <li>Developer</li>
+        <Link href={"../../pages/fetures"}><li>Feature</li></Link>
+        <Link href={"#"}><li>Pricing</li></Link>
+        <Link href={"#"}><li>Help Center</li></Link>
+        <Link href={"#"}><li>Developer</li></Link>
       </ul>
       <div className="btnDiv">
         <Button

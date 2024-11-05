@@ -6,6 +6,7 @@ import Image from "next/image";
 
 // import images here
 import SendArrow from "../../assests/images/inputSend .svg";
+import Link from "next/link";
 
 const Footer: FC = () => {
   return (
@@ -39,6 +40,7 @@ const Footer: FC = () => {
               columnGap: 2,
             }}
           >
+            <Link href="/">
             <Text
               pointer
               color="#fff"
@@ -48,6 +50,8 @@ const Footer: FC = () => {
             >
               Home
             </Text>
+          </Link>
+          <Link href={"../../pages/fetures"}>
             <Text
               pointer
               color="#fff"
@@ -57,6 +61,7 @@ const Footer: FC = () => {
             >
               Feature
             </Text>
+          </Link>
             <Text
               pointer
               color="#fff"
