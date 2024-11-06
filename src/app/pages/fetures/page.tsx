@@ -23,7 +23,7 @@ const Features:FC= ()=>{
             {/* Grid 1 with the backgroound image */}
               <Grid paddingX={3} paddingY={6} component={"div"} className="grid_1" justifyContent={"center"} alignItems={"center"} textAlign={"center"} >
                    <Text className="head_1">Features at a Glance</Text>
-                   <Text className="text_1">Your EzSignature experience will not stop at eSignatures — you'll be given all the tools you need to securely manage your documents in the cloud, keep your team in the loop, manage business contacts and to automate your work with a fully-fledged REST API.</Text>
+                   <Text className="text_1">Your EzSignature experience will not stop at eSignatures — you&apos;ll be given all the tools you need to securely manage your documents in the cloud, keep your team in the loop, manage business contacts and to automate your work with a fully-fledged REST API.</Text>
                    <Button className="button">Start Tour</Button>
               </Grid>
             {/* --------------------------------- */}
@@ -58,7 +58,7 @@ const Features:FC= ()=>{
             <Grid rowSpacing={6} component={"div"} className="signStepsCard" padding={3} columnSpacing={3} container justifyContent={"space-between"} alignItems={"center"}>
               {SignCardContent.map((value:SignCardContentProps,index:number)=>{
                 return(
-                    <Card key={`${value.text}`} className="cards">
+                    <Card key={`${value.text}_${index}`} className="cards">
                     <Image src={value.icon} alt="icoon_here"/>
                     <Text className="heading">{value.heading}</Text>
                     <Text className="text">{value.text}</Text>

@@ -339,6 +339,8 @@ const Home: FC = () => {
               borderRadius={19}
               borderColor="#000"
               borderWidth={1}
+              backgroundColor="#000"
+              color="#fff"
             >
               Select Now
             </Button>
