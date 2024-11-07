@@ -6,16 +6,12 @@ import Text from "@/app/components/text";
 import Button from "@/app/components/button";
 import { Box } from "@mui/material";
 import Image from "next/image";
-import { SignCardContent, SignCardContentProps, faqsQuestion, faqsQuestionProps } from "./content";
-import Card from "@/app/components/card";
-
-// import images here
-import Send from "../../assests/images/feature/send.png"
-import Sign from "../../assests/images/feature/sign.png"
-import Manage from "../../assests/images/feature/manage.png"
-import FAQ from "../../assests/images/feature/faq Image.png"
 import MoreQuestion from "@/app/components/more question";
 import SignAnytime from "@/app/components/signAnytime";
+import { SignCardContent, SignCardContentProps } from "./content";
+import Card from "@/app/components/card";
+import FAQs from "@/app/components/faqs";
+import Assests from "@/app/assests/images";
 const Features:FC= ()=>{
     return(
         <main className="feature">
@@ -30,23 +26,23 @@ const Features:FC= ()=>{
 
             {/*grid 2 ---- Sign as easy steps  */}
           <Grid  component={"div"} className="signSteps" padding={3} marginY={3}>
-          <Text fontSize="65px"fontWeight="700" className="head_1">Sign as easy steps</Text>
+          <Text fontSize="65px" fontWeight="700" className="head_1">Sign as easy steps</Text>
            <Grid container marginY={2} columnSpacing={8} rowSpacing={6}>
             <Box component={"div"} width={"310px"}>
-                <Image src={Send} alt="icon_here"/>
+                <Image src={Assests.Send} alt="icon_here"/>
                 <Text className="heading">Send</Text>
                 <Text className="text">Upload your document, declare signers and recipients, prepare your document for signature and deliver it to all parties.</Text>
                 <Text className="textWithBg">Document Preparation</Text>
             </Box>
             <Box component={"div"} width={"310px"}>
-                <Image src={Sign} alt="icon_here"/>
-                <Text className="heading">Send</Text>
+                <Image src={Assests.Sign} alt="icon_here"/>
+                <Text className="heading">Sign</Text>
                 <Text className="text">Each signer receives a secure Ezsignature signing link taking them to your document.They sign using their PC, tablet or phone.</Text>
                 <Text className="textWithBg">Electronic Signatures</Text>
             </Box>
             <Box component={"div"} width={"310px"}>
-                <Image src={Manage} alt="icon_here"/>
-                <Text className="heading">Send</Text>
+                <Image src={Assests.Manage} alt="icon_here"/>
+                <Text className="heading">Manage</Text>
                 <Text className="text">Post completion your signed documents are stored securely in your Ezsignature account — you can also choose to export or delete them.</Text>
                 <Text className="textWithBg">Document Management & Security</Text>
             </Box>
@@ -68,23 +64,7 @@ const Features:FC= ()=>{
               })}
             </Grid>
             {/* --------------------------------- */}
-            
-            {/*grid 4 ---- Sign as easy steps cards  */}
-            <Box component={"div"} marginY={3} className="FAQs" padding={3} >
-             <Image src={FAQ} alt="img_here"/>
-             <Text fontSize="65px"fontWeight="700" margin={"30px 0"} className="head_1">Frequently Asked Questions?</Text>
-            <Grid rowSpacing={6} component={"div"} columnSpacing={3} container  alignItems={"center"}>          
-              {faqsQuestion.map((value:faqsQuestionProps,index:number)=>{
-                return(
-                    <Card key={`${value.question}_${index}`} className="faqscard">
-                    <Text className="Cardhead_1">{value.question}</Text>
-                    <Text className="text_1">{value.answer}</Text>
-                    </Card> 
-                )
-              })}  
-            </Grid>
-            </Box>
-            {/* --------------------------------- */}
+             <FAQs/>
              <MoreQuestion/>
              <SignAnytime/>
             <Footer/>

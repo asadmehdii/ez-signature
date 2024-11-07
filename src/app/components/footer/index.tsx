@@ -3,10 +3,9 @@ import Grid from "@mui/material/Grid2";
 import Text from "../text";
 import { Box, Input, InputAdornment } from "@mui/material";
 import Image from "next/image";
-
-// import images here
-import SendArrow from "../../assests/images/inputSend .svg";
 import Link from "next/link";
+import Assests from "@/app/assests/images";
+
 
 const Footer: FC = () => {
   return (
@@ -315,7 +314,7 @@ const Footer: FC = () => {
                 }}
                 position="end"
               >
-                <Image width={25} height={25} src={SendArrow} alt="image_here" />
+                <Image width={25} height={25} src={Assests.InputArrow} alt="image_here" />
               </InputAdornment>
             }
           />

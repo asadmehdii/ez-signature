@@ -2,9 +2,7 @@ import React, { FC } from "react";
 import Button from "../button";
 import Link from "next/link";
 import Image from "next/image";
-
-// import icons here
-import HamburgerIcon from "../../assests/images/menu-hamburger.svg";
+import Assests from "@/app/assests/images";
 
 const Navbar: FC = () => {
   return (
@@ -14,7 +12,7 @@ const Navbar: FC = () => {
       </Link>
       <ul>
         <Link href={"../../pages/fetures"}><li>Feature</li></Link>
-        <Link href={"#"}><li>Pricing</li></Link>
+        <Link href={"../../pages/pricing"}><li>Pricing</li></Link>
         <Link href={"#"}><li>Help Center</li></Link>
         <Link href={"#"}><li>Developer</li></Link>
       </ul>
@@ -42,7 +40,7 @@ const Navbar: FC = () => {
         </Button>
       </div>
         {/* show hamburger icon on small screen */}
-      <Image className="hamIcon" src={HamburgerIcon} alt="icon_here" priority />
+      <Image className="hamIcon" src={Assests.HamburgerIcon} alt="icon_here" priority />
     </nav>
   );
 };

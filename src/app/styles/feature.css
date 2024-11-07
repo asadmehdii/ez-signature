@@ -1,7 +1,5 @@
 .feature .grid_1 {
-  background-image: url("../assests/images/feature/backgroundImage.png");
-  background-position: center;
-  background-repeat: no-repeat;
+  background: url("../assests/images/bannerBg.png") no-repeat center;
   width: 100%;
 }
 .feature .grid_1 .head_1 {
@@ -105,60 +103,23 @@
   margin-top: 20px !important;
 }
 
-.feature .FAQs img {
-  width: 100px;
-  height: 100px;
-  object-fit: contain;
-}
-.feature .FAQs .faqscard {
-  width: 45%;
-  height: 200px;
-  border: 1px solid #252525;
-  border-radius: 50px;
-  display: flex;
-  justify-content: center;
-  padding: 20px;
-  flex-direction: column;
-}
-.feature .faqscard .Cardhead_1 {
-  font-size: 24px;
-  font-weight: 800;
-  color: var(--text-color);
-  margin: 18px 0 !important;
-}
-.feature .faqscard .text {
-  font-size: 18px;
-  font-weight: 600;
-  color: var(--text-color);
-  margin-bottom: 20px !important;
-  width: 95%;
-}
 @media screen and (max-width: 1230px) {
   .feature .grid_1 .text_1 {
     width: 90%;
   }
 }
-
 @media screen and (max-width: 915px) {
   .feature .grid_1 .text_1 {
     font-size: 18px;
   }
   .feature .grid_1 .head_1 {
-    font-size: 56px;
+    font-size: 46px;
   }
 }
 @media screen and (max-width: 600px) {
   .feature .signSteps .head_1 {
     font-size: 40px !important;
   }
-  .feature .FAQs .head_1 {
-    font-size: 40px !important;
-  }
-  .feature .FAQs .faqscard {
-    width: 90% !important;
-    height: fit-content;
-    overflow: hidden;
-  }  
 }
 @media screen and (max-width: 450px) {
   .feature .signStepsCard .cards {
@@ -169,10 +130,3 @@
     position: static !important;
   }
 }
-@media screen and (max-width: 920px) {
-    .feature .FAQs .faqscard {
-        width: 70%;
-        height: fit-content;
-        overflow: hidden;
-      }  
-  }
