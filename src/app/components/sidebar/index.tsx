@@ -11,17 +11,25 @@ import GroupOutlinedIcon from '@mui/icons-material/GroupOutlined';
 import TextSnippetOutlinedIcon from '@mui/icons-material/TextSnippetOutlined';
 import ExtensionOutlinedIcon from '@mui/icons-material/ExtensionOutlined';
 import DonutSmallOutlinedIcon from '@mui/icons-material/DonutSmallOutlined';
+import Grid from "@mui/material/Grid2";
+import { Box } from "@mui/material";
 const Sidebar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(true);
 
   return (
-    <div style={{display: 'flex', flexDirection: 'column', width: '250px', height: '100%', backgroundColor: '#21f1A6' }}>
-    <div>
-        <div>
+    <Grid 
+    component={"div"}
+    container
+    height={"100%"}
+    flexDirection={"column"}
+    className="sidebar-main"
+    style={{backgroundColor: '#21f1A6' }}>
+    <Grid>
+        <Box>
         <Link href={"/"}>
         <h1 className="logo" style={{marginLeft: '29px'}}>EzSignature</h1>
          </Link>
-        </div>
+        </Box>
         <Button
              backgroundColor="var(--secondary-color)"
              height={60}
@@ -31,6 +39,12 @@ const Sidebar: React.FC = () => {
         >Upgrade!</Button>
 
         {/* pages */}
+        <Grid
+        component={"div"}
+        container
+        flexDirection={"column"}
+        alignItems={"center"}
+        >
         <div style={{margin: '52px 0px'}}>
         <div style={{display: 'flex', marginLeft: '12px'}}>
                 <Link href='/pages/dashboard' style={{display: 'flex',alignItems: 'center', fontSize: '1.5rem', margin: '12px', gap: '7px'}}>
@@ -76,14 +90,16 @@ const Sidebar: React.FC = () => {
             </div>
         </div>
 
-        <div style={{display: 'flex', marginLeft: '12px', marginTop: '9.678rem'}}>
+        <div style={{display: 'flex', marginTop: 'auto'}}>
             <Link href='/pages/help-center' style={{display: 'flex',alignItems: 'center', fontSize: '1.5rem', margin: '12px', gap: '7px'}}>
                 <DonutSmallOutlinedIcon />
                 Help center
             </Link>
         </div>
-    </div>
-    </div>
+
+        </Grid>
+    </Grid>
+    </Grid>
   );
 };
 

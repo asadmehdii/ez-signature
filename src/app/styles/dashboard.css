@@ -1,0 +1,17 @@
+/* .dashboard{
+    display: flex;
+} */
+
+/* .first-sec{
+    margin: '12px';
+    width: '100%';
+    display: 'flex';
+    justify-content: 'space-between';
+} */
+
+@media screen and (max-width: 768px){
+    .card1{
+        width: 80%;
+        margin-bottom: 12px;
+    }
+}

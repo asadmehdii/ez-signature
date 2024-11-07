@@ -1,5 +1,4 @@
-"use client";
-import Sidebar from '@/app/components/sidebar'; 
+"use client"; 
 import Button from '@/app/components/button';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import Card from '@/app/components/card';
@@ -8,18 +7,32 @@ import WarningAmberIcon from '@mui/icons-material/WarningAmber';
 import AlarmOutlinedIcon from '@mui/icons-material/AlarmOutlined';
 import TaskAltOutlinedIcon from '@mui/icons-material/TaskAltOutlined';
 import Text from '@/app/components/text';
+import Grid from "@mui/material/Grid2";
+import { Box } from '@mui/material';
+
 
 
 const Dashboard: React.FC = () => {
     return(
-        <div className='dashboard'>
-            <div>
+        <>
                 {/* navbar */}
-            <div style={{display: 'flex', margin: '0 12px'}}>
+            <Grid 
+              component={"div"}
+              container
+              justifyContent={"space-between"}
+              padding={"0 12px"}
+              margin={"0 5px"}
+              width={{ sm: "100%", md: "98%", lg: "100%"}}
+              // size={{xs: 6, md: 4, lg: 3}}
+            >
                 <div>
                 <h1>Dashboard</h1>
                 </div>
-                <div style={{marginLeft: 'auto', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+                <Box 
+                  component={"div"}
+                  display={"flex"}
+                  alignItems={"center"}
+                >
                 <NotificationsIcon />
                 <Button
                 backgroundColor="var(--secondary-color)"
@@ -28,14 +41,23 @@ const Dashboard: React.FC = () => {
                 borderRadius={15}
                 style={{marginLeft: '29px'}}
                 >Quick Actions</Button>
-                </div>
-            </div>
+                </Box>
+            </Grid>
             {/* 1st card section */}
-            <div style={{margin: '12px', width: '100%', display: 'flex', justifyContent: 'space-between'}}>
+            <Grid 
+              component={"div"}
+              container
+              width={"100%"}
+              justifyContent={"space-evenly"}
+              flexDirection={{xs: "column", md: "row"}}
+              alignItems={{xs: "center"}}
+              flexWrap={"nowrap"}
+              size={{xs: 12}}
+            >
             <Card
-            className="card"
+            className="card1"
             padding={0}
-            width={"550px"} 
+            width={"45%"} 
             height={"350px"}
             borderWidth={1}
             borderColor="#cccccc"
@@ -73,9 +95,9 @@ const Dashboard: React.FC = () => {
             </div>
           </Card>
           <Card
-            className="card"
+            className="card1"
             padding={0}
-            width={"550px"} 
+            width={"45%"} 
             height={"350px"}
             borderWidth={1}
             borderColor="#cccccc"
@@ -85,7 +107,7 @@ const Dashboard: React.FC = () => {
             <h3 style={{}}>Recent Activity</h3>
             <Link href=''>View Activity log</Link>
             </div>
-           <div>
+           <Grid>
             <Link href=''>
             <Text
              color='#1e88e5'
@@ -122,11 +144,21 @@ const Dashboard: React.FC = () => {
             </Text>
             </Link>
             <hr />
-           </div>
+           </Grid>
           </Card>
-            </div>
+            </Grid>
             {/* 2nd card senction */}
-            <div style={{display: 'flex', margin: '12px'}}>
+            <Grid 
+              component={"div"}
+              container
+              width={"100%"}
+              justifyContent={"space-evenly"}
+              flexDirection={{xs: "column", md: "row"}}
+              alignItems={{xs: "center"}}
+              flexWrap={"nowrap"}
+              size={{xs: 12}}
+              marginTop={"20px"}
+            >
             <Card
             className="card"
             padding={0}
@@ -166,9 +198,8 @@ const Dashboard: React.FC = () => {
                 <p>My Signature</p>
             </div>
           </Card>
-            </div>
-            </div>
-        </div>
+            </Grid>
+        </>
     )
 }
 export default Dashboard;
