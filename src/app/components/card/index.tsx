@@ -6,16 +6,16 @@ type CardProps = {
   borderColor?: string;
   borderWidth?: number;
   borderRadius?: number;
-  marginBottom?: number;
-  marginLeft?: number;
-  marginRight?: number;
-  marginTop?: number;
-  margin?: number;
-  paddingBottom?: number;
-  paddingLeft?: number;
-  paddingRight?: number;
-  paddingTop?: number;
-  padding?: number|string;
+  marginBottom?: string;
+  marginLeft?: string;
+  marginRight?: string;
+  marginTop?: string;
+  margin?: string;
+  paddingBottom?: string;
+  paddingLeft?: string;
+  paddingRight?: string;
+  paddingTop?: string;
+  padding?: string;
   className?: string;
   backgroundColor?: string;
   children: ReactNode;
@@ -50,16 +50,16 @@ const Card: FC<CardProps> = (props) => {
         ...style,
         width,
         height,
-        margin: `${margin}px`,
-        padding: `${padding}px`,
-        marginBottom: `${marginBottom}px`,
-        marginLeft: `${marginLeft}px`,
-        marginRight: `${marginRight}px`,
-        marginTop: `${marginTop}px`,
-        paddingBottom: `${paddingBottom}px`,
-        paddingLeft: `${paddingLeft}px`,
-        paddingRight: `${paddingRight}px`,
-        paddingTop: `${paddingTop}px`,
+        margin: `${margin}`,
+        padding: `${padding}`,
+        marginBottom: `${marginBottom}`,
+        marginLeft: `${marginLeft}`,
+        marginRight: `${marginRight}`,
+        marginTop: `${marginTop}`,
+        paddingBottom: `${paddingBottom}`,
+        paddingLeft: `${paddingLeft}`,
+        paddingRight: `${paddingRight}`,
+        paddingTop: `${paddingTop}`,
         borderRadius,
         backgroundColor,
         border: `${borderWidth}px solid ${borderColor}`,

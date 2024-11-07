@@ -16,35 +16,7 @@ const Dashboard: React.FC = () => {
     return(
         <>
                 {/* navbar */}
-            <Grid 
-              component={"div"}
-              container
-              justifyContent={"space-between"}
-              padding={"0 12px"}
-              margin={"0 5px"}
-              width={{ sm: "100%", md: "98%", lg: "100%"}}
-              // size={{xs: 6, md: 4, lg: 3}}
-            >
-                <div>
-                <h1>Dashboard</h1>
-                </div>
-                <Box 
-                  component={"div"}
-                  display={"flex"}
-                  alignItems={"center"}
-                >
-                <NotificationsIcon />
-                <Button
-                backgroundColor="var(--secondary-color)"
-                height={60}
-                width={170}
-                borderRadius={15}
-                style={{marginLeft: '29px'}}
-                >Quick Actions</Button>
-                </Box>
-            </Grid>
-            {/* 1st card section */}
-            <Grid 
+                <Grid 
               component={"div"}
               container
               width={"100%"}
@@ -56,7 +28,7 @@ const Dashboard: React.FC = () => {
             >
             <Card
             className="card1"
-            padding={0}
+            padding={"0px"}
             width={"45%"} 
             height={"350px"}
             borderWidth={1}
@@ -96,7 +68,7 @@ const Dashboard: React.FC = () => {
           </Card>
           <Card
             className="card1"
-            padding={0}
+            padding={"0px"}
             width={"45%"} 
             height={"350px"}
             borderWidth={1}
@@ -161,7 +133,7 @@ const Dashboard: React.FC = () => {
             >
             <Card
             className="card"
-            padding={0}
+            padding={"0px"}
             width={"350px"} 
             height={"250px"}
             borderWidth={1}
@@ -174,7 +146,7 @@ const Dashboard: React.FC = () => {
           </Card>
           <Card
             className="card"
-            padding={0}
+            padding={"0px"}
             width={"350px"} 
             height={"250px"}
             borderWidth={1}
@@ -187,7 +159,7 @@ const Dashboard: React.FC = () => {
           </Card>
           <Card
             className="card"
-            padding={0}
+            padding={"0px"}
             width={"350px"} 
             height={"250px"}
             borderWidth={1}
