@@ -11,10 +11,18 @@ const Navbar: FC = () => {
         <h1 className="logo">EzSignature</h1>
       </Link>
       <ul>
-        <Link href={"../../pages/fetures"}><li>Feature</li></Link>
-        <Link href={"../../pages/pricing"}><li>Pricing</li></Link>
-        <Link href={"#"}><li>Help Center</li></Link>
-        <Link href={"#"}><li>Developer</li></Link>
+        <Link href={"../../pages/fetures"}>
+          <li>Feature</li>
+        </Link>
+        <Link href={"../../pages/pricing"}>
+          <li>Pricing</li>
+        </Link>
+        <Link href={"#"}>
+          <li>Help Center</li>
+        </Link>
+        <Link href={"#"}>
+          <li>Developer</li>
+        </Link>
       </ul>
       <div className="btnDiv">
         <Button
@@ -26,7 +34,7 @@ const Navbar: FC = () => {
           borderWidth={2}
           backgroundColor="#ffffff"
         >
-          Login
+          <Link href={"../../pages/auth/login"}>Login</Link>
         </Button>
         <Button
           borderRadius={10}
@@ -36,11 +44,16 @@ const Navbar: FC = () => {
           fontWeight="600"
           backgroundColor="var(--secondary-color)"
         >
-          Sign up
+          <Link href={"../../pages/auth/signup"}>Sign up</Link>
         </Button>
       </div>
-        {/* show hamburger icon on small screen */}
-      <Image className="hamIcon" src={Assests.HamburgerIcon} alt="icon_here" priority />
+      {/* show hamburger icon on small screen */}
+      <Image
+        className="hamIcon"
+        src={Assests.HamburgerIcon}
+        alt="icon_here"
+        priority
+      />
     </nav>
   );
 };

@@ -19,7 +19,18 @@ import FAQ from "./faq Image.png";
 import Sign from "./sign.png";
 import Send from "./send.png";
 import Manage from "./manage.png";
+import ContactUsCustomer from "./contactUsCustomer.svg";
+import ApiPricingPlan from "./application-programming-interface.svg";
+import LoginImg from "./loginPageImg.svg";
+import Instagram from "./instagram.png";
+import Google from "./google.png";
+import Linkedin from "./linkedin.png";
+import Facebook from "./facebook.png";
+import Recaptcha from "./recaptcha.svg"
+import SignUpImage from "./signupImage.svg"
 const Assests = {
+  Recaptcha,
+  SignUpImage,
   legalValidity,
   ElectronicSign,
   DocSecurity,
@@ -41,6 +52,13 @@ const Assests = {
   Sign,
   Send,
   Manage,
+  ContactUsCustomer,
+  ApiPricingPlan,
+  LoginImg,
+  Instagram,
+  Google,
+  Linkedin,
+  Facebook,
 };
 
 export default Assests;

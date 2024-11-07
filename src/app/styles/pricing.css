@@ -46,25 +46,48 @@
   border-radius: 20px;
   position: relative;
 }
-.pricing .planCard .popularText{
-    font-size: 24px;
-    font-weight: 700;
-    color: #fff;
-    position: absolute;
-    top: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 50px; 
- }
+.pricing .planCard .popularText {
+  font-size: 24px;
+  font-weight: 700;
+  color: #fff;
+  position: absolute;
+  top: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 50px;
+}
 
 .pricing .planCard li {
   font-size: 18px;
   font-weight: 600;
   margin: 8px 0;
 }
-
+.pricing .doubleDivWithBg .rightDiv {
+  background: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)),
+  url("../assests/images/contactUsCustomer.svg") no-repeat center;
+  background-size: cover;
+  max-width: 50%;
+  width: 50%;
+  height: 500px;
+  display: flex;
+  align-items: center;
+  padding-left: 40px;
+  box-sizing: border-box;
+}
+.pricing .doubleDivWithBg .leftDiv {
+  background: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)),
+  url("../assests/images/application-programming-interface.svg") no-repeat center;
+  background-size: cover;
+  max-width: 50%;
+  width: 50%;
+  height: 500px;
+  display: flex;
+  align-items: center;
+  padding-left: 40px;
+  box-sizing: border-box;
+}
 @media screen and (max-width: 915px) {
   .pricing .grid_1 .text_1,
   .pricing .EzFeature .text_1 {

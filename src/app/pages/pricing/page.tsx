@@ -11,6 +11,8 @@ import { Box } from "@mui/material";
 import { EzFeatureProps,EzFeature,PlanCardData,PlanCardDataProps } from "./content";
 import Card from "@/app/components/card";
 import FAQs from "@/app/components/faqs";
+// import Assests from "@/app/assests/images";
+
 
 const Pricing:FC = ()=>{
     return(
@@ -61,6 +63,13 @@ const Pricing:FC = ()=>{
              })}
             </Grid>
              {/* --------------------------------- */}
+              
+              <Grid sx={{ width: "100%", display: "flex", flexDirection: "row" }} justifyContent={"space-between"} container component={"div"} className="doubleDivWithBg">
+                <Box component={"div"} className="rightDiv">
+                  <Text >fdshfkdshkfhksdfk</Text>
+                </Box>
+                <Box component={"div"} className="leftDiv">fdgd</Box>
+              </Grid>
 
             <FAQs/>
            <MoreQuestion/>
