@@ -1,0 +1,46 @@
+.FAQsComponent img {
+  width: 100px;
+  height: 100px;
+  object-fit: contain;
+}
+.FAQsComponent .faqscard {
+  width: 45%;
+  height: 200px;
+  border: 1px solid #252525;
+  border-radius: 50px;
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+  flex-direction: column;
+}
+.FAQsComponent .faqscard .Cardhead_1 {
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--text-color);
+  margin: 18px 0 !important;
+}
+.FAQsComponent .faqscard .text {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text-color);
+  margin-bottom: 20px !important;
+  width: 95%;
+}
+
+@media screen and (max-width: 600px) {
+  .FAQsComponent .head_1 {
+    font-size: 40px !important;
+  }
+  .FAQsComponent .faqscard {
+    width: 90% !important;
+    height: fit-content;
+    overflow: hidden;
+  }
+}
+@media screen and (max-width: 920px) {
+  .FAQsComponent .faqscard {
+    width: 70%;
+    height: fit-content;
+    overflow: hidden;
+  }
+}
