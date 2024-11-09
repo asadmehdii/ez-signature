@@ -113,7 +113,7 @@ const Home: FC = () => {
         <Grid container margin={"auto"} spacing={5} paddingBottom={5}>
           <Card
             className="card"
-            padding={20}
+            padding={"20"}
             width={"450px"}
             height={"350px"}
             borderWidth={1}
@@ -146,7 +146,7 @@ const Home: FC = () => {
           </Card>
           <Card
             className="card"
-            padding={20}
+            padding={"20"}
             width={"450px"}
             height={"350px"}
             borderWidth={1}
@@ -181,7 +181,7 @@ const Home: FC = () => {
         <Grid container marginLeft={"auto"} spacing={5}>
           <Card
             className="card"
-            padding={20}
+            padding={"20"}
             width={"450px"}
             height={"350px"}
             borderWidth={1}
@@ -214,7 +214,7 @@ const Home: FC = () => {
           </Card>
           <Card
             className="card"
-            padding={20}
+            padding={"20"}
             width={"450px"}
             height={"350px"}
             borderWidth={1}
@@ -275,7 +275,7 @@ const Home: FC = () => {
             borderColor="#25252540"
             borderWidth={1}
             borderRadius={60}
-            padding={10}
+            padding={"10"}
             backgroundColor="#fcfcfc"
             style={{
               textAlign: "center",
@@ -312,7 +312,7 @@ const Home: FC = () => {
             borderColor="#25252540"
             borderWidth={1}
             borderRadius={60}
-            padding={10}
+            padding={"10"}
             backgroundColor="#fcfcfc"
             style={{
               textAlign: "center",
@@ -349,7 +349,7 @@ const Home: FC = () => {
             borderColor="#25252540"
             borderWidth={1}
             borderRadius={60}
-            padding={10}
+            padding={"10"}
             backgroundColor="#fcfcfc"
             style={{
               textAlign: "center",
@@ -456,7 +456,7 @@ const Home: FC = () => {
               className="card_1"
               width={"220px"}
               height={"220px"}
-              padding={10}
+              padding={"10"}
               borderRadius={20}
             >
               <Image src={Offer_1} alt="image_here" />
@@ -483,7 +483,7 @@ const Home: FC = () => {
               className="card_2"
               width={"220px"}
               height={"220px"}
-              padding={10}
+              padding={"10"}
               borderRadius={20}
             >
               <Image src={Offer_2} alt="image_here" />
@@ -510,7 +510,7 @@ const Home: FC = () => {
               className="card_3"
               width={"220px"}
               height={"220px"}
-              padding={10}
+              padding={"10"}
               borderRadius={20}
             >
               <Image src={Offer_3} alt="image_here" />

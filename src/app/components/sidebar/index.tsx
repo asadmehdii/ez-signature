@@ -47,7 +47,7 @@ export default function Sidebar(props: Props) {
          <Link href={"/"} style={{ textAlign: "center" }}>
              <h1 className="logo"> EzSignature </h1>
          </Link>
-         <Button backgroundColor="var(--secondary-color)" height={60} width={170} borderRadius={15} style={{ margin: "0 auto" }} >
+         <Button backgroundColor="var(--secondary-color)" height={60} width={'79%'} borderRadius={15} style={{ margin: "0 auto" }} >
              Upgrade!
          </Button>
          {/* Pages */}
@@ -104,16 +104,16 @@ export default function Sidebar(props: Props) {
           boxShadow:"none"
         }}
       >
-    <Grid component={"div"} container justifyContent={"space-between"} padding={"0 12px"}>
+    <Grid component={"div"} container justifyContent={"space-between"} padding={"0 12px"} flexWrap={"nowrap"}>
    <Box component={"div"} display={"flex"}>
         <IconButton color="inherit" aria-label="open drawer" edge="start" onClick={handleDrawerToggle} sx={{ display: { md: 'none' } }}>
           <MenuIcon />
           </IconButton>    
           <h1>{pageName}</h1>
   </Box>
-  <Box component={"div"} display={"flex"} alignItems={"center"}>
+  <Box component={"div"} display={"flex"} alignItems={"center"} justifyContent={"space-between"}>
        <NotificationsIcon sx={{cursor:"pointer"}} />
-   <Button backgroundColor="var(--secondary-color)" height={52} width={160} borderRadius={15} style={{marginLeft: '18px'}}>Quick Actions</Button>
+   <Button backgroundColor="var(--secondary-color)" height={52} width={"79%"} borderRadius={15}>Quick Actions</Button>
     </Box>
   </Grid>
 </AppBar>
