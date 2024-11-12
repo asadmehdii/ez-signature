@@ -18,8 +18,8 @@
   margin: 0 auto;
   width: 200px !important;
   background-color: var(--secondary-color) !important;
-  border-radius: 19px;
-  height: 74px;
+  border-radius: 19px !important;
+  height: 58px;
   color: #fff !important;
   font-size: 22px !important;
   font-weight: 600 !important;

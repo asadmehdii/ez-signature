@@ -11,7 +11,9 @@ import { Box } from "@mui/material";
 import { EzFeatureProps,EzFeature,PlanCardData,PlanCardDataProps } from "./content";
 import Card from "@/app/components/card";
 import FAQs from "@/app/components/faqs";
-// import Assests from "@/app/assests/images";
+import CustomForm from "@/app/components/customPriceForm";
+
+
 
 
 const Pricing:FC = ()=>{
@@ -26,7 +28,7 @@ const Pricing:FC = ()=>{
             </Grid>
             {/* --------------------------------- */}
             
-            {/* Grid 1 ------ ezFeatures list */}
+            {/* Grid 2 ------ ezFeatures list */}
             <Grid  component={"div"} className="EzFeature" padding={3} marginY={3}>
             <Text fontSize="65px" fontWeight="700" className="head_1">Explore more Ezsignature features</Text>
             <Text className="text_1" fontSize="24px" fontWeight="600">Go paperless and accelerate your business — using Ezsignature you will be equipped with all the tools you need to increase your efficiency working with contracts and agreements of any kind.</Text>
@@ -43,14 +45,14 @@ const Pricing:FC = ()=>{
             </Grid>
              {/* --------------------------------- */}
             
-            {/* Grid 1 ------ ezFeatures plan cards */}
+            {/* Grid 3 ------ ezFeatures plan cards */}
             <Grid gap={3} component={"div"} container padding={3} className="yourPlan">
             <Text style={{width:"100%"}} fontSize="65px" fontWeight="700" className="head_1">Select the best plan for your need</Text>
              {PlanCardData.map((data:PlanCardDataProps)=>{
             return(
             <Box key={data.planName} className="planCard" bgcolor={data.popular ? "var(--secondary-color)" : "transparent"}  component={"div"}>
             {data.popular && <Text className="popularText">Popular package</Text> }    
-            <Card height="fit-content" width="300px" borderColor="#43434380" borderWidth={1} borderRadius={20} padding={20}>
+            <Card height="fit-content" style={{maxWidth:"100%"}} borderColor="#43434380" borderWidth={1} borderRadius={20} padding={20}>
              <Text fontSize="24px" fontWeight="700">{data.planName}</Text>
              <Text style={{borderBottom:"1.25px solid #18395B"}} marginTop={10} paddingBottom={5} fontSize="44px" fontWeight="800" color="#18395B">{data.amount}{data.duration && <span style={{fontSize:"24px",color:"#18395B"}}>/{data.duration}</span>}</Text>
              <ul style={{marginTop:"20px",paddingLeft:"18px"}}>
@@ -62,14 +64,23 @@ const Pricing:FC = ()=>{
                 )
              })}
             </Grid>
-             {/* --------------------------------- */}
-              
-              <Grid sx={{ width: "100%", display: "flex", flexDirection: "row" }} justifyContent={"space-between"} container component={"div"} className="doubleDivWithBg">
-                <Box component={"div"} className="rightDiv">
-                  <Text >fdshfkdshkfhksdfk</Text>
+             {/* --------------------------------- */} 
+             {/* Grid 4 -------grid with bg image*/} 
+              <Grid container flexDirection={{xs:"column",md:"row"}} rowGap={3} my={3} component={"div"} className="doubleDivWithBg">
+                <Box component={"div"} width={{xs:"100%",md:"50%"}} className="rightDiv">
+                  <Text fontSize={"38px"} fontWeight="800" color="#fff">Ezsignature Enterprise</Text>
+                  <Text style={{maxWidth:"350px"}} fontSize={"20px"} fontWeight="500" color="#fff">Request an Enterprise solution tailored for your business.</Text>
+                  <Button fontSize={20} fontWeight="500" borderRadius={19} width={"200px"} height={"60px"} color="var(--text-color)" backgroundColor="var(--lightBlue-color)">Contact Us</Button>
                 </Box>
-                <Box component={"div"} className="leftDiv">fdgd</Box>
+                <Box component={"div"} width={{xs:"100%",md:"50%"}} className="leftDiv">
+                <Text fontSize={"38px"} fontWeight="800" color="#fff">Interested in using the Xodo Sign API?</Text>
+                  <Text style={{maxWidth:"350px"}} fontSize={"20px"} fontWeight="500" color="#fff">We&apos;re offering separate pricing plans for more extensive API usage.</Text>
+                  <Button fontSize={20} fontWeight="500" borderRadius={19} width={"200px"} height={"60px"} color="var(--text-color)" backgroundColor="var(--lightBlue-color)">API Pricing Plans</Button>
+                </Box>
               </Grid>
+             {/* --------------------------------- */} 
+             <CustomForm/>
+            
 
             <FAQs/>
            <MoreQuestion/>

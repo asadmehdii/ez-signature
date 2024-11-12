@@ -26,9 +26,15 @@ import Instagram from "./instagram.png";
 import Google from "./google.png";
 import Linkedin from "./linkedin.png";
 import Facebook from "./facebook.png";
-import Recaptcha from "./recaptcha.svg"
-import SignUpImage from "./signupImage.svg"
+import Recaptcha from "./recaptcha.svg";
+import SignUpImage from "./signupImage.svg";
+import EzSignature from "./ezSignwithbg.svg";
+import EzLetter from "./ezletter.svg";
+import EzManage from "./ezManage.svg";
+import EzBooks from "./ezBooks.svg";
+import StartWithBg from "./backgroundStar.svg"
 const Assests = {
+  StartWithBg,
   Recaptcha,
   SignUpImage,
   legalValidity,
@@ -59,6 +65,10 @@ const Assests = {
   Google,
   Linkedin,
   Facebook,
+  EzSignature,
+  EzLetter,
+  EzManage,
+  EzBooks,
 };
 
 export default Assests;

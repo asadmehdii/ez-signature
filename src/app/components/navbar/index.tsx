@@ -3,28 +3,27 @@ import Button from "../button";
 import Link from "next/link";
 import Image from "next/image";
 import Assests from "@/app/assests/images";
+import { Box } from "@mui/material";
 
-const Navbar: FC = () => {
+type NavbarProps = {
+  showBtn?: boolean
+}
+
+const Navbar: FC<NavbarProps> = ({showBtn = true}) => {
   return (
     <nav className="navbar">
       <Link href={"/"}>
         <h1 className="logo">EzSignature</h1>
       </Link>
-      <ul>
-        <Link href={"../../pages/fetures"}>
-          <li>Feature</li>
-        </Link>
-        <Link href={"../../pages/pricing"}>
-          <li>Pricing</li>
-        </Link>
-        <Link href={"#"}>
-          <li>Help Center</li>
-        </Link>
-        <Link href={"#"}>
-          <li>Developer</li>
-        </Link>
-      </ul>
+      <Box component="div" className="linkBtn">
+        <Link href={"../../pages/fetures"}>Feature</Link>
+        <Link href={"../../pages/pricing"}>Pricing</Link>
+        <Link href={"../../pages/help"}>Help Center</Link>
+        <Link href={"#"}>Developer</Link>
+      </Box>
       <div className="btnDiv">
+       {showBtn && 
+       <>
         <Button
           borderRadius={10}
           width={90}
@@ -46,6 +45,8 @@ const Navbar: FC = () => {
         >
           <Link href={"../../pages/auth/signup"}>Sign up</Link>
         </Button>
+        </>
+        }
       </div>
       {/* show hamburger icon on small screen */}
       <Image
