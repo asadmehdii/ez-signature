@@ -1,0 +1,105 @@
+.pricing .grid_1 {
+  background: url("../assests/images/bannerBg.png") no-repeat center;
+  width: 100%;
+}
+.pricing .grid_1 .head_1 {
+  font-size: 97px;
+  font-weight: 800;
+  max-width: 1000px;
+  margin: 0 auto !important;
+  color: var(--text-color);
+}
+.pricing .grid_1 .text_1 {
+  font-size: 22px;
+  font-weight: 700 !important;
+  margin: 25px auto !important;
+  color: var(--text-color);
+  max-width: 750px;
+}
+.pricing .grid_1 .button {
+  margin: 0 auto;
+  width: 200px !important;
+  background-color: var(--secondary-color) !important;
+  border-radius: 19px;
+  height: 74px;
+  color: #fff !important;
+  font-size: 22px !important;
+  font-weight: 600 !important;
+}
+.pricing .EzFeature .text_1 {
+  max-width: 1160px;
+}
+.pricing .EzFeature img {
+  width: 45px;
+  height: 45px;
+  object-fit: contain;
+  background: url("../assests/images/feature/icon\ background.png");
+  background-size: 90%;
+  background-repeat: no-repeat;
+  padding: 8px;
+  background-position: bottom left;
+}
+.pricing .planCard {
+  padding-top: 50px;
+  height: fit-content;
+  overflow: hidden;
+  border-radius: 20px;
+  position: relative;
+}
+.pricing .planCard .popularText {
+  font-size: 24px;
+  font-weight: 700;
+  color: #fff;
+  position: absolute;
+  top: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 50px;
+}
+
+.pricing .planCard li {
+  font-size: 18px;
+  font-weight: 600;
+  margin: 8px 0;
+}
+.pricing .doubleDivWithBg .rightDiv {
+  background: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)),
+  url("../assests/images/contactUsCustomer.svg") no-repeat center;
+  background-size: cover;
+  max-width: 50%;
+  width: 50%;
+  height: 500px;
+  display: flex;
+  align-items: center;
+  padding-left: 40px;
+  box-sizing: border-box;
+}
+.pricing .doubleDivWithBg .leftDiv {
+  background: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)),
+  url("../assests/images/application-programming-interface.svg") no-repeat center;
+  background-size: cover;
+  max-width: 50%;
+  width: 50%;
+  height: 500px;
+  display: flex;
+  align-items: center;
+  padding-left: 40px;
+  box-sizing: border-box;
+}
+@media screen and (max-width: 915px) {
+  .pricing .grid_1 .text_1,
+  .pricing .EzFeature .text_1 {
+    font-size: 18px;
+  }
+  .pricing .grid_1 .head_1 {
+    font-size: 46px;
+  }
+  .pricing .EzFeature .head_1,
+  .pricing .yourPlan .head_1 {
+    font-size: 40px !important;
+  }
+}
+@media screen and (max-width: 600px) {
+}

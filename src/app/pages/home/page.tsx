@@ -339,6 +339,8 @@ const Home: FC = () => {
               borderRadius={19}
               borderColor="#000"
               borderWidth={1}
+              backgroundColor="#000"
+              color="#fff"
             >
               Select Now
             </Button>
@@ -542,7 +544,7 @@ const Home: FC = () => {
         <Text fontSize="55px" fontWeight="800" className="head_1">
           Discover how EzSignature can help you run your business
         </Text>
-        <Grid container gap={2} alignItems={"center"} marginY={4}>
+        <Grid container gap={2} alignItems={"center"} marginY={4} justifyContent={"center"}>
           <Image style={{width:'146px',height:"90px",objectFit:"contain"}} src={BusinessImage_1} alt="image_here" />
           <Image style={{width:'156px',height:"128px",objectFit:"contain"}} src={BusinessImage_2} alt="image_here" />
           <Image style={{width:'146px',height:"90px",objectFit:"contain"}} src={BusinessImage_3} alt="image_here" />
