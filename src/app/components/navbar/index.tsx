@@ -30,7 +30,7 @@ const Navbar: FC<NavbarProps> = ({showBtn = true}) => {
           width={149}
           height={63}
           fontSize={18}
-          fontWeight="600"
+          fontWeight="400"
           borderWidth={2}
           backgroundColor="#ffffff"
         >
@@ -43,7 +43,7 @@ const Navbar: FC<NavbarProps> = ({showBtn = true}) => {
           width={149}
           height={63}
           fontSize={18}
-          fontWeight="600"
+          fontWeight="400"
           backgroundColor="var(--secondary-color)"
         >
           Sign up

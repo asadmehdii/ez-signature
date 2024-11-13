@@ -568,7 +568,7 @@ const Home: FC = () => {
             <Card
               height="100%"
               width="100%"
-              backgroundColor="#C5FCF5"
+              backgroundColor="#f3fefd"
               borderRadius={78}
             >
               <Grid
@@ -583,103 +583,103 @@ const Home: FC = () => {
                     <Box
                       component={"div"}
                       display={"flex"}
-                      columnGap={1}
+                      columnGap={2}
                       alignItems={"center"}
                     >
                       <Image src={Star} alt="image_here" />
-                      <Text>NDAs</Text>
+                      <Text fontSize="18px" fontWeight="600">NDAs</Text>
                     </Box>
                     <Box
                       component={"div"}
                       display={"flex"}
-                      columnGap={1}
+                      columnGap={2}
                       alignItems={"center"}
                     >
                       <Image src={Star} alt="image_here" />
-                      <Text>Asset Purchase Agreements</Text>
+                      <Text fontSize="18px" fontWeight="600">Asset Purchase Agreements</Text>
                     </Box>
                     <Box
                       component={"div"}
                       display={"flex"}
-                      columnGap={1}
+                      columnGap={2}
                       alignItems={"center"}
                     >
                       <Image src={Star} alt="image_here" />
-                      <Text>Engagement Letters</Text>
+                      <Text fontSize="18px" fontWeight="600">Engagement Letters</Text>
                     </Box>
                     <Box
                       component={"div"}
                       display={"flex"}
-                      columnGap={1}
+                      columnGap={2}
                       alignItems={"center"}
                     >
                       <Image src={Star} alt="image_here" />
-                      <Text>Independent Contractor Agreements</Text>
+                      <Text fontSize="18px" fontWeight="600">Independent Contractor Agreements</Text>
                     </Box>
                     <Box
                       component={"div"}
                       display={"flex"}
-                      columnGap={1}
+                      columnGap={2}
                       alignItems={"center"}
                     >
                       <Image src={Star} alt="image_here" />
-                      <Text>Employment Contracts</Text>
+                      <Text fontSize="18px" fontWeight="600">Employment Contracts</Text>
                     </Box>
                     <Box
                       component={"div"}
                       display={"flex"}
-                      columnGap={1}
+                      columnGap={2}
                       alignItems={"center"}
                     >
                       <Image src={Star} alt="image_here" />
-                      <Text>Practice Continuation Agreements</Text>
+                      <Text fontSize="18px" fontWeight="600">Practice Continuation Agreements</Text>
                     </Box>
                   </Box>
                   <Box component={"div"} margin={0} padding={0}>
                     <Box
                       component={"div"}
                       display={"flex"}
-                      columnGap={1}
+                      columnGap={2}
                       alignItems={"center"}
                     >
                       <Image src={Star} alt="image_here" />
-                      <Text>Practice Continuation Agreements</Text>
+                      <Text fontSize="18px" fontWeight="600">Practice Continuation Agreements</Text>
                     </Box>
                     <Box
                       component={"div"}
                       display={"flex"}
-                      columnGap={1}
+                      columnGap={2}
                       alignItems={"center"}
                     >
                       <Image src={Star} alt="image_here" />
-                      <Text>Power of Attorney Agreements </Text>
+                      <Text fontSize="18px" fontWeight="600">Power of Attorney Agreements </Text>
                     </Box>
                     <Box
                       component={"div"}
                       display={"flex"}
-                      columnGap={1}
+                      columnGap={2}
                       alignItems={"center"}
                     >
                       <Image src={Star} alt="image_here" />
-                      <Text>Business Contracts </Text>
+                      <Text fontSize="18px" fontWeight="600">Business Contracts </Text>
                     </Box>
                     <Box
                       component={"div"}
                       display={"flex"}
-                      columnGap={1}
+                      columnGap={2}
                       alignItems={"center"}
                     >
                       <Image src={Star} alt="image_here" />
-                      <Text>Vendor Contracts</Text>
+                      <Text fontSize="18px" fontWeight="600">Vendor Contracts</Text>
                     </Box>
                     <Box
                       component={"div"}
                       display={"flex"}
-                      columnGap={1}
+                      columnGap={2}
                       alignItems={"center"}
                     >
                       <Image src={Star} alt="image_here" />
-                      <Text>Document Approvals</Text>
+                      <Text fontSize="18px" fontWeight="600">Document Approvals</Text>
                     </Box>
                   </Box>
                 </Grid>

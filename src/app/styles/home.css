@@ -21,9 +21,9 @@
 }
 .home .grid_5 .financtionalDepartmentCard {
   position: relative;
-  display: inline-block; /* Adjust as necessary */
-  padding: 2px; /* Border width */
-  border-radius: 78px; /* Controls border rounding */
+  display: inline-block; 
+  padding: 1.3px;
+  border-radius: 78px;
   background: linear-gradient(
     101.82deg,
     #263238 2.51%,
