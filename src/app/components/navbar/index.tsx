@@ -24,27 +24,31 @@ const Navbar: FC<NavbarProps> = ({showBtn = true}) => {
       <div className="btnDiv">
        {showBtn && 
        <>
+       <Link href={"../../pages/auth/login"}>
         <Button
           borderRadius={10}
-          width={90}
-          height={40}
+          width={149}
+          height={63}
           fontSize={18}
           fontWeight="600"
           borderWidth={2}
           backgroundColor="#ffffff"
         >
-          <Link href={"../../pages/auth/login"}>Login</Link>
+          Login
         </Button>
+        </Link>
+        <Link href={"../../pages/auth/signup"}>
         <Button
           borderRadius={10}
-          width={90}
-          height={40}
+          width={149}
+          height={63}
           fontSize={18}
           fontWeight="600"
           backgroundColor="var(--secondary-color)"
         >
-          <Link href={"../../pages/auth/signup"}>Sign up</Link>
+          Sign up
         </Button>
+        </Link>
         </>
         }
       </div>
