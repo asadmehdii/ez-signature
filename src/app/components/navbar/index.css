@@ -8,18 +8,18 @@
   font-weight: 800;
   font-size: 28px;
 }
-.navbar ul {
+.navbar .linkBtn {
   list-style: none;
   display: flex;
   gap: 30px;
 }
 
-.navbar ul li {
+.navbar .linkBtn a {
   font-weight: 600;
   font-size: 18px;
   cursor: pointer;
 }
-.navbar ul li:hover {
+.navbar .linkBtn a:hover {
   color: var(--secondary-color);
 }
 
@@ -35,7 +35,7 @@
   padding: 6px;
 }
 @media screen and (max-width: 900px) {
-  .navbar ul {
+  .navbar .linkBtn {
     gap: 15px;
   }
   .navbar {
@@ -46,7 +46,7 @@
   .navbar {
     padding: 0px 20px;
   }
-  .navbar ul {
+  .navbar .linkBtn {
     display: none;
   }
   .navbar .btnDiv {

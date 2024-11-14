@@ -46,11 +46,13 @@ const Home: FC = () => {
         className="grid_1"
         container
         alignItems={"center"}
-        padding={3}
+        paddingY={5}
+        paddingX={{xs:3,lg:"100px"}}
+        justifyContent={"space-evenly"}
         flexDirection={{ xs: "column-reverse", md: "row" }}
       >
-        <Grid size={{ xs: 12, md: 5, lg: 6 }}>
-          <Text fontSize="55px" fontWeight="800" className="head_1">
+        <Grid m={"auto"} size={{ xs: 12, md: 6, lg: 6 }}>
+          <Text fontSize="55px" fontWeight="800" className="head_1" style={{maxWidth:"829px"}}>
             Free electronic signatures at work, at home or on the go.
           </Text>
           <Text
@@ -66,8 +68,8 @@ const Home: FC = () => {
             <Button
               backgroundColor="var(--secondary-color)"
               color="#fff"
-              height={60}
-              width={170}
+              height={76}
+              width={206}
               borderRadius={15}
             >
               Sign up for free
@@ -75,15 +77,15 @@ const Home: FC = () => {
             <Button
               borderWidth={1}
               borderColor="#000000"
-              height={60}
-              width={170}
+              height={76}
+              width={206}
               borderRadius={15}
             >
               Take a tour
             </Button>
           </Box>
         </Grid>
-        <Grid size={{ xs: 12, md: 7, lg: 6 }}>
+        <Grid size={{ xs: 12, md: 6, lg: 6 }} sx={{ width: "auto", height: "100%" }}>
           <Image
             style={{ width: "100%", height: "100%" }}
             src={HomeImage_1}
@@ -99,8 +101,8 @@ const Home: FC = () => {
         className="grid_2"
         container
         alignItems={"center"}
-        paddingX={3}
-        paddingBottom={5}
+        paddingY={5}
+        paddingX={{xs:3,lg:"100px"}}
       >
         <Text className="head_1" fontSize="55px" fontWeight="700">
           Easy to use, reliable, And completely secure
@@ -110,7 +112,7 @@ const Home: FC = () => {
           readable <br className="removeBreak" />
           content of a page when looking at its layout.
         </Text>
-        <Grid container margin={"auto"} spacing={5} paddingBottom={5}>
+        <Grid container margin={"auto"} rowSpacing={5} columnSpacing={3} paddingBottom={5}>
           <Card
             className="card"
             padding={"20"}
@@ -255,8 +257,8 @@ const Home: FC = () => {
         className="grid_3"
         container
         alignItems={"center"}
-        paddingX={3}
-        paddingBottom={5}
+        paddingY={5}
+        paddingX={{xs:3,lg:"100px"}}
       >
         <Text className="head_1" fontSize="60px" fontWeight="700">
           Go paperless with trusted electronic signatures
@@ -268,7 +270,7 @@ const Home: FC = () => {
           We are here to help you securely sign documents online &#39; get
           paperwork out of the way and close important deals faster.
         </Text>
-        <Grid container justifyContent={"center"} margin={"auto"} spacing={5}>
+        <Grid container justifyContent={"center"} margin={"auto"} columnSpacing={2} rowSpacing={5}>
           <Card
             height="380px"
             width="300px"
@@ -395,7 +397,8 @@ const Home: FC = () => {
         className="grid_4"
         container
         alignItems={"center"}
-        padding={3}
+        paddingY={5}
+        paddingX={{xs:3,lg:"100px"}}
         marginY={10}
         flexDirection={{ xs: "column-reverse", md: "row" }}
       >
@@ -418,7 +421,7 @@ const Home: FC = () => {
             <Button
               backgroundColor="var(--secondary-color)"
               color="#fff"
-              height={60}
+              height={76}
               width={200}
               borderRadius={15}
             >
@@ -436,8 +439,8 @@ const Home: FC = () => {
       </Grid>
       {/* ----------------- */}
 
-      <Grid container alignItems="center" padding={3} component="div" className="offerCard_Grid">
-        <Grid size={{ xs: 12, md: 4, lg: 6 }}>
+      <Grid container alignItems="center" paddingY={5} paddingX={{xs:3,lg:"30px",xl:"100px"}} component="div" className="offerCard_Grid">
+        <Grid>
           <Text fontSize="55px" fontWeight="800" className="head_1">
             What We Offer
           </Text>
@@ -447,18 +450,19 @@ const Home: FC = () => {
             marginBottom={20}
             marginTop={20}
             className="text_1"
+            style={{maxWidth:"520px"}}
           >
             In the EzSignature we create the best, easy to use and useful online
             document with every custom info of your business.
           </Text>
         </Grid>
-        <Grid size={{ xs: 12, md: 8, lg: 6 }}>
+        <Grid  maxWidth={"600px"} margin={"auto"}>
           <Grid container gap={3} justifyContent={"center"}>
             <Card
               className="card_1"
               width={"220px"}
               height={"220px"}
-              padding={"10"}
+              padding={15}
               borderRadius={20}
             >
               <Image src={Offer_1} alt="image_here" />
@@ -485,7 +489,7 @@ const Home: FC = () => {
               className="card_2"
               width={"220px"}
               height={"220px"}
-              padding={"10"}
+              padding={15}
               borderRadius={20}
             >
               <Image src={Offer_2} alt="image_here" />
@@ -512,7 +516,7 @@ const Home: FC = () => {
               className="card_3"
               width={"220px"}
               height={"220px"}
-              padding={"10"}
+              padding={15}
               borderRadius={20}
             >
               <Image src={Offer_3} alt="image_here" />
@@ -540,7 +544,7 @@ const Home: FC = () => {
       </Grid>
 
       {/* grid_5 start here */}
-      <Grid component={"div"} className="grid_5" padding={3}>
+      <Grid component={"div"} className="grid_5"  paddingY={5} paddingX={{xs:3,lg:"100px"}}>
         <Text fontSize="55px" fontWeight="800" className="head_1">
           Discover how EzSignature can help you run your business
         </Text>
@@ -564,115 +568,118 @@ const Home: FC = () => {
             <Card
               height="100%"
               width="100%"
-              backgroundColor="#C5FCF5"
-              borderRadius={12}
+              backgroundColor="#f3fefd"
+              borderRadius={78}
             >
               <Grid
                 container
+                paddingX={{xs:2,md:8}}
+                gap={2}
+                py={4}
                 height={"100%"}
               >
-                <Grid container width={"100%"} height={"85%"} padding={3} justifyContent={"space-between"} alignItems={"center"}>
+                <Grid container width={"100%"} height={"85%"}  justifyContent={"space-between"} alignItems={"center"}>
                   <Box component={"div"} margin={0} padding={0}>
                     <Box
                       component={"div"}
                       display={"flex"}
-                      columnGap={1}
+                      columnGap={2}
                       alignItems={"center"}
                     >
                       <Image src={Star} alt="image_here" />
-                      <Text>NDAs</Text>
+                      <Text fontSize="18px" fontWeight="600">NDAs</Text>
                     </Box>
                     <Box
                       component={"div"}
                       display={"flex"}
-                      columnGap={1}
+                      columnGap={2}
                       alignItems={"center"}
                     >
                       <Image src={Star} alt="image_here" />
-                      <Text>Asset Purchase Agreements</Text>
+                      <Text fontSize="18px" fontWeight="600">Asset Purchase Agreements</Text>
                     </Box>
                     <Box
                       component={"div"}
                       display={"flex"}
-                      columnGap={1}
+                      columnGap={2}
                       alignItems={"center"}
                     >
                       <Image src={Star} alt="image_here" />
-                      <Text>Engagement Letters</Text>
+                      <Text fontSize="18px" fontWeight="600">Engagement Letters</Text>
                     </Box>
                     <Box
                       component={"div"}
                       display={"flex"}
-                      columnGap={1}
+                      columnGap={2}
                       alignItems={"center"}
                     >
                       <Image src={Star} alt="image_here" />
-                      <Text>Independent Contractor Agreements</Text>
+                      <Text fontSize="18px" fontWeight="600">Independent Contractor Agreements</Text>
                     </Box>
                     <Box
                       component={"div"}
                       display={"flex"}
-                      columnGap={1}
+                      columnGap={2}
                       alignItems={"center"}
                     >
                       <Image src={Star} alt="image_here" />
-                      <Text>Employment Contracts</Text>
+                      <Text fontSize="18px" fontWeight="600">Employment Contracts</Text>
                     </Box>
                     <Box
                       component={"div"}
                       display={"flex"}
-                      columnGap={1}
+                      columnGap={2}
                       alignItems={"center"}
                     >
                       <Image src={Star} alt="image_here" />
-                      <Text>Practice Continuation Agreements</Text>
+                      <Text fontSize="18px" fontWeight="600">Practice Continuation Agreements</Text>
                     </Box>
                   </Box>
                   <Box component={"div"} margin={0} padding={0}>
                     <Box
                       component={"div"}
                       display={"flex"}
-                      columnGap={1}
+                      columnGap={2}
                       alignItems={"center"}
                     >
                       <Image src={Star} alt="image_here" />
-                      <Text>Practice Continuation Agreements</Text>
+                      <Text fontSize="18px" fontWeight="600">Practice Continuation Agreements</Text>
                     </Box>
                     <Box
                       component={"div"}
                       display={"flex"}
-                      columnGap={1}
+                      columnGap={2}
                       alignItems={"center"}
                     >
                       <Image src={Star} alt="image_here" />
-                      <Text>Power of Attorney Agreements </Text>
+                      <Text fontSize="18px" fontWeight="600">Power of Attorney Agreements </Text>
                     </Box>
                     <Box
                       component={"div"}
                       display={"flex"}
-                      columnGap={1}
+                      columnGap={2}
                       alignItems={"center"}
                     >
                       <Image src={Star} alt="image_here" />
-                      <Text>Business Contracts </Text>
+                      <Text fontSize="18px" fontWeight="600">Business Contracts </Text>
                     </Box>
                     <Box
                       component={"div"}
                       display={"flex"}
-                      columnGap={1}
+                      columnGap={2}
                       alignItems={"center"}
                     >
                       <Image src={Star} alt="image_here" />
-                      <Text>Vendor Contracts</Text>
+                      <Text fontSize="18px" fontWeight="600">Vendor Contracts</Text>
                     </Box>
                     <Box
                       component={"div"}
                       display={"flex"}
-                      columnGap={1}
+                      columnGap={2}
                       alignItems={"center"}
                     >
                       <Image src={Star} alt="image_here" />
-                      <Text>Document Approvals</Text>
+                      <Text fontSize="18px" fontWeight="600">Document Approvals</Text>
                     </Box>
                   </Box>
                 </Grid>
@@ -683,9 +690,9 @@ const Home: FC = () => {
                   backgroundColor="#263238"
                   width={170}
                   height={55}
-                  style={{margin:"20px auto"}}
+                  style={{margin:"auto"}}
                 >
-                  Check out{" "}
+                  Check out
                   <Image
                     style={{ marginLeft: "10px" }}
                     src={ArrowIcon}
@@ -705,7 +712,8 @@ const Home: FC = () => {
         className="grid_6"
         container
         alignItems={"center"}
-        padding={3}
+         paddingY={5}
+        paddingX={{xs:3,lg:"100px"}}
         marginY={10}
         flexDirection={{ xs: "column-reverse", md: "row" }}
       >

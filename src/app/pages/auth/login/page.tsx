@@ -12,9 +12,11 @@ import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import Button from "@/app/components/button";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 const Login:FC = ()=>{
-const [hidePassword,setHidePassword] = useState<boolean>(true)
+ const router = useRouter()
+  const [hidePassword,setHidePassword] = useState<boolean>(true)
     const CustomTextField = styled(TextField)({
         '& .MuiOutlinedInput-root': {
           height:"47px",  
@@ -39,7 +41,7 @@ const [hidePassword,setHidePassword] = useState<boolean>(true)
       });
     return(
         <Box component={"div"}>
-        <Navbar/>
+        <Navbar showBtn={false}/>
         <Grid container rowGap={5} component={"div"} py={2} flexDirection={{xs:"column-reverse",md:"row"}} alignItems={"center"}>
         <Box display="flex" justifyContent={"center"} style={{boxSizing:"border-box"}} component={"div"} width={{xs:"100%",md:"50%"}}>
         <Box>
@@ -63,7 +65,7 @@ const [hidePassword,setHidePassword] = useState<boolean>(true)
           <Text fontSize="16px" fontWeight="600">Keep me signed in until I sign out</Text>  
           </Box>
           <Box display={"flex"} flexDirection={"column"} justifyContent={"center"} alignItems={"center"} my={1} maxWidth={"450px"}>
-             <Button style={{margin:"20px 0"}} fontSize={18} color="#fff" fontWeight="600" backgroundColor="var(--secondary-color)" borderRadius={25} width={"300px"} height={"50px"}>Login</Button>
+             <Button style={{margin:"20px 0"}} fontSize={18} color="#fff" fontWeight="600" backgroundColor="var(--secondary-color)" borderRadius={25} width={"300px"} height={"50px"} onClick={()=>router.push("/pages/dashboard")}>Login</Button>
              <Box my={1} display={"flex"} justifyContent={"center"} alignItems={"center"} gap={3}>
              <hr style={{ width: '30px', borderColor: "#cdcdcd", borderWidth: "1px", borderStyle: "solid" }} />
              <Text fontSize="14px" fontWeight="500" color="#cdcdcd">Or Login With</Text>

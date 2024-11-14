@@ -16,7 +16,7 @@ const Features:FC= ()=>{
     return(
         <main className="feature">
             <Navbar/>
-            {/* Grid 1 with the backgroound image */}
+            {/* Grid 1 with the background image */}
               <Grid paddingX={3} paddingY={6} component={"div"} className="grid_1" justifyContent={"center"} alignItems={"center"} textAlign={"center"} >
                    <Text className="head_1">Features at a Glance</Text>
                    <Text className="text_1">Your EzSignature experience will not stop at eSignatures — you&apos;ll be given all the tools you need to securely manage your documents in the cloud, keep your team in the loop, manage business contacts and to automate your work with a fully-fledged REST API.</Text>

@@ -1,5 +1,5 @@
 .morequestion_Div {
-  background: #2f455c1a;
+  background: #F3FEFD;
   padding: 30px;
   margin: 40px 0;
   display: flex;
@@ -63,7 +63,7 @@
         font-size: 20px;
       }
       .morequestion_Div .button {
-        width: 170px !important;
+        width: 100% !important;
         height: 50px !important;
         font-size: 18px !important;
       }

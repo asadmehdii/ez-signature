@@ -39,7 +39,7 @@ const [hidePassword,setHidePassword] = useState<boolean>(true)
       });
     return(
         <Box component={"div"}>
-        <Navbar/>
+        <Navbar showBtn={false}/>
         <Grid container rowGap={5} component={"div"} py={2} flexDirection={{xs:"column-reverse",md:"row"}} alignItems={"center"}>
         <Box display="flex" justifyContent={"center"} style={{boxSizing:"border-box"}} component={"div"} width={{xs:"100%",md:"50%"}}>
         <Box>

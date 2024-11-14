@@ -3,49 +3,54 @@ import Button from "../button";
 import Link from "next/link";
 import Image from "next/image";
 import Assests from "@/app/assests/images";
+import { Box } from "@mui/material";
 
-const Navbar: FC = () => {
+type NavbarProps = {
+  showBtn?: boolean
+}
+
+const Navbar: FC<NavbarProps> = ({showBtn = true}) => {
   return (
     <nav className="navbar">
       <Link href={"/"}>
         <h1 className="logo">EzSignature</h1>
       </Link>
-      <ul>
-        <Link href={"../../pages/fetures"}>
-          <li>Feature</li>
-        </Link>
-        <Link href={"../../pages/pricing"}>
-          <li>Pricing</li>
-        </Link>
-        <Link href={"#"}>
-          <li>Help Center</li>
-        </Link>
-        <Link href={"#"}>
-          <li>Developer</li>
-        </Link>
-      </ul>
+      <Box component="div" className="linkBtn">
+        <Link href={"../../pages/fetures"}>Feature</Link>
+        <Link href={"../../pages/pricing"}>Pricing</Link>
+        <Link href={"../../pages/help"}>Help Center</Link>
+        <Link href={"#"}>Developer</Link>
+      </Box>
       <div className="btnDiv">
+       {showBtn && 
+       <>
+       <Link href={"../../pages/auth/login"}>
         <Button
           borderRadius={10}
-          width={90}
-          height={40}
+          width={149}
+          height={63}
           fontSize={18}
-          fontWeight="600"
+          fontWeight="400"
           borderWidth={2}
           backgroundColor="#ffffff"
         >
-          <Link href={"../../pages/auth/login"}>Login</Link>
+          Login
         </Button>
+        </Link>
+        <Link href={"../../pages/auth/signup"}>
         <Button
           borderRadius={10}
-          width={90}
-          height={40}
+          width={149}
+          height={63}
           fontSize={18}
-          fontWeight="600"
+          fontWeight="400"
           backgroundColor="var(--secondary-color)"
         >
-          <Link href={"../../pages/auth/signup"}>Sign up</Link>
+          Sign up
         </Button>
+        </Link>
+        </>
+        }
       </div>
       {/* show hamburger icon on small screen */}
       <Image

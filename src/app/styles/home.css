@@ -7,6 +7,9 @@
   height: auto;
   object-fit: contain;
 }
+.home .grid_1 .head_1 {
+  max-width: 829px !important;
+}
 .home .grid_4,
 .home .grid_6 {
   background-image: url("../assests/images/home/backgroundImage.png");
@@ -18,26 +21,35 @@
 }
 .home .grid_5 .financtionalDepartmentCard {
   position: relative;
-  display: inline-block; /* Adjust as necessary */
-  padding: 2px; /* Border width */
-  border-radius: 12px; /* Controls border rounding */
+  display: inline-block; 
+  padding: 1.3px;
+  border-radius: 78px;
   background: linear-gradient(
     101.82deg,
     #263238 2.51%,
     #66efdc 39.22%,
     #263238 97.85%
   );
-  width: 650px;
-  height: fit-content;
+  width:900px;
+  min-height: calc(100% + 300px);
+  height: 400px;
   margin: 60px 0 0 0;
 }
 .home .offerCard_Grid .card_1 {
-  box-shadow: 6px 7px 44.4px -16px #00000040;
-  border-bottom: 3px solid #1dcdfe;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
+  cursor: pointer;
+  background-color: #fff;
+  border: 1.5px solid #2c2c2c1a;
 }
+.home .offerCard_Grid .card_1:hover,
+.home .offerCard_Grid .card_2:hover,
+.home .offerCard_Grid .card_3:hover {
+  box-shadow: 6px 7px 44.4px -16px #00000040;
+  border-bottom: 3px solid #1dcdfe;
+}
+
 .home .offerCard_Grid img {
   background-image: url("../assests/images/home/Rectangle\ 16.png");
   background-size: 40px;
@@ -47,22 +59,22 @@
   padding: 8px;
 }
 .home .offerCard_Grid .card_2 {
-  box-shadow: 6px 7px 44.4px -16px #00000040;
-  border: 1px solid #2c2c2c1a;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
   background-color: #fff;
-  margin-top: 40px;
+  border: 1.5px solid #2c2c2c1a;
+  margin-top: 10px;
+  cursor: pointer;
 }
 
 .home .offerCard_Grid .card_3 {
-  box-shadow: 6px 7px 44.4px -16px #00000040;
-  border: 1px solid #2c2c2c1a;
+  border: 1.5px solid #2c2c2c1a;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
   background-color: #fff;
+  cursor: pointer;
 }
 
 @media screen and (max-width: 1070px) {
@@ -78,16 +90,20 @@
   .home .text_1 {
     font-size: 20px !important;
   }
-  .home .card .cardHead{
-    font-size: 28px !important;  
+  .home .card .cardHead {
+    font-size: 28px !important;
   }
-  .home .card .cardText{
-    font-size: 18px !important;  
+  .home .card .cardText {
+    font-size: 18px !important;
   }
 }
 @media screen and (max-width: 860px) {
   .home .removeBreak {
     display: none;
+  }
+  .home .grid_5 .financtionalDepartmentCard {
+   
+    height: fit-content;
   }
 }
 @media screen and (max-width: 552px) {

@@ -1,0 +1,35 @@
+.helpPage .grid_1 {
+  background: url("../assests/images/bannerBg.png") no-repeat center;
+  width: 100%;
+}
+
+.helpPage .grid_1 .head_1 {
+  font-size: 97px;
+  font-weight: 800;
+  color: var(--text-color);
+}
+.helpPage .grid_1 .button {
+  margin: 0 auto;
+  width: 200px !important;
+  background-color: var(--secondary-color) !important;
+  border-radius: 19px !important;
+  height: 58px !important;
+  color: #fff !important;
+  font-size: 22px !important;
+  font-weight: 600 !important;
+}
+.helpPage .trustedElect .text_1 {
+  max-width: 997px;
+}
+@media screen and (max-width: 915px) {
+  .helpPage .grid_1 .head_1,
+  .helpPage .proArt .head_1 {
+    font-size: 40px !important;
+  }
+  .helpPage .trustedElect .text_1 {
+    font-size: 18px;
+  }
+  .helpPage .trustedElect .head_1 {
+    font-size: 40px !important;
+  }
+}
