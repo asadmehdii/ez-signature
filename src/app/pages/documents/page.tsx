@@ -1,16 +1,9 @@
-// import Search from '@/app/components/search';
-
-// const Document: React.FC = () => {
-//   return(
-//     <>
-//    // pages/DocumentPage.js
-
-// pages/DocumentPage.js
 "use client";
-import { useState } from 'react';
-import { Box, TextField, IconButton, Tabs, Tab, Typography, Badge } from '@mui/material';
-import { Search, Delete, ArrowDropDown } from '@mui/icons-material';
+import React, { useState } from 'react';
+import { Box, Pagination, TablePagination } from '@mui/material';
+import IconBtn from '@/app/components/iconButton';
 import SearchAppBar from '@/app/components/search';
+import TabSection from '@/app/components/tabSection';
 
 export default function DocumentPage() {
   // State to manage the active tab
@@ -24,65 +17,46 @@ export default function DocumentPage() {
     setActiveTab(newValue);
   };
 
+  const [page, setPage] = React.useState(2);
+  const [rowsPerPage, setRowsPerPage] = React.useState(10);
+
+  const handleChangePage = (
+    event: React.MouseEvent<HTMLButtonElement> | null,
+    newPage: number,
+  ) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+  };
+
+
+  
+
   return (
     <Box sx={{ padding: '20px', width: '100%' }}>
       {/* Toolbar */}
       <Box display="flex" justifyContent="space-between" alignItems="center" mb={2}>
-        <Box display="flex" alignItems="center">
-          <IconButton>
-            <ArrowDropDown />
-          </IconButton>
-          <IconButton>
-            <Delete />
-          </IconButton>
-        </Box>
+        <IconBtn />
        <SearchAppBar />
       </Box>
 
       {/* Tab Section */}
-      <Box sx={{display: 'flex', justifyContent: 'flex-end'}}>
-      <Tabs
-        value={activeTab}
-        onChange={handleTabChange}
-        textColor="primary"
-        indicatorColor="primary"
-        aria-label="document tabs"
-      >
-        {tabLabels.map((label, index) => (
-          <Tab
-            key={index}
-            label={
-              label === 'I need to sign' ? (
-                <Badge color="error" badgeContent={1}>
-                  {label}
-                </Badge>
-              ) : (
-                label
-              )
-            }
-          />
-        ))}
-      </Tabs>
-      </Box>
+      <TabSection activeTab={activeTab} handleTabChange={handleTabChange} tabLabels={tabLabels}/>
 
-      {/* Content Section */}
-      <Box display="flex" justifyContent="center" alignItems="center" height="300px" border= "5px solid gainsboro">
-        <Typography variant="body1" color="textSecondary">
-          {activeTab === 0 && 'All Documents Displayed'}
-          {activeTab === 1 && 'Drafts Displayed'}
-          {activeTab === 2 && 'Completed Documents Displayed'}
-          {activeTab === 3 && 'In Process Documents Displayed'}
-          {activeTab === 4 && 'Documents that Need to be Signed'}
-          {activeTab === 5 && 'Cancelled Documents Displayed'}
-        </Typography>
-      </Box>
+      <Pagination variant="outlined" shape="rounded" />
+      <TablePagination
+  component="div"
+  count={100}
+  page={page}
+  onPageChange={handleChangePage}
+  rowsPerPage={rowsPerPage}
+  onRowsPerPageChange={handleChangeRowsPerPage}
+/>
     </Box>
   );
 }
-
-
-//     </>
-//   );
-// }
-
-// export default Document;
