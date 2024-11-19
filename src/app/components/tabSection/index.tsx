@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+
 import { Box,Tabs, Tab, Typography, Badge } from '@mui/material';
 
 interface TabSectionProp{
