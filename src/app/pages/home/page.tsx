@@ -46,7 +46,7 @@ const Home: FC = () => {
         className="grid_1"
         container
         alignItems={"center"}
-        paddingY={5}
+        paddingY={"5"}
         paddingX={{xs:3,lg:"100px"}}
         justifyContent={"space-evenly"}
         flexDirection={{ xs: "column-reverse", md: "row" }}
@@ -101,7 +101,7 @@ const Home: FC = () => {
         className="grid_2"
         container
         alignItems={"center"}
-        paddingY={5}
+        paddingY={"5"}
         paddingX={{xs:3,lg:"100px"}}
       >
         <Text className="head_1" fontSize="55px" fontWeight="700">
@@ -112,7 +112,7 @@ const Home: FC = () => {
           readable <br className="removeBreak" />
           content of a page when looking at its layout.
         </Text>
-        <Grid container margin={"auto"} rowSpacing={5} columnSpacing={3} paddingBottom={5}>
+        <Grid container margin={"auto"} rowSpacing={5} columnSpacing={3} paddingBottom={"5"}>
           <Card
             className="card"
             padding={"20"}
@@ -257,7 +257,7 @@ const Home: FC = () => {
         className="grid_3"
         container
         alignItems={"center"}
-        paddingY={5}
+        paddingY={"5"}
         paddingX={{xs:3,lg:"100px"}}
       >
         <Text className="head_1" fontSize="60px" fontWeight="700">
@@ -397,7 +397,7 @@ const Home: FC = () => {
         className="grid_4"
         container
         alignItems={"center"}
-        paddingY={5}
+        paddingY={"5"}
         paddingX={{xs:3,lg:"100px"}}
         marginY={10}
         flexDirection={{ xs: "column-reverse", md: "row" }}
@@ -439,7 +439,7 @@ const Home: FC = () => {
       </Grid>
       {/* ----------------- */}
 
-      <Grid container alignItems="center" paddingY={5} paddingX={{xs:3,lg:"30px",xl:"100px"}} component="div" className="offerCard_Grid">
+      <Grid container alignItems="center" paddingY={"5"} paddingX={{xs:3,lg:"30px",xl:"100px"}} component="div" className="offerCard_Grid">
         <Grid>
           <Text fontSize="55px" fontWeight="800" className="head_1">
             What We Offer
@@ -462,7 +462,7 @@ const Home: FC = () => {
               className="card_1"
               width={"220px"}
               height={"220px"}
-              padding={15}
+              padding={"15"}
               borderRadius={20}
             >
               <Image src={Offer_1} alt="image_here" />
@@ -489,7 +489,7 @@ const Home: FC = () => {
               className="card_2"
               width={"220px"}
               height={"220px"}
-              padding={15}
+              padding={"15"}
               borderRadius={20}
             >
               <Image src={Offer_2} alt="image_here" />
@@ -516,7 +516,7 @@ const Home: FC = () => {
               className="card_3"
               width={"220px"}
               height={"220px"}
-              padding={15}
+              padding={"15"}
               borderRadius={20}
             >
               <Image src={Offer_3} alt="image_here" />
@@ -544,7 +544,7 @@ const Home: FC = () => {
       </Grid>
 
       {/* grid_5 start here */}
-      <Grid component={"div"} className="grid_5"  paddingY={5} paddingX={{xs:3,lg:"100px"}}>
+      <Grid component={"div"} className="grid_5"  paddingY={"5"} paddingX={{xs:3,lg:"100px"}}>
         <Text fontSize="55px" fontWeight="800" className="head_1">
           Discover how EzSignature can help you run your business
         </Text>
@@ -579,7 +579,7 @@ const Home: FC = () => {
                 height={"100%"}
               >
                 <Grid container width={"100%"} height={"85%"}  justifyContent={"space-between"} alignItems={"center"}>
-                  <Box component={"div"} margin={0} padding={0}>
+                  <Box component={"div"} margin={0} padding={"0"}>
                     <Box
                       component={"div"}
                       display={"flex"}
@@ -635,7 +635,7 @@ const Home: FC = () => {
                       <Text fontSize="18px" fontWeight="600">Practice Continuation Agreements</Text>
                     </Box>
                   </Box>
-                  <Box component={"div"} margin={0} padding={0}>
+                  <Box component={"div"} margin={0} padding={"0"}>
                     <Box
                       component={"div"}
                       display={"flex"}
@@ -712,7 +712,7 @@ const Home: FC = () => {
         className="grid_6"
         container
         alignItems={"center"}
-         paddingY={5}
+         paddingY={"5"}
         paddingX={{xs:3,lg:"100px"}}
         marginY={10}
         flexDirection={{ xs: "column-reverse", md: "row" }}
