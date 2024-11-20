@@ -11,12 +11,10 @@ import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import Button from "@/app/components/button";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import ContentBox from "@/app/components/contentBox";
 import Route from "@/app/utils/routes";
 
 const Login:FC = ()=>{
- const router = useRouter()
   const [hidePassword,setHidePassword] = useState<boolean>(true)
     const CustomTextField = styled(TextField)({
         '& .MuiOutlinedInput-root': {

@@ -47,9 +47,9 @@ const Button: FC<ButtonProps> = ({
   return (
     <button
       className={className}
-      onClick ={()=>{
-        to && navigate.push(to)
-        onClick
+      onClick={() => {
+        if (to) { navigate.push(to)}
+        if (onClick) { onClick()}
       }}
       style={{
         display: "flex",

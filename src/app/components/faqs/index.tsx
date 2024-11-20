@@ -1,8 +1,6 @@
 import { FC } from "react";
 import { Box, Grid2 as Grid, Typography } from "@mui/material";
-import Image from "next/image";
 import Text from "../text";
-import Card from "../card";
 import Assests from "@/app/assests/images";
 
 // Define the type for props
