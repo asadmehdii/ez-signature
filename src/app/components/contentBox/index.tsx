@@ -11,9 +11,9 @@ type ContentBoxProps = {
   mb?: number; 
 };
 
-const ContentBox: FC<ContentBoxProps> = ({ children, style, className, sx, mt=8, mb }) => {
+const ContentBox: FC<ContentBoxProps> = ({ children, style, className, sx, mt, mb }) => {
   return (
-    <Box sx={{...sx, px: { xs: 2, sm: 5, lg: "100px" }, mt, mb }}
+    <Box sx={{...sx, px: { xs: 2, sm: 5, lg: "100px" }, mt:mt, mb:mb }}
       component="div"
       className={className}
       style={style}

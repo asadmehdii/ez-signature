@@ -15,7 +15,7 @@ import Link from "next/link";
 import ContentBox from "@/app/components/contentBox";
 import Route from "@/app/utils/routes";
 
-const Login:FC = ()=>{
+const SignUp:FC = ()=>{
 const [hidePassword,setHidePassword] = useState<boolean>(true)
     const CustomTextField = styled(TextField)({
         '& .MuiOutlinedInput-root': {
@@ -42,7 +42,7 @@ const [hidePassword,setHidePassword] = useState<boolean>(true)
     return(
         <main >
         <Navbar showBtn={false}/>
-        <ContentBox>
+        <ContentBox mt={8}>
         <Grid pb={2} container rowGap={5} component={"div"} flexDirection={{xs:"column-reverse",md:"row"}} justifyContent={{xs:"flex-start",md:"space-evenly"}} alignItems={"center"}>
         <Box display="flex" width={{xs:"90%",sm:"430px",md:"370px",lg:"430px"}}>
         <Box m={"auto"}>
@@ -97,4 +97,4 @@ const [hidePassword,setHidePassword] = useState<boolean>(true)
     )
 }
 
-export default Login
+export default SignUp

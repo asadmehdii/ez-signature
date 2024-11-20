@@ -35,6 +35,7 @@ import Offer_1 from "../../assests/images/home/offer_1.png";
 import Offer_2 from "../../assests/images/home/offer_2.png";
 import Offer_3 from "../../assests/images/home/offer_3.png";
 import SignAnytime from "@/app/components/signAnytime";
+import ContentBox from "@/app/components/contentBox";
 
 const Home: FC = () => {
   return (
@@ -115,7 +116,7 @@ const Home: FC = () => {
         <Grid container margin={"auto"} rowSpacing={5} columnSpacing={3} paddingBottom={5}>
           <Card
             className="card"
-            padding={20}
+            padding={"20"}
             width={"450px"}
             height={"350px"}
             borderWidth={1}
@@ -148,7 +149,7 @@ const Home: FC = () => {
           </Card>
           <Card
             className="card"
-            padding={20}
+            padding={"20"}
             width={"450px"}
             height={"350px"}
             borderWidth={1}
@@ -183,7 +184,7 @@ const Home: FC = () => {
         <Grid container marginLeft={"auto"} spacing={5}>
           <Card
             className="card"
-            padding={20}
+            padding={"20"}
             width={"450px"}
             height={"350px"}
             borderWidth={1}
@@ -216,7 +217,7 @@ const Home: FC = () => {
           </Card>
           <Card
             className="card"
-            padding={20}
+            padding={"20"}
             width={"450px"}
             height={"350px"}
             borderWidth={1}
@@ -277,7 +278,7 @@ const Home: FC = () => {
             borderColor="#25252540"
             borderWidth={1}
             borderRadius={60}
-            padding={10}
+            padding={"10"}
             backgroundColor="#fcfcfc"
             style={{
               textAlign: "center",
@@ -314,7 +315,7 @@ const Home: FC = () => {
             borderColor="#25252540"
             borderWidth={1}
             borderRadius={60}
-            padding={10}
+            padding={"10"}
             backgroundColor="#fcfcfc"
             style={{
               textAlign: "center",
@@ -353,7 +354,7 @@ const Home: FC = () => {
             borderColor="#25252540"
             borderWidth={1}
             borderRadius={60}
-            padding={10}
+            padding={"10"}
             backgroundColor="#fcfcfc"
             style={{
               textAlign: "center",
@@ -390,10 +391,10 @@ const Home: FC = () => {
         </Grid>
       </Grid>
       {/* ----------------- */}
-      <SignAnytime/>
+      <ContentBox mt={8}><SignAnytime px={{xs:2,sm:4,lg:"30px"}}/></ContentBox>
       {/* ----------------- */}
 
-      <Grid container alignItems="center" paddingY={5} paddingX={{xs:3,lg:"30px",xl:"100px"}} component="div" className="offerCard_Grid">
+      <Grid container alignItems="center" mt={8} paddingX={{xs:3,lg:"30px",xl:"100px"}} component="div" className="offerCard_Grid">
         <Grid>
           <Text fontSize="55px" fontWeight="800" className="head_1">
             What We Offer
@@ -410,13 +411,13 @@ const Home: FC = () => {
             document with every custom info of your business.
           </Text>
         </Grid>
-        <Grid  maxWidth={"600px"} margin={"auto"}>
+        <Grid maxWidth={"600px"} margin={"auto"}>
           <Grid container gap={3} justifyContent={"center"}>
             <Card
               className="card_1"
               width={"220px"}
               height={"220px"}
-              padding={15}
+              padding={"15px"}
               borderRadius={20}
             >
               <Image src={Offer_1} alt="image_here" />
@@ -443,7 +444,7 @@ const Home: FC = () => {
               className="card_2"
               width={"220px"}
               height={"220px"}
-              padding={15}
+              padding={"15px"}
               borderRadius={20}
             >
               <Image src={Offer_2} alt="image_here" />
@@ -470,7 +471,7 @@ const Home: FC = () => {
               className="card_3"
               width={"220px"}
               height={"220px"}
-              padding={15}
+              padding={"15px"}
               borderRadius={20}
             >
               <Image src={Offer_3} alt="image_here" />
@@ -498,7 +499,7 @@ const Home: FC = () => {
       </Grid>
 
       {/* grid_5 start here */}
-      <Grid component={"div"} className="grid_5"  paddingY={5} paddingX={{xs:3,lg:"100px"}}>
+      <Grid component={"div"} className="grid_5"  mt={8} paddingX={{xs:3,lg:"100px"}}>
         <Text fontSize="55px" fontWeight="800" className="head_1">
           Discover how EzSignature can help you run your business
         </Text>
@@ -531,6 +532,7 @@ const Home: FC = () => {
                 gap={2}
                 py={4}
                 height={"100%"}
+                justifyContent={"center"}
               >
                 <Grid container width={"100%"} height={"85%"}  justifyContent={"space-between"} alignItems={"center"}>
                   <Box component={"div"} margin={0} padding={0}>
@@ -638,13 +640,13 @@ const Home: FC = () => {
                   </Box>
                 </Grid>
                 <Button
+                 style={{margin:'auto'}}
                   color={"#fff"}
                   fontSize={18}
                   fontWeight={"600"}
                   backgroundColor="#263238"
                   width={170}
                   height={55}
-                  style={{margin:"auto"}}
                 >
                   Check out
                   <Image
@@ -659,15 +661,17 @@ const Home: FC = () => {
         </Grid>
       </Grid>
       {/* ----------------- */}
-         <SignAnytime maxWidth={710} isBtn={false} heading="Take Full Control Of Your Documents" text="The built-in document editor gives you all the tools you need to
+      <ContentBox mt={8}>
+         <SignAnytime px={{xs:2,sm:4,lg:"30px"}} isBtn={false} heading="Take Full Control Of Your Documents" text="The built-in document editor gives you all the tools you need to
             securely edit, send and sign documents in seconds."/>
+      </ContentBox>      
       {/* ----------------- */}
 
       <Grid
         container
         alignItems={"flex-end"}
         justifyContent={"space-evenly"}
-        marginY={4}
+        mt={10}
         gap={3}
       >
         <Image

@@ -12,7 +12,7 @@ const TermsAndConditions:FC = ()=>{
 <main className="termsConditions">
     <Navbar/>
     <PressLegalBanner heading="Terms & Conditions" text="Please read this agreement carefully before using this service." />
-    <ContentBox style={{lineHeight:"36px"}}>
+    <ContentBox style={{lineHeight:"36px"}} mt={9}>
         <Text className="heading_1" fontSize="60px" fontWeight="700">Ezsignature Terms of Use</Text>
         <Text fontSize="22px" margin={"25px 0"} fontWeight="600">Last Modified: December 12, 2022</Text>
         <Text fontSize="22px" margin={"25px 0"} fontWeight="600">The following are the terms and conditions for use of Ezsignature GmbH’s (“Ezsignature (formerly eversign)”, “we”, “us”, and “our”) website and 
@@ -100,7 +100,7 @@ const TermsAndConditions:FC = ()=>{
             <li>Interpretation. The headings to, and the division of these Terms into Sections, Subsections, Paragraphs, and Subparagraphs are for ease of reference only and will not in any way affect or be used in interpreting any of the provisions of these Terms. Unless the context otherwise requires, a reference to a Section, Subsection, Paragraph, Subparagraph or Schedule by number or letter is a reference to the appropriate Section, Subsection, Paragraph, Subparagraph or Schedule in these Terms. In these Terms, the singular of any term includes the plural and vice versa and the use of any term is equally applicable to any gender and where applicable to a corporate entity; and the conjunction “or” will be understood in its inclusive sense (and/or).</li>
         </ol>
     </ContentBox>
-   <MoreQuestion mt={10} mb={10}/>
+   <MoreQuestion mt={5} />
    <Footer/>
 </main>
     )

@@ -66,27 +66,20 @@
 }
 .pricing .doubleDivWithBg .rightDiv {
   background: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)),
-  url("../assests/images/contactUsCustomer.svg") no-repeat center;
+    url("../assests/images/contactUsCustomer.svg") no-repeat center;
   background-size: cover;
   height: 500px;
   display: flex;
-  justify-content: center;
-  flex-direction: column;
-  padding-left: 30px;
   box-sizing: border-box;
-  row-gap: 25px;
 }
 .pricing .doubleDivWithBg .leftDiv {
   background: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)),
-  url("../assests/images/application-programming-interface.svg") no-repeat center;
+    url("../assests/images/application-programming-interface.svg") no-repeat
+      center;
   background-size: cover;
   height: 500px;
   display: flex;
-  justify-content: center;
-  flex-direction: column;
-  padding-left: 30px;
   box-sizing: border-box;
-  row-gap: 25px;
 }
 @media screen and (max-width: 915px) {
   .pricing .grid_1 .text_1,

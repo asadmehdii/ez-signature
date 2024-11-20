@@ -12,6 +12,7 @@ import { SignCardContent, SignCardContentProps,FeatureFaqsQuestion } from "./con
 import Card from "@/app/components/card";
 import FAQs from "@/app/components/faqs";
 import Assests from "@/app/assests/images";
+import ContentBox from "@/app/components/contentBox";
 const Features:FC= ()=>{
     return(
         <main className="feature">
@@ -23,11 +24,11 @@ const Features:FC= ()=>{
                    <Button className="button">Start Tour</Button>
               </Grid>
             {/* --------------------------------- */}
-
+          <ContentBox>
             {/*grid 2 ---- Sign as easy steps  */}
-          <Grid  component={"div"} className="signSteps" padding={3} marginY={3}>
+          <Grid  component={"div"} className="signSteps" mt={8}>
           <Text fontSize="65px" fontWeight="700" className="head_1">Sign as easy steps</Text>
-           <Grid container marginY={2} columnSpacing={8} rowSpacing={6}>
+           <Grid container mt={5} columnSpacing={8} rowSpacing={6}>
             <Box component={"div"} width={"310px"}>
                 <Image src={Assests.Send} alt="icon_here"/>
                 <Text className="heading">Send</Text>
@@ -51,10 +52,10 @@ const Features:FC= ()=>{
             {/* --------------------------------- */}
 
             {/*grid 3 ---- Sign as easy steps cards  */}
-            <Grid rowSpacing={6} component={"div"} className="signStepsCard" padding={3} columnSpacing={3} container justifyContent={"space-between"} alignItems={"center"}>
+            <Grid rowSpacing={6} mt={8} component={"div"} className="signStepsCard" columnSpacing={3} container justifyContent={"space-between"} alignItems={"center"}>
               {SignCardContent.map((value:SignCardContentProps,index:number)=>{
                 return(
-                    <Card key={`${value.text}_${index}`} className="cards">
+                    <Card key={`${value.text}_${index}`} className="cards" backgroundColor="#FCFCFC">
                     <Image src={value.icon} alt="icoon_here"/>
                     <Text className="heading">{value.heading}</Text>
                     <Text className="text">{value.text}</Text>
@@ -65,7 +66,8 @@ const Features:FC= ()=>{
             </Grid>
             {/* --------------------------------- */}
              <FAQs faqs={FeatureFaqsQuestion} heading="Frequently Asked Questions?" mt={8}/>
-             <MoreQuestion mt={12} mb={12}/>
+             </ContentBox>
+             <MoreQuestion mt={9}/>
              <SignAnytime/>
             <Footer/>
         </main>

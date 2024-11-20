@@ -9,6 +9,7 @@ import Link from "next/link";
 import Image from "next/image";
 import {TrustedSignature, TrustedSignatureProps, ProArticle,ProArticleProps, KnowledgeBase} from "./content"
 import Assests from "@/app/assests/images";
+import ContentBox from "@/app/components/contentBox";
 
 const HelpPage:FC = ()=>{
 const InputStyle = {
@@ -29,12 +30,13 @@ const InputStyle = {
               </Grid>
                 <Typography my={2} py={1} fontSize={18} fontWeight={600} textAlign={"center"} bgcolor={"#f4f4f4"}  variant="body1" style={{width:"100%"}}>For real-time uptime data please visit our Status Page. <Link href={"#"} style={{color:"#1DCDFE"}}>Click here.</Link></Typography>
             {/* --------------------------------- */}
+            <ContentBox>
             {/* Grid 2 ---- trusted electronic signature */}
-            <Box component={"div"} className="trustedElect" padding={3} marginY={3}>
+            <Box component={"div"} className="trustedElect" marginY={3}>
             <Text fontSize="65px" fontWeight="700" className="head_1">Trusted Electronic Signatures for Your Business</Text>
             <Text className="text_1" fontSize="24px" fontWeight="600">Take your electronic signatures to the next level with Ezsignature API, used by developers 
              worldwide to fully automate eSignature workflows.</Text>
-            <Grid container justifyContent={{xs:"center",sm:"flex-start"}} component={"div"} gap={3} rowSpacing={3} mt={3}>
+            <Grid container justifyContent={{xs:"center",sm:"space-between"}} component={"div"} rowSpacing={3} mt={3}>
              {TrustedSignature.map((value:TrustedSignatureProps)=>{
                 return(
              <Box key={value.title} className="trustedElectCard" component="div" sx={{borderRadius:"60px 60px 40px 40px",display:"flex",flexDirection:"column",justifyContent:"flex-start",alignItems:"center",width:{xs:"300px",sm:"320px"}, height:"300px", border:"1px solid #25252540"}}>
@@ -50,9 +52,9 @@ const InputStyle = {
             </Box>
             {/* --------------------------------- */}
             {/* Grid 3 ---- promoted article */}
-           <Box component={"div"} className="proArt" padding={3} marginY={3}>
+           <Box component={"div"} className="proArt" marginY={8}>
             <Text fontSize="65px" fontWeight="700" className="head_1">Promoted articles</Text>
-            <Grid container mt={4} columnGap={5} rowSpacing={3} wrap="wrap">
+            <Grid container mt={4} columnGap={5} rowSpacing={5} wrap="wrap">
               {ProArticle.map((value:ProArticleProps)=>{
                 return(
                 <Box key={value.title} display={"flex"} columnGap={2} width={{xs:"100%",sm:"75%",md:"400px"}} >
@@ -68,9 +70,9 @@ const InputStyle = {
            </Box>
             {/* --------------------------------- */}
             {/* Grid 4 ---- promoted article */}
-            <Box component={"div"} className="proArt" padding={3} marginY={3}>
+            <Box component={"div"} className="proArt" marginY={8}>
             <Text fontSize="65px" fontWeight="700" className="head_1">Knowledge Base</Text>
-            <Grid container mt={4} columnGap={3} rowSpacing={3} wrap="wrap">
+            <Grid container mt={4} columnGap={3} rowSpacing={5} wrap="wrap">
               {KnowledgeBase.map((value:ProArticleProps)=>{
                 return(
                 <Box key={value.title} display={"flex"} columnGap={2} width={{xs:"100%",sm:"75%",md:"400px"}} >
@@ -85,7 +87,7 @@ const InputStyle = {
             </Grid>
            </Box>
             {/* --------------------------------- */}
-
+            </ContentBox>
             <Footer/>
         </main>
     )

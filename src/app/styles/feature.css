@@ -48,7 +48,7 @@
 }
 .feature .signSteps .textWithBg {
   width: fit-content;
-  background-color: var(--secondary-color);
+  background-color: #34F5C6;
   color: var(--text-color);
   font-size: 14px;
   font-weight: 700;
@@ -59,8 +59,8 @@
 .feature .signStepsCard .cards {
   width: 380px !important;
   height: 330px !important;
-  border: 1px solid #1dcdfe;
-  border-radius: 50px;
+  border: 1px solid #252525 !important;
+  border-radius: 50px !important;
   padding-top: 20px;
   padding-bottom: 20px;
   padding-left: 25px;

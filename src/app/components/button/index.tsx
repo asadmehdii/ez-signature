@@ -1,5 +1,5 @@
 "use client";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { FC, CSSProperties, ReactNode, useState } from "react";
 
 type ButtonProps = {
@@ -37,17 +37,20 @@ const Button: FC<ButtonProps> = ({
   onBlur,
   onFocus,
   style,
-  to = "#"
+  to
 }) => {
   const [isPressed, setIsPressed] = useState(false);
-
+  const navigate = useRouter() 
   const handleMouseDown = () => setIsPressed(true);
   const handleMouseUp = () => setIsPressed(false);
 
   return (
-    <Link href={`${to}`}>
     <button
       className={className}
+      onClick ={()=>{
+        to && navigate.push(to)
+        onClick
+      }}
       style={{
         display: "flex",
         justifyContent: "center",
@@ -68,7 +71,6 @@ const Button: FC<ButtonProps> = ({
       }}
       onFocus={onFocus}
       onBlur={onBlur}
-      onClick={onClick}
       onMouseDown={handleMouseDown}
       onMouseUp={handleMouseUp}
       onMouseLeave={handleMouseUp}
@@ -76,7 +78,6 @@ const Button: FC<ButtonProps> = ({
     
     {children}
     </button>
-    </Link>
   );
 };
 

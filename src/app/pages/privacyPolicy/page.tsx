@@ -19,7 +19,7 @@ const PrivacyPolicy:FC = ()=>{
         <main>
           <Navbar/>
              <PressLegalBanner textWidth={800} heading="Privacy Policy" text="At Ezsignature we are committed to protecting your privacy. Please review this Privacy Policy carefully before using this service."/>
-           <ContentBox sx={{lineHeight:'36px'}}>  
+           <ContentBox mt={9} sx={{lineHeight:'36px'}}>  
              <Text fontSize="22px" margin={"25px 0"} fontWeight="600">Last Modified: February 8, 2023</Text>
              <Text fontSize="34px" marginTop={60} marginBottom={10} fontWeight="700">PRIVACY NOTICE</Text>
              <Text fontSize="22px" margin={"25px 0"} fontWeight="600">Apryse is committed to protecting and respecting your privacy. A reference to “Apryse”, “we”, “us” or “our” is a reference to Apryse Software Inc. 

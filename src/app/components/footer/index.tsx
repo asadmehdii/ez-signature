@@ -11,7 +11,7 @@ import { General, Developer, PressLegal ,MainFeature } from "./content";
 
 const Footer: FC = () => {
   return (
-    <ContentBox sx={{bgcolor:"#2191D0",pt:10,pb:3}}>
+    <ContentBox sx={{bgcolor:"#2191D0",pt:10,pb:3,}}>
       <Grid container rowSpacing={6} sx={{ justifyContent: { sm: "flex-start", lg: "center",},}}>
         <Grid size={{ sm: 5, md: 3, lg: 2 }}>
           <Text color="#fff" fontWeight="700" fontSize={"24px"} marginBottom={25}>General</Text>

@@ -21,7 +21,7 @@ const CookiePolicy:FC = ()=>{
     <main>
       <Navbar/>
       <PressLegalBanner textWidth={732} heading="Cookie Policy" text="At Ezsignature we use cookies in order to ensure optimal user experience, security and functionality of our platform."/>
-        <ContentBox style={{lineHeight:'36px'}}>
+        <ContentBox mt={9} style={{lineHeight:'36px'}}>
              <Text fontSize="22px" margin={"25px 0"} fontWeight="600">Last modified: 25-05-2018</Text>
              <Text fontSize="34px" marginTop={60} marginBottom={10} fontWeight="700">1. What are cookies?</Text>
              <Text fontSize="22px" margin={"25px 0"} fontWeight="600">A cookie is a small piece of text that our web server stores on your computer or mobile device, which your browser sends to us when you return 
@@ -89,7 +89,7 @@ const CookiePolicy:FC = ()=>{
     <Text fontSize="34px" marginTop={60}  marginBottom={0} fontWeight="700">Questions</Text>
     <Text fontSize="22px" marginTop={6} fontWeight="600">If you have any questions about our use of cookies, please email us at <Link target="_blank" href={"mailto:support@Ezsignature.com"} style={{color:"#1DCDFE"}}>support@Ezsignature.com</Link>.</Text>     
     </ContentBox>
-    <MoreQuestion mt={10} mb={10}/>
+      <MoreQuestion mt={5}/>
       <Footer/>
     </main>
     )

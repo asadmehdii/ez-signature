@@ -43,7 +43,7 @@ const Login:FC = ()=>{
     return(
         <main>
         <Navbar showBtn={false}/>
-        <ContentBox>
+        <ContentBox mt={8}>
         <Grid pb={2} container rowGap={5} columnSpacing={0.5} height={"100%"} flexDirection={{xs:"column-reverse",md:"row"}} justifyContent={{xs:"flex-start",md:"space-evenly"}} alignItems={"center"}>
         <Box display="flex" width={{xs:"100%",sm:"auto"}}>
         <Box width={{xs:"90%",sm:"430px",md:"370px",lg:"430px"}} m={"auto"}>
@@ -67,7 +67,7 @@ const Login:FC = ()=>{
           <Text fontSize="16px" fontWeight="600">Keep me signed in until I sign out</Text>  
           </Box>
           <Box display={"flex"} flexDirection={"column"} justifyContent={"center"} alignItems={"center"} my={1} maxWidth={"450px"}>
-             <Button style={{margin:"20px 0"}} fontSize={18} color="#fff" fontWeight="600" backgroundColor="var(--secondary-color)" borderRadius={25} width={"300px"} height={"50px"} onClick={()=>router.push("/pages/dashboard")}>Login</Button>
+             <Button style={{margin:"20px 0"}} fontSize={18} color="#fff" fontWeight="600" backgroundColor="var(--secondary-color)" borderRadius={25} width={"300px"} height={"50px"} to={Route.DASHBOARD}>Login</Button>
              <Box my={1} display={"flex"} justifyContent={"center"} alignItems={"center"} gap={3}>
              <hr style={{ width: '40px', borderColor: "#cdcdcd", borderWidth: "1px", borderStyle: "solid" }} />
              <Text fontSize="14px" fontWeight="500" color="#cdcdcd">Or Login With</Text>

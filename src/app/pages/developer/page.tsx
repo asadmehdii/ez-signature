@@ -32,7 +32,7 @@ return(
     </Grid>
     {/* ------------------------- */}
     {/* Grid 2 --- why ezsignture API */}
-    <Box component={"div"}  paddingX={{xs:2,sm:5,lg:"100px"}} mt={{xs:20,md:35}}>
+    <Box paddingX={{xs:2,sm:5,lg:"100px"}} mt={{xs:20,md:35}}>
     <Grid component={"div"} className="whyEzApiI">
             <Text fontSize="60px" fontWeight="700" className="head_1">Why Ezsignature API?</Text>
     <Grid container mt={7} spacing={8}>
@@ -66,7 +66,7 @@ return(
     </Box>
      {/* ------------------------- */}
     {/* Grid 4 --- Api pricing */}
-    <Box mt={18} component="div" className="APIPricing">
+    <Box mt={6} component="div" className="APIPricing">
     <Grid container justifyContent={"space-between"} alignItems={"center"} rowSpacing={5}>    
     <Text fontSize="60px" fontWeight="700" className="head_1">Volume EzSignature API Pricing</Text>
      <Box m={{xs:"auto",xl:"0"}} display={"flex"} alignItems={"center"} justifyContent={"space-evenly"} component="div" width={"282px"} height={"65px"} borderRadius={"51px"} bgcolor={"#18395B"}>
@@ -83,7 +83,7 @@ return(
      and our team will assist you shortly."/>
     <FAQs faqs={FAQsData} heading="E-signature api FAQ" mt={10}/>
      {/* ------------------------- */}
-      <Grid container alignItems={"flex-end"} justifyContent={"space-between"} my={10} rowSpacing={4}>
+      <Grid container alignItems={"flex-end"} justifyContent={"space-between"} mt={8} mb={12} rowSpacing={4}>
        <Box component={"div"} maxWidth={"752px"}>
         <Image src={Assests.QuestionMark} alt="img_here"/>
         <Text margin={"8px 0"} fontSize="60px" fontWeight="700" className="head_1">Ready to start Integration?</Text>

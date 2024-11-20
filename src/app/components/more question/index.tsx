@@ -25,7 +25,7 @@ const MoreQuestion: FC<MoreQuestionProps> = ({mt,mb}) => {
       mb={mb}
     >
       <Box component={"div"} maxWidth={812}>
-        <Typography fontSize={{xs:"34px",md:"60px"}} fontWeight="700">MORE QUESTIONS?</Typography>
+        <Typography fontSize={{xs:"38px",md:"60px"}} fontWeight="700">MORE QUESTIONS?</Typography>
         <Typography mt={2} fontSize={{xs:"18px",md:"24px"}} fontWeight="500">The Ezsignature platform comes with an extensive Help-Center focused 
          on answering any questions you may have — maybe even before you have them. </Typography>
         <Button style={{marginTop:'30px'}} borderRadius={19} width={288} height={70} backgroundColor="#263238" color="#fff" fontSize={24} fontWeight="500"> Enter Help Center </Button>

@@ -10,6 +10,7 @@ TERM_CONDITION : "/pages/term&condition" ,
 CONATCT_US : "/pages/contactUs", 
 COOKIE_POLICY : "/pages/cookiePolicy",
 PRIVACY_POLICY :"/pages/privacyPolicy",
+DASHBOARD:"/pages/dashboard"
 }
 
 export default Route

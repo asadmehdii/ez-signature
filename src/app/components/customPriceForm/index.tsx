@@ -34,7 +34,6 @@ const CustomForm:FC<formProps> = (props)=>{
         companyName:"",
         message:"",
     });
-    console.table(formValues)
       const handleInputChange = (field: string, newValue: number | string) => {
         if (newValue === "") {
           setFormValues((prevValues) => ({

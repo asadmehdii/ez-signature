@@ -11,8 +11,8 @@ const ContactUs :FC = ()=>{
         <main className="contactUS">
             <Navbar/>
             <PressLegalBanner textWidth={970} heading="We&apos;d love to hear from you" text="There&apos;s an entire team dedicated to making your life easier, for free. But don&apos;t take our word for it — use the link to the Help-Center below to reach out to us and see for yourself." isButton={true} btnText="START SIGNING NOW" />
-            <ContentBox><FAQs mt={15} faqs={ContactFaqsQuestion} heading="Frequently Asked Questions?"/></ContentBox>
-            <MoreQuestion mt={15} mb={15}/>
+            <ContentBox><FAQs mt={8} faqs={ContactFaqsQuestion} heading="Frequently Asked Questions?"/></ContentBox>
+            <MoreQuestion mt={8}/>
             <Footer/>
         </main>
     )
