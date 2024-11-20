@@ -7,14 +7,14 @@ import AlarmOutlinedIcon from '@mui/icons-material/AlarmOutlined';
 import TaskAltOutlinedIcon from '@mui/icons-material/TaskAltOutlined';
 import Text from '@/app/components/text';
 import Grid from "@mui/material/Grid2";
-import { Tooltip } from '@mui/material';
 
 
 
 const Dashboard: React.FC = () => {
     return(
         <>
-                <Grid 
+              {/* navbar */}
+              <Grid 
               component={"div"}
               container
               width={"100%"}
@@ -74,21 +74,20 @@ const Dashboard: React.FC = () => {
             borderRadius={3}
           >
             <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', backgroundColor: '#cccccc', margin: '0', padding: '0 19px'}}>
-            <h3>Recent Activity</h3>
+            <h3 style={{}}>Recent Activity</h3>
             <Link href=''>View Activity log</Link>
             </div>
            <Grid>
             <Link href=''>
-            <Tooltip title="Add">
             <Text
              color='#1e88e5'
              paddingLeft={12}
              paddingRight={12}
-             fontSize='17px'             
+             fontSize='17px'
+             
             >
                 Oct 09 2024- document Appointment Leter.pdf completed by user@gmail.com
             </Text>
-            </Tooltip>
             </Link>
             <hr/>
             <Link href=''>

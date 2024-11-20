@@ -1,0 +1,37 @@
+.termsConditions .grid_1 {
+  background: url("../assests/images/bannerBg.png") no-repeat center;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 0px;
+}
+.termsConditions .head_1 {
+  font-size: 97px;
+  font-weight: 800;
+  color: var(--text-color);
+  /* text-align: center; */
+}
+.termsConditions .text_1 {
+  font-size: 24px;
+  font-weight: 700 ;
+  margin: 0px auto ;
+  color: var(--text-color);
+  max-width: 722px;
+  /* text-align: center; */
+}
+
+@media screen and (max-width: 900px) {
+  .termsConditions .text_1 {
+    font-size: 18px;
+  }
+  .termsConditions .head_1 {
+    font-size: 34px;
+  }
+  .termsConditions .heading_1 {
+    font-size: 28px !important;
+  }
+}
+
+  

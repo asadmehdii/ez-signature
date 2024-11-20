@@ -24,7 +24,6 @@ import BusinessImage_5 from "../../assests/images/home/bussinessImage5.png";
 import BusinessImage_6 from "../../assests/images/home/bussinessImage6.png";
 import BusinessImage_7 from "../../assests/images/home/bussinessImage7.png";
 import HomeImage_1 from "../../assests/images/home/homeIImage_1.svg";
-import HomeImage_2 from "../../assests/images/home/homeIImage_2.png";
 import Categ_1 from "../../assests/images/home/categ_1.png"
 import Categ_2 from "../../assests/images/home/categ_2.png";
 import Categ_3 from "../../assests/images/home/categ_3.png";
@@ -35,6 +34,7 @@ import ArrowIcon from "../../assests/images/home/arrowIcon.png";
 import Offer_1 from "../../assests/images/home/offer_1.png";
 import Offer_2 from "../../assests/images/home/offer_2.png";
 import Offer_3 from "../../assests/images/home/offer_3.png";
+import SignAnytime from "@/app/components/signAnytime";
 
 const Home: FC = () => {
   return (
@@ -46,7 +46,7 @@ const Home: FC = () => {
         className="grid_1"
         container
         alignItems={"center"}
-        paddingY={"5"}
+        paddingY={5}
         paddingX={{xs:3,lg:"100px"}}
         justifyContent={"space-evenly"}
         flexDirection={{ xs: "column-reverse", md: "row" }}
@@ -101,7 +101,7 @@ const Home: FC = () => {
         className="grid_2"
         container
         alignItems={"center"}
-        paddingY={"5"}
+        paddingY={5}
         paddingX={{xs:3,lg:"100px"}}
       >
         <Text className="head_1" fontSize="55px" fontWeight="700">
@@ -112,10 +112,10 @@ const Home: FC = () => {
           readable <br className="removeBreak" />
           content of a page when looking at its layout.
         </Text>
-        <Grid container margin={"auto"} rowSpacing={5} columnSpacing={3} paddingBottom={"5"}>
+        <Grid container margin={"auto"} rowSpacing={5} columnSpacing={3} paddingBottom={5}>
           <Card
             className="card"
-            padding={"20"}
+            padding={20}
             width={"450px"}
             height={"350px"}
             borderWidth={1}
@@ -148,7 +148,7 @@ const Home: FC = () => {
           </Card>
           <Card
             className="card"
-            padding={"20"}
+            padding={20}
             width={"450px"}
             height={"350px"}
             borderWidth={1}
@@ -183,7 +183,7 @@ const Home: FC = () => {
         <Grid container marginLeft={"auto"} spacing={5}>
           <Card
             className="card"
-            padding={"20"}
+            padding={20}
             width={"450px"}
             height={"350px"}
             borderWidth={1}
@@ -216,7 +216,7 @@ const Home: FC = () => {
           </Card>
           <Card
             className="card"
-            padding={"20"}
+            padding={20}
             width={"450px"}
             height={"350px"}
             borderWidth={1}
@@ -257,7 +257,7 @@ const Home: FC = () => {
         className="grid_3"
         container
         alignItems={"center"}
-        paddingY={"5"}
+        paddingY={5}
         paddingX={{xs:3,lg:"100px"}}
       >
         <Text className="head_1" fontSize="60px" fontWeight="700">
@@ -277,7 +277,7 @@ const Home: FC = () => {
             borderColor="#25252540"
             borderWidth={1}
             borderRadius={60}
-            padding={"10"}
+            padding={10}
             backgroundColor="#fcfcfc"
             style={{
               textAlign: "center",
@@ -314,7 +314,7 @@ const Home: FC = () => {
             borderColor="#25252540"
             borderWidth={1}
             borderRadius={60}
-            padding={"10"}
+            padding={10}
             backgroundColor="#fcfcfc"
             style={{
               textAlign: "center",
@@ -353,7 +353,7 @@ const Home: FC = () => {
             borderColor="#25252540"
             borderWidth={1}
             borderRadius={60}
-            padding={"10"}
+            padding={10}
             backgroundColor="#fcfcfc"
             style={{
               textAlign: "center",
@@ -390,56 +390,10 @@ const Home: FC = () => {
         </Grid>
       </Grid>
       {/* ----------------- */}
-
-      {/* grid_4 start here */}
-      <Grid
-        component={"div"}
-        className="grid_4"
-        container
-        alignItems={"center"}
-        paddingY={"5"}
-        paddingX={{xs:3,lg:"100px"}}
-        marginY={10}
-        flexDirection={{ xs: "column-reverse", md: "row" }}
-      >
-        <Grid size={{ xs: 12, md: 5, lg: 6 }}>
-          <Text fontSize="55px" fontWeight="800" className="head_1">
-            Sign anytime, anywhere, on any device
-          </Text>
-          <Text
-            fontSize="22px"
-            fontWeight="600"
-            marginBottom={20}
-            marginTop={20}
-            className="text_1"
-          >
-            Experience the ease of signing your documents with EzSignature
-            anytime, anywhere. Use your PC, tablet, or mobile device for secure
-            signing at home, in the office, or on the go.
-          </Text>
-          <Box component={"div"} display={"flex"} columnGap={2}>
-            <Button
-              backgroundColor="var(--secondary-color)"
-              color="#fff"
-              height={76}
-              width={200}
-              borderRadius={15}
-            >
-              Sign up for free
-            </Button>
-          </Box>
-        </Grid>
-        <Grid size={{ xs: 12, md: 7, lg: 6 }}>
-          <Image
-            style={{ width: "100%", height: "100%" }}
-            src={HomeImage_2}
-            alt="image_here"
-          />
-        </Grid>
-      </Grid>
+      <SignAnytime/>
       {/* ----------------- */}
 
-      <Grid container alignItems="center" paddingY={"5"} paddingX={{xs:3,lg:"30px",xl:"100px"}} component="div" className="offerCard_Grid">
+      <Grid container alignItems="center" paddingY={5} paddingX={{xs:3,lg:"30px",xl:"100px"}} component="div" className="offerCard_Grid">
         <Grid>
           <Text fontSize="55px" fontWeight="800" className="head_1">
             What We Offer
@@ -462,7 +416,7 @@ const Home: FC = () => {
               className="card_1"
               width={"220px"}
               height={"220px"}
-              padding={"15"}
+              padding={15}
               borderRadius={20}
             >
               <Image src={Offer_1} alt="image_here" />
@@ -489,7 +443,7 @@ const Home: FC = () => {
               className="card_2"
               width={"220px"}
               height={"220px"}
-              padding={"15"}
+              padding={15}
               borderRadius={20}
             >
               <Image src={Offer_2} alt="image_here" />
@@ -516,7 +470,7 @@ const Home: FC = () => {
               className="card_3"
               width={"220px"}
               height={"220px"}
-              padding={"15"}
+              padding={15}
               borderRadius={20}
             >
               <Image src={Offer_3} alt="image_here" />
@@ -544,7 +498,7 @@ const Home: FC = () => {
       </Grid>
 
       {/* grid_5 start here */}
-      <Grid component={"div"} className="grid_5"  paddingY={"5"} paddingX={{xs:3,lg:"100px"}}>
+      <Grid component={"div"} className="grid_5"  paddingY={5} paddingX={{xs:3,lg:"100px"}}>
         <Text fontSize="55px" fontWeight="800" className="head_1">
           Discover how EzSignature can help you run your business
         </Text>
@@ -579,7 +533,7 @@ const Home: FC = () => {
                 height={"100%"}
               >
                 <Grid container width={"100%"} height={"85%"}  justifyContent={"space-between"} alignItems={"center"}>
-                  <Box component={"div"} margin={0} padding={"0"}>
+                  <Box component={"div"} margin={0} padding={0}>
                     <Box
                       component={"div"}
                       display={"flex"}
@@ -635,7 +589,7 @@ const Home: FC = () => {
                       <Text fontSize="18px" fontWeight="600">Practice Continuation Agreements</Text>
                     </Box>
                   </Box>
-                  <Box component={"div"} margin={0} padding={"0"}>
+                  <Box component={"div"} margin={0} padding={0}>
                     <Box
                       component={"div"}
                       display={"flex"}
@@ -705,41 +659,8 @@ const Home: FC = () => {
         </Grid>
       </Grid>
       {/* ----------------- */}
-
-      {/* grid_6 start here */}
-      <Grid
-        component={"div"}
-        className="grid_6"
-        container
-        alignItems={"center"}
-         paddingY={"5"}
-        paddingX={{xs:3,lg:"100px"}}
-        marginY={10}
-        flexDirection={{ xs: "column-reverse", md: "row" }}
-      >
-        <Grid size={{ xs: 12, md: 5, lg: 6 }}>
-          <Text fontSize="55px" fontWeight="800" className="head_1">
-            Take Full Control Of Your Documents
-          </Text>
-          <Text
-            fontSize="22px"
-            fontWeight="600"
-            marginBottom={20}
-            marginTop={20}
-            className="text_1"
-          >
-            The built-in document editor gives you all the tools you need to
-            securely edit, send and sign documents in seconds.
-          </Text>
-        </Grid>
-        <Grid size={{ xs: 12, md: 7, lg: 6 }}>
-          <Image
-            style={{ width: "100%", height: "100%" }}
-            src={HomeImage_2}
-            alt="image_here"
-          />
-        </Grid>
-      </Grid>
+         <SignAnytime maxWidth={710} isBtn={false} heading="Take Full Control Of Your Documents" text="The built-in document editor gives you all the tools you need to
+            securely edit, send and sign documents in seconds."/>
       {/* ----------------- */}
 
       <Grid

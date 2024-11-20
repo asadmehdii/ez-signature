@@ -8,7 +8,7 @@ import AutoAwesomeMosaicOutlinedIcon from "@mui/icons-material/AutoAwesomeMosaic
 
  const SidebarData  = [
   {  
-    icon: <AutoAwesomeMosaicOutlinedIcon />,  // Use JSX syntax here
+    icon: <AutoAwesomeMosaicOutlinedIcon />,  
     title: "Dashboard"
   },
   {  

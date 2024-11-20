@@ -85,15 +85,15 @@
 
 @media screen and (max-width: 600px) {
   .home .head_1 {
-    font-size: 34px !important;
+    font-size: 32px !important;
   }
-  .home .text_1 {
-    font-size: 20px !important;
+  .home .text_1{
+    font-size: 18px !important;  
   }
-  .home .card .cardHead {
-    font-size: 28px !important;
+  .home .grid_2 .cardHead{
+     font-size: 30px !important;
   }
-  .home .card .cardText {
+  .home .grid_2 .cardText{
     font-size: 18px !important;
   }
 }

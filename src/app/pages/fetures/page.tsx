@@ -8,7 +8,7 @@ import { Box } from "@mui/material";
 import Image from "next/image";
 import MoreQuestion from "@/app/components/more question";
 import SignAnytime from "@/app/components/signAnytime";
-import { SignCardContent, SignCardContentProps } from "./content";
+import { SignCardContent, SignCardContentProps,FeatureFaqsQuestion } from "./content";
 import Card from "@/app/components/card";
 import FAQs from "@/app/components/faqs";
 import Assests from "@/app/assests/images";
@@ -64,8 +64,8 @@ const Features:FC= ()=>{
               })}
             </Grid>
             {/* --------------------------------- */}
-             <FAQs/>
-             <MoreQuestion/>
+             <FAQs faqs={FeatureFaqsQuestion} heading="Frequently Asked Questions?" mt={8}/>
+             <MoreQuestion mt={12} mb={12}/>
              <SignAnytime/>
             <Footer/>
         </main>

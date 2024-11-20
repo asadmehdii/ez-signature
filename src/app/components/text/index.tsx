@@ -24,6 +24,7 @@ type TextProps = {
   padding?: number;
   textAlign?:"center"|"left"|"right"
   onclick?:()=>void
+  id?:string
 };
 
 
@@ -50,11 +51,13 @@ const Text: FC<TextProps> = (props) => {
     padding = 0,
     textAlign,
     onclick,
+    id,
   } = props;
 
 
   return (
     <p
+      id={id}
       className={className}
       onClick={onclick}
       style={{

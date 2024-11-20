@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 import { FC, CSSProperties, ReactNode, useState } from "react";
 
 type ButtonProps = {
@@ -17,6 +18,7 @@ type ButtonProps = {
   borderColor?: string;
   color?: string;
   borderRadius?: number;
+  to?:string
 };
 
 const Button: FC<ButtonProps> = ({
@@ -35,6 +37,7 @@ const Button: FC<ButtonProps> = ({
   onBlur,
   onFocus,
   style,
+  to = "#"
 }) => {
   const [isPressed, setIsPressed] = useState(false);
 
@@ -42,6 +45,7 @@ const Button: FC<ButtonProps> = ({
   const handleMouseUp = () => setIsPressed(false);
 
   return (
+    <Link href={`${to}`}>
     <button
       className={className}
       style={{
@@ -69,8 +73,10 @@ const Button: FC<ButtonProps> = ({
       onMouseUp={handleMouseUp}
       onMouseLeave={handleMouseUp}
     >
-      {children}
+    
+    {children}
     </button>
+    </Link>
   );
 };
 

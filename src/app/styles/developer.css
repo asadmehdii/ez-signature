@@ -1,0 +1,82 @@
+.developer .grid_1 {
+  background: url("../assests/images/Group\ 143.png") no-repeat;
+  background-position-x: center;
+  width: 100%;
+  object-fit: contain;
+}
+.developer .grid_1 .head_1 {
+  font-size: 97px;
+  font-weight: 800;
+  line-height: 90px;
+  color: var(--text-color);
+}
+.developer .grid_1 .text_1 {
+  font-size: 22px;
+  font-weight: 700 !important;
+  margin: 25px auto !important;
+  color: var(--text-color);
+  max-width: 722px;
+}
+.developer .grid_1 .button_1 {
+  border: 1px solid var(--text-color) !important;
+  width: 246px !important;
+  border-radius: 19px !important;
+  height: 62px !important;
+  color: #fff;
+  font-size: 22px !important;
+  font-weight: 600 !important;
+}
+.developer .grid_1 .button_2 {
+  width: 225px !important;
+  background-color: var(--secondary-color) !important;
+  border-radius: 19px !important;
+  height: 62px !important;
+  color: #fff !important;
+  font-size: 22px !important;
+  font-weight: 600 !important;
+}
+.developer .grid_3 .electCard {
+  width: 300px;
+  height: 400px;
+  border: 1px solid var(--text-color);
+  background-color: #fcfcfc !important;
+  border-radius: 60px 60px 24px 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  text-align: center;
+}
+.developer .grid_3 .electCard .btn {
+  border: 1px solid #263238 !important;
+  font-size: 14px !important;
+  font-weight: 700 !important;
+  height: 48px !important;
+  width: 158px !important;
+  border-radius: 11px !important;
+  color: #263238 !important;
+}
+.developer .grid_3 .electCard .btn:hover {
+  color: #fff !important;
+  background-color: #263238 !important;
+}
+.developer .APIPricing .BtnAvtive {
+  background-color: var(--secondary-color) !important;
+}
+.developer .APIPricing .cardBoldText{
+
+}
+@media screen and (max-width: 900px) {
+  .developer .grid_1 .text_1 {
+    font-size: 18px;
+  }
+  .developer .grid_1 .head_1 {
+    font-size: 46px;
+    line-height: 50px;
+  }
+}
+@media screen and (max-width: 600px) {
+  .developer .head_1 {
+    font-size: 38px !important;
+  }
+}

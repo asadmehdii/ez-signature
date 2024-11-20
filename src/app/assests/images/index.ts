@@ -22,18 +22,44 @@ import Manage from "./manage.png";
 import ContactUsCustomer from "./contactUsCustomer.svg";
 import ApiPricingPlan from "./application-programming-interface.svg";
 import LoginImg from "./loginPageImg.svg";
-import Instagram from "./instagram.png";
-import Google from "./google.png";
-import Linkedin from "./linkedin.png";
-import Facebook from "./facebook.png";
+import Instagram from "./instagram.svg";
+import Google from "./google.svg";
+import Linkedin from "./linkedin.svg";
+import Facebook from "./facebook.svg";
 import Recaptcha from "./recaptcha.svg";
 import SignUpImage from "./signupImage.svg";
 import EzSignature from "./ezSignwithbg.svg";
 import EzLetter from "./ezletter.svg";
 import EzManage from "./ezManage.svg";
 import EzBooks from "./ezBooks.svg";
-import StartWithBg from "./backgroundStar.svg"
+import StartWithBg from "./backgroundStar.svg";
+import ApiImage from "./apiPic.png";
+import DevSupport from "./devSupport.svg";
+import Scalable from "./scalable.svg";
+import SimpleSecure from "./simpleSecure.svg";
+import TransparentPricing from "./transparentPricing.svg";
+import BackgroundEllipse from "./feature/icon background.png";
+import EmbedSigning from "./embedSigning.svg";
+import EmbedRequesting from "./embedRequesting.svg";
+import AutomatWorkflow from "./automaWorkFlow.svg";
+import NoCode from "./noCode.svg";
+import SemiEllipse from "./home/Ellipse 11.png"
+import QuestionMark from "./startIntegration.svg"
+import anytimeBGSkeleton from "./signAnytimebg.png"
 const Assests = {
+  anytimeBGSkeleton,
+  EmbedSigning,
+  QuestionMark,
+  SemiEllipse,
+  EmbedRequesting,
+  AutomatWorkflow,
+  NoCode,
+  DevSupport,
+  BackgroundEllipse,
+  Scalable,
+  SimpleSecure,
+  TransparentPricing,
+  ApiImage,
   StartWithBg,
   Recaptcha,
   SignUpImage,
