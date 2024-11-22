@@ -43,10 +43,16 @@ import EmbedSigning from "./embedSigning.svg";
 import EmbedRequesting from "./embedRequesting.svg";
 import AutomatWorkflow from "./automaWorkFlow.svg";
 import NoCode from "./noCode.svg";
-import SemiEllipse from "./home/Ellipse 11.png"
-import QuestionMark from "./startIntegration.svg"
-import anytimeBGSkeleton from "./signAnytimebg.png"
+import SemiEllipse from "./home/Ellipse 11.png";
+import QuestionMark from "./startIntegration.svg";
+import anytimeBGSkeleton from "./signAnytimebg.png";
+import CardImage_5 from "./cardImage5.png";
+import CardImage_6 from "./cardImage6.png";
+import CardImage_7 from "./cardImage7.png";
 const Assests = {
+  CardImage_5,
+  CardImage_6,
+  CardImage_7,
   anytimeBGSkeleton,
   EmbedSigning,
   QuestionMark,

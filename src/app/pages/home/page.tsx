@@ -7,15 +7,13 @@ import Button from "@/app/components/button";
 import { Box } from "@mui/material";
 import Image from "next/image";
 import Card from "@/app/components/card";
+import {PaperlessCard, financtionalDepartments} from "./content"
 
 // imoprt Image here
 import CardImage_1 from "../../assests/images/home/cardImage1.png";
 import CardImage_2 from "../../assests/images/home/cardImage2.png";
 import CardImage_3 from "../../assests/images/home/cardImage3.png";
 import CardImage_4 from "../../assests/images/home/cardImage4.png";
-import CardImage_5 from "../../assests/images/home/cardImage5.png";
-import CardImage_6 from "../../assests/images/home/cardImage6.png";
-import CardImage_7 from "../../assests/images/home/cardIimage7.png";
 import BusinessImage_1 from "../../assests/images/home/bussinessImage1.png";
 import BusinessImage_2 from "../../assests/images/home/bussinessImage2.png";
 import BusinessImage_3 from "../../assests/images/home/bussinessImage3.png";
@@ -36,6 +34,7 @@ import Offer_2 from "../../assests/images/home/offer_2.png";
 import Offer_3 from "../../assests/images/home/offer_3.png";
 import SignAnytime from "@/app/components/signAnytime";
 import ContentBox from "@/app/components/contentBox";
+import Route from "@/app/utils/routes";
 
 const Home: FC = () => {
   return (
@@ -47,7 +46,6 @@ const Home: FC = () => {
         className="grid_1"
         container
         alignItems={"center"}
-        paddingY={5}
         paddingX={{xs:3,lg:"100px"}}
         justifyContent={"space-evenly"}
         flexDirection={{ xs: "column-reverse", md: "row" }}
@@ -72,6 +70,7 @@ const Home: FC = () => {
               height={76}
               width={206}
               borderRadius={15}
+              to={Route.SIGNUP}
             >
               Sign up for free
             </Button>
@@ -102,7 +101,7 @@ const Home: FC = () => {
         className="grid_2"
         container
         alignItems={"center"}
-        paddingY={5}
+        mt={8}
         paddingX={{xs:3,lg:"100px"}}
       >
         <Text className="head_1" fontSize="55px" fontWeight="700">
@@ -116,7 +115,7 @@ const Home: FC = () => {
         <Grid container margin={"auto"} rowSpacing={5} columnSpacing={3} paddingBottom={5}>
           <Card
             className="card"
-            padding={"20"}
+            padding={"20px"}
             width={"450px"}
             height={"350px"}
             borderWidth={1}
@@ -149,7 +148,7 @@ const Home: FC = () => {
           </Card>
           <Card
             className="card"
-            padding={"20"}
+            padding={"20px"}
             width={"450px"}
             height={"350px"}
             borderWidth={1}
@@ -184,7 +183,7 @@ const Home: FC = () => {
         <Grid container marginLeft={"auto"} spacing={5}>
           <Card
             className="card"
-            padding={"20"}
+            padding={"20px"}
             width={"450px"}
             height={"350px"}
             borderWidth={1}
@@ -217,7 +216,7 @@ const Home: FC = () => {
           </Card>
           <Card
             className="card"
-            padding={"20"}
+            padding={"20px"}
             width={"450px"}
             height={"350px"}
             borderWidth={1}
@@ -258,7 +257,7 @@ const Home: FC = () => {
         className="grid_3"
         container
         alignItems={"center"}
-        paddingY={5}
+        mt={12}
         paddingX={{xs:3,lg:"100px"}}
       >
         <Text className="head_1" fontSize="60px" fontWeight="700">
@@ -272,129 +271,23 @@ const Home: FC = () => {
           paperwork out of the way and close important deals faster.
         </Text>
         <Grid container justifyContent={"center"} margin={"auto"} columnSpacing={2} rowSpacing={5}>
-          <Card
-            height="380px"
-            width="300px"
-            borderColor="#25252540"
-            borderWidth={1}
-            borderRadius={60}
-            padding={"10"}
-            backgroundColor="#fcfcfc"
-            style={{
-              textAlign: "center",
-              display: "flex",
-              justifyContent: "space-evenly",
-              alignItems: "center",
-              flexDirection: "column",
-            }}
-          >
-            <Image src={CardImage_5} alt="img_here" />
-            <Text fontSize="24px" fontWeight="700">
-              Individuals & Freelancers
-            </Text>
-            <Text fontSize="16px" fontWeight="500" color="#232323">
-              Take control of your digital work and securely manage your
-              documents in the cloud, regardless of the type of document that
-              needs signing.
-            </Text>
-            <Button
-              fontSize={16}
-              fontWeight="700"
-              height={44}
-              width={160}
-              borderRadius={19}
-              backgroundColor="#000"
-              color="#fff"
-            >
-              Select Now
-            </Button>
-          </Card>
-          <Card
-            height="380px"
-            width="300px"
-            borderColor="#25252540"
-            borderWidth={1}
-            borderRadius={60}
-            padding={"10"}
-            backgroundColor="#fcfcfc"
-            style={{
-              textAlign: "center",
-              display: "flex",
-              justifyContent: "space-evenly",
-              alignItems: "center",
-              flexDirection: "column",
-            }}
-          >
-            <Image src={CardImage_6} alt="img_here" />
-            <Text fontSize="24px" fontWeight="700">
-              Small & Medium Businesses
-            </Text>
-            <Text fontSize="16px" fontWeight="500" color="#232323">
-              Focus on the really important parts of your business, accelerate
-              sales and proposal paperwork, close deals faster and save more
-              money.
-            </Text>
-            <Button
-              fontSize={16}
-              fontWeight="700"
-              height={44}
-              width={160}
-              borderRadius={19}
-              borderColor="#000"
-              borderWidth={1}
-              backgroundColor="#000"
-              color="#fff"
-            >
-              Select Now
-            </Button>
-          </Card>
-          <Card
-            height="380px"
-            width="300px"
-            borderColor="#25252540"
-            borderWidth={1}
-            borderRadius={60}
-            padding={"10"}
-            backgroundColor="#fcfcfc"
-            style={{
-              textAlign: "center",
-              display: "flex",
-              justifyContent: "space-evenly",
-              alignItems: "center",
-              flexDirection: "column",
-            }}
-          >
-            <Image
-              className="backgroundImage"
-              src={CardImage_7}
-              alt="img_here"
-            />
-            <Text fontSize="24px" fontWeight="700" marginTop={40}>
-              Enterprises
-            </Text>
-            <Text fontSize="16px" fontWeight="500" color="#232323">
-              Empower workers with secure signatures, reduce document turnaround
-              time, save countless hours and preserve nature at the same time.
-            </Text>
-            <Button
-              height={44}
-              width={160}
-              borderRadius={19}
-              backgroundColor="#000"
-              color="#fff"
-              fontSize={16}
-              fontWeight="700"
-            >
-              Select Now
-            </Button>
-          </Card>
+          {PaperlessCard.map((data)=>{
+            return(
+           <Box key={data.text} height="380px" width={{xs:"300px",md:"29%"}}
+             style={{border:'1px solid #25252540',borderRadius:"60px",padding:"10px", backgroundColor:"#fcfcfc",textAlign: "center", display: "flex", justifyContent: "space-evenly",alignItems: "center", flexDirection: "column",}}>
+            <Image src={data.icon} alt="img_here" />
+            <Text fontSize="24px" fontWeight="700"> {data.title} </Text>
+            <Text fontSize="16px" fontWeight="500" color="#232323">{data.text}</Text>
+            <Button fontSize={16} fontWeight="700" height={44} width={160} borderRadius={19} backgroundColor="#000" color="#fff"> Select Now </Button>
+          </Box>
+          )})}
         </Grid>
       </Grid>
       {/* ----------------- */}
-      <ContentBox mt={8}><SignAnytime px={{xs:2,sm:4,lg:"30px"}}/></ContentBox>
+      <ContentBox mt={12}><SignAnytime px={{xs:2,sm:4,lg:"30px"}}/></ContentBox>
       {/* ----------------- */}
 
-      <Grid container alignItems="center" mt={8} paddingX={{xs:3,lg:"30px",xl:"100px"}} component="div" className="offerCard_Grid">
+      <Grid container flexDirection={{xs:"column",lg:"row"}} justifyContent={{xs:"flex-start",lg:"space-between"}} alignItems={{lg:"center"}} mt={12} paddingX={{xs:3,lg:"30px",xl:"100px"}} component="div" className="offerCard_Grid">
         <Grid>
           <Text fontSize="55px" fontWeight="800" className="head_1">
             What We Offer
@@ -411,13 +304,10 @@ const Home: FC = () => {
             document with every custom info of your business.
           </Text>
         </Grid>
-        <Grid maxWidth={"600px"} margin={"auto"}>
+        <Grid maxWidth={{xs:"90%",lg:"600px"}} >
           <Grid container gap={3} justifyContent={"center"}>
             <Card
               className="card_1"
-              width={"220px"}
-              height={"220px"}
-              padding={"15px"}
               borderRadius={20}
             >
               <Image src={Offer_1} alt="image_here" />
@@ -441,11 +331,7 @@ const Home: FC = () => {
               </Button>
             </Card>
             <Card
-              className="card_2"
-              width={"220px"}
-              height={"220px"}
-              padding={"15px"}
-              borderRadius={20}
+              className="card_1"
             >
               <Image src={Offer_2} alt="image_here" />
               <Text fontSize={"18px"} fontWeight="700">
@@ -468,11 +354,7 @@ const Home: FC = () => {
               </Button>
             </Card>
             <Card
-              className="card_3"
-              width={"220px"}
-              height={"220px"}
-              padding={"15px"}
-              borderRadius={20}
+              className="card_1"
             >
               <Image src={Offer_3} alt="image_here" />
               <Text fontSize={"18px"} fontWeight="700">
@@ -498,12 +380,10 @@ const Home: FC = () => {
         </Grid>
       </Grid>
 
-      {/* grid_5 start here */}
-      <Grid component={"div"} className="grid_5"  mt={8} paddingX={{xs:3,lg:"100px"}}>
-        <Text fontSize="55px" fontWeight="800" className="head_1">
-          Discover how EzSignature can help you run your business
-        </Text>
-        <Grid container gap={2} alignItems={"center"} marginY={4} justifyContent={"center"}>
+      {/* grid_5 ---- Discover how EzSignature can help you run your business & financtional department */}
+      <Grid component={"div"} className="grid_5"  mt={12} paddingX={{xs:3,lg:"100px"}}>
+        <Text fontSize="55px" fontWeight="800" className="head_1"> Discover how EzSignature can help you run your business </Text>
+        <Grid container gap={2} alignItems={"center"} mt={5} justifyContent={"center"}>
           <Image style={{width:'146px',height:"90px",objectFit:"contain"}} src={BusinessImage_1} alt="image_here" />
           <Image style={{width:'156px',height:"128px",objectFit:"contain"}} src={BusinessImage_2} alt="image_here" />
           <Image style={{width:'146px',height:"90px",objectFit:"contain"}} src={BusinessImage_3} alt="image_here" />
@@ -512,156 +392,35 @@ const Home: FC = () => {
           <Image style={{width:'146px',height:"90px",objectFit:"contain"}} src={BusinessImage_6} alt="image_here" />
           <Image style={{width:'146px',height:"90px",objectFit:"contain"}} src={BusinessImage_7} alt="image_here" />
         </Grid>
-        <Grid container justifyContent={"center"}>
-          <Image
-            src={FinancialDeppartment}
-            style={{ width: "100%", objectFit: "contain" }}
-            alt="img_here"
-            priority={true}
-          />
-          <div className="financtionalDepartmentCard">
-            <Card
-              height="100%"
-              width="100%"
-              backgroundColor="#f3fefd"
-              borderRadius={78}
-            >
-              <Grid
-                container
-                paddingX={{xs:2,md:8}}
-                gap={2}
-                py={4}
-                height={"100%"}
-                justifyContent={"center"}
-              >
-                <Grid container width={"100%"} height={"85%"}  justifyContent={"space-between"} alignItems={"center"}>
-                  <Box component={"div"} margin={0} padding={0}>
-                    <Box
-                      component={"div"}
-                      display={"flex"}
-                      columnGap={2}
-                      alignItems={"center"}
-                    >
-                      <Image src={Star} alt="image_here" />
-                      <Text fontSize="18px" fontWeight="600">NDAs</Text>
-                    </Box>
-                    <Box
-                      component={"div"}
-                      display={"flex"}
-                      columnGap={2}
-                      alignItems={"center"}
-                    >
-                      <Image src={Star} alt="image_here" />
-                      <Text fontSize="18px" fontWeight="600">Asset Purchase Agreements</Text>
-                    </Box>
-                    <Box
-                      component={"div"}
-                      display={"flex"}
-                      columnGap={2}
-                      alignItems={"center"}
-                    >
-                      <Image src={Star} alt="image_here" />
-                      <Text fontSize="18px" fontWeight="600">Engagement Letters</Text>
-                    </Box>
-                    <Box
-                      component={"div"}
-                      display={"flex"}
-                      columnGap={2}
-                      alignItems={"center"}
-                    >
-                      <Image src={Star} alt="image_here" />
-                      <Text fontSize="18px" fontWeight="600">Independent Contractor Agreements</Text>
-                    </Box>
-                    <Box
-                      component={"div"}
-                      display={"flex"}
-                      columnGap={2}
-                      alignItems={"center"}
-                    >
-                      <Image src={Star} alt="image_here" />
-                      <Text fontSize="18px" fontWeight="600">Employment Contracts</Text>
-                    </Box>
-                    <Box
-                      component={"div"}
-                      display={"flex"}
-                      columnGap={2}
-                      alignItems={"center"}
-                    >
-                      <Image src={Star} alt="image_here" />
-                      <Text fontSize="18px" fontWeight="600">Practice Continuation Agreements</Text>
-                    </Box>
-                  </Box>
-                  <Box component={"div"} margin={0} padding={0}>
-                    <Box
-                      component={"div"}
-                      display={"flex"}
-                      columnGap={2}
-                      alignItems={"center"}
-                    >
-                      <Image src={Star} alt="image_here" />
-                      <Text fontSize="18px" fontWeight="600">Practice Continuation Agreements</Text>
-                    </Box>
-                    <Box
-                      component={"div"}
-                      display={"flex"}
-                      columnGap={2}
-                      alignItems={"center"}
-                    >
-                      <Image src={Star} alt="image_here" />
-                      <Text fontSize="18px" fontWeight="600">Power of Attorney Agreements </Text>
-                    </Box>
-                    <Box
-                      component={"div"}
-                      display={"flex"}
-                      columnGap={2}
-                      alignItems={"center"}
-                    >
-                      <Image src={Star} alt="image_here" />
-                      <Text fontSize="18px" fontWeight="600">Business Contracts </Text>
-                    </Box>
-                    <Box
-                      component={"div"}
-                      display={"flex"}
-                      columnGap={2}
-                      alignItems={"center"}
-                    >
-                      <Image src={Star} alt="image_here" />
-                      <Text fontSize="18px" fontWeight="600">Vendor Contracts</Text>
-                    </Box>
-                    <Box
-                      component={"div"}
-                      display={"flex"}
-                      columnGap={2}
-                      alignItems={"center"}
-                    >
-                      <Image src={Star} alt="image_here" />
-                      <Text fontSize="18px" fontWeight="600">Document Approvals</Text>
-                    </Box>
-                  </Box>
-                </Grid>
-                <Button
-                 style={{margin:'auto'}}
-                  color={"#fff"}
-                  fontSize={18}
-                  fontWeight={"600"}
-                  backgroundColor="#263238"
-                  width={170}
-                  height={55}
-                >
-                  Check out
-                  <Image
-                    style={{ marginLeft: "10px" }}
-                    src={ArrowIcon}
-                    alt="imghere"
-                  />
+          <Box component={"img"} src={FinancialDeppartment.src} sx={{width:"100%", maxWidth:"700px",display:"flex",justifyContent:"center",objectFit: "contain", my:{xs:2,sm:6}, mx:"auto" }} alt="img_here"  />
+          <Box component={"div"} sx={{mx:"auto",maxWidth:"1000px",height:"calc(fit-content + 350px)",background:"linear-gradient(101.82deg,#263238 2.51%,#66efdc 39.22%,#263238 97.85%)",borderRadius:"78px",padding:0.2}} >
+           <Box sx={{width:'100%',position:"relative",height:'100%',mx:"auto", bgcolor:"#f3fefd",borderRadius:"78px"}}> 
+               <Grid container flexDirection={{xs:"column",md:"row"}} rowGap={2} justifyContent={{xs:"flex-start",md:"space-between"}} alignItems={"flex-start"} p={{xs:2,sm:8}}>
+                     <Box mt={{xs:3,sm:0}} display={"flex"} flexDirection={"column"} rowGap={2}>
+                    {financtionalDepartments.leftSide.map((item:string)=> 
+                      <Box key={item} component={"div"} display={"flex"} columnGap={{xs:1,sm:2}} alignItems="center">
+                      <Image src={Star} objectFit="cover" width={30} height={30} alt="image_here" />
+                      <Text fontSize="18px" fontWeight="600">{item}</Text>
+                    </Box>)}
+                  </Box>   
+                  <Box display={"flex"} flexDirection={"column"} rowGap={2}>
+                    {financtionalDepartments.rightSide.map((item:string)=> 
+                      <Box key={item} component={"div"} display={"flex"} columnGap={{xs:1,sm:2}} alignItems="center">
+                      <Image src={Star} objectFit="cover" width={30} height={30} alt="image_here" />
+                      <Text fontSize="18px" fontWeight="600">{item}</Text>
+                    </Box>)}
+                  </Box>   
+               </Grid>    
+               <Box pb={6} mx={"auto"}>
+                <Button color={"#fff"} style={{marginInline:'auto'}} fontSize={18} fontWeight={"600"} backgroundColor="#263238" width={170} height={55}> Check out
+                  <Image style={{ marginLeft: "10px" }} src={ArrowIcon} alt="imghere"/>
                 </Button>
-              </Grid>
-            </Card>
-          </div>
-        </Grid>
+                </Box>  
+           </Box>
+          </Box>
       </Grid>
       {/* ----------------- */}
-      <ContentBox mt={8}>
+      <ContentBox mt={12}>
          <SignAnytime px={{xs:2,sm:4,lg:"30px"}} isBtn={false} heading="Take Full Control Of Your Documents" text="The built-in document editor gives you all the tools you need to
             securely edit, send and sign documents in seconds."/>
       </ContentBox>      
@@ -671,31 +430,31 @@ const Home: FC = () => {
         container
         alignItems={"flex-end"}
         justifyContent={"space-evenly"}
-        mt={10}
+        mt={12}
         gap={3}
       >
         <Image
-          style={{ width: "200px", height: "200px" }}
+          style={{ width: "180px", height: "180px",objectFit: "contain" }}
           src={Categ_1}
           alt="image_here"
         />
         <Image
-          style={{ width: "200px", height: "200px", objectFit: "contain" }}
+          style={{ width: "170px", height: "170px", objectFit: "contain" }}
           src={Categ_2}
           alt="image_here"
         />
         <Image
-          style={{ width: "200px", height: "200px", objectFit: "contain" }}
+          style={{ width: "170px", height: "170px", objectFit: "contain" }}
           src={Categ_3}
           alt="image_here"
         />
         <Image
-          style={{ width: "200px", height: "200px", objectFit: "contain" }}
+          style={{ width: "170px", height: "170px", objectFit: "contain" }}
           src={Categ_4}
           alt="image_here"
         />
       </Grid>
-      <Box component="div" display="flex" justifyContent="center" marginY={10}>
+      <Box component="div" display="flex" justifyContent="center" my={12}>
         <Button
           backgroundColor={"#263238"}
           borderRadius={19}

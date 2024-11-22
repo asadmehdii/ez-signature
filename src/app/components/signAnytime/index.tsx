@@ -46,7 +46,7 @@ const SignAnytime: FC<AnyTimeProps> = ({
         flexWrap:"nowrap",
         // paddingX: { xs: 2, sm: 5, lg: "100px" },
         justifyContent: { xs: "center", xl: "space-between" },
-        flexDirection: { xs: "column-reverse", lg: "row" },
+        flexDirection: { xs: "column-reverse", md: "row" },
         alignItems: "center",
         py: 8,
         rowGap: 3,
@@ -68,12 +68,12 @@ const SignAnytime: FC<AnyTimeProps> = ({
         },
       }}
     >
-      <Box maxWidth={{lg:"70%",xl:maxWidth}}>
-        <Typography fontSize={{xs:"38px",md:"60px"}} fontWeight="700">{heading}</Typography>
-        <Typography mt={2} fontSize={18} fontWeight="600">{text}</Typography>
+      <Box maxWidth={{md:"70%",lg:maxWidth}}>
+        <Typography fontSize={{xs:"38px",md:"40px",lg:"60px"}} fontWeight="700">{heading}</Typography>
+        <Typography mt={2} fontSize={{xs:18,md:16,lg:18}} fontWeight="600">{text}</Typography>
         {isBtn && <Button  style={{marginTop:'30px'}} borderRadius={19} width={288} height={70} backgroundColor="#22CAB9" color="#fff" fontSize={24} fontWeight="500">Sign Up for free</Button>}
       </Box>
-      <Box component={"img"} sx={{zIndex:10, width: {xs:"100%",sm:"600px",lg:"45%",xl:"520px"}, height: {xs:"100%",sm:"100%",objectFit:"contain"}}} src={imageSrc} alt="image_here"/>
+      <Box component={"img"} sx={{zIndex:10, width: {xs:"100%",sm:"600px",md:"45%",xl:"520px"}, height: {xs:"100%",sm:"100%",objectFit:"cover"}}} src={imageSrc} alt="image_here"/>
     </Grid>
   );
 };

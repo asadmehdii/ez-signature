@@ -13,7 +13,7 @@ type NavbarProps = {
 const Navbar: FC<NavbarProps> = ({showBtn = true}) => {
   return (
     <nav>
-    <ContentBox sx={{width:"100%",height:"97px",boxSizing:"border-box",display:"flex",alignItems:'center',justifyContent:'space-between'}}  mt={0} >
+    <ContentBox sx={{height:"97px",display:"flex",alignItems:'center',justifyContent:'space-between'}}  mt={0} >
       <Navigate to={Route.HOME} fontSize={28} fontWeight="800" text="EzSignature"/>
      <Box component="div" columnGap={5} display={{xs:"none",lg:"flex"}}>
       <Navigate to={Route.FEATURE} fontSize={18} fontWeight="400" text="Feature" hoverColor="#21D0B3"/>
