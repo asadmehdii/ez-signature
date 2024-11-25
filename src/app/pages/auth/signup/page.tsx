@@ -24,6 +24,7 @@ const [hidePassword,setHidePassword] = useState<boolean>(true)
           borderColor: '#666666', 
           fontSize: '20px', 
           padding: '10px 0px', 
+          fontFamily:"var(--text-mada)",
           '& fieldset': {
             borderColor: '666666',
           },
@@ -36,13 +37,13 @@ const [hidePassword,setHidePassword] = useState<boolean>(true)
         },
         '& .MuiInputBase-input': {
           color: '#333', 
-          fontSize: '20px', 
+          fontSize: '20px',
         },
       });
     return(
         <main >
         <Navbar showBtn={false}/>
-        <ContentBox mt={8}>
+        <ContentBox mt={4}>
         <Grid pb={2} container rowGap={5} component={"div"} flexDirection={{xs:"column-reverse",md:"row"}} justifyContent={{xs:"flex-start",md:"space-evenly"}} alignItems={"center"}>
         <Box display="flex" width={{xs:"90%",sm:"430px",md:"370px",lg:"430px"}}>
         <Box m={"auto"}>

@@ -65,6 +65,7 @@ const InputField: FC<InputFieldProps> = ({ value, onChange, label, type = "text"
           margin: "10px 0",
           backgroundColor: "#F6F6F6",
           borderRadius: "18px",
+          fontFamily:"var(--text-mada)",
           "& .MuiOutlinedInput-root": {
             height: multiline ? "auto" : "50px",
             backgroundColor: "transparent",

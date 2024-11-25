@@ -47,7 +47,7 @@ return(
     </Grid>
     {/* ------------------------- */}
     {/* Grid 3 --- trusted electronic signature */}
-    <Box mt={15} component="div" className="grid_3">
+    <Box mt={10} component="div" className="grid_3">
     <Text fontSize="60px" fontWeight="700" className="head_1">Trusted Electronic Signatures for Your Business</Text>
     <Text style={{maxWidth:"997px",marginTop:"10px"}} fontSize="26px" fontWeight="600">Take your electronic signatures to the next level with Ezsignature API, used by developers worldwide to fully automate eSignature workflows.</Text>
     <Grid container mt={6} justifyContent={{xs:"center",md:"space-between"}} rowGap={6} columnGap={3}>
@@ -66,7 +66,7 @@ return(
     </Box>
      {/* ------------------------- */}
     {/* Grid 4 --- Api pricing */}
-    <Box mt={6} component="div" className="APIPricing">
+    <Box mt={10} component="div" className="APIPricing">
     <Grid container justifyContent={"space-between"} alignItems={"center"} rowSpacing={5}>    
     <Text fontSize="60px" fontWeight="700" className="head_1">Volume EzSignature API Pricing</Text>
      <Box m={{xs:"auto",xl:"0"}} display={"flex"} alignItems={"center"} justifyContent={"space-evenly"} component="div" width={"282px"} height={"65px"} borderRadius={"51px"} bgcolor={"#18395B"}>
@@ -83,7 +83,7 @@ return(
      and our team will assist you shortly."/>
     <FAQs faqs={FAQsData} heading="E-signature api FAQ" mt={10}/>
      {/* ------------------------- */}
-      <Grid container alignItems={"flex-end"} justifyContent={"space-between"} mt={8} mb={12} rowSpacing={4}>
+      <Grid container alignItems={"flex-end"} justifyContent={"space-between"} mt={10} mb={15} rowSpacing={4}>
        <Box component={"div"} maxWidth={"752px"}>
         <Image src={Assests.QuestionMark} alt="img_here"/>
         <Text margin={"8px 0"} fontSize="60px" fontWeight="700" className="head_1">Ready to start Integration?</Text>

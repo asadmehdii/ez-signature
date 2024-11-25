@@ -23,6 +23,7 @@ const Login:FC = ()=>{
           borderColor: '#666666', 
           fontSize: '20px', 
           padding: '10px 0px', 
+          fontFamily:"var(--text-mada)", 
           '& fieldset': {
             borderColor: '666666',
           },

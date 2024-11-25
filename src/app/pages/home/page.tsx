@@ -7,7 +7,7 @@ import Button from "@/app/components/button";
 import { Box } from "@mui/material";
 import Image from "next/image";
 import Card from "@/app/components/card";
-import {PaperlessCard, financtionalDepartments} from "./content"
+import {PaperlessCard, financtionalDepartments, Category} from "./content"
 
 // imoprt Image here
 import CardImage_1 from "../../assests/images/home/cardImage1.png";
@@ -22,10 +22,6 @@ import BusinessImage_5 from "../../assests/images/home/bussinessImage5.png";
 import BusinessImage_6 from "../../assests/images/home/bussinessImage6.png";
 import BusinessImage_7 from "../../assests/images/home/bussinessImage7.png";
 import HomeImage_1 from "../../assests/images/home/homeIImage_1.svg";
-import Categ_1 from "../../assests/images/home/categ_1.png"
-import Categ_2 from "../../assests/images/home/categ_2.png";
-import Categ_3 from "../../assests/images/home/categ_3.png";
-import Categ_4 from "../../assests/images/home/categ_4.png";
 import FinancialDeppartment from "../../assests/images/home/financtional.png";
 import Star from "../../assests/images/home/mdi_star-four-points-small.png";
 import ArrowIcon from "../../assests/images/home/arrowIcon.png";
@@ -35,6 +31,7 @@ import Offer_3 from "../../assests/images/home/offer_3.png";
 import SignAnytime from "@/app/components/signAnytime";
 import ContentBox from "@/app/components/contentBox";
 import Route from "@/app/utils/routes";
+import Assests from "@/app/assests/images";
 
 const Home: FC = () => {
   return (
@@ -275,7 +272,7 @@ const Home: FC = () => {
             return(
            <Box key={data.text} height="380px" width={{xs:"300px",md:"29%"}}
              style={{border:'1px solid #25252540',borderRadius:"60px",padding:"10px", backgroundColor:"#fcfcfc",textAlign: "center", display: "flex", justifyContent: "space-evenly",alignItems: "center", flexDirection: "column",}}>
-            <Image src={data.icon} alt="img_here" />
+            <Image style={{background:`url("${Assests.SemiEllipse.src}") no-repeat`,backgroundPosition:"center bottom",padding:"3px 15px" }} src={data.icon} alt="img_here" />
             <Text fontSize="24px" fontWeight="700"> {data.title} </Text>
             <Text fontSize="16px" fontWeight="500" color="#232323">{data.text}</Text>
             <Button fontSize={16} fontWeight="700" height={44} width={160} borderRadius={19} backgroundColor="#000" color="#fff"> Select Now </Button>
@@ -421,53 +418,25 @@ const Home: FC = () => {
       </Grid>
       {/* ----------------- */}
       <ContentBox mt={12}>
-         <SignAnytime px={{xs:2,sm:4,lg:"30px"}} isBtn={false} heading="Take Full Control Of Your Documents" text="The built-in document editor gives you all the tools you need to
+         <SignAnytime px={{xs:2,sm:4,lg:"30px"}} imageSrc={Assests.TakeFullControl} isBtn={false} heading="Take Full Control Of Your Documents" text="The built-in document editor gives you all the tools you need to
             securely edit, send and sign documents in seconds."/>
       </ContentBox>      
       {/* ----------------- */}
-
-      <Grid
-        container
-        alignItems={"flex-end"}
-        justifyContent={"space-evenly"}
-        mt={12}
-        gap={3}
-      >
-        <Image
-          style={{ width: "180px", height: "180px",objectFit: "contain" }}
-          src={Categ_1}
-          alt="image_here"
-        />
-        <Image
-          style={{ width: "170px", height: "170px", objectFit: "contain" }}
-          src={Categ_2}
-          alt="image_here"
-        />
-        <Image
-          style={{ width: "170px", height: "170px", objectFit: "contain" }}
-          src={Categ_3}
-          alt="image_here"
-        />
-        <Image
-          style={{ width: "170px", height: "170px", objectFit: "contain" }}
-          src={Categ_4}
-          alt="image_here"
-        />
+      <ContentBox>
+      <Grid container alignItems={"flex-end"} justifyContent={"space-between"} mt={12} columnGap={3} rowGap={4}>
+        {Category.map((item)=>
+        <Box display={"flex"} width={{xs:"100%",sm:"200px"}} rowGap={3} flexDirection={"column"} justifyContent={"center"} alignItems={"center`"}>
+          <Box sx={{padding:4,background:`url("${Assests.CategEllipseBg.src}") no-repeat`,backgroundPosition:"bottom center" }} m={"auto"} component={"img"} src={item.icon.src} alt="img_here"/>
+          <Text textAlign="center" style={{width:"100%"}} fontSize="21px" fontWeight="700">{item.text}</Text>
+        </Box> 
+        )}
       </Grid>
+      </ContentBox>
       <Box component="div" display="flex" justifyContent="center" my={12}>
-        <Button
-          backgroundColor={"#263238"}
-          borderRadius={19}
-          height={55}
-          width={200}
-          color="#fff"
-          fontSize={18}
-          fontWeight={"700"}
-        >
+        <Button backgroundColor={"#263238"} borderRadius={19} height={55} width={200} color="#fff" fontSize={18} fontWeight={"700"}>
           Browse All Categories
         </Button>
       </Box>
-
       <Footer />
     </main>
   );

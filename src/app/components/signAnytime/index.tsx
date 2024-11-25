@@ -30,7 +30,7 @@ const SignAnytime: FC<AnyTimeProps> = ({
   isBtn = true,
   heading = "Sign anytime, anywhere, on any device",
   text = "Experience the ease of signing your documents with EzSignature anytime, anywhere. Use your PC, tablet, or mobile device for secure signing at home, in the office, or on the go.",
-  imageSrc = Assests.SignAnytime.src,
+  imageSrc = Assests.SignAnytime,
   maxWidth = 780,
   px = { xs: 2, sm: 5, lg: "100px" },
 }) => {
@@ -40,12 +40,13 @@ const SignAnytime: FC<AnyTimeProps> = ({
       component={"div"}
       container
       sx={{
+        height:{xs:"100%", md:"500px"},
         px: px, 
         position: "relative",
         backgroundColor: "#5AEAD5",
         flexWrap:"nowrap",
         // paddingX: { xs: 2, sm: 5, lg: "100px" },
-        justifyContent: { xs: "center", xl: "space-between" },
+        justifyContent: { xs: "center", md: "space-between" },
         flexDirection: { xs: "column-reverse", md: "row" },
         alignItems: "center",
         py: 8,
@@ -63,17 +64,17 @@ const SignAnytime: FC<AnyTimeProps> = ({
           backgroundRepeat: "no-repeat",
           backgroundPosition: "center",
           backgroundSize: "cover",
-          opacity: 0.5, 
+          opacity: 0.2, 
           zIndex: 1, 
         },
       }}
     >
-      <Box maxWidth={{md:"70%",lg:maxWidth}}>
-        <Typography fontSize={{xs:"38px",md:"40px",lg:"60px"}} fontWeight="700">{heading}</Typography>
-        <Typography mt={2} fontSize={{xs:18,md:16,lg:18}} fontWeight="600">{text}</Typography>
+      <Box maxWidth={{md:"70%",lg:maxWidth}} zIndex={2}>
+        <Typography fontFamily={"var(--text-mada)"} fontSize={{xs:"38px",md:"40px",lg:"60px"}} fontWeight="700">{heading}</Typography>
+        <Typography mt={2} fontFamily={"var(--text-mada)"} fontSize={{xs:18,md:16,lg:18}} fontWeight="600">{text}</Typography>
         {isBtn && <Button  style={{marginTop:'30px'}} borderRadius={19} width={288} height={70} backgroundColor="#22CAB9" color="#fff" fontSize={24} fontWeight="500">Sign Up for free</Button>}
       </Box>
-      <Box component={"img"} sx={{zIndex:10, width: {xs:"100%",sm:"600px",md:"45%",xl:"520px"}, height: {xs:"100%",sm:"100%",objectFit:"cover"}}} src={imageSrc} alt="image_here"/>
+      <Box component={"img"} sx={{zIndex:10, width: {xs:"100%",sm:"500px",md:"45%",xl:"520px"}, height: {xs:"100%",sm:"100%",objectFit:"fit-content"}}} src={imageSrc?.src} alt="image_here"/>
     </Grid>
   );
 };

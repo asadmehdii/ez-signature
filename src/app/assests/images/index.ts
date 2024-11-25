@@ -46,13 +46,25 @@ import NoCode from "./noCode.svg";
 import SemiEllipse from "./home/Ellipse 11.png";
 import QuestionMark from "./startIntegration.svg";
 import anytimeBGSkeleton from "./signAnytimebg.png";
-import CardImage_5 from "./cardImage5.png";
-import CardImage_6 from "./cardImage6.png";
-import CardImage_7 from "./cardImage7.png";
+import papelessCard_1 from "./papelessCard_1.png";
+import papelessCard_2 from "./papelessCard_3.png";
+import papelessCard_3 from "./papelessCard_2.png";
+import Categ_1 from "./categ_1.svg";
+import Categ_2 from "./categ_2.svg";
+import Categ_3 from "./categ_3.svg";
+import Categ_4 from "./categ_4.svg";
+import TakeFullControl from "./takeFullControl.svg";
+import CategEllipseBg from "./categEllipseBg.png";
 const Assests = {
-  CardImage_5,
-  CardImage_6,
-  CardImage_7,
+  Categ_1,
+  CategEllipseBg,
+  TakeFullControl,
+  Categ_2,
+  Categ_3,
+  Categ_4,
+  papelessCard_1,
+  papelessCard_2,
+  papelessCard_3,
   anytimeBGSkeleton,
   EmbedSigning,
   QuestionMark,
