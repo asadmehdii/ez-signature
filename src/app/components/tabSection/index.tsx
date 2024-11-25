@@ -1,3 +1,15 @@
+/**
+    * @description      : 
+    * @author           : 
+    * @group            : 
+    * @created          : 25/11/2024 - 22:45:08
+    * 
+    * MODIFICATION LOG
+    * - Version         : 1.0.0
+    * - Date            : 25/11/2024
+    * - Author          : 
+    * - Modification    : 
+**/
 import { Box,Tabs, Tab, Typography, Badge } from '@mui/material';
 
 interface TabSectionProp{

@@ -1,30 +1,17 @@
-/**
-    * @description      : 
-    * @author           : 
-    * @group            : 
-    * @created          : 25/11/2024 - 22:41:49
-    * 
-    * MODIFICATION LOG
-    * - Version         : 1.0.0
-    * - Date            : 25/11/2024
-    * - Author          : 
-    * - Modification    : 
-**/
 "use client";
 import React, { useState } from 'react';
-import { Box, Pagination, Select, MenuItem, Typography, SelectChangeEvent } from '@mui/material';
-import Grid from "@mui/material/Grid2";
+import { Box} from '@mui/material';
 import IconBtn from '@/app/components/iconButton';
 import SearchAppBar from '@/app/components/search';
 import TabSection from '@/app/components/tabSection';
 import PaginationBar from '@/app/components/pagination';
 
-export default function DocumentPage() {
+export default function ContactsPage() {
   // State to manage the active tab
   const [activeTab, setActiveTab] = useState(0);
 
   // Tab labels
-  const tabLabels = ['All', 'Drafts', 'Completed', 'In Process', 'I need to sign', 'Cancelled'];
+  const tabLabels = ['Archived', 'All'];
 
   // Function to handle tab changes
   const handleTabChange = (event: any, newValue: any) => {
@@ -36,18 +23,14 @@ export default function DocumentPage() {
   return (
     <Box sx={{ padding: '20px', width: '100%' }}>
       {/* Toolbar */}
-      <Grid 
-        component={"div"}
-        container
->
+      <Box display="flex" justifyContent="space-between" alignItems="center" mb={2}>
         <IconBtn />
        <SearchAppBar />
-      </Grid>
+      </Box>
 
       {/* Tab Section */}
       <TabSection activeTab={activeTab} handleTabChange={handleTabChange} tabLabels={tabLabels}/>
       <PaginationBar />
-
     </Box>
   );
 }

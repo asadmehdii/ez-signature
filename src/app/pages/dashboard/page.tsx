@@ -1,12 +1,26 @@
+/**
+    * @description      : 
+    * @author           : 
+    * @group            : 
+    * @created          : 25/11/2024 - 22:40:58
+    * 
+    * MODIFICATION LOG
+    * - Version         : 1.0.0
+    * - Date            : 25/11/2024
+    * - Author          : 
+    * - Modification    : 
+**/
 "use client"; 
 import Button from '@/app/components/button';
 import Card from '@/app/components/card';
 import Link from 'next/link';
+import Box from '@mui/material/Box';
 import WarningAmberIcon from '@mui/icons-material/WarningAmber';
 import AlarmOutlinedIcon from '@mui/icons-material/AlarmOutlined';
 import TaskAltOutlinedIcon from '@mui/icons-material/TaskAltOutlined';
 import Text from '@/app/components/text';
 import Grid from "@mui/material/Grid2";
+import { grey } from '@mui/material/colors';
 
 
 
@@ -33,31 +47,31 @@ const Dashboard: React.FC = () => {
             borderColor="#cccccc"
             borderRadius={3}
           >
-            <h1 style={{backgroundColor: '#cccccc', margin: '0', padding: '11px'}}>Documents</h1>
+            <h2 style={{backgroundColor: 'rgba(25, 118, 210, 0.08)', margin: '0', padding: '11px'}}>Documents</h2>
             <div style={{padding: '21px', }}>
-               <Link href='' style={{backgroundColor: '#ECECEC', display: 'flex', marginBottom: '11px'}}>
-                <div style={{backgroundColor: 'red', padding: '12px 7px'}}>
-                <WarningAmberIcon />
-                </div>
-                <div style={{display: 'flex', justifyContent: 'space-between', flex: '1 1 0%', padding: '0 12px'}}>
+               <Link href='' style={{backgroundColor: 'rgba(25, 118, 210, 0.08)', display: 'flex', marginBottom: '11px', alignItems: "center", borderRadius: "5px"}}>
+                <Box component={"div"} sx={{display: 'flex', backgroundColor: '#D60D31', padding: '12px 7px', borderEndStartRadius: "6px", borderStartStartRadius: "6px", }}>
+                <WarningAmberIcon sx={{ color: grey[100] }} />
+                </Box>
+                <div style={{display: 'flex', justifyContent: 'space-between', flex: '1 1 0%', padding: '0 12px', fontSize: "0.875rem"}}>
                     <p>Awaiting my Signature</p>
                     <p>0</p>
                 </div>
                </Link>
-               <Link href='' style={{backgroundColor: '#ECECEC', display: 'flex', marginBottom: '11px'}}>
-                <div style={{backgroundColor: 'gray', padding: '12px 7px'}}>
-                <AlarmOutlinedIcon />
-                </div>
-                <div style={{display: 'flex', justifyContent: 'space-between', flex: '1 1 0%', padding: '0 12px'}}>
-                    <p>waiting for Others</p>
+               <Link href='' style={{backgroundColor: 'rgba(25, 118, 210, 0.08)', display: 'flex', marginBottom: '11px', alignItems: "center", borderRadius: "5px"}}>
+               <Box sx={{display: 'flex', backgroundColor: '#7B8191', padding: '12px 7px', borderEndStartRadius: "6px", borderStartStartRadius: "6px" }}>
+                <AlarmOutlinedIcon sx={{ color: grey[100] }} />
+                </Box>
+                <div style={{display: 'flex', justifyContent: 'space-between', flex: '1 1 0%', padding: '0 12px', fontSize: "0.875rem"}}>
+                    <p>Waiting for Others</p>
                     <p>Show all</p>
                 </div>
                </Link>
-               <Link href='' style={{backgroundColor: '#ECECEC', display: 'flex', marginBottom: '11px'}}>
-                <div style={{backgroundColor: 'dark-blue', padding: '12px 7px'}}>
-                <TaskAltOutlinedIcon />
-                </div>
-                <div style={{display: 'flex', justifyContent: 'space-between', flex: '1 1 0%', padding: '0 12px'}}>
+               <Link href='' style={{backgroundColor: 'rgba(25, 118, 210, 0.08)', display: 'flex', marginBottom: '11px', alignItems: "center", borderRadius: "5px"}}>
+                <Box sx={{display: 'flex', backgroundColor: '#0206A8', padding: '12px 7px', borderEndStartRadius: "6px", borderStartStartRadius: "6px" }}>
+                <TaskAltOutlinedIcon sx={{ color: grey[100] }} />
+                </Box>
+                <div style={{display: 'flex', justifyContent: 'space-between', flex: '1 1 0%', padding: '0 12px', fontSize: "0.875rem"}}>
                     <p>Completed</p>
                     <p>Show all</p>
                 </div>
@@ -73,12 +87,12 @@ const Dashboard: React.FC = () => {
             borderColor="#cccccc"
             borderRadius={3}
           >
-            <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', backgroundColor: '#cccccc', margin: '0', padding: '0 19px'}}>
+            <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', backgroundColor: 'rgba(25, 118, 210, 0.08)', margin: '0', padding: '0 19px'}}>
             <h3 style={{}}>Recent Activity</h3>
             <Link href=''>View Activity log</Link>
             </div>
            <Grid>
-            <Link href=''>
+            <Link href='' className='card-section'>
             <Text
              color='#1e88e5'
              paddingLeft={12}
@@ -122,7 +136,7 @@ const Dashboard: React.FC = () => {
               component={"div"}
               container
               width={"100%"}
-              justifyContent={"space-evenly"}
+              justifyContent={"center"}
               flexDirection={{xs: "column", sm: "row"}}
               alignItems={{xs: "center"}}
               flexWrap={"nowrap"}
@@ -132,7 +146,7 @@ const Dashboard: React.FC = () => {
             <Card
             className="card2 "
             padding={"0px"}
-            width={"30%"} 
+            width={"31%"} 
             height={"250px"}
             borderWidth={1}
             borderColor="#cccccc"
@@ -146,7 +160,7 @@ const Dashboard: React.FC = () => {
           <Card
             className="card2"
             padding={"12px"}
-            width={"30%"} 
+            width={"31%"} 
             height={"250px"}
             borderWidth={1}
             borderColor="#cccccc"
@@ -160,7 +174,7 @@ const Dashboard: React.FC = () => {
           <Card
             className="card2"
             padding={"0px"}
-            width={"30%"} 
+            width={"31%"} 
             height={"250px"}
             borderWidth={1}
             borderColor="#cccccc"

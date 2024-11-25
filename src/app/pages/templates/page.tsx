@@ -1,9 +1,22 @@
+/**
+    * @description      : 
+    * @author           : 
+    * @group            : 
+    * @created          : 25/11/2024 - 22:34:37
+    * 
+    * MODIFICATION LOG
+    * - Version         : 1.0.0
+    * - Date            : 25/11/2024
+    * - Author          : 
+    * - Modification    : 
+**/
 "use client";
 import React, { useState } from 'react';
 import { Box} from '@mui/material';
 import IconBtn from '@/app/components/iconButton';
 import SearchAppBar from '@/app/components/search';
 import TabSection from '@/app/components/tabSection';
+import PaginationBar from '@/app/components/pagination';
 
 export default function TemlatesPage() {
   // State to manage the active tab
@@ -29,6 +42,7 @@ export default function TemlatesPage() {
 
       {/* Tab Section */}
       <TabSection activeTab={activeTab} handleTabChange={handleTabChange} tabLabels={tabLabels}/>
+      <PaginationBar />
     </Box>
   );
 }

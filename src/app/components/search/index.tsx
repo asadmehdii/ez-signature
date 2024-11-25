@@ -1,7 +1,20 @@
+/**
+    * @description      : 
+    * @author           : 
+    * @group            : 
+    * @created          : 25/11/2024 - 22:36:58
+    * 
+    * MODIFICATION LOG
+    * - Version         : 1.0.0
+    * - Date            : 25/11/2024
+    * - Author          : 
+    * - Modification    : 
+**/
 "use client";
 import * as React from 'react';
 import { styled, alpha } from '@mui/material/styles';
 import Box from '@mui/material/Box';
+import Grid from "@mui/material/Grid2";
 import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
 
@@ -49,7 +62,13 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 export default function SearchAppBar() {
   return (
-    <Box sx={{ display: 'flex', flexGrow: 1, border: "2px solid gray", alignItems: "right" }}>
+    <Grid container 
+      component={"div"}
+      flexGrow={1}
+      border={ "2px solid gray"}
+      alignItems={"right"}
+      width={"50%"}
+>
           <Search>
             <SearchIconWrapper>
               <SearchIcon />
@@ -59,6 +78,6 @@ export default function SearchAppBar() {
               inputProps={{ 'aria-label': 'search' }}
             />
           </Search>
-    </Box>
+    </Grid>
   );
 }

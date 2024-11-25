@@ -1,3 +1,15 @@
+/**
+    * @description      : 
+    * @author           : 
+    * @group            : 
+    * @created          : 25/11/2024 - 22:45:53
+    * 
+    * MODIFICATION LOG
+    * - Version         : 1.0.0
+    * - Date            : 25/11/2024
+    * - Author          : 
+    * - Modification    : 
+**/
 import {Box, Checkbox, Popover, Button, Typography, IconButton} from "@mui/material"
 import { ClearOutlined, ArrowDropDown } from '@mui/icons-material';
 import React from "react";
@@ -19,7 +31,7 @@ const IconBtn = () => {
 
     return(
         <Box display="flex" alignItems="center">
-          <Box sx={{border: "1px solid gray", background: "gainsboro", borderRadius:"2px"}} >
+          <Box sx={{border: "1px solid gray", background: "rgba(25, 118, 210, 0.08)", borderRadius:"2px"}} >
               <Checkbox defaultChecked />
               <Button aria-describedby={id} onClick={handleClick}>
               <ArrowDropDown />
@@ -35,7 +47,7 @@ const IconBtn = () => {
                   }}
                   
                 >
-              <Box sx={{ background: "gainsboro", width: "150px"}}>
+              <Box sx={{ background: "rgba(25, 118, 210, 0.08)", width: "150px"}}>
               <Typography sx={{ p: 2, border: "3x solid gray" }}>All</Typography>
               <Typography sx={{ p: 2, border: "3x solid gray" }}>None</Typography>
             </Box>
