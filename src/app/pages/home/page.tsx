@@ -425,7 +425,7 @@ const Home: FC = () => {
       <ContentBox>
       <Grid container alignItems={"flex-end"} justifyContent={"space-between"} mt={12} columnGap={3} rowGap={4}>
         {Category.map((item)=>
-        <Box display={"flex"} width={{xs:"100%",sm:"200px"}} rowGap={3} flexDirection={"column"} justifyContent={"center"} alignItems={"center`"}>
+        <Box key={item.text} display={"flex"} width={{xs:"100%",sm:"200px"}} rowGap={3} flexDirection={"column"} justifyContent={"center"} alignItems={"center`"}>
           <Box sx={{padding:4,background:`url("${Assests.CategEllipseBg.src}") no-repeat`,backgroundPosition:"bottom center" }} m={"auto"} component={"img"} src={item.icon.src} alt="img_here"/>
           <Text textAlign="center" style={{width:"100%"}} fontSize="21px" fontWeight="700">{item.text}</Text>
         </Box> 
