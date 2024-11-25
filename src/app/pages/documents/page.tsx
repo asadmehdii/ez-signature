@@ -12,7 +12,7 @@
 **/
 "use client";
 import React, { useState } from 'react';
-import { Box, Pagination, Select, MenuItem, Typography, SelectChangeEvent } from '@mui/material';
+import { Box } from '@mui/material';
 import Grid from "@mui/material/Grid2";
 import IconBtn from '@/app/components/iconButton';
 import SearchAppBar from '@/app/components/search';
