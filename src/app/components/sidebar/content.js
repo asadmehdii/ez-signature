@@ -12,27 +12,27 @@ import AutoAwesomeMosaicOutlinedIcon from "@mui/icons-material/AutoAwesomeMosaic
     title: "Dashboard"
   },
   {  
-    icon: <TextSnippetOutlinedIcon />,
+    icon: <TextSnippetOutlinedIcon sx={{fontSize:"24px"}}/>,
     title: "Documents"
   },
   {  
-    icon: <ExtensionOutlinedIcon />,
+    icon: <ExtensionOutlinedIcon sx={{fontSize:"24px"}}/>,
     title: "Templates"
   },
   {  
-    icon: <Diversity1OutlinedIcon />,
+    icon: <Diversity1OutlinedIcon sx={{fontSize:"24px"}}/>,
     title: "Contacts"
   },
   {  
-    icon: <GroupOutlinedIcon />,
+    icon: <GroupOutlinedIcon sx={{fontSize:"24px"}}/>,
     title: "Teams"
   },
   {  
-    icon: <DeleteOutlineIcon />,
+    icon: <DeleteOutlineIcon sx={{fontSize:"24px"}}/>,
     title: "Trash"
   },
   {  
-    icon: <SettingsOutlinedIcon />,
+    icon: <SettingsOutlinedIcon sx={{fontSize:"24px"}}/>,
     title: "Business settings"
   }
 ];

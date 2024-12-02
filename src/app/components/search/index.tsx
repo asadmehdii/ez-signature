@@ -16,10 +16,15 @@ import { styled, alpha } from '@mui/material/styles';
 import Grid from "@mui/material/Grid2";
 import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
+import { ClearOutlined } from '@mui/icons-material';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
+  display: 'flex',
+  width: '453px',
+  height: '100%',
   borderRadius: theme.shape.borderRadius,
+  border: '2px solid rgb(226, 232, 240)',
   backgroundColor: alpha(theme.palette.common.white, 0.15),
   '&:hover': {
     backgroundColor: alpha(theme.palette.common.white, 0.25),
@@ -52,22 +57,16 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     transition: theme.transitions.create('width'),
     [theme.breakpoints.up('sm')]: {
       width: '35ch',
-      '&:focus': {
-        width: '20ch',
-      },
+      // '&:focus': {
+      //   width: '20ch',
+      // },
     },
   },
 }));
 
 export default function SearchAppBar() {
   return (
-    <Grid container 
-      component={"div"}
-      flexGrow={1}
-      border={ "2px solid gray"}
-      alignItems={"right"}
-      width={"50%"}
->
+    <>
           <Search>
             <SearchIconWrapper>
               <SearchIcon />
@@ -76,7 +75,10 @@ export default function SearchAppBar() {
               placeholder="Search Document"
               inputProps={{ 'aria-label': 'search' }}
             />
+            <Grid container alignContent= {'center'} paddingRight={'5px'}>
+             <ClearOutlined />
+             </Grid>
           </Search>
-    </Grid>
+    </>
   );
 }

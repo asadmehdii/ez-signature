@@ -1,22 +1,10 @@
-/**
-    * @description      : 
-    * @author           : 
-    * @group            : 
-    * @created          : 25/11/2024 - 22:56:50
-    * 
-    * MODIFICATION LOG
-    * - Version         : 1.0.0
-    * - Date            : 25/11/2024
-    * - Author          : 
-    * - Modification    : 
-**/
-import React, { useState } from 'react';
+import React from 'react';
 import { Box, Pagination, Select, MenuItem, Typography, SelectChangeEvent } from '@mui/material';
 import Grid from "@mui/material/Grid2";
 
  export default function PaginationBar() {
-  const [page, setPage] = useState(2);
-  const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [page, setPage] = React.useState(2);
+  const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
   const handleChangePage = (
     event: React.ChangeEvent<unknown> | null,

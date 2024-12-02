@@ -11,6 +11,11 @@
 
 .card2{
     background: transparent;
+} 
+
+.card-section:hover {
+    background-color: "rgba(25, 118, 210, 0.08)" !important;
+    cursor: pointer;
 }
 
 @media screen and (max-width: 768px){

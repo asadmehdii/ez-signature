@@ -10,7 +10,17 @@ TERM_CONDITION : "/pages/term&condition" ,
 CONATCT_US : "/pages/contactUs", 
 COOKIE_POLICY : "/pages/cookiePolicy",
 PRIVACY_POLICY :"/pages/privacyPolicy",
-DASHBOARD:"/pages/dashboard"
+BLOGS:"/pages/blogs",
+EXTENDED_BLOGS:"/pages/blogExtended",
+
+// Dashboard routes define here
+DASHBOARD:"/pages/dashboard",
+DOCUMENT:"/pages/documents",
+TEMPLATE :"/pages/templates",
+CONTACT :"/pages/contacts",
+TEAM :"/pages/teams",
+TRASH: "/pages/trash",
+
 }
 
 export default Route

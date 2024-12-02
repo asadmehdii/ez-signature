@@ -21,13 +21,13 @@ import TaskAltOutlinedIcon from '@mui/icons-material/TaskAltOutlined';
 import Text from '@/app/components/text';
 import Grid from "@mui/material/Grid2";
 import { grey } from '@mui/material/colors';
+import Topbar from '@/app/components/dashboardTopbar/topbar';
 
 
 
 const Dashboard: React.FC = () => {
     return(
-        <>
-              {/* navbar */}
+        <Topbar title='Dashboard' buttonText='Quick Actions' isCaretIcon isBellIcon>
               <Grid 
               component={"div"}
               container
@@ -71,7 +71,7 @@ const Dashboard: React.FC = () => {
                 <Box sx={{display: 'flex', backgroundColor: '#0206A8', padding: '12px 7px', borderEndStartRadius: "6px", borderStartStartRadius: "6px" }}>
                 <TaskAltOutlinedIcon sx={{ color: grey[100] }} />
                 </Box>
-                <div style={{display: 'flex', justifyContent: 'space-between', flex: '1 1 0%', padding: '0 12px', fontSize: "0.875rem"}}>
+                <div style={{display: 'flex', justifyContent: 'space-between', flex: '1 1 0%', padding: '0 12px'}}>
                     <p>Completed</p>
                     <p>Show all</p>
                 </div>
@@ -187,7 +187,7 @@ const Dashboard: React.FC = () => {
           </Grid>
           </Card>
             </Grid>
-        </>
+        </Topbar>
     )
 }
 export default Dashboard;

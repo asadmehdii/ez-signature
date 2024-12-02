@@ -1,16 +1,6 @@
-/**
-    * @description      : 
-    * @author           : 
-    * @group            : 
-    * @created          : 25/11/2024 - 22:45:08
-    * 
-    * MODIFICATION LOG
-    * - Version         : 1.0.0
-    * - Date            : 25/11/2024
-    * - Author          : 
-    * - Modification    : 
-**/
-import { Box,Tabs, Tab, Typography, Badge } from '@mui/material';
+import { Tabs, Tab, Typography, Badge } from '@mui/material';
+import Grid from "@mui/material/Grid2";
+
 
 interface TabSectionProp{
     activeTab: number;
@@ -21,7 +11,10 @@ interface TabSectionProp{
 const TabSection: React.FC<TabSectionProp> = ({activeTab, handleTabChange, tabLabels}) =>{
    return(
     <>
-    <Box sx={{display: 'flex', justifyContent: 'flex-end'}}>
+    <Grid container 
+    justifyContent={"flex-end"}
+    marginBottom={""}
+    >
       <Tabs
         value={activeTab}
         onChange={handleTabChange}
@@ -44,9 +37,9 @@ const TabSection: React.FC<TabSectionProp> = ({activeTab, handleTabChange, tabLa
           />
         ))}
       </Tabs>
-</Box>
+</Grid>
       {/* Content Section */}
-      <Box
+      <Grid
         display="flex"
         justifyContent="center"
         alignItems="center"
@@ -61,7 +54,7 @@ const TabSection: React.FC<TabSectionProp> = ({activeTab, handleTabChange, tabLa
           {activeTab === 4 && 'No results to display'}
           {activeTab === 5 && 'No results to display'}
         </Typography>
-      </Box>
+      </Grid>
     </>
    );
 }

@@ -3,7 +3,7 @@ const General = [
     { text: "Home", navigate: Route.HOME },
     { text: "Feature", navigate: Route.FEATURE },
     { text: "Pricing Plans", navigate: Route.PRICING },
-    { text: "Blogs", navigate: "#" },
+    { text: "Blogs", navigate: Route.BLOGS },
   ];
   
   const MainFeature = [

@@ -10,12 +10,15 @@
     * - Author          : 
     * - Modification    : 
 **/
-import {Box, Checkbox, Popover, Button, Typography, IconButton} from "@mui/material"
+import {Checkbox, Popover, Button, Typography, IconButton} from "@mui/material"
 import { ClearOutlined, ArrowDropDown } from '@mui/icons-material';
-import React from "react";
+import React, { useState } from "react";
+import Grid from "@mui/material/Grid2";
+import { grey } from '@mui/material/colors';
+
 
 const IconBtn = () => {
-    const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
+    const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
@@ -30,11 +33,17 @@ const IconBtn = () => {
 
 
     return(
-        <Box display="flex" alignItems="center">
-          <Box sx={{border: "1px solid gray", background: "rgba(25, 118, 210, 0.08)", borderRadius:"2px"}} >
-              <Checkbox defaultChecked />
-              <Button aria-describedby={id} onClick={handleClick}>
-              <ArrowDropDown />
+        <Grid component={'div'}
+         container
+         alignItems="center" gap={2}>
+          <Grid display={"inline-block"}
+           flex={'0 0 auto'}
+          sx={{border: "1px solid gray", background: "rgba(25, 118, 210, 0.08)", borderRadius:"2px"}} >
+              {/* <Button sx={{minWidth: '1em', }} >
+              </Button> */}
+              <Checkbox defaultChecked sx={{ color: "var(--secondary-color)" }}  />
+              <Button sx={{ minWidth: '30px' }} aria-describedby={id} onClick={handleClick}>
+              <ArrowDropDown sx={{ color: grey[900] }}  />
               </Button>
               <Popover
                   id={id}
@@ -47,18 +56,18 @@ const IconBtn = () => {
                   }}
                   
                 >
-              <Box sx={{ background: "rgba(25, 118, 210, 0.08)", width: "150px"}}>
-              <Typography sx={{ p: 2, border: "3x solid gray" }}>All</Typography>
-              <Typography sx={{ p: 2, border: "3x solid gray" }}>None</Typography>
-            </Box>
+              <Grid sx={{ background: "rgba(25, 118, 210, 0.08)", minWidth: "156px", border: "2px solid transparent" , borderRadius: "0.375rem" }}>
+              <Typography sx={{ padding: "9px 12px", border: "3x solid gray" }}>All</Typography>
+              <Typography sx={{ padding: "9px 12px", border: "3x solid gray" }}>None</Typography>
+            </Grid>
 
             </Popover>
 
-          </Box>
-          <IconButton>
+          </Grid>
+          <IconButton sx={{border: "1px solid gray", background: "rgba(25, 118, 210, 0.08)", borderRadius:"2px"}}>
             <ClearOutlined />
           </IconButton>
-        </Box>
+        </Grid>
     )
 }
 export default IconBtn;

@@ -55,7 +55,30 @@ import Categ_3 from "./categ_3.svg";
 import Categ_4 from "./categ_4.svg";
 import TakeFullControl from "./takeFullControl.svg";
 import CategEllipseBg from "./categEllipseBg.png";
+import HomeImage_1 from "./homeIImage_1.svg";
+import BlogsCard_1 from "./blogsCard_1.png";
+import BlogsCard_2 from "./blogsCard_2.png";
+import BlogsCard_3 from "./blogsCard_3.png";
+import BlogsCard_4 from "./blogsCard_4.png";
+import BlogsCard_5 from "./blogsCard_5.png";
+import BlogsCard_6 from "./blogsCard_6.png";
+import BlogDetail_1 from "./blogdetail_1.png";
+import BlogDetail_2 from "./blogdetail_2.png";
+import BlogDetail_3 from "./blogdetail_3.png";
+import Avatar from "./Avatar.png";
+
 const Assests = {
+  Avatar,
+  BlogDetail_1,
+  BlogDetail_2,
+  BlogDetail_3,
+  BlogsCard_2,
+  BlogsCard_3,
+  BlogsCard_4,
+  BlogsCard_5,
+  BlogsCard_6,
+  HomeImage_1,
+  BlogsCard_1,
   Categ_1,
   CategEllipseBg,
   TakeFullControl,

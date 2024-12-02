@@ -1,18 +1,19 @@
 "use client";
 import React, { useState } from 'react';
-import Grid from "@mui/material/Grid2";
 import IconBtn from '@/app/components/iconButton';
 import SearchAppBar from '@/app/components/search';
 import TabSection from '@/app/components/tabSection';
 import PaginationBar from '@/app/components/pagination';
 import Topbar from '@/app/components/dashboardTopbar/topbar';
+import Grid from "@mui/material/Grid2";
 
-export default function ContactsPage() {
+
+export default function TeamsPage() {
   // State to manage the active tab
   const [activeTab, setActiveTab] = useState(0);
-
+ 
   // Tab labels
-  const tabLabels = ['Archived', 'All'];
+  const tabLabels = ['Archived', 'All', 'Active', 'Inactive'];
 
   // Function to handle tab changes
   const handleTabChange = (event: any, newValue: any) => {
@@ -22,7 +23,7 @@ export default function ContactsPage() {
   
 
   return (
-    <Topbar title='Contacts' buttonText='New Contacts'>
+    <Topbar title='Teams' buttonText='New Team Members'>
 
 <Grid sx={{ padding: '20px', width: '100%' }}>
       {/* Toolbar */}

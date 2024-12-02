@@ -1,87 +1,43 @@
 "use client";
 import * as React from 'react';
-import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
-import CssBaseline from '@mui/material/CssBaseline';
 import Drawer from '@mui/material/Drawer';
-import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
 import  Grid  from '@mui/material/Grid2';
 import Button from '../button';
-import NotificationsIcon from '@mui/icons-material/Notifications';
 import Link from "next/link";
 import DonutSmallOutlinedIcon from "@mui/icons-material/DonutSmallOutlined";
 import SidebarData from "./content"
 
 
-const drawerWidth = 260;
+const drawerWidth = 250;
 
 interface Props {
     children:React.ReactNode
+    open:boolean,
+    onToggle:()=>void
 }
 
-export default function Sidebar(props: Props) {
-  const children = props.children
-  const [mobileOpen, setMobileOpen] = React.useState(false);
-  const [isClosing, setIsClosing] = React.useState(false);
-  const [pageName,setPagename] = React.useState("Dashboard")
+export default function Sidebar({children,open,onToggle}: Props) {  
 
-  const handleDrawerClose = () => {
-    setIsClosing(true);
-    setMobileOpen(false);
-  };
 
-  const handleDrawerTransitionEnd = () => {
-    setIsClosing(false);
-  };
-
-  const handleDrawerToggle = () => {
-    if (!isClosing) {
-      setMobileOpen(!mobileOpen);
-    }
-  };
 
   const drawerContent = (
-    <Grid container height={"100%"} component={"div"} flexDirection={"column"}>
-     <Grid height={"100%"}>
-         <Link href={"/"} style={{ textAlign: "center" }}>
-             <h1 className="logo"> EzSignature </h1>
-         </Link>
-         <Button backgroundColor="var(--secondary-color)" height={60} width={'79%'} borderRadius={15} style={{ margin: "0 auto" }} >
-             Upgrade!
-         </Button>
-         {/* Pages */}
+    <Grid container>
+     <Grid m={"auto"} px={2} width={"100%"} height={"100%"}>
+     <Link href={"/"} style={{ textAlign: "center" }}> <h1 className="logo"> EzSignature</h1></Link>
+      <Button backgroundColor="var(--secondary-color)" height={60} width={'79%'} borderRadius={15} style={{ margin: "0 auto" }} >Upgrade!</Button>
          <Grid component={"div"} container >
-             <div style={{ marginTop: "20px", marginLeft: "12px" }}>
+             <Box component={"div"}>
                  {SidebarData.map((data) => {
                      return (
-                         <Link onClick={()=>{setPagename(data.title)}} key={data.title} href={`/pages/${data.title.toLowerCase()}`}
-                             style={{
-                                 display: "flex",
-                                 alignItems: "center",
-                                 fontSize: "1.5rem",
-                                 margin: "12px",
-                                 gap: "7px",
-                             }}>
-                             {data.icon}
-                             {data.title}
+                         <Link key={data.title} href={`/pages/${data.title.toLowerCase()}`} style={{display: "flex", alignItems: "center", fontSize: "20px",marginTop:"18px", gap: "6px",}}>
+                            {data.icon} {data.title}
                          </Link>
-                     )
-                 })}
-             </div>
+                     )})}
+             </Box>
          </Grid>
      <Link href="/pages/help-center" 
-         style={{
-             fontSize: "1.5rem",
-             display: "flex",
-             alignItems: "center",
-             gap: "7px",
-             marginTop: "40px",  
-             justifyContent: "center", 
-             padding: "10px 0", 
-             textAlign: "center",
-             height:"auto" 
-         }}>
+         style={{fontSize: "1.5rem", position:"absolute", bottom:'20px', left:0, right:0, gap: "7px", textAlign: "center",}}>
          <DonutSmallOutlinedIcon /> Help center
      </Link>
      </Grid> 
@@ -93,8 +49,8 @@ export default function Sidebar(props: Props) {
 
   return (
     <Box sx={{ display: 'flex' }}>
-      <CssBaseline />
-      <AppBar
+      {/* <CssBaseline /> */}
+      {/* <AppBar
         position="fixed"
         sx={{
           width: { md: `calc(100% - ${drawerWidth}px)` },
@@ -111,12 +67,21 @@ export default function Sidebar(props: Props) {
           </IconButton>    
           <h1>{pageName}</h1>
   </Box>
+    {pageName === 'Dashboard' ? (
   <Box component={"div"} display={"flex"} alignItems={"center"} justifyContent={"space-between"}>
-       <NotificationsIcon sx={{cursor:"pointer"}} />
-   <Button backgroundColor="var(--secondary-color)" height={52} width={"79%"} borderRadius={15}>Quick Actions</Button>
-    </Box>
+      <NotificationsIcon sx={{cursor:"pointer"}} />
+      <Button className='nav-btn' backgroundColor="var(--secondary-color)" height={52} width={"100%"} borderRadius={15}>Quick Actions</Button>
+      </Box>
+    ) : (
+    <Box component={"div"} display={"flex"} alignItems={"center"} justifyContent={"space-between"}>
+      <Button className='nav-btn' backgroundColor="var(--secondary-color)" height={52} width={"100%"} borderRadius={15}>New {pageName}</Button>
+      </Box>
+    )
+    
+    }
+  
   </Grid>
-</AppBar>
+</AppBar> */}
       <Box
         component="nav"
         sx={{ width: { md: drawerWidth }, flexShrink: { sm: 0 }}}
@@ -125,9 +90,9 @@ export default function Sidebar(props: Props) {
         {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
         <Drawer
           variant="temporary"
-          open={mobileOpen}
-          onTransitionEnd={handleDrawerTransitionEnd}
-          onClose={handleDrawerClose}
+          open={open}
+          // onTransitionEnd={handleDrawerToggle}
+          onClose={onToggle}
           ModalProps={{
             keepMounted: true, 
           }}
@@ -148,12 +113,11 @@ export default function Sidebar(props: Props) {
         >{drawerContent}</Drawer> 
      </Box> 
       <Grid
-        container
-        component="main"
-        sx={{ flexGrow: 1, p: 2,mt:10, width: {xs:"100%", md: `calc(100% - ${drawerWidth}px)` } }}
+        component="div"
+        sx={{ flexGrow: 1, width: {xs:"100%", md: `calc(100% - ${drawerWidth}px )`} }}
       >{children}
       </Grid>
     </Box>
   );
 }
-
+ 

@@ -12,13 +12,15 @@
 **/
 "use client";
 import React, { useState } from 'react';
-import { Box} from '@mui/material';
 import IconBtn from '@/app/components/iconButton';
 import SearchAppBar from '@/app/components/search';
 import TabSection from '@/app/components/tabSection';
 import PaginationBar from '@/app/components/pagination';
+import Topbar from '@/app/components/dashboardTopbar/topbar';
+import Grid from "@mui/material/Grid2";
 
-export default function TemlatesPage() {
+
+export default function TemplatesPage() {
   // State to manage the active tab
   const [activeTab, setActiveTab] = useState(0);
 
@@ -33,16 +35,24 @@ export default function TemlatesPage() {
   
 
   return (
-    <Box sx={{ padding: '20px', width: '100%' }}>
+    <Topbar title='Templates' secondText='New Templates' buttonText='Bulk Jobs' >
+
+<Grid sx={{ padding: '20px', width: '100%' }}>
       {/* Toolbar */}
-      <Box display="flex" justifyContent="space-between" alignItems="center" mb={2}>
+      <Grid 
+        component={"div"}
+        container
+        justifyContent={"space-between"}
+>
         <IconBtn />
        <SearchAppBar />
-      </Box>
+      </Grid>
 
       {/* Tab Section */}
       <TabSection activeTab={activeTab} handleTabChange={handleTabChange} tabLabels={tabLabels}/>
       <PaginationBar />
-    </Box>
+
+    </Grid>
+    </Topbar>
   );
 }

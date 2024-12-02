@@ -37,7 +37,7 @@ const Button: FC<ButtonProps> = ({
   onBlur,
   onFocus,
   style,
-  to
+  to,
 }) => {
   const [isPressed, setIsPressed] = useState(false);
   const navigate = useRouter() 
