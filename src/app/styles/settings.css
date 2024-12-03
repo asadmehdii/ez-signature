@@ -1,0 +1,32 @@
+
+
+
+
+.settings_form{
+    display: flex;
+     flex-direction: column;
+}
+.settings_span{
+    margin-inline-start: 0.5rem ;
+    color: #E53E3E;
+}
+
+.settings_input{
+    font-weight: 400 ;
+    border-radius: 3px ;
+    height: 35px ;
+    border: 1px solid #c7c7c9 ;
+    width: 40%;
+}
+.settings_input:focus{
+    border: 1px solid #0206A8;
+}
+.settings_link{
+    padding-inline: 20px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #E8EFF6;
+}
+.settings_link:hover{
+    background-color: #E8EFF6;
+}

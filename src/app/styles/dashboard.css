@@ -12,9 +12,11 @@
 .card2{
     background: transparent;
 } 
-
+.card-section{
+    width: 95%;
+}
 .card-section:hover {
-    background-color: "rgba(25, 118, 210, 0.08)" !important;
+    background-color: rgba(25, 118, 210, 0.08) !important;
     cursor: pointer;
 }
 

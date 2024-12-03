@@ -1,6 +1,6 @@
 const Route = {
 HOME : "/",
-FEATURE : "/pages/fetures",
+FEATURE : "/pages/features",
 PRICING : "/pages/pricing",
 DEVELOPER : "/pages/developer",
 HELP : "/pages/help",
@@ -12,6 +12,8 @@ COOKIE_POLICY : "/pages/cookiePolicy",
 PRIVACY_POLICY :"/pages/privacyPolicy",
 BLOGS:"/pages/blogs",
 EXTENDED_BLOGS:"/pages/blogExtended",
+// features pages define here
+FEATURE_PAGES: "/pages/featuresPages",
 
 // Dashboard routes define here
 DASHBOARD:"/pages/dashboard",
@@ -20,6 +22,7 @@ TEMPLATE :"/pages/templates",
 CONTACT :"/pages/contacts",
 TEAM :"/pages/teams",
 TRASH: "/pages/trash",
+SETTINGS: "/pages/settings"
 
 }
 

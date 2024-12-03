@@ -33,7 +33,7 @@ import AutoAwesomeMosaicOutlinedIcon from "@mui/icons-material/AutoAwesomeMosaic
   },
   {  
     icon: <SettingsOutlinedIcon sx={{fontSize:"24px"}}/>,
-    title: "Business settings"
+    title: "Settings"
   }
 ];
 

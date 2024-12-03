@@ -66,8 +66,35 @@ import BlogDetail_1 from "./blogdetail_1.png";
 import BlogDetail_2 from "./blogdetail_2.png";
 import BlogDetail_3 from "./blogdetail_3.png";
 import Avatar from "./Avatar.png";
-
+import CloudBg from "./cloudBg.png";
+import ElectSign_1 from "./electronicSign_1.png";
+import EzFeatureBanner_1 from "./featureBanner_1.png";
+import EzFeatureBanner_2 from "./featureBanner_2.png";
+import FeatureImage_1 from "./featureImage_1.png";
+import FeatureImage_2 from "./featureImage_2.png";
+import FeatureImage_3 from "./featureImage_3.png";
+import FeatureImage_4 from "./featureImage_4.png";
+import FeatureImage_5 from "./featureImage_5.png";
+import FeatureImage_6 from "./featureImage_6.png";
+import FeatureImage_7 from "./featureImage_7.png";
+import AuditScroll from "./auditScrollImg.png";
+import DocumentEdidScroll from "./docementEditScrollImg.png";
+import inPersonSigningScroll from "./inPersonSiningScroll.png";
 const Assests = {
+  FeatureImage_1,
+  FeatureImage_2,
+  FeatureImage_3,
+  FeatureImage_4,
+  FeatureImage_5,
+  FeatureImage_6,
+  FeatureImage_7,
+  AuditScroll,
+  DocumentEdidScroll,
+  inPersonSigningScroll,
+  EzFeatureBanner_1,
+  EzFeatureBanner_2,
+  CloudBg,
+  ElectSign_1,
   Avatar,
   BlogDetail_1,
   BlogDetail_2,

@@ -22,7 +22,7 @@ const Footer: FC = () => {
         <Grid size={{ xs: 12, sm: 5, md: 3, lg: 2.5 }}>
           <Text color="#fff" fontWeight="700" fontSize={"24px"} marginBottom={25}> Main Features </Text>
           <Box sx={{display: { xs: "flex", sm: "block" },flexWrap: { xs: "wrap", sm: "nowrap" }, columnGap: 2,}}>
-            {MainFeature.map((item)=><Navigate key={item.text} sx={{mb:1.5}} color="#fff" fontSize={18} fontWeight="500" text={item.text} to={item.navigate}/>)}
+            {MainFeature.map((item)=><Navigate key={item.text} sx={{mb:1.5}} color="#fff" fontSize={18} fontWeight="500" text={item.text} to={`${item.navigate}?feature=${item.featureName}`}/>)}
         </Box>
         </Grid>
         <Grid size={{ xs: 12, sm: 5, md: 3, lg: 2.5 }}>

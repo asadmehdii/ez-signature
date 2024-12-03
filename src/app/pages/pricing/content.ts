@@ -1,9 +1,3 @@
-import Assests from "@/app/assests/images";
-
-export interface EzFeatureProps {
-  icon: any;
-  feature: string;
-}
 export interface PlanCardDataProps {
   planName: string;
   amount: string;
@@ -11,20 +5,6 @@ export interface PlanCardDataProps {
   features: string[];
   popular:boolean,
 }
-const EzFeature = [
-  { icon: Assests.legalValidity, feature: "Legal Validity & Compliance" },
-  { icon: Assests.ElectronicSign, feature: "Electronic Signatures" },
-  { icon: Assests.DocSecurity, feature: "Documents & Security" },
-  { icon: Assests.DocEditor, feature: "Document Editor" },
-  { icon: Assests.inPersonSign, feature: "In-Person Signing" },
-  { icon: Assests.AuditTrail, feature: "Audit Trail" },
-  { icon: Assests.Templates, feature: "Templates" },
-  { icon: Assests.MultiBussiness, feature: "Multiple Businesses" },
-  { icon: Assests.TeamManage, feature: "Team Management" },
-  { icon: Assests.ContactManage, feature: "Contact Management" },
-  { icon: Assests.AppIntegration, feature: "App Integrations" },
-  { icon: Assests.esignatureAPI, feature: "eSignature API" },
-];
 
 const PlanCardData = [
   {
@@ -103,8 +83,6 @@ const PlanCardData = [
 ];
 
 
-
-
 const PricingFaqsQuestion = [
   {
       question:"Is EzSignature really free?",
@@ -131,4 +109,4 @@ const PricingFaqsQuestion = [
       answer:"We are — if you ever have any questions or concerns, need technical support or help getting started with EzSignature, just visit the Help-Center. Our support team will be of assistance to answer your message."
   },
 ]
-export { EzFeature, PlanCardData, PricingFaqsQuestion };
+export { PlanCardData, PricingFaqsQuestion };

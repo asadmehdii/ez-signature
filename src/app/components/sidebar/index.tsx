@@ -32,7 +32,7 @@ export default function Sidebar({children,open,onToggle}: Props) {
                      return (
                          <Link key={data.title} href={`/pages/${data.title.toLowerCase()}`} style={{display: "flex", alignItems: "center", fontSize: "20px",marginTop:"18px", gap: "6px",}}>
                             {data.icon} {data.title}
-                         </Link>
+                         </Link> 
                      )})}
              </Box>
          </Grid>

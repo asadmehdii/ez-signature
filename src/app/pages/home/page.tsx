@@ -112,7 +112,7 @@ const Home: FC = () => {
         <Grid container margin={"auto"} rowSpacing={5} columnSpacing={3} paddingBottom={5}>
           <Card
             className="card"
-            padding={"20px"}
+            padding={20}
             width={"450px"}
             height={"350px"}
             borderWidth={1}
@@ -145,7 +145,7 @@ const Home: FC = () => {
           </Card>
           <Card
             className="card"
-            padding={"20px"}
+            padding={20}
             width={"450px"}
             height={"350px"}
             borderWidth={1}
@@ -180,7 +180,7 @@ const Home: FC = () => {
         <Grid container marginLeft={"auto"} spacing={5}>
           <Card
             className="card"
-            padding={"20px"}
+            padding={20}
             width={"450px"}
             height={"350px"}
             borderWidth={1}
@@ -213,7 +213,7 @@ const Home: FC = () => {
           </Card>
           <Card
             className="card"
-            padding={"20px"}
+            padding={20}
             width={"450px"}
             height={"350px"}
             borderWidth={1}

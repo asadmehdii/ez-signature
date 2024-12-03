@@ -42,7 +42,7 @@ const Dashboard: React.FC = () => {
             className="card1"
             padding={"0px"}
             width={"45%"} 
-            height={"350px"}
+            height={"100%"}
             borderWidth={1}
             borderColor="#cccccc"
             borderRadius={3}
@@ -82,52 +82,66 @@ const Dashboard: React.FC = () => {
             className="card1 card-Activity"
             padding={"0px"}
             width={"45%"} 
-            height={"350px"}
+            height={"100%"}
             borderWidth={1}
             borderColor="#cccccc"
             borderRadius={3}
           >
             <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', backgroundColor: 'rgba(25, 118, 210, 0.08)', margin: '0', padding: '0 19px'}}>
-            <h3 style={{}}>Recent Activity</h3>
+            <h3>Recent Activity</h3>
             <Link href=''>View Activity log</Link>
             </div>
-           <Grid>
-            <Link href='' className='card-section'>
+           <Grid component={"div"} container flexDirection={"column"} alignItems={"center"} overflow={"hidden"}>
+            <Link href='' className='card-section' style={{padding: "1rem", borderBottom: "1px solid #E8EFF6"}}>
             <Text
-             color='#1e88e5'
-             paddingLeft={12}
-             paddingRight={12}
-             fontSize='17px'
+             color='#0206A8'
+             fontSize='16px'
+             style={{overflow: "hidden", whiteSpace: "nowrap", textOverflow: "ellipsis"}}
              
             >
                 Oct 09 2024- document Appointment Leter.pdf completed by user@gmail.com
             </Text>
             </Link>
-            <hr/>
-            <Link href=''>
+            <Link href='' className='card-section' style={{padding: "1rem", borderBottom: "1px solid #E8EFF6"}}>
             <Text
-             color='#1e88e5'
-             paddingLeft={12}
-             paddingRight={12}
-             fontSize='17px'
+             color='#0206A8'
+             
+            //  paddingLeft={5}
+            //  paddingTop={5}
+            //  paddingBottom={5}
+             fontSize='16px'
+             style={{overflow: "hidden", whiteSpace: "nowrap", textOverflow: "ellipsis"}}
              
             >
                 Oct 09 2024- document Appointment Leter.pdf completed by user@gmail.com
             </Text>
             </Link>
-            <hr />
-            <Link href=''>
+            <Link href='' className='card-section' style={{padding: "1rem", borderBottom: "1px solid #E8EFF6"}}>
             <Text
-             color='#1e88e5'
-             paddingLeft={12}
-             paddingRight={12}
-             fontSize='17px'
+             color='#0206A8'
+            //  paddingLeft={5}
+            //  paddingTop={5}
+            //  paddingBottom={5}
+             fontSize='16px'
+             style={{overflow: "hidden", whiteSpace: "nowrap", textOverflow: "ellipsis"}}
              
             >
                 Oct 09 2024- document Appointment Leter.pdf completed by user@gmail.com
             </Text>
             </Link>
-            <hr />
+            <Link href='' className='card-section' style={{padding: "1rem", borderBottom: "1px solid #E8EFF6"}}>
+            <Text
+             color='#0206A8'
+            //  paddingLeft={5}
+            //  paddingTop={5}
+            //  paddingBottom={5}
+             fontSize='16px'
+             style={{overflow: "hidden", whiteSpace: "nowrap", textOverflow: "ellipsis"}}
+             
+            >
+                Oct 09 2024- document Appointment Leter.pdf completed by user@gmail.com
+            </Text>
+            </Link>
            </Grid>
           </Card>
             </Grid>

@@ -25,7 +25,7 @@ const Topbar:FC<TopbarProps> = ({children,title,buttonText,secondText,hideRightC
       };
     return(
     <Sidebar open = {showSideBar} onToggle = {handleDrawerToggle}>
-       <Box bgcolor={"#fff"} position={"fixed"} top={0} right={0}  ml= {{ md: `250px` }} left={0} borderBottom={"1px solid #CED4DA"} maxWidth={{md:"calc(100% - 250px)"}} component={"div"}>  
+       <Box marginTop={0} bgcolor={"#fff"} position={"fixed"} top={0} right={0}  ml= {{ md: `250px` }} left={0} borderBottom={"1px solid #CED4DA"} maxWidth={{md:"calc(100% - 250px)"}} component={"div"}>  
           <Typography textAlign={"center"} pb={2} pt={2} display={{xs:"inline-block",sm:"none"}} width={"100%"} color="var(--secondary-color)" fontFamily={"font-mada"} fontSize={26} fontWeight={500}>{title}</Typography>  
         <Box px={3} display={"flex"} justifyContent={"space-between"} alignItems={"center"}  height={66}>
            <Box component={"div"} display={"flex"} alignItems={"center"} gap={1}> 

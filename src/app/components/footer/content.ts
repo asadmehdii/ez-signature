@@ -7,10 +7,10 @@ const General = [
   ];
   
   const MainFeature = [
-    { text: "Electronic Signatures", navigate: "#" },
+    { text: "Electronic Signatures", navigate:"#" },
     { text: "Documents & Security", navigate: "#" },
-    { text: "In-Person Signing", navigate: "#" },
-    { text: "Audit Trail", navigate: "#" },
+    { text: "In-Person Signing", navigate: Route.FEATURE_PAGES, featureName:"In-Person Signing"},
+    { text: "Audit Trail", navigate: Route.FEATURE_PAGES, featureName:"Audit Trail" },
     { text: "Templates", navigate: "#" },
     { text: "App Integrations", navigate: "#" },
   ];
