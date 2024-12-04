@@ -12,7 +12,6 @@ export interface APICardProps {
   buttonText: string;
   provideFeature: string[];
   popular: boolean;
-  to?:string
 }
 const EzAPI = [
   {

@@ -23,7 +23,7 @@ const SandAccountAPI: React.FC = () => {
       <Button width={201} borderRadius={32} color="#fff" fontWeight="500" fontSize={22} backgroundColor="#A0A0A0" to={Route.SANDBOX_ACCOUNT}>Back</Button>  
     </Grid>
     <Grid container mt={6} justifyContent={{xs:"flex-start",xl:"center"}} rowSpacing={4} columnSpacing={6}>
-    {APIPricingCardContent.map((value)=><APIPricingCard key={value.text} props={value} to={Route.SANDBOX_BUSSINESS} />)} 
+    {APIPricingCardContent.map((value)=><APIPricingCard key={value.text} props={value}/>)} 
     </Grid> 
     </Box>
     </ContentBox>
