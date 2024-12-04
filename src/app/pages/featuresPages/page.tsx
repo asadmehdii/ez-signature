@@ -9,10 +9,15 @@ import Navbar from "@/app/components/navbar";
 import DocumentandEditor from "./document&editor";
 import AuditTrails from "./auditTrail/index";
 import InPersonSigning from "./inPersonSigning/index";
+import ElectronicSignature from "./electronicSignature";
 // import { useSearchParams } from "next/navigation";
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
 import { CarouselData } from "./content";
+import DocumentManagement from "./documentManagement";
+import Templates from "./templates";
+import MoreFeatures from "@/app/components/exploreMoreFeature";
+import Integration from "./integration";
 
 
 
@@ -51,7 +56,7 @@ const handlePrev = () => {
     <Navbar/>
     <ContentBox>
     <Box sx={{position: "relative", width: "100%", margin: "0 auto",marginTop:5}}>
-    <Grid  flexWrap={{sm:"wrap",md:"nowrap"}} container flexDirection={{xs:"column-reverse",md:"row"}} alignItems={"center"} justifyContent={"space-between"}>
+    <Grid rowSpacing={4} flexWrap={{sm:"wrap",md:"nowrap"}} container flexDirection={{xs:"column-reverse",md:"row"}} alignItems={"center"} justifyContent={"space-between"}>
      <Box maxWidth={636} width={"100%"}>
        <Typography sx={Styles.featureName}>Features &gt; <span style={{color:"var(--secondary-color)"}}>{CarouselData[currentIndex].feature}</span></Typography>        
        <Typography sx={Styles.heading}>{CarouselData[currentIndex].heading}</Typography>        
@@ -68,7 +73,13 @@ const handlePrev = () => {
       {feature === "Document Editor" && <DocumentandEditor/>}
       {feature === "Audit Trail" && <AuditTrails/>}
       {feature === "In-Person Signing" && <InPersonSigning/>}
+      {feature === "Electronic Signatures" && <ElectronicSignature/>}
+      {feature === "Document Management & Security" && <DocumentManagement/>}
+      {feature === "Templates" && <Templates/>}
+      {feature === "Integration" && <Integration/>}
+
      {/* ------------------------------ */}
+    <MoreFeatures/>
     <MoreQuestion mt={8}/>
     <SignAnytime/>
     <Footer/>

@@ -13,6 +13,7 @@ import FAQs from "@/app/components/faqs";
 import CustomForm from "@/app/components/customPriceForm";
 import ContentBox from "@/app/components/contentBox";
 import MoreFeatures from "@/app/components/exploreMoreFeature";
+import DoubleGrid from "@/app/components/doubleGrid";
 
 
 
@@ -55,30 +56,15 @@ const Pricing:FC = ()=>{
             </ContentBox>
              {/* --------------------------------- */} 
              {/* Grid 4 -------grid with bg image*/} 
-              <Grid container flexDirection={{xs:"column",md:"row"}}  my={3} component={"div"} className="doubleDivWithBg">
-                <Box component={"div"} width={{xs:"100%",md:"50%"}} className="rightDiv">
-                  <ContentBox sx={{display:"flex",justifyContent:"center",flexDirection:"column",gap:2}}>
-                  <Text fontSize={"38px"} fontWeight="800" color="#fff">Ezsignature Enterprise</Text>
-                  <Text style={{maxWidth:"350px"}} fontSize={"20px"} fontWeight="500" color="#fff">Request an Enterprise solution tailored for your business.</Text>
-                  <Button fontSize={20} fontWeight="500" borderRadius={19} width={"200px"} height={"60px"} color="var(--text-color)" backgroundColor="var(--lightBlue-color)">Contact Us</Button>
-                  </ContentBox>
-                </Box>
-                <Box component={"div"} width={{xs:"100%",md:"50%"}} className="leftDiv">
-                <ContentBox sx={{display:"flex",justifyContent:"center",flexDirection:"column",gap:2}}>
-                <Text fontSize={"38px"} fontWeight="800" color="#fff">Interested in using the Xodo Sign API?</Text>
-                  <Text style={{maxWidth:"350px"}} fontSize={"20px"} fontWeight="500" color="#fff">We&apos;re offering separate pricing plans for more extensive API usage.</Text>
-                  <Button fontSize={20} fontWeight="500" borderRadius={19} width={"200px"} height={"60px"} color="var(--text-color)" backgroundColor="var(--lightBlue-color)">API Pricing Plans</Button>
-                </ContentBox>
-                </Box>
-              </Grid>
+               <DoubleGrid mt={8}/>
              {/* --------------------------------- */} 
              <ContentBox>
-             <CustomForm mt={8} textWidth={1208} title="Request a solution tailored to your needs" text="Each business has different requirements - if yours are not covered by the subscription plans above, 
+             <CustomForm mt={4} textWidth={1208} title="Request a solution tailored to your needs" text="Each business has different requirements - if yours are not covered by the subscription plans above, 
                    we are happy to set up a custom solution for you. To request one, please fill out the form below and our Sales team 
                    will be with you shortly."/>
             
 
-            <FAQs faqs={PricingFaqsQuestion} heading="Frequently Asked Questions?" mt={8}/>
+            <FAQs faqs={PricingFaqsQuestion} heading="Frequently Asked Questions?" mt={4}/>
             </ContentBox>
            <MoreQuestion mt={8}/>
            <SignAnytime/>

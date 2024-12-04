@@ -14,6 +14,10 @@ BLOGS:"/pages/blogs",
 EXTENDED_BLOGS:"/pages/blogExtended",
 // features pages define here
 FEATURE_PAGES: "/pages/featuresPages",
+SANDBOX_SIGNUP: "/pages/sandbox",
+SANDBOX_ACCOUNT: "/pages/sandbox/sandAccount",
+SANDBOX_ACCOUNT_API: "/pages/sandbox/sandAccountApi",
+SANDBOX_BUSSINESS: "/pages/sandbox/sandBussiness",
 
 // Dashboard routes define here
 DASHBOARD:"/pages/dashboard",

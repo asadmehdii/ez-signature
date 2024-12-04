@@ -7,17 +7,17 @@ const General = [
   ];
   
   const MainFeature = [
-    { text: "Electronic Signatures", navigate:"#" },
-    { text: "Documents & Security", navigate: "#" },
+    { text: "Electronic Signatures", navigate: Route.FEATURE_PAGES,featureName:"Electronic Signatures" },
+    { text: "Documents & Security", navigate: Route.FEATURE_PAGES,featureName:"Document Management & Security" },
     { text: "In-Person Signing", navigate: Route.FEATURE_PAGES, featureName:"In-Person Signing"},
     { text: "Audit Trail", navigate: Route.FEATURE_PAGES, featureName:"Audit Trail" },
-    { text: "Templates", navigate: "#" },
-    { text: "App Integrations", navigate: "#" },
+    { text: "Templates", navigate: Route.FEATURE_PAGES ,featureName:"Templates" },
+    { text: "App Integrations", navigate: Route.FEATURE_PAGES,featureName:"Integration" },
   ];
   
   const Developer = [
     { text: "Developer Portal", navigate: "#" },
-    { text: "Create Free SandBox", navigate: "#" },
+    { text: "Create Free SandBox", navigate: Route.SANDBOX_SIGNUP },
     { text: "API Pricing", navigate: "#" },
     { text: "API Documentation", navigate: "#" },
   ];

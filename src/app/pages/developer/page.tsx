@@ -68,7 +68,7 @@ return(
     {/* Grid 4 --- Api pricing */}
     <Box mt={10} component="div" className="APIPricing">
     <Grid container justifyContent={"space-between"} alignItems={"center"} rowSpacing={5}>    
-    <Text fontSize="60px" fontWeight="700" className="head_1">Volume EzSignature API Pricing</Text>
+    <Text fontSize="55px" fontWeight="700" className="head_1">Volume EzSignature API Pricing</Text>
      <Box m={{xs:"auto",xl:"0"}} display={"flex"} alignItems={"center"} justifyContent={"space-evenly"} component="div" width={"282px"} height={"65px"} borderRadius={"51px"} bgcolor={"#18395B"}>
         <Button color="#fff" borderColor="#fff" borderWidth={activeBtn === "monthly"? 0 : 1 } onClick={()=>{setActiveBtn("monthly")}} fontSize={18} fontWeight="600" backgroundColor={activeBtn === "monthly"?"var(--secondary-color)":"#18395B"}  width={132} height={59} borderRadius={51}>Monthly</Button>
         <Button color="#fff" borderColor="#fff" borderWidth={activeBtn === "yearly"? 0 : 1 } onClick={()=>{setActiveBtn("yearly")}} fontSize={18} fontWeight="600" backgroundColor={activeBtn === "yearly" ?"var(--secondary-color)":"#18395B"} className="yearlyBtn" width={132} height={59} borderRadius={51}>Yearly</Button>

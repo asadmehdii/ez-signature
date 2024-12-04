@@ -66,7 +66,7 @@ const [hidePassword,setHidePassword] = useState<boolean>(true)
            <CustomTextField fullWidth variant="outlined" type={hidePassword?"password":"text"}/>  
            <Text  color="var(--lightGray-color)" fontSize="14px" fontWeight="600" style={{marginTop:'7px'}}>Use 8 or more characters with a mix of letters, numbers & symbols</Text>
           </Box>
-          <Typography variant="body1" fontSize="16px" color="var(--lightGray-color)" fontWeight="500" sx={{maxWidth:"300px",marginX:{xs:"auto",sm:0}}}>By creating an account, you agree to our <Link href={Route.TERM_CONDITION} style={{fontWeight:"700",color:"#111111",textDecoration:'underline'}}> Terms of use </Link> and <Link href={Route.PRIVACY_POLICY} style={{fontWeight:"700",color:"#111111",textDecoration:'underline'}}>Privacy Policy</Link> </Typography>
+          <Typography fontFamily={"var(--text-mada)"} variant="body1" fontSize="16px" color="var(--lightGray-color)" fontWeight="500" sx={{maxWidth:"300px",marginX:{xs:"auto",sm:0}}}>By creating an account, you agree to our <Link href={Route.TERM_CONDITION} style={{fontWeight:"700",color:"#111111",textDecoration:'underline'}}> Terms of use </Link> and <Link href={Route.PRIVACY_POLICY} style={{fontWeight:"700",color:"#111111",textDecoration:'underline'}}>Privacy Policy</Link> </Typography>
           <Box display={"flex"} justifyContent={"space-between"} alignItems={"center"} border={"1px solid #333333"} width={"260px"} px={2} margin={"auto"} mt={2} borderRadius={"18px"} height={"50px"} >
           <Box display={"flex"}  alignItems={"center"} gap={0.5}>
           <Checkbox defaultChecked size="small" sx={{color: "#121212",m:0,p:0}} />

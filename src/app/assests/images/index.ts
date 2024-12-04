@@ -70,6 +70,7 @@ import CloudBg from "./cloudBg.png";
 import ElectSign_1 from "./electronicSign_1.png";
 import EzFeatureBanner_1 from "./featureBanner_1.png";
 import EzFeatureBanner_2 from "./featureBanner_2.png";
+import EzFeatureBanner_3 from "./featureBanner_3.png";
 import FeatureImage_1 from "./featureImage_1.png";
 import FeatureImage_2 from "./featureImage_2.png";
 import FeatureImage_3 from "./featureImage_3.png";
@@ -77,10 +78,25 @@ import FeatureImage_4 from "./featureImage_4.png";
 import FeatureImage_5 from "./featureImage_5.png";
 import FeatureImage_6 from "./featureImage_6.png";
 import FeatureImage_7 from "./featureImage_7.png";
+import FeatureImage_8 from "./featureImage_8.png";
+import FeatureImage_9 from "./featureImage_9.png";
+import FeatureImage_10 from "./featureImage_10.png";
+import FeatureImage_11 from "./featureImage_11.png";
+import FeatureImage_12 from "./featureImage_12.png";
+import FeatureImage_13 from "./featureImage_13.png";
 import AuditScroll from "./auditScrollImg.png";
 import DocumentEdidScroll from "./docementEditScrollImg.png";
 import inPersonSigningScroll from "./inPersonSiningScroll.png";
+import DocumentManageScroll from "./documentManagementScroll.png";
+import TemplateScroll from "./templatesScroll.png";
+import integrationScroll from "./integrationScroll.png";
+import DocumentIcon from "./documentIcons.png";
+import BussinessIcon from "./bussinessIcon.png";
+import UserIcon from "./userIcon.png";
 const Assests = {
+  DocumentIcon,
+  BussinessIcon,
+  UserIcon,
   FeatureImage_1,
   FeatureImage_2,
   FeatureImage_3,
@@ -88,11 +104,21 @@ const Assests = {
   FeatureImage_5,
   FeatureImage_6,
   FeatureImage_7,
+  FeatureImage_8,
+  FeatureImage_9,
+  FeatureImage_10,
+  FeatureImage_11,
+  FeatureImage_12,
+  FeatureImage_13,
+  DocumentManageScroll,
+  TemplateScroll,
+  integrationScroll,
   AuditScroll,
   DocumentEdidScroll,
   inPersonSigningScroll,
   EzFeatureBanner_1,
   EzFeatureBanner_2,
+  EzFeatureBanner_3,
   CloudBg,
   ElectSign_1,
   Avatar,

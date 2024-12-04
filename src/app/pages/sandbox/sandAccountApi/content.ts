@@ -1,9 +1,4 @@
-import Assests from "@/app/assests/images";
-export interface EzAPIProps {
-  icon: any;
-  title: string;
-  text: string;
-}
+
 export interface APICardProps {
   title: string;
   text: string;
@@ -12,53 +7,7 @@ export interface APICardProps {
   buttonText: string;
   provideFeature: string[];
   popular: boolean;
-  to?:string
 }
-const EzAPI = [
-  {
-    icon: Assests.SimpleSecure,
-    title: "SIMPLE & SECURE",
-    text: "Request eSignatures via GET or POST methods, receive them in a straightforward and portable JSON format, and ensure security with industry-standard HTTPS encryption.",
-  },
-  {
-    icon: Assests.Scalable,
-    title: "HIGHLY SCALABLE",
-    text: "The EzSignature API can process thousands of electronic signature requests per second, seamlessly adapting to your business requirements and workflows.",
-  },
-  {
-    icon: Assests.DevSupport,
-    title: "DEVELOPER SUPPORT",
-    text: "Our experienced team of developers stands ready to assist you with integration and answer any questions you may have, whenever you need assistance.",
-  },
-  {
-    icon: Assests.TransparentPricing,
-    title: "TRANSPARENT PRICING",
-    text: "Test our EzSignature API for free. When you're ready, choose a subscription plan that best fits your business needs — with no hidden fees or costs.",
-  },
-];
-
-const ElectronicSign = [
-  {
-    icon: Assests.EmbedSigning,
-    title: "Embedded Signing",
-    text: "Empower users to sign documents directly within your application or website, ensuring a seamless experience for both signers and senders. ",
-  },
-  {
-    icon: Assests.EmbedRequesting,
-    title: "Embedded Requesting",
-    text: "Streamline document turnaround times with integrated signature requests, allowing users to request signatures within your platform.",
-  },
-  {
-    icon: Assests.AutomatWorkflow,
-    title: "Automated Workflows",
-    text: "Seamlessly integrate with CRMs and file storage solutions to automate repetitive document signing tasks, freeing up valuable time.",
-  },
-  {
-    icon: Assests.NoCode,
-    title: "No Code Options",
-    text: "Connect Ezsignature API to various apps and services using platforms like Zapier and Relay.app, eliminating the need for custom development.",
-  },
-];
 
 const APIPricingCardContent = [
   {
@@ -151,4 +100,4 @@ const FAQsData = [
   },
 ];
 
-export { EzAPI, ElectronicSign, APIPricingCardContent, FAQsData };
+export { APIPricingCardContent, FAQsData };
