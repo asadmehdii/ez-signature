@@ -7,22 +7,20 @@ import SignAnytime from "@/app/components/signAnytime";
 import Footer from "@/app/components/footer";
 import Navbar from "@/app/components/navbar";
 import DocumentandEditor from "./document&editor";
-import AuditTrails from "./auditTrail";
-import InPersonSigning from "./inPersonSigning";
-import { useSearchParams } from "next/navigation";
+import AuditTrails from "./auditTrail/index";
+import InPersonSigning from "./inPersonSigning/index";
+// import { useSearchParams } from "next/navigation";
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
 import { CarouselData } from "./content";
 
 
 
-const DisplayFeatures = () => {
-const searchParams = useSearchParams();
-const searchValue = searchParams.get('feature');  
+const FeaturesContent = ({props}:any) => {
 const [currentIndex, setCurrentIndex] = useState(0);
 const [feature,setFeature] = useState("Document Editor")
-
- const handlePrev = () => {
+console.log(props)
+const handlePrev = () => {
     setCurrentIndex((prevIndex) => {
         return  prevIndex === 0 ? CarouselData.length - 1 : prevIndex - 1
     });
@@ -33,13 +31,20 @@ const [feature,setFeature] = useState("Document Editor")
   };
 
   useEffect(() => {
+    const searchParams = new URLSearchParams(window.location.search);
+    const searchValue = searchParams.get("feature");
     if (searchValue) {
-      const index = CarouselData.findIndex((value) => value.heading.toLowerCase() === searchValue.toLowerCase());
+      const index = CarouselData.findIndex(
+        (value) => value.heading.toLowerCase() === searchValue.toLowerCase()
+      );
       setCurrentIndex(index !== -1 ? index : 0);
     }
-  }, [searchValue]);  
+  }, []); 
 
-  useEffect(()=>setFeature(CarouselData[currentIndex].heading),[currentIndex])
+  useEffect(()=>
+    {
+      setFeature(CarouselData[currentIndex].heading)
+    },[currentIndex])
 
   return (
     <React.Fragment>
@@ -113,4 +118,4 @@ const Styles = {
     },    
 }
 }
-export default DisplayFeatures;
+export default FeaturesContent;
