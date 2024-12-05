@@ -12,7 +12,6 @@ COOKIE_POLICY : "/pages/cookiePolicy",
 PRIVACY_POLICY :"/pages/privacyPolicy",
 BLOGS:"/pages/blogs",
 EXTENDED_BLOGS:"/pages/blogExtended",
-// features pages define here
 FEATURE_PAGES: "/pages/featuresPages",
 SANDBOX_SIGNUP: "/pages/sandbox",
 SANDBOX_ACCOUNT: "/pages/sandbox/sandAccount",
@@ -26,7 +25,8 @@ TEMPLATE :"/pages/templates",
 CONTACT :"/pages/contacts",
 TEAM :"/pages/teams",
 TRASH: "/pages/trash",
-SETTINGS: "/pages/settings"
+SETTINGS: "/pages/settings",
+NEW_CONTACT:"/pages/contacts/newContact"
 
 }
 

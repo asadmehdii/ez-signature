@@ -1,9 +1,10 @@
 "use client"
-import React, { useState } from "react";
+import React, { CSSProperties, useState } from "react";
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import Text from "@/app/components/text";
-import { Box, TextField, Typography } from "@mui/material";
+import { Box,TextField, Typography } from "@mui/material";
+import EmergencyIcon from '@mui/icons-material/Emergency';
 
 type Props = {
     width?:any,
@@ -19,10 +20,16 @@ type Props = {
     mt?:number
     mb?:number
     validationMsg?:string
+    borderRadius?:number
+    multiline?:boolean;
+    rows?:number
+    important?:boolean
+    lableStyle?:CSSProperties
     }
 
 const InputText:React.FC<Props> = ({
     width,
+    important,
     maxWidth,
     height = 56,
     placeholder,
@@ -33,16 +40,19 @@ const InputText:React.FC<Props> = ({
     value,
     onChange, 
     mt,mb, 
-    validationMsg
+    validationMsg,
+    borderRadius = 12,
+    rows,
+    multiline,
+    lableStyle
 }) => {
   const Styles = {
     textInputField: {
-      borderRadius: "12px",
-      height:height,
+      // height:height,
       "& .MuiOutlinedInput-root": {
-        height:70,
+        height:multiline? "auto" : height,
         "& fieldset": {
-          borderRadius: "12px",
+          borderRadius: `${borderRadius}px`,
           borderColor: "#666666", // Default color
         },
         "&:hover fieldset": {
@@ -60,10 +70,10 @@ const InputText:React.FC<Props> = ({
       color:"#666666"
     },
     errorStyle:{
-        fontFamily:"var(--text-mada)",
-        fontSize:16,
-        fontWeight:500,
-        color:"red"
+      fontFamily:"var(--text-mada)",
+      fontSize:16,
+      fontWeight:500,
+      color:"red"
       }
   };
 const [hidePassword,setHidePassword] = useState<string>("password") 
@@ -71,7 +81,7 @@ const [hidePassword,setHidePassword] = useState<string>("password")
  return(
         <Box maxWidth={maxWidth} width={width} mt={mt} mb={mb}>
         <Box display={"flex"} justifyContent={"space-Between"}>
-        <Typography sx={Styles.lableStyle} mb={1}>{lable}</Typography>
+        <Typography sx={[Styles.lableStyle,{...lableStyle}]} mb={1}>{lable} {important && <EmergencyIcon sx={{fontSize:"8px",mb:0.7,color:"#ef5350"}} />}</Typography>
          {protect &&
          <>
         {hidePassword === "password"? 
@@ -81,7 +91,7 @@ const [hidePassword,setHidePassword] = useState<string>("password")
          </>    
        }
         </Box>
-        <TextField value={value} onChange={onChange} fullWidth type={protect? hidePassword : type} variant="outlined" sx={Styles.textInputField} placeholder={placeholder}/>
+        <TextField multiline rows={rows} value={value} onChange={onChange} fullWidth type={protect? hidePassword : type} variant="outlined" sx={Styles.textInputField} placeholder={placeholder}/>
        {errorMessage? 
         <Typography sx={Styles.errorStyle} mt={1}>{errorMessage}</Typography>:
         <Typography sx={Styles.lableStyle} mt={0.5}>{validationMsg}</Typography>
