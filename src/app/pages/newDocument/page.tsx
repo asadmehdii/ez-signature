@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import { ToggleButtonGroup, ToggleButton, IconButton, Button, Typography, Box, Popover } from "@mui/material";
+import { ToggleButtonGroup, ToggleButton, IconButton, Button, Box} from "@mui/material";
 import Checkbox from '@mui/material/Checkbox';
 import Grid from "@mui/material/Grid2";
 import DropBoxIcon from "@mui/icons-material/Storage"; // Placeholder for Dropbox
@@ -13,7 +13,7 @@ import Image from "next/image";
 import CustomButton from "@/app/components/button";
 import Text from "@/app/components/text";
 import Link from "next/link";
-import { Diversity1Outlined, PersonOutlineOutlined, ClearOutlined, DraftsOutlined, ContentPasteOutlined, SettingsOutlined, Help, ArrowDropDown} from '@mui/icons-material';
+import { Diversity1Outlined, PersonOutlineOutlined, ClearOutlined, DraftsOutlined, SettingsOutlined, Help} from '@mui/icons-material';
 import { grey } from '@mui/material/colors';
 import CustomPopover from "@/app/components/popover";
 import ModelToggle from "@/app/components/modelToggle";

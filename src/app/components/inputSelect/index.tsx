@@ -1,6 +1,6 @@
 "use client";
-import React, { CSSProperties } from "react";
-import { Box, Menu, MenuItem, SxProps, TextField, Theme, Typography } from "@mui/material";
+import React from "react";
+import { Box, MenuItem, SxProps, TextField, Theme, Typography } from "@mui/material";
 import EmergencyIcon from '@mui/icons-material/Emergency';
 
 type SelectInputProps = {

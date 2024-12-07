@@ -3,7 +3,6 @@ import * as React from 'react';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
 import  Grid  from '@mui/material/Grid2';
-import Text from '@/app/components/text';
 import Navigate from '@/app/components/linkText';
 
 interface Props {
@@ -37,7 +36,7 @@ const APIDocumentationSidebar = ({children,open,onToggle}: Props)=>{
 const drawerWidth = 220;
 
 const drawerContent = (
-    <Box>
+    <Box component={"div"} onClick={onToggle}>
       {topics.map((item)=><Navigate sx={{borderBottom:"1px solid #000000",pl:1,py:1}} fontSize={16} fontWeight='600' key={item} text={item} to={`#${item}`} />)}
     </Box>
  )

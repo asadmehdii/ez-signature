@@ -24,7 +24,6 @@ type ButtonProps = {
 
 const Button: FC<ButtonProps> = ({
   children,
-  component = "label",
   height = 60,
   width = "fit-content",
   fontSize = 18,

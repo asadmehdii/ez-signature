@@ -26,7 +26,7 @@ const [value,setValue] = useState("Super Admin")
       <InputSelect labelStyle={{color:'var(--secondary-color)'}} label='Role' margin={"20px 0 0 20px"} important value={value} onChange={(e)=>setValue(e.target.value)} itemStyle={{backgroundColor:"#E8EFF6","&:hover":{color:"#fff",bgcolor:"var(--secondary-color)"},"&.Mui-selected":{backgroundColor:"#E8EFF6","&:hover":{color:"#fff",bgcolor:"var(--secondary-color)"}}}} options={role} height={35} borderRadius={2} sx={{bgcolor:"#E8EFF6"}} width={250}/>
       <Box px={"20px"}  mt={3}>
       <Text color='var(--secondary-color)' fontSize='16px' fontWeight='400' style={{display:"flex",alignItems:"center",gap:"8px",margin:"0px"}}><AdminPanelSettingsOutlinedIcon/> Super Admin:</Text>
-      <Text fontSize='16px' fontWeight='400' style={{maxWidth:"750px",marginTop:"6px"}}>Comes with all business-level permissions, except for deleting the business. Business Super Admins cannot make any changes to your Xodo Sign account, only to your business "An Um ".</Text>
+      <Text fontSize='16px' fontWeight='400' style={{maxWidth:"750px",marginTop:"6px"}}>Comes with all business-level permissions, except for deleting the business. Business Super Admins cannot make any changes to your Xodo Sign account, only to your business &quot;An Um&quot;.</Text>
 
       <Text color='var(--secondary-color)' fontSize='16px' fontWeight='400' style={{display:"flex",alignItems:"center",gap:"8px",margin:"0px"}}><WorkOutlineOutlinedIcon/> Manager:</Text>
       <Text fontSize='16px' fontWeight='400' style={{maxWidth:"750px",marginTop:"6px"}}>Managers can view, create, edit, delete and use all business documents and templates, and cancel ongoing documents.</Text>

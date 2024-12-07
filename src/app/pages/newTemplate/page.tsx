@@ -1,19 +1,15 @@
 "use client";
 import React, { useState } from "react";
-import { ToggleButtonGroup, ToggleButton, IconButton, Button, Typography, Box, Popover } from "@mui/material";
+import { ToggleButtonGroup, ToggleButton, IconButton, Button, Box} from "@mui/material";
 import Checkbox from '@mui/material/Checkbox';
 import Grid from "@mui/material/Grid2";
 import DropBoxIcon from "@mui/icons-material/Storage"; // Placeholder for Dropbox
 import GoogleDriveIcon from "@mui/icons-material/DriveFileMove"; // Placeholder for Google Drive
 import Topbar from "@/app/components/dashboardTopbar/topbar";
-import who_just_me from "@/app/assests/images/who_just_me.png";
-import who_just_others from "@/app/assests/images/who_just_others.png";
-import who_me_others from "@/app/assests/images/who_me_others.png";
-import Image from "next/image";
 import CustomButton from "@/app/components/button";
 import Text from "@/app/components/text";
 import Link from "next/link";
-import { Diversity1Outlined, PersonOutlineOutlined, PersonPinOutlined, AddLink, NoteOutlined , ClearOutlined, DraftsOutlined, ContentPasteOutlined, SettingsOutlined, Help, ArrowDropDown} from '@mui/icons-material';
+import { Diversity1Outlined, PersonPinOutlined, AddLink, NoteOutlined , ClearOutlined, DraftsOutlined, SettingsOutlined} from '@mui/icons-material';
 import { grey } from '@mui/material/colors';
 import CustomPopover from "@/app/components/popover";
 
@@ -27,17 +23,6 @@ export default function NewTemplatePage() {
   ) => {
     if (newSelection) setSelection(newSelection);
   };
-  const options = [
-    "1 day (December 06)",
-    "3 days",
-    "7 days",
-    "2 weeks",
-    "3 weeks",
-    "1 month",
-    "3 months",
-    "6 months",
-    "Choose Date",
-  ];
   const signerOptions =[
     "Select Role",
     "Signer",
@@ -147,7 +132,7 @@ export default function NewTemplatePage() {
           </Grid>
           {/* 2nd */}
           <Grid component={"section"} container padding={"15px 20px"} borderBottom= {"1px solid #d7d7d9"} justifyContent={"space-between"} width={"100%"}>
-          <Text fontSize="14px" color="rgb(0 8 61)">Enter the roles this document's signers will represent. You can also specify CCs (recipients).</Text>
+          <Text fontSize="14px" color="rgb(0 8 61)">Enter the roles this document&apos;s signers will represent. You can also specify CCs (recipients).</Text>
 
           </Grid>
 
