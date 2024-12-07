@@ -93,10 +93,18 @@ import integrationScroll from "./integrationScroll.png";
 import DocumentIcon from "./documentIcons.png";
 import BussinessIcon from "./bussinessIcon.png";
 import UserIcon from "./userIcon.png";
+import APIDashboard from "./apiDashboard.png";
+import APIRequestUrl from "./apirequrestUrl.svg";
+import BussinessSelectionUrl from "./bussinessSelectionAPi.svg";
+import SandboxAPI from "./sandboxApi.svg";
 const Assests = {
   DocumentIcon,
+  SandboxAPI,
   BussinessIcon,
   UserIcon,
+  BussinessSelectionUrl,
+  APIDashboard,
+  APIRequestUrl,
   FeatureImage_1,
   FeatureImage_2,
   FeatureImage_3,

@@ -9,7 +9,7 @@ import DonutSmallOutlinedIcon from "@mui/icons-material/DonutSmallOutlined";
 import SidebarData from "./content"
 
 
-const drawerWidth = 250;
+const drawerWidth = 220;
 
 interface Props {
     children:React.ReactNode
@@ -114,7 +114,7 @@ export default function Sidebar({children,open,onToggle}: Props) {
      </Box> 
       <Grid
         component="div"
-        sx={{ flexGrow: 1, width: {xs:"100%", md: `calc(100% - ${drawerWidth}px )`} }}
+        sx={{ width: {xs:"100%", md: `calc(100% - ${drawerWidth}px )`} }}
       >{children}
       </Grid>
     </Box>

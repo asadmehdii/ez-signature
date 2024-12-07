@@ -17,6 +17,7 @@ SANDBOX_SIGNUP: "/pages/sandbox",
 SANDBOX_ACCOUNT: "/pages/sandbox/sandAccount",
 SANDBOX_ACCOUNT_API: "/pages/sandbox/sandAccountApi",
 SANDBOX_BUSSINESS: "/pages/sandbox/sandBussiness",
+API_DOCUMENTATION:"./pages/APIDocumentation",
 
 // Dashboard routes define here
 DASHBOARD:"/pages/dashboard",
@@ -26,7 +27,10 @@ CONTACT :"/pages/contacts",
 TEAM :"/pages/teams",
 TRASH: "/pages/trash",
 SETTINGS: "/pages/settings",
-NEW_CONTACT:"/pages/contacts/newContact"
+NEW_CONTACT:"/pages/contacts/newContact",
+NEW__TEAM_MEMBER:"/pages/newTeamMember",
+NEW_DOCUMENT: "/pages/newDocument",
+NEW_TEMPLATE: "/pages/newTemplate",
 
 }
 

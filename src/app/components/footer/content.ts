@@ -19,7 +19,7 @@ const General = [
     { text: "Developer Portal", navigate: "#" },
     { text: "Create Free SandBox", navigate: Route.SANDBOX_SIGNUP },
     { text: "API Pricing", navigate: "#" },
-    { text: "API Documentation", navigate: "#" },
+    { text: "API Documentation", navigate: Route.API_DOCUMENTATION },
   ];
   
   const PressLegal = [

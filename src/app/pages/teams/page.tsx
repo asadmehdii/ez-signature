@@ -6,6 +6,7 @@ import TabSection from '@/app/components/tabSection';
 import PaginationBar from '@/app/components/pagination';
 import Topbar from '@/app/components/dashboardTopbar/topbar';
 import Grid from "@mui/material/Grid2";
+import Route from '@/app/utils/routes';
 
 
 export default function TeamsPage() {
@@ -23,7 +24,7 @@ export default function TeamsPage() {
   
 
   return (
-    <Topbar title='Teams' buttonText='New Team Members'>
+    <Topbar title='Teams' buttonText='New Team Members' firstBtnUrl={Route.NEW__TEAM_MEMBER}>
 
 <Grid sx={{ padding: '20px', width: '100%' }}>
       {/* Toolbar */}

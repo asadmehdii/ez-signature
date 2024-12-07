@@ -64,13 +64,13 @@ const InputText:React.FC<Props> = ({
       },
     },
     lableStyle:{
-      fontFamily:"var(--text-mada)",
+      fontFamily:"var(--font-mada)",
       fontSize:16,
       fontWeight:500,
       color:"#666666"
     },
     errorStyle:{
-      fontFamily:"var(--text-mada)",
+      fontFamily:"var(--font-mada)",
       fontSize:16,
       fontWeight:500,
       color:"red"

@@ -27,7 +27,6 @@ const Navbar: FC<NavbarProps> = ({showBtn = true}) => {
       <span className="bottom"></span>
       </label>
       </Box>
-      {/* <Box onClick={handleDrawer} sx={{zIndex:1300,objectFit:'contain',cursor:"pointer",padding:1,border:"5px solid var(--secondary-color)",borderRadius:"8px"}} display={{xs:"block",lg:"none"}} width={25} height={25} component={"img"} src={Assests.HamburgerIcon.src} alt="icon_here" />  */}
      <Navigate sx={{display:{xs:"none",lg:"inline-block"}}} to={Route.HOME} fontSize={28} fontWeight="800" text="EzSignature"/>
      <Box component="div" columnGap={5} display={{xs:"none",lg:"flex"}}>
       <Navigate to={Route.FEATURE} fontSize={18} fontWeight="400" text="Feature" hoverColor="#21D0B3"/>

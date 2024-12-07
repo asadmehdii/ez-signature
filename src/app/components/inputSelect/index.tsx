@@ -1,6 +1,6 @@
 "use client";
 import React, { CSSProperties } from "react";
-import { Box, MenuItem, TextField, Typography } from "@mui/material";
+import { Box, Menu, MenuItem, SxProps, TextField, Theme, Typography } from "@mui/material";
 import EmergencyIcon from '@mui/icons-material/Emergency';
 
 type SelectInputProps = {
@@ -8,7 +8,7 @@ type SelectInputProps = {
   maxWidth?: number | string;
   mt?: number;
   mb?: number;
-  height:number
+  height?:number
   placeholder?: string;
   label?: string;
   errorMessage?: string;
@@ -16,11 +16,14 @@ type SelectInputProps = {
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
   options: any[];
   borderRadius?: number;
-  labelStyle?: CSSProperties;
+  labelStyle?: SxProps<Theme>;
   important?: boolean;
   validationMsg?: string;
-};
-
+  sx?:SxProps<Theme>
+  itemStyle?:SxProps<Theme>
+  padding?:number|string
+  margin?:number|string
+}
 const InputSelect: React.FC<SelectInputProps> = ({
   width,
   maxWidth,
@@ -36,13 +39,22 @@ const InputSelect: React.FC<SelectInputProps> = ({
   labelStyle,
   important,
   validationMsg,
-  height
+  height,
+  itemStyle,
+  sx,
+  padding,
+  margin,
 }) => {
   const Styles = {
     selectField: {
       "& .MuiOutlinedInput-root": {
+        fontFamily: "var(--text-mada)",
+        fontSize: 16,
+        fontWeight: 400,
         height:height,
+        padding:0,
         borderRadius: `${borderRadius}px`,
+        
         "& fieldset": {
           borderColor: "#666666", // Default color
         },
@@ -66,12 +78,21 @@ const InputSelect: React.FC<SelectInputProps> = ({
       fontWeight: 500,
       color: "red",
     },
+    itemStyle:{
+       m:0,
+       p:0,
+       px:1,
+       height:"fir-content",
+       fontFamily: "var(--text-mada)",
+      fontSize: 16,
+      fontWeight: 400,
+    }
   };
 
   return (
-    <Box maxWidth={maxWidth} width={width} mt={mt} mb={mb}>
+    <Box maxWidth={maxWidth} width={width} margin={margin} padding={padding} mt={mt} mb={mb}>
       <Box display={"flex"} justifyContent={"space-between"}>
-        <Typography sx={[Styles.labelStyle, { ...labelStyle }]} mb={1}>
+        <Typography sx={{...Styles.labelStyle, ...labelStyle}} mb={1}>
           {label}{" "}
           {important && (
             <EmergencyIcon
@@ -85,16 +106,15 @@ const InputSelect: React.FC<SelectInputProps> = ({
         value={value}
         onChange={onChange}
         variant="outlined"
-        sx={[Styles.selectField,{position:"relative"}]}
+        sx={{ ...Styles.selectField, ...sx }}
         fullWidth
         placeholder={placeholder}
-        defaultValue={'placeholder'} 
-        
+        defaultValue={'placeholder'}         
       >
-        <MenuItem value="placeholder"  disabled>{placeholder}</MenuItem>
+       {placeholder && <MenuItem sx={{...Styles.itemStyle,...itemStyle}} value="placeholder"  disabled>{placeholder}</MenuItem>}
         {options.map((option) => {
             return(
-            <MenuItem  key={option} value={option}>
+            <MenuItem sx={{...Styles.itemStyle,...itemStyle}} key={option} value={option}>
             {option}
           </MenuItem>
 

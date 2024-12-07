@@ -6,6 +6,7 @@ import SearchAppBar from '@/app/components/search';
 import TabSection from '@/app/components/tabSection';
 import PaginationBar from '@/app/components/pagination';
 import Topbar from '@/app/components/dashboardTopbar/topbar';
+import Route from '@/app/utils/routes';
 
 export default function ContactsPage() {
   // State to manage the active tab
@@ -22,7 +23,7 @@ export default function ContactsPage() {
   
 
   return (
-    <Topbar title='Contacts' buttonText='New Contacts'>
+    <Topbar title='Contacts' firstBtnUrl={Route.NEW_CONTACT}  buttonText='New Contacts'>
 
 <Grid sx={{ padding: '20px', width: '100%' }}>
       {/* Toolbar */}

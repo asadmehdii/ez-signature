@@ -18,6 +18,7 @@ import SearchAppBar from '@/app/components/search';
 import TabSection from '@/app/components/tabSection';
 import PaginationBar from '@/app/components/pagination';
 import Topbar from '@/app/components/dashboardTopbar/topbar';
+import Route from '@/app/utils/routes';
 
 export default function DocumentPage() {
   // State to manage the active tab
@@ -34,7 +35,7 @@ export default function DocumentPage() {
   
  
   return (
-    <Topbar title='Documents' buttonText='New Document'>
+    <Topbar title='Documents' buttonText='New Document' firstBtnUrl={Route.NEW_DOCUMENT}>
 
     <Grid sx={{ padding: '20px', width: '100%' }}>
       {/* Toolbar */}

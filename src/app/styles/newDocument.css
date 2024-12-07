@@ -1,0 +1,55 @@
+.signature.who{
+    display: flex;
+    justify-content: center;
+     gap: 9px;
+}
+.who_li{
+    text-transform: capitalize !important;
+    width: 100%;
+    justify-content: start;
+    border: 1px solid #d7d7d9;
+    border-radius: 3px !important;
+    cursor: pointer;
+    font-size: 15px;
+    
+}
+.MuiToggleButton-root.who_li:hover{
+    background-color: rgba(25, 118, 210, 0.08) !important;
+}
+.MuiToggleButton-root.who_li::selection{
+   border-color:rgb(2 6 168)!important;
+    background-color:rgba(25, 118, 210, 0.08) !important;
+}
+
+.title_label{
+    color: rgb(0 8 61);
+    font-size: 0.875rem;
+    font-weight: 400;
+    line-height: 1.25rem;
+    margin-bottom: 5px;
+}
+.title_input{
+    border: 1px solid #c7c7c9;
+    color: rgb(123 129 145);
+    height: 35px;
+    font-weight: 400;
+    padding: 0 5px;
+    width: 50%;
+    border-radius: 3px;
+}
+.title_input:focus
+{
+    border:1px solid var(--secondary-color) !important ;
+}
+.custom-menu-item {
+    color: rgb(0 8 61) !important;
+    font-size: 14px !important;
+    border-radius: 3px !important;
+    border: 1px solid #d7d7d9 !important;
+    background-color: rgba(25, 118, 210, 0.08) !important;
+    height: 35px !important;
+    padding: 0 28px !important;
+    display: flex !important;
+    align-items: center !important;
+    width: fit-content !important;
+  }

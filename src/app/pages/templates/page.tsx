@@ -18,6 +18,7 @@ import TabSection from '@/app/components/tabSection';
 import PaginationBar from '@/app/components/pagination';
 import Topbar from '@/app/components/dashboardTopbar/topbar';
 import Grid from "@mui/material/Grid2";
+import Route from '@/app/utils/routes';
 
 
 export default function TemplatesPage() {
@@ -35,7 +36,7 @@ export default function TemplatesPage() {
   
 
   return (
-    <Topbar title='Templates' secondText='New Templates' buttonText='Bulk Jobs' >
+    <Topbar title='Templates' secondText='New Templates' buttonText='Bulk Jobs' secondBtnUrl={Route.NEW_TEMPLATE}>
 
 <Grid sx={{ padding: '20px', width: '100%' }}>
       {/* Toolbar */}

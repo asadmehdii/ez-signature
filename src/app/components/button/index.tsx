@@ -18,11 +18,13 @@ type ButtonProps = {
   borderColor?: string;
   color?: string;
   borderRadius?: number;
-  to?:string
+  to?:string;
+  component?:string;
 };
 
 const Button: FC<ButtonProps> = ({
   children,
+  component = "label",
   height = 60,
   width = "fit-content",
   fontSize = 18,
