@@ -30,7 +30,7 @@ const Navigate: FC<ResponsiveTypographyProps> = ({
 }) => {
     const navigate = useRouter() 
   return (
-    <Typography sx={{...sx,cursor:cursor,fontFamily:"var(--font-mada)","&:hover": {
+    <Typography sx={{...sx,cursor:cursor,transition: "all 0.4s ease",fontFamily:"var(--font-mada)","&:hover": {
           color: hoverColor, 
         },}} fontSize={fontSize} color = {color} fontWeight={fontWeight} onClick ={()=>{navigate.push(to)}} className={className}>
       {text}

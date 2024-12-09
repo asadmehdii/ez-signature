@@ -26,7 +26,7 @@ const Pricing:FC = ()=>{
             <Grid paddingX={3} paddingY={6} component={"div"} className="grid_1" justifyContent={"center"} alignItems={"center"} textAlign={"center"} >
                 <Text className="head_1">Plans that Scale With Your Business</Text>
                 <Text className="text_1">We&apos;re offering a generous Free Plan and affordable premium pricing plans that grow with your business</Text>
-                <Button className="button">Start signing of</Button>
+                <Button color="#fff" className="button" backgroundColor="var(--secondary-color)" hoverStyle={{color:"var(--secondary-color)",bgcolor:"#F4F4F4",border:"1px solid var(--secondary-color)"}}>Start signing of</Button>
             </Grid>
             {/* --------------------------------- */}
             {/* Grid 2 ------ ezFeatures list */}
@@ -47,7 +47,7 @@ const Pricing:FC = ()=>{
              <ul style={{marginTop:"20px",paddingLeft:"18px"}}>
              {data.features.map((feature:string)=><li key={feature}>{feature}</li>)}
              </ul>
-             <Button style={{margin:"45px auto 20px auto"}} width={"90%"} height={"47px"} color="#fff" borderRadius={19} backgroundColor="var(--secondary-color)">Select</Button>
+             <Button hoverStyle={{color:"var(--secondary-color)",bgcolor:"#fff",border:"1px solid var(--secondary-color)"}} style={{margin:"45px auto 20px auto"}} width={"90%"} height={"47px"} color="#fff" borderRadius={"19px"} backgroundColor="var(--secondary-color)">Select</Button>
              </Card>
              </Box>
                 )

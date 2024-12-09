@@ -1,9 +1,12 @@
 "use client";
+
+import { Box, SxProps, Theme } from "@mui/material";
 import { useRouter } from "next/navigation";
 import { FC, CSSProperties, ReactNode, useState } from "react";
 
 type ButtonProps = {
   children: ReactNode;
+  type?: "outlined" | "text" | "contained";
   height?: number | string;
   width?: number | string;
   fontWeight?: string;
@@ -17,68 +20,77 @@ type ButtonProps = {
   borderWidth?: number;
   borderColor?: string;
   color?: string;
-  borderRadius?: number;
-  to?:string;
-  component?:string;
+  borderRadius?: number|string;
+  to?: string;
+  sx?: SxProps<Theme>;
+  hoverStyle?:SxProps<Theme>
 };
 
 const Button: FC<ButtonProps> = ({
   children,
+  hoverStyle,
+  type = "contained",
   height = 60,
   width = "fit-content",
   fontSize = 18,
   fontWeight = "600",
-  backgroundColor = "#ffffff",
-  borderWidth = 0,
+  backgroundColor = "var(--secondary-color)",
+  borderWidth = 1,
   borderColor = "#2c2c2c",
-  color = "black",
-  borderRadius = 4,
+  color = "#000",
+  borderRadius = "4px",
   className,
   onClick,
   onBlur,
   onFocus,
   style,
   to,
+  sx,
 }) => {
   const [isPressed, setIsPressed] = useState(false);
-  const navigate = useRouter() 
+  const router = useRouter();
+
   const handleMouseDown = () => setIsPressed(true);
   const handleMouseUp = () => setIsPressed(false);
 
+  const buttonStyle = {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    cursor: "pointer",
+    transition: "all 0.4s ease",
+    transform: isPressed ? "scale(0.95)" : "scale(1)",
+    border: type === "outlined" ? `${borderWidth}px solid ${borderColor}` : "none",
+    backgroundColor: type != "contained" ? "transparent" : backgroundColor,
+    color: color,
+    padding: "10px",
+    height,
+    width,
+    fontSize,
+    fontWeight,
+    borderRadius,
+    ...sx,
+    ":hover": hoverStyle,
+  };
+
   return (
-    <button
+    <Box
+      component="button"
       className={className}
       onClick={() => {
-        if (to) { navigate.push(to)}
-        if (onClick) { onClick()}
+        if (to) router.push(to);
+        if (onClick) onClick();
       }}
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        cursor: "pointer",
-        backgroundColor,
-        height,
-        width,
-        fontSize,
-        fontWeight,
-        border: `${borderWidth}px solid ${borderColor}`,
-        color,
-        borderRadius,
-        padding: 10,
-        transition: "all 0.2s ease",
-        transform: isPressed ? "scale(0.95)" : "scale(1)",
-        ...style,
-      }}
+      sx={buttonStyle}
+      style={style}
       onFocus={onFocus}
       onBlur={onBlur}
       onMouseDown={handleMouseDown}
       onMouseUp={handleMouseUp}
       onMouseLeave={handleMouseUp}
     >
-    
-    {children}
-    </button>
+      {children}
+    </Box>
   );
 };
 

@@ -213,7 +213,7 @@ const signerOptions =[
           {/* 2nd div */}
           <Grid component={"div"} container direction={"column"} padding={"15px 20px"} width={"100%"} borderBottom={"1px solid #c7c7c9"}>
             <label htmlFor="" className="title_label">Document Title</label>
-            <input type="text" className="title_input" placeholder="Please sign this document"/>
+            <input type="text" className="title_input" placeholder="Please sign this document" style={{height: "35px"}}/>
           </Grid>
           {/* 3rd div */}
           <Grid component={"div"} container direction={"column"} padding={"15px 20px"} width={"100%"} borderBottom={"1px solid #c7c7c9"}>

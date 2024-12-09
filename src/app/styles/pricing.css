@@ -1,12 +1,16 @@
 .pricing .grid_1 {
   background: url("../assests/images/bannerBg.png") no-repeat center;
   width: 100%;
+  background-size: 100% 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
 }
 .pricing .grid_1 .head_1 {
   font-size: 97px;
   font-weight: 800;
   max-width: 1000px;
-  margin: 0 auto !important;
   color: var(--text-color);
 }
 .pricing .grid_1 .text_1 {
@@ -17,12 +21,10 @@
   max-width: 750px;
 }
 .pricing .grid_1 .button {
-  margin: 0 auto;
+  margin-top: 25px;
   width: 200px !important;
-  background-color: var(--secondary-color) !important;
   border-radius: 19px !important;
   height: 58px !important;
-  color: #fff !important;
   font-size: 22px !important;
   font-weight: 600 !important;
 }

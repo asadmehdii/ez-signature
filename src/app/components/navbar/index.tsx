@@ -36,8 +36,8 @@ const Navbar: FC<NavbarProps> = ({showBtn = true}) => {
     </Box>
     <Box columnGap={{xs:1,sm:2,md:3}} display={"flex"} pl={0.5}>
     {showBtn && <>
-    <Button to={Route.LOGIN} borderRadius={14} width={134} height={49} fontSize={18} fontWeight="400" borderWidth={2} backgroundColor="#ffffff">Login </Button>
-    <Button to={Route.SIGNUP} borderRadius={14} width={134} height={49} fontSize={18} fontWeight="400" backgroundColor="var(--secondary-color)">  Sign up </Button>
+    <Button to={Route.LOGIN} type="outlined" borderRadius={"14px"} width={134} height={49} fontSize={18} fontWeight="400" hoverStyle={{bgcolor:"var(--text-color)",borderColor:"transparent",color:"#fff"}}>Login </Button>
+    <Button to={Route.SIGNUP} borderRadius={"14px"} width={134} height={49} fontSize={18} fontWeight="400" hoverStyle={{bgcolor:"#fff",border:"1px solid  var(--secondary-color)",color:"var(--secondary-color)"}} >  Sign up </Button>
     </>}
     </Box>
     </ContentBox>

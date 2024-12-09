@@ -134,8 +134,8 @@ const APIDocumentation:React.FC = ()=>{
               <Text fontSize={"16px"} fontWeight="600" color="var(--secondary-color)">Code</Text>
               <Text fontSize={"16px"} fontWeight="600" color="var(--secondary-color)" style={{margin:"auto auto"}}>Language</Text>
           </Box>
-        {languages.map((lang)=> 
-          <Box key={lang.code} py={1} borderBottom={"1px solid #162937"} display={"flex"} px={3}>
+        {languages.map((lang,index)=> 
+          <Box key={lang.code} py={1} borderBottom={languages.length - 1 === index? " ":"1px solid #162937"  } display={"flex"} px={3}>
               <Text fontSize={"16px"} fontWeight="600" color="#121212">{lang.code}</Text>
               <Text fontSize={"16px"} fontWeight="600" color="#121212" style={{margin:"auto auto"}}>{lang.language}</Text>
           </Box>

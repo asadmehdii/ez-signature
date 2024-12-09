@@ -51,32 +51,29 @@ const Home: FC = () => {
           <Text fontSize="55px" fontWeight="800" className="head_1" style={{maxWidth:"829px"}}>
             Free electronic signatures at work, at home or on the go.
           </Text>
-          <Text
-            fontSize="22px"
-            fontWeight="600"
-            marginBottom={20}
-            marginTop={20}
-            className="text_1"
-          >
+          <Text fontSize="22px" fontWeight="600" marginBottom={20} marginTop={20} className="text_1">
             Securely approve, send and sign documents online with EzSignature
           </Text>
           <Box component={"div"} display={"flex"} columnGap={2}>
             <Button
               backgroundColor="var(--secondary-color)"
+              hoverStyle={{bgcolor:"#fff",border:"1px solid var(--secondary-color)",color:"var(--secondary-color)"}} 
               color="#fff"
-              height={76}
-              width={206}
-              borderRadius={15}
+              height={58}
+              width={224}
+              borderRadius={"15px"}
               to={Route.SIGNUP}
             >
               Sign up for free
             </Button>
             <Button
+              hoverStyle={{bgcolor:"var(--text-color)",borderColor:"transparent",color:"#fff"}}
+              type="outlined"
               borderWidth={1}
               borderColor="#000000"
-              height={76}
-              width={206}
-              borderRadius={15}
+              height={58}
+              width={184}
+              borderRadius={"15px"}
             >
               Take a tour
             </Button>
@@ -104,83 +101,36 @@ const Home: FC = () => {
         <Text className="head_1" fontSize="55px" fontWeight="700">
           Easy to use, reliable, And completely secure
         </Text>
-        <Text className="text_1" fontSize="26px" fontWeight="500" marginTop={20} marginBottom={20}>
+        <Text className="text_1" fontSize="26px" fontWeight="500" marginTop={20} marginBottom={30}>
           It is a long established fact that a reader will be distracted by the
           readable <br className="removeBreak" />
           content of a page when looking at its layout.
         </Text>
         <Grid container margin={"auto"} rowSpacing={5} columnSpacing={3} paddingBottom={5}>
-          <Card
-            className="card"
-            padding={20}
-            width={"450px"}
-            height={"350px"}
-            borderWidth={1}
-            borderColor="#cccccc"
-            borderRadius={57}
-          >
-            <Text className="cardHead" fontWeight="700" fontSize="35px">
-              eSign from anywhere
-            </Text>
-            <Text
-              fontWeight="500"
-              fontSize="20px"
-              marginTop={15}
-              marginBottom={25}
-              className="cardText"
-            >
+          <Card className="card" padding={25} width={"450px"} height={"350px"} borderWidth={1} borderColor="#cccccc" borderRadius={57}>
+            <Text className="cardHead" fontWeight="700" fontSize="35px"> eSign from anywhere </Text>
+            <Text fontWeight="500" fontSize="20px" marginTop={15} marginBottom={25} className="cardText">
               Upload documents from device or cloud and your signature with ease
               : draw: upload. or type it on your mobile
             </Text>
-            <Image
-              src={CardImage_1}
-              alt="image_here"
-              style={{
-                width: "100%",
-                height: "50%",
-                objectFit: "fill",
-                margin: "auto",
-              }}
-            />
+            <Image src={CardImage_1} alt="image_here"
+              style={{ width: "100%", height: "50%", objectFit: "fill", margin: "auto",}} />
           </Card>
-          <Card
-            className="card"
-            padding={20}
-            width={"450px"}
-            height={"350px"}
-            borderWidth={1}
-            borderColor="#cccccc"
-            borderRadius={57}
-          >
-            <Text fontWeight="700" className="cardHead" fontSize="35px">
-              Capture Legally eSignature
-            </Text>
-            <Text
-              className="cardText"
-              fontWeight="500"
-              fontSize="20px"
-              marginTop={15}
-              marginBottom={25}
-            >
+          <Card className="card" padding={25} width={"450px"} height={"350px"} borderWidth={1} borderColor="#cccccc" borderRadius={57}>
+            <Text fontWeight="700" className="cardHead" fontSize="35px"> Capture Legally eSignature </Text>
+            <Text fontWeight="500" fontSize="20px" marginTop={15} marginBottom={25} className="cardText">
               Upload documents from device or cloud and your signature with ease
               : draw: upload. or type it on your mobile
             </Text>
-            <Image
-              src={CardImage_2}
-              alt="image_here"
-              style={{
-                width: "100%",
-                height: "50%",
-                objectFit: "fill",
-                margin: "auto",
-              }}
+            <Image src={CardImage_2} alt="image_here"
+              style={{width: "100%", height: "50%", objectFit: "fill", margin: "auto",}}
             />
           </Card>
         </Grid>
-        <Grid container marginLeft={"auto"} spacing={5}>
+        <Grid container marginLeft={"auto"} rowSpacing={5} columnSpacing={3}>
           <Card
             className="card"
-            padding={20}
+            padding={25}
             width={"450px"}
             height={"350px"}
             borderWidth={1}
@@ -213,7 +163,7 @@ const Home: FC = () => {
           </Card>
           <Card
             className="card"
-            padding={20}
+            padding={25}
             width={"450px"}
             height={"350px"}
             borderWidth={1}
@@ -275,13 +225,13 @@ const Home: FC = () => {
             <Image style={{background:`url("${Assests.SemiEllipse.src}") no-repeat`,backgroundPosition:"center bottom",padding:"3px 15px" }} src={data.icon} alt="img_here" />
             <Text fontSize="24px" fontWeight="700"> {data.title} </Text>
             <Text fontSize="16px" fontWeight="500" color="#232323">{data.text}</Text>
-            <Button fontSize={16} fontWeight="700" height={44} width={160} borderRadius={19} backgroundColor="#000" color="#fff"> Select Now </Button>
+            <Button fontSize={16} fontWeight="700" height={44} width={160} borderRadius={"19px"} hoverStyle={{color:"var(--text-color)",bgcolor:'#fff',border:"1px solid var(--text-color)"}} backgroundColor="#000" color="#fff"> Select Now </Button>
           </Box>
           )})}
         </Grid>
       </Grid>
       {/* ----------------- */}
-      <ContentBox mt={12}><SignAnytime px={{xs:2,sm:4,lg:"30px"}}/></ContentBox>
+      <ContentBox mt={12}><SignAnytime homeScreen /></ContentBox>
       {/* ----------------- */}
 
       <Grid container flexDirection={{xs:"column",lg:"row"}} justifyContent={{xs:"flex-start",lg:"space-between"}} alignItems={{lg:"center"}} mt={12} paddingX={{xs:3,lg:"30px",xl:"100px"}} component="div" className="offerCard_Grid">
@@ -317,7 +267,7 @@ const Home: FC = () => {
               </Text>
               <Button
                 width={93}
-                borderRadius={16}
+                borderRadius={"16px"}
                 height={34}
                 backgroundColor={"#222222"}
                 fontSize={12}
@@ -390,9 +340,9 @@ const Home: FC = () => {
           <Image style={{width:'146px',height:"90px",objectFit:"contain"}} src={BusinessImage_7} alt="image_here" />
         </Grid>
           <Box component={"img"} src={FinancialDeppartment.src} sx={{width:"100%", maxWidth:"700px",display:"flex",justifyContent:"center",objectFit: "contain", my:{xs:2,sm:6}, mx:"auto" }} alt="img_here"  />
-          <Box component={"div"} sx={{mx:"auto",maxWidth:"1000px",height:"calc(fit-content + 350px)",background:"linear-gradient(101.82deg,#263238 2.51%,#66efdc 39.22%,#263238 97.85%)",borderRadius:"78px",padding:0.2}} >
+          <Box component={"div"} sx={{mx:"auto",maxWidth:"1400",width:"100%",height:"calc(fit-content + 350px)",background:"linear-gradient(101.82deg,#263238 2.51%,#66efdc 39.22%,#263238 97.85%)",borderRadius:"78px",padding:0.2}} >
            <Box sx={{width:'100%',position:"relative",height:'100%',mx:"auto", bgcolor:"#f3fefd",borderRadius:"78px"}}> 
-               <Grid container flexDirection={{xs:"column",md:"row"}} rowGap={2} justifyContent={{xs:"flex-start",md:"space-between"}} alignItems={"flex-start"} p={{xs:2,sm:8}}>
+               <Grid container flexDirection={{xs:"column",md:"row"}} rowGap={2} justifyContent={{xs:"flex-start",md:"space-evenly"}} alignItems={"flex-start"} py={{xs:3,md:8}} px={{xs:1,sm:3}}>
                      <Box mt={{xs:3,sm:0}} display={"flex"} flexDirection={"column"} rowGap={2}>
                     {financtionalDepartments.leftSide.map((item:string)=> 
                       <Box key={item} component={"div"} display={"flex"} columnGap={{xs:1,sm:2}} alignItems="center">
@@ -409,8 +359,8 @@ const Home: FC = () => {
                   </Box>   
                </Grid>    
                <Box pb={6} mx={"auto"}>
-                <Button color={"#fff"} style={{marginInline:'auto'}} fontSize={18} fontWeight={"600"} backgroundColor="#263238" width={170} height={55}> Check out
-                  <Image style={{ marginLeft: "10px" }} src={ArrowIcon} alt="imghere"/>
+                <Button color={"#fff"} style={{marginInline:'auto'}} fontSize={18} fontWeight={"600"} backgroundColor="#263238" width={183} height={56}> Check out
+                  <Box component="img" style={{ marginLeft: "10px" }} src={ArrowIcon.src} alt="imghere"/>
                 </Button>
                 </Box>  
            </Box>
@@ -418,12 +368,12 @@ const Home: FC = () => {
       </Grid>
       {/* ----------------- */}
       <ContentBox mt={12}>
-         <SignAnytime px={{xs:2,sm:4,lg:"30px"}} imageSrc={Assests.TakeFullControl} isBtn={false} heading="Take Full Control Of Your Documents" text="The built-in document editor gives you all the tools you need to
+         <SignAnytime homeScreen maxWidth={450}  imageSrc={Assests.TakeFullControl} isBtn={false} heading="Take Full Control Of Your Documents" text="The built-in document editor gives you all the tools you need to
             securely edit, send and sign documents in seconds."/>
       </ContentBox>      
       {/* ----------------- */}
       <ContentBox>
-      <Grid container alignItems={"flex-end"} justifyContent={"space-between"} mt={12} columnGap={3} rowGap={4}>
+      <Grid container alignItems={"flex-end"} justifyContent={"space-between"} mt={12} columnGap={2} rowGap={4}>
         {Category.map((item)=>
         <Box key={item.text} display={"flex"} width={{xs:"100%",sm:"200px"}} rowGap={3} flexDirection={"column"} justifyContent={"center"} alignItems={"center`"}>
           <Box sx={{padding:4,background:`url("${Assests.CategEllipseBg.src}") no-repeat`,backgroundPosition:"bottom center" }} m={"auto"} component={"img"} src={item.icon.src} alt="img_here"/>
@@ -433,7 +383,7 @@ const Home: FC = () => {
       </Grid>
       </ContentBox>
       <Box component="div" display="flex" justifyContent="center" my={12}>
-        <Button backgroundColor={"#263238"} borderRadius={19} height={55} width={200} color="#fff" fontSize={18} fontWeight={"700"}>
+        <Button backgroundColor={"#263238"} borderRadius={"19px"} height={69} hoverStyle={{border:"1px solid var(--text-color)",bgcolor:"#fff",color:"var(--text-color)"}} width={269} color="#fff" fontSize={18} fontWeight={"700"}>
           Browse All Categories
         </Button>
       </Box>

@@ -3,6 +3,7 @@ import Topbar from "@/app/components/dashboardTopbar/topbar";
 import Text from "@/app/components/text";
 import Grid from "@mui/material/Grid2";
 import Link from 'next/link';
+import {InsertDriveFileOutlined, SaveAsOutlined, Telegram, ColorLens, AccessTimeOutlined} from '@mui/icons-material';
 
 export default function SettingsPage() {
     return(
@@ -44,20 +45,25 @@ export default function SettingsPage() {
 
                     {/* 2nd grid */}
                     <Grid component={"section"} container marginTop={"20px"} flex={"0 0 auto"} border={"1px solid #E8EFF6"} borderRadius={"3px"} minWidth={"0"} direction={"column"}>
-                    <Link href="" className="settings_link">
-                        <Text>General Preferences</Text>
+                    <Link href="/pages/generalPreferences" className="settings_link">
+                    <InsertDriveFileOutlined sx={{color: "rgb(51, 51, 51)", fontWeight: "100"}} />
+                        <Text fontWeight="400" color="rgb(51, 51, 51)">General Preferences</Text>
+                    </Link>
+                    <Link href="/pages/signingPreferences" className="settings_link" >
+                    <SaveAsOutlined  sx={{color: "rgb(51, 51, 51)"}} />
+                        <Text fontWeight="400" color="rgb(51, 51, 51)">Signing Preferences</Text>
                     </Link>
                     <Link href="" className="settings_link">
-                        <Text>Signing Preferences</Text>
+                    <Telegram  sx={{color: "rgb(51, 51, 51)"}} />
+                        <Text fontWeight="400" color="rgb(51, 51, 51)">Delivery Preferences</Text>
                     </Link>
                     <Link href="" className="settings_link">
-                        <Text>Delivery Preferences</Text>
+                    <AccessTimeOutlined  sx={{color: "rgb(51, 51, 51)"}} />
+                        <Text fontWeight="400" color="rgb(51, 51, 51)">Expirations & Reminders</Text>
                     </Link>
                     <Link href="" className="settings_link">
-                        <Text>Expirations & Reminders</Text>
-                    </Link>
-                    <Link href="" className="settings_link">
-                        <Text>Branding</Text>
+                        <ColorLens  sx={{color: "rgb(51, 51, 51)"}}/>
+                        <Text fontWeight="400" color="rgb(51, 51, 51)">Branding</Text>
                     </Link>
                 
                </Grid>

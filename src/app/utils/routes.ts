@@ -1,3 +1,5 @@
+
+
 const Route = {
 HOME : "/",
 FEATURE : "/pages/features",
@@ -31,6 +33,7 @@ NEW_CONTACT:"/pages/contacts/newContact",
 NEW__TEAM_MEMBER:"/pages/newTeamMember",
 NEW_DOCUMENT: "/pages/newDocument",
 NEW_TEMPLATE: "/pages/newTemplate",
+GENERALPREFERENCES: "/pages/generalPreferences",
 
 }
 

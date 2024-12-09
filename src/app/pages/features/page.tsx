@@ -21,7 +21,7 @@ const Features:FC= ()=>{
               <Grid paddingX={3} paddingY={6} component={"div"} className="grid_1" justifyContent={"center"} alignItems={"center"} textAlign={"center"} >
                    <Text className="head_1">Features at a Glance</Text>
                    <Text className="text_1">Your EzSignature experience will not stop at eSignatures — you&apos;ll be given all the tools you need to securely manage your documents in the cloud, keep your team in the loop, manage business contacts and to automate your work with a fully-fledged REST API.</Text>
-                   <Button className="button">Start Tour</Button>
+                   <Button color="#fff" className="button" backgroundColor="var(--secondary-color)" hoverStyle={{color:"var(--secondary-color)",bgcolor:"#F4F4F4",border:"1px solid var(--secondary-color)"}}>Start Tour</Button>
               </Grid>
             {/* --------------------------------- */}
           <ContentBox>
@@ -59,7 +59,7 @@ const Features:FC= ()=>{
                     <Image src={value.icon} alt="icoon_here"/>
                     <Text className="heading">{value.heading}</Text>
                     <Text className="text">{value.text}</Text>
-                    <Button className="button">{value.buttonText}</Button>
+                    <Button backgroundColor="var(--text-color)" color="#fff" hoverStyle={{border:"1px solid var(--text-color)",color:"var(--text-color)",bgcolor:"#fff"}} className="button">{value.buttonText}</Button>
                  </Card>
                 )
               })}

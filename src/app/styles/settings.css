@@ -17,11 +17,14 @@
     height: 35px ;
     border: 1px solid #c7c7c9 ;
     width: 40%;
-}
+} 
 .settings_input:focus{
     border: 1px solid #0206A8;
 }
 .settings_link{
+    display: flex;
+    gap: 10px;
+    align-items: center;
     padding-inline: 20px;
     padding-top: 15px;
     padding-bottom: 15px;
@@ -29,4 +32,10 @@
 }
 .settings_link:hover{
     background-color: #E8EFF6;
+}
+
+@media screen and (max-width: 450px){
+    .settings_input{
+        width: 100%;
+    }
 }

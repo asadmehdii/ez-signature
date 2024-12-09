@@ -68,7 +68,7 @@ const CustomForm:FC<formProps> = (props)=>{
    </Box>
    <Box component="div" display={"flex"} flexDirection={"column"}  width={{xs:"100%",sm:"350px", lg:"400px"}} boxSizing={"border-box"}>
    <InputField value={formValues.message} onChange={(value)=>{handleInputChange(FieldName.message,value)}} type="text" label="Message (optional)" multiline rows={6}/>
-    <Button fontSize={20} fontWeight="500" style={{marginTop:"auto",marginLeft:"auto"}} width={"200px"} height={"55px"} color="#fff" backgroundColor="#263238" borderRadius={18}>Send Request</Button>
+    <Button fontSize={20} fontWeight="500" style={{marginTop:"auto",marginLeft:"auto"}} width={"200px"} height={"55px"} color="#fff" backgroundColor="#263238" hoverStyle={{color:"#263238",bgcolor:"#fff",border:"1px solid #263238"}} borderRadius={"18px"}>Send Request</Button>
    </Box>
    </Grid>
    <Text style={{margin:'auto',paddingTop:'10px'}} color="#AEAEAE" fontSize="16px" fontWeight="600">Please note that we can only accommodate custom pricing requests for API volumes exceeding those included in the API Light plan.</Text>

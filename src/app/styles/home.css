@@ -23,7 +23,6 @@
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
-  cursor: pointer !important;
   background-color: #fff;
   border: 1.5px solid #2c2c2c1a;
   width:260px ;
@@ -31,15 +30,16 @@
   padding: 0px 10px;
   border-radius: 20px;
   box-sizing: border-box;
-  
-
-
+  cursor: pointer;
+  box-shadow: none; 
+  transition: all 0.5s ease;
+}
+.home .offerCard_Grid .card_1 * {
+  cursor: inherit; 
 }
 .home .offerCard_Grid .card_1:hover{
   box-shadow: 6px 7px 44.4px -16px #00000040;
   border-bottom: 3px solid #1dcdfe;
-  transition: all 0.6s;
-  transform: translateY(-5%);
 }
 
 .home .offerCard_Grid img {

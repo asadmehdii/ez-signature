@@ -30,7 +30,7 @@ const MoreQuestion: FC<MoreQuestionProps> = ({mt,mb}) => {
         <Typography fontFamily={"var(--text-mada)"} fontSize={{xs:"38px",md:"40px",lg:"60px"}} fontWeight="700">MORE QUESTIONS?</Typography>
         <Typography mt={2} fontFamily={"var(--text-mada)"} fontSize={{xs:18,md:16,lg:18}} fontWeight="600">The Ezsignature platform comes with an extensive Help-Center focused 
          on answering any questions you may have — maybe even before you have them. </Typography>
-        <Button style={{marginTop:'30px'}} borderRadius={19} width={288} height={70} backgroundColor="#263238" color="#fff" fontSize={24} fontWeight="500"> Enter Help Center </Button>
+        <Button style={{marginTop:'30px'}} borderRadius={"19px"} width={288} height={70} backgroundColor="var(--text-color)" color="#fff" hoverStyle={{border:"1px solid var(--text-color)",color:"var(--text-color)",bgcolor:"#fff"}} fontSize={24} fontWeight="500"> Enter Help Center </Button>
       </Box>
       <Box  component={"img"} sx={{zIndex:10, width: {xs:"100%",sm:"450px",md:"45%",xl:"520px"}, height: {xs:"100%",sm:"100%",objectFit:"cover"}}} src={Assests.MoreQuestion.src} alt="image_here"/>
     </Grid>
