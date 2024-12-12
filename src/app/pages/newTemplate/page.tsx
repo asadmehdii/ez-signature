@@ -141,12 +141,12 @@ export default function NewTemplatePage() {
 <Grid component={"section"} container padding={"15px 20px"} borderBottom= {"1px solid #d7d7d9"} justifyContent={"space-between"} width={"100%"}>
       <Grid component={"div"} container>
         <Grid component={"div"} container direction={"row"} gap={1}>
-          <Box sx={{display: "flex", alignItems: "center", border:"1px solid #d7d7d9", borderRadius:"3px", padding: "0 3px 0 0"}}>
-         < PersonPinOutlined fontSize="large" sx={{color: grey[500], borderRight:"1px solid #d7d7d9", background: "rgba(25, 118, 210, 0.08)"}}/>
-            <input type="text" placeholder="Example: Client, Partner" style={{border: "none"}} />
-          </Box>
+        <Box sx={{display:"flex", alignItems: "center",height:32,my:"auto",border:"1px solid #d7d7d9", borderRadius:"3px",}}>
+          <PersonPinOutlined  sx={{color: grey[500], borderRight:"1px solid #d7d7d9", background: "rgba(25, 118, 210, 0.08)",height:32,px:0.5}}/>
+          <input type="text" placeholder="Example: Client, Partner" style={{border: "none",width:"100%",height:"100%",background:"transparent",outline:"none"}} />
+        </Box>        
         <CustomPopover title="Signer" options={signerOptions}/>
-        <Box sx={{display: "flex", alignItems: "center",background: "rgba(25, 118, 210, 0.08)", border:"1px solid #d7d7d9", borderRadius:"3px", padding: "5px"}}>EN
+        <Box sx={{display: "flex", alignItems: "center",my:"auto",background: "rgba(25, 118, 210, 0.08)", border:"1px solid #d7d7d9", borderRadius:"3px",height:32,px:1,cursor:"pointer"}}>EN
         </Box>
         </Grid>
       </Grid>
@@ -156,7 +156,7 @@ export default function NewTemplatePage() {
           <Text fontSize="0.875rem" color="rgb(0 8 61)">Required role</Text>
 
           </Grid>
-<Box sx={{display: "flex", alignItems: "center",background: "rgba(25, 118, 210, 0.08)", border:"1px solid #d7d7d9", borderRadius:"3px", padding: "5px"}}>
+<Box sx={{display: "flex", alignItems: "center",background: "rgba(25, 118, 210, 0.08)", border:"1px solid #d7d7d9", borderRadius:"3px",height:32, px: 0.5,my:"auto"}}>
   <ClearOutlined fontSize="medium" sx={{color: grey[500]}}/>
 </Box>
       </Grid>
@@ -180,12 +180,12 @@ export default function NewTemplatePage() {
           {/* 2nd div */}
           <Grid component={"div"} container direction={"column"} padding={"15px 20px"} width={"100%"} borderBottom={"1px solid #c7c7c9"}>
             <label htmlFor="" className="title_label">Document Title</label>
-            <input type="text" className="title_input" placeholder="Please sign this document"/>
+            <input type="text" className="title_input" placeholder="Please sign this document" style={{height: "35px"}}/>
           </Grid>
           {/* 3rd div */}
           <Grid component={"div"} container direction={"column"} padding={"15px 20px"} width={"100%"} borderBottom={"1px solid #c7c7c9"}>
             <label htmlFor="" className="title_label">Message</label>
-            <textarea name="" id="" className="title_input" style={{padding: "5px 3px"}}>Enter Message(optional)</textarea>
+            <textarea name="" id="" placeholder="Enter Message(optional)" className="title_input" style={{padding: "5px 3px"}}/>
           </Grid>
           </Grid>
 

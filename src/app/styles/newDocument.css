@@ -30,16 +30,15 @@
 }
 .title_input{
     border: 1px solid #c7c7c9;
-    color: rgb(123 129 145);
     height: 57px;
     font-weight: 400;
     padding: 0 5px;
     width: 50%;
     border-radius: 3px;
+    outline: none;
 }
-.title_input:focus
-{
-    border:1px solid var(--secondary-color) !important ;
+.title_input:focus{
+ border: 0.2px solid #000 !important ;
 }
 .custom-menu-item {
     color: rgb(0 8 61) !important;

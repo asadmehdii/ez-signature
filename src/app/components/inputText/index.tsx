@@ -56,10 +56,10 @@ const InputText:React.FC<Props> = ({
           borderColor: "#666666", // Default color
         },
         "&:hover fieldset": {
-          borderColor: "#666666", // Hover color
+          border: "0.5px solid #666666", // Hover color
         },
         "&.Mui-focused fieldset": {
-          borderColor: "#000000", // Focus color
+          border: "0.5px solid #666666", // Focus color
         },
       },
     },

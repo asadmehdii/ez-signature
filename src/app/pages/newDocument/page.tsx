@@ -73,11 +73,11 @@ const signerOptions =[
         </ToggleButton>
         <ToggleButton className="who.li" value="me-and-others" sx={{ 
           '&:hover': {
-        backgroundColor: 'rgba(25, 118, 210, 0.08) !important',
+        backgroundColor: 'rgba(25, 118, 210, 0.08)',
       },
       '&.Mui-selected': {
-        borderColor: 'rgb(2, 6, 168) !important',
-        backgroundColor: 'rgba(25, 118, 210, 0.08) !important',
+        borderColor: 'rgb(2, 6, 168)',
+        backgroundColor: 'rgba(25, 118, 210, 0.08)',
       },
           textTransform: "none", width: "100%", justifyContent: "start", padding: "5px 5px 7px 5px", border: "1px solid #d7d7d9" }}>
         <Image
@@ -89,11 +89,11 @@ const signerOptions =[
         </ToggleButton>
         <ToggleButton className="who.li" value="others-only" sx={{ 
           '&:hover': {
-        backgroundColor: 'rgba(25, 118, 210, 0.08) !important',
+            backgroundColor: 'rgba(25, 118, 210, 0.08)',
       },
       '&.Mui-selected': {
-        borderColor: 'rgb(2, 6, 168) !important',
-        backgroundColor: 'rgba(25, 118, 210, 0.08) !important',
+        borderColor: 'rgb(2, 6, 168)',
+        backgroundColor: 'rgba(25, 118, 210, 0.08)',
       },
           textTransform: "none", width: "100%", justifyContent: "start", padding: "5px 5px 7px 5px", border: "1px solid #d7d7d9" }}>
         <Image
@@ -170,23 +170,23 @@ const signerOptions =[
     <Grid component={"section"} container padding={"15px 20px"} borderBottom= {"1px solid #d7d7d9"} justifyContent={"space-between"} width={"100%"}>
       <Grid component={"div"} container>
         <Grid component={"div"} container direction={"row"} gap={1}>
-          <Box sx={{display: "flex", alignItems: "center", border:"1px solid #d7d7d9", borderRadius:"3px", padding: "0 3px 0 0"}}>
-         < PersonOutlineOutlined fontSize="large" sx={{color: grey[500], borderRight:"1px solid #d7d7d9", background: "rgba(25, 118, 210, 0.08)"}}/>
-            <input type="text" placeholder="Signer's Name" style={{border: "none"}} />
+        <Box sx={{display:"flex", alignItems: "center",height:32,my:"auto",border:"1px solid #d7d7d9", borderRadius:"3px",}}>
+         < PersonOutlineOutlined sx={{px:0.5,color: grey[500], borderRight:"1px solid #d7d7d9", background: "rgba(25, 118, 210, 0.08)",height:32}}/>
+            <input type="text" placeholder="Signer's Name" style={{border: "none",width:"100%",height:"100%",background:"transparent",outline:"none"}} />
           </Box>
-          <Box sx={{display: "flex", alignItems: "center", border:"1px solid #d7d7d9", borderRadius:"3px", padding: "0 3px 0 0"}}>
-         <DraftsOutlined fontSize="large" sx={{color: grey[500], borderRight:"1px solid #d7d7d9", background: "rgba(25, 118, 210, 0.08)"}}/>
-            <input type="text" placeholder="Signer's Name" style={{border: "none"}} />
+          <Box sx={{display:"flex", alignItems: "center",height:32,my:"auto",border:"1px solid #d7d7d9", borderRadius:"3px",}}>
+            <DraftsOutlined  sx={{px:0.5,color: grey[500], borderRight:"1px solid #d7d7d9", background: "rgba(25, 118, 210, 0.08)",height:32}}/>
+            <input type="text" placeholder="Signer's Mail" style={{border: "none",width:"100%",height:"100%",background:"transparent",outline:"none"}} />
           </Box>
         <CustomPopover title="Signer" options={signerOptions}/>
         <ModelToggle/>
         </Grid>
       </Grid>
       <Grid  component={"div"} container gap={1}>
-      <Box sx={{display: "flex", alignItems: "center",background: "rgba(25, 118, 210, 0.08)", border:"1px solid #d7d7d9", borderRadius:"3px", padding: "5px"}}>EN
+      <Box sx={{display: "flex", alignItems: "center",background: "rgba(25, 118, 210, 0.08)", border:"1px solid #d7d7d9", borderRadius:"3px", height:32,px:1,cursor:"pointer",my:"auto"}}>EN
 </Box>
-<Box sx={{display: "flex", alignItems: "center",background: "rgba(25, 118, 210, 0.08)", border:"1px solid #d7d7d9", borderRadius:"3px", padding: "5px"}}>
-  <ClearOutlined fontSize="medium" sx={{color: grey[500]}}/>
+<Box sx={{display: "flex", alignItems: "center",background: "rgba(25, 118, 210, 0.08)", border:"1px solid #d7d7d9", borderRadius:"3px",height:32,my:"auto",px:0.5}}>
+  <ClearOutlined  sx={{color: grey[500]}}/>
 </Box>
       </Grid>
     </Grid>
@@ -218,7 +218,7 @@ const signerOptions =[
           {/* 3rd div */}
           <Grid component={"div"} container direction={"column"} padding={"15px 20px"} width={"100%"} borderBottom={"1px solid #c7c7c9"}>
             <label htmlFor="" className="title_label">Message</label>
-            <textarea name="" id="" className="title_input" style={{padding: "5px 3px"}}>Enter Message(optional)</textarea>
+            <textarea rows={3}  name="" id="" placeholder="Enter Message(optional)" className="title_input" style={{padding: "5px 3px",minHeight:32}}/>
           </Grid>
           </Grid>
 

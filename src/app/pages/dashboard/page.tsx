@@ -182,7 +182,7 @@ const Dashboard: React.FC = () => {
           >
             <div>
             <Text margin={12} fontSize='17px'>Document send this month</Text>
-            <Button backgroundColor="var(--secondary-color)" height={52} borderRadius={15}>Upgrade</Button>
+            <Button backgroundColor="var(--secondary-color)" height={52} width={150} color='#fff' borderRadius={"15px"} sx={{ml:1}}>Upgrade</Button>
             </div>
           </Card>
           <Card
