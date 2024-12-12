@@ -106,7 +106,7 @@ export default function NewTemplatePage() {
           <IconButton>
             <GoogleDriveIcon />
           </IconButton>
-        <CustomButton color="var(--secondary-color)" fontWeight="500" fontSize={16} borderRadius={20} borderWidth={1} borderColor="var(--secondary-color)" height={"35px"} width={"fit-content"} style={{padding:"0 28px", display:"flex",alignItems:"center"}}>New Template</CustomButton>
+        <CustomButton color="#fff" fontWeight="500" fontSize={16} borderRadius={20} borderWidth={1} borderColor="var(--secondary-color)" height={"35px"} width={"fit-content"} style={{padding:"0 28px", display:"flex",alignItems:"center"}}>New Template</CustomButton>
         </Grid>
         </Grid>
           {/* Add other cloud storage icons here */}
@@ -164,7 +164,7 @@ export default function NewTemplatePage() {
 
     {/* 4rd div */}
     <Grid component={"section"} container padding={"15px 20px"} justifyContent={"space-between"} width={"100%"}>
-      <CustomButton color="var(--secondary-color)" fontWeight="500" fontSize={16} borderRadius={20} borderWidth={1} borderColor="var(--secondary-color)" height={"35px"} width={"fit-content"} style={{padding:"0 28px", display:"flex",alignItems:"center"}}>Add Role</CustomButton>
+      <CustomButton color="#fff" fontWeight="500" fontSize={16} borderRadius={20} borderWidth={1} borderColor="var(--secondary-color)" height={"35px"} width={"fit-content"} style={{padding:"0 28px", display:"flex",alignItems:"center"}}>Add Role</CustomButton>
       </Grid>
         </Grid>
 

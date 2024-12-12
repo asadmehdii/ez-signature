@@ -140,7 +140,7 @@ const signerOptions =[
           <IconButton>
             <GoogleDriveIcon />
           </IconButton>
-        <CustomButton color="var(--secondary-color)" fontWeight="500" fontSize={16} borderRadius={20} borderWidth={1} borderColor="var(--secondary-color)" height={"35px"} width={"fit-content"} style={{padding:"0 28px", display:"flex",alignItems:"center"}}>New Template</CustomButton>
+        <CustomButton color="#fff" fontWeight="500" fontSize={16} borderRadius={20} borderWidth={1} borderColor="var(--secondary-color)" height={"35px"} width={"fit-content"} style={{padding:"0 28px", display:"flex",alignItems:"center"}}>New Template</CustomButton>
         </Grid>
         </Grid>
           {/* Add other cloud storage icons here */}
@@ -192,7 +192,7 @@ const signerOptions =[
     </Grid>
 {/* 3rd div */}
 <Grid component={"section"} container padding={"15px 20px"} justifyContent={"space-between"} width={"100%"}>
-      <CustomButton color="var(--secondary-color)" fontWeight="500" fontSize={16} borderRadius={20} borderWidth={1} borderColor="var(--secondary-color)" height={"35px"} width={"fit-content"} style={{padding:"0 28px", display:"flex",alignItems:"center"}}>Add Signer to CC</CustomButton>
+      <CustomButton color="#fff" fontWeight="500" fontSize={16} borderRadius={20} borderWidth={1} borderColor="var(--secondary-color)" height={"35px"} width={"fit-content"} style={{padding:"0 28px", display:"flex",alignItems:"center"}}>Add Signer to CC</CustomButton>
       <Grid component={"div"} container direction={"row"} alignItems={"center"}>
           <Checkbox defaultChecked size="small" />
           <Text fontSize="0.875rem" color="rgb(0 8 61)">Save Contacts</Text>
