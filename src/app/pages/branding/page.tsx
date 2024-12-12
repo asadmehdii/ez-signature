@@ -1,13 +1,10 @@
 "use client";
 import { useState } from "react";
-import { Tabs, Tab, Box, Typography, Button, TextField } from "@mui/material";
+import { Tabs, Tab, Box,} from "@mui/material";
 import Topbar from "@/app/components/dashboardTopbar/topbar";
 import Grid from "@mui/material/Grid2";
-import { Diversity1Outlined } from '@mui/icons-material';
-import Checkbox from '@mui/material/Checkbox';
 import Text from "@/app/components/text";
 import Icon from "@/app/assests/images/icon-64.png";
-import Transparent_bg from "@/app/assests/images/transparent_bg_bit.png";
 import Image from "next/image";
 import CustomButton from "@/app/components/button";
 import Table from '@mui/material/Table';

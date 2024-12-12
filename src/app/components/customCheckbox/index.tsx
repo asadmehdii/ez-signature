@@ -17,7 +17,6 @@ const CustomCheckbox: React.FC<CustomCheckboxProps> = ({
   text,
   showHelpIcon = false,
   checkboxProps = {},
-  textStyle,
 }) => {
   return (
     <Grid component={"div"} container alignItems={"center"}>
