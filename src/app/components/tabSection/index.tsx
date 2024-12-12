@@ -11,9 +11,7 @@ interface TabSectionProp{
 const TabSection: React.FC<TabSectionProp> = ({activeTab, handleTabChange, tabLabels}) =>{
    return(
     <>
-    <Grid container 
-    justifyContent={"flex-end"}
-    marginBottom={""}
+    <Grid container justifyContent={"flex-end"} width={"100%"}
     >
       <Tabs
         value={activeTab}
@@ -21,6 +19,7 @@ const TabSection: React.FC<TabSectionProp> = ({activeTab, handleTabChange, tabLa
         textColor="primary"
         indicatorColor="primary"
         aria-label="document tabs"
+        variant="scrollable"
       >
         {tabLabels.map((label, index) => (
           <Tab

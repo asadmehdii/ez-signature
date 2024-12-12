@@ -33,6 +33,12 @@
 .settings_link:hover{
     background-color: #E8EFF6;
 }
+.transparentBg{
+    background: url("../assests/images/transparent_bg_bit.png") repeat;
+}
+
+
+
 
 @media screen and (max-width: 450px){
     .settings_input{

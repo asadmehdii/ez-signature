@@ -24,7 +24,7 @@ return(
     <Text className="head_1">Secure & Reliable eSignature API</Text>
     <Text className="text_1">Quickly integrate secure electronic signatures into your applications and workflows using the reliable Ezsignature eSignature REST API.</Text>
     <Box  display={"flex"} flexDirection={{xs:"column",md:"row"}} justifyContent={"center"} alignItems={"center"} rowGap={1} columnGap={3}>
-    <Button className="button_1">Create free Sandbox</Button>
+    <Button className="button_1" type="outlined" color="#000">Create free Sandbox</Button>
     <Button className="button_2">Book a Demo</Button>
     </Box>
     <Text fontSize="22px" fontWeight="500" marginTop={20}>See API Documentation</Text>
@@ -59,7 +59,7 @@ return(
          <Text padding={6} fontSize="18px" fontWeight="700">{value.title}</Text>
          <Text padding={6} style={{maxWidth:"997px",marginTop:"10px"}} fontSize="14px" fontWeight="500">{value.text}</Text>
        </Box>
-        <Button className="btn">Learn More</Button>
+        <Button type="outlined" className="btn">Learn More</Button>
      </Card>
      ))} 
     </Grid>

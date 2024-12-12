@@ -35,7 +35,7 @@ export default function SettingsPage() {
                                     <input type="text" className="settings_input" />
                                 </Grid>
                                 <Grid container flex={"0 0 auto"} paddingTop={"15px"} paddingBottom={"15px"} paddingInline={"20px"} >
-                                <Button color="var(--secondary-color)" fontWeight="500" fontSize={16} borderRadius={20} borderWidth={1} borderColor="var(--secondary-color)" height={"35px"} width={"fit-content"} style={{padding:"0 2.5rem", display:"flex",alignItems:"center"}}>Save Changes</Button>
+                                <Button color="#fff" fontWeight="500" fontSize={16} borderRadius={"20px"} borderWidth={1} borderColor="var(--secondary-color)" height={"35px"} width={"fit-content"} style={{padding:"0 2.5rem", display:"flex",alignItems:"center"}}>Save Changes</Button>
 
                                 </Grid>
                             </form>
@@ -53,15 +53,15 @@ export default function SettingsPage() {
                     <SaveAsOutlined  sx={{color: "rgb(51, 51, 51)"}} />
                         <Text fontWeight="400" color="rgb(51, 51, 51)">Signing Preferences</Text>
                     </Link>
-                    <Link href="" className="settings_link">
+                    <Link href="/pages/deliveryPreferences" className="settings_link">
                     <Telegram  sx={{color: "rgb(51, 51, 51)"}} />
                         <Text fontWeight="400" color="rgb(51, 51, 51)">Delivery Preferences</Text>
                     </Link>
-                    <Link href="" className="settings_link">
+                    <Link href="/pages/expiration" className="settings_link">
                     <AccessTimeOutlined  sx={{color: "rgb(51, 51, 51)"}} />
                         <Text fontWeight="400" color="rgb(51, 51, 51)">Expirations & Reminders</Text>
                     </Link>
-                    <Link href="" className="settings_link">
+                    <Link href="/pages/branding" className="settings_link">
                         <ColorLens  sx={{color: "rgb(51, 51, 51)"}}/>
                         <Text fontWeight="400" color="rgb(51, 51, 51)">Branding</Text>
                     </Link>
