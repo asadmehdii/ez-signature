@@ -26,6 +26,8 @@ import Topbar from '@/app/components/dashboardTopbar/topbar';
 
 
 const Dashboard: React.FC = () => {
+      const user = JSON.parse(localStorage.getItem('user') || 'null');
+
     return(
         <Topbar title='Dashboard' buttonText='Quick Actions' isCaretIcon isBellIcon>
               <Grid 
@@ -137,7 +139,6 @@ const Dashboard: React.FC = () => {
             //  paddingBottom={5}
              fontSize='16px'
              style={{overflow: "hidden", whiteSpace: "nowrap", textOverflow: "ellipsis"}}
-             
             >
                 Oct 09 2024- document Appointment Leter.pdf completed by user@gmail.com
             </Text>
@@ -168,6 +169,17 @@ const Dashboard: React.FC = () => {
           >
             <div>
             <Text margin={12} fontSize='20px'>My Signature</Text>
+           <div
+            style={{
+              fontSize: "40px",
+              fontFamily: "'Great Vibes', cursive", 
+              fontStyle: "italic",
+              margin: "20px 0",
+              color: "#000",
+            }}
+          >
+            {user?.name || "No User"}
+          </div>
             <Text margin={9} fontSize='16px' color='blue' style={{textDecoration: 'underline'}}>Edit</Text>
             </div>
           </Card>

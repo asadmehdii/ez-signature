@@ -18,13 +18,14 @@ interface Props {
 }
 
 export default function Sidebar({children,open,onToggle}: Props) {  
-
-
+  const user = JSON.parse(localStorage.getItem('user') || 'null');
 
   const drawerContent = (
     <Grid container>
      <Grid m={"auto"} px={2} width={"100%"} height={"100%"}>
-     <Link href={"/"} style={{ textAlign: "center" }}> <h1 className="logo"> EzSignature</h1></Link>
+     <Link href={"/"} style={{ textAlign: "center" }}>           
+     <h1 className="logo"> {user ? ` ${user.name}` : ''}</h1>
+     </Link>
       <Button backgroundColor="var(--secondary-color)" height={60} width={'79%'} borderRadius={15} style={{ margin: "0 auto" }} >Upgrade!</Button>
          <Grid component={"div"} container >
              <Box component={"div"}>

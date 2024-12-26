@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import Navbar from "@/app/components/navbar";
 import TextField from "@mui/material/TextField";
 import { Box, Checkbox } from "@mui/material";
@@ -13,82 +13,208 @@ import Button from "@/app/components/button";
 import Link from "next/link";
 import ContentBox from "@/app/components/contentBox";
 import Route from "@/app/utils/routes";
+import axios from "axios";
+import { useRouter } from 'next/navigation'; // Updated import
 
-const Login:FC = ()=>{
-  const [hidePassword,setHidePassword] = useState<boolean>(true)
-    const CustomTextField = styled(TextField)({
-        '& .MuiOutlinedInput-root': {
-          height:"47px",  
-          borderRadius: '8px', 
-          borderColor: '#666666', 
-          fontSize: '20px', 
-          padding: '10px 0px', 
-          fontFamily:"var(--text-mada)", 
-          '& fieldset': {
-            borderColor: '666666',
-          },
-          '&:hover fieldset': {
-            borderColor: '666666', 
-          },
-          '&.Mui-focused fieldset': {
-            borderColor: '#666666', 
-          },
-        },
-        '& .MuiInputBase-input': {
-          color: '#333', 
-          fontSize: '20px', 
-        },
+const Login: FC = () => {
+  const router = useRouter(); // Use the router from next/navigation
+  const [hidePassword, setHidePassword] = useState<boolean>(true);
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [emailError, setEmailError] = useState<string | null>(null);
+  const [passwordError, setPasswordError] = useState<string | null>(null);
+  const [apiError, setApiError] = useState<string | null>(null);
+
+  const validateInputs = (): boolean => {
+    let valid = true;
+    setEmailError(null);
+    setPasswordError(null);
+
+    if (!email) {
+      setEmailError("Email is required.");
+      valid = false;
+    } else if (!/\S+@\S+\.\S+/.test(email)) {
+      setEmailError("Invalid email format.");
+      valid = false;
+    }
+
+    if (!password) {
+      setPasswordError("Password is required.");
+      valid = false;
+    } else if (password.length < 5) {
+      setPasswordError("Password must be at least 5 characters.");
+      valid = false;
+    }
+
+    return valid;
+  };
+  const handleLogin = async () => {
+    if (!validateInputs()) return;
+
+    try {
+      const response = await axios.post("http://localhost:4000/user/login", {
+        email,
+        password,
       });
-    return(
-        <main>
-        <Navbar showBtn={false}/>
-        <ContentBox mt={8}>
-        <Grid pb={2} container rowGap={5} columnSpacing={0.5} height={"100%"} flexDirection={{xs:"column-reverse",md:"row"}} justifyContent={{xs:"flex-start",md:"space-evenly"}} alignItems={"center"}>
-        <Box display="flex" width={{xs:"100%",sm:"auto"}}>
-        <Box width={{xs:"90%",sm:"430px",md:"370px",lg:"430px"}} m={"auto"}>
-          <Text fontWeight="700" fontSize="42px">Welcome Back!</Text>
-          <Box component={"div"} width="100%" my={3}>
-           <Text fontSize="16px" fontWeight="600" color="var(--lightGray-color)">Email Address</Text>
-           <CustomTextField fullWidth variant="outlined" type="email"/>  
-          </Box>
-          <Box my={3}>
-           <Box component={"div"} m={0} p={0} display={"flex"} justifyContent={"space-between"} width="100%">
-           <Text fontSize="16px" fontWeight="600" color="var(--lightGray-color)">Your password</Text>
-           {hidePassword? (<Text color="var(--lightGray-color)" onclick={()=>setHidePassword(false)} style={{cursor:"pointer",display:"flex",alignItems:"center",gap:3}} fontSize="18px" fontWeight="600" ><RemoveRedEyeIcon /> Show</Text>):
-           (<Text color="var(--lightGray-color)" onclick={()=>setHidePassword(true)} style={{cursor:"pointer",display:"flex",alignItems:"center",gap:3}} fontSize="18px" fontWeight="600" ><VisibilityOffIcon /> Hide</Text>)
-           }
-           </Box>
-           <CustomTextField fullWidth variant="outlined" type={hidePassword?"password":"text"}/>  
-           <Text fontSize="16px" fontWeight="600" style={{marginLeft:"auto",cursor:"pointer",borderBottom:"1px solid #000000",width:"fit-content",marginTop:'15px'}}>Forget your password</Text>
-          </Box>
-          <Box display={"flex"} alignItems={"center"} gap={1}>
-          <Checkbox defaultChecked sx={{color: "#121212",m:0,p:0}} />
-          <Text fontSize="16px" fontWeight="600">Keep me signed in until I sign out</Text>  
-          </Box>
-          <Box display={"flex"} flexDirection={"column"} justifyContent={"center"} alignItems={"center"} my={1} maxWidth={"450px"}>
-             <Button style={{margin:"20px 0"}} fontSize={18} color="#fff" fontWeight="600" backgroundColor="var(--secondary-color)" borderRadius={25} width={"300px"} height={"50px"} to={Route.DASHBOARD}>Login</Button>
-             <Box my={1} display={"flex"} justifyContent={"center"} alignItems={"center"} gap={3}>
-             <hr style={{ width: '40px', borderColor: "#cdcdcd", borderWidth: "1px", borderStyle: "solid" }} />
-             <Text fontSize="14px" fontWeight="500" color="#cdcdcd">Or Login With</Text>
-             <hr style={{ width: '40px', borderColor: "#cdcdcd", borderWidth: "1px", borderStyle: "solid" }} />
-             </Box>
-             <Box display={"flex"} alignItems={"center"} columnGap={2}>
-              <Box component={"img"} sx={{cursor:'pointer',transition: "transform 0.3s ease","&:hover":{transform: "scale(1.2)",}}} src={Assests.Google.src} alt="icon_here"/>
-              <Box component={"img"} sx={{cursor:'pointer',transition: "transform 0.3s ease","&:hover":{transform: "scale(1.2)",}}} src={Assests.Facebook.src} alt="icon_here"/>
-              <Box component={"img"} sx={{cursor:'pointer',transition: "transform 0.3s ease","&:hover":{transform: "scale(1.2)",}}} src={Assests.Instagram.src} alt="icon_here"/>
-              <Box component={"img"} sx={{cursor:'pointer',transition: "transform 0.3s ease","&:hover":{transform: "scale(1.2)",}}} src={Assests.Linkedin.src} alt="icon_here"/>
-             </Box>
-             <Text color="#cdcdcd" fontSize="14px" fontWeight="500" marginTop={20}>Don’t have an account?  <Link href={Route.SIGNUP} style={{color:"var(--secondary-color)",cursor:'pointer'}} >Sign up</Link></Text>
-          </Box>
-          </Box>
-        </Box>
-        {/* <Box display={"flex"} justifyContent={"center"} boxSizing={"border-box"} component={"div"} >    */}
-        <Box component={"img"} width={{xs:"90%",sm:"430px",lg:"auto"}} src={Assests.LoginImg.src} alt="img_here"/>
-        {/* </Box> */}
-        </Grid>
-        </ContentBox>
-        </main>
-    )
-}
+  
+      console.log("API Response:", response);
+  
+      if (response.status === 200 || response.status === 201) {
+        localStorage.setItem('user', JSON.stringify({ name: response.data.name }));
 
-export default Login
+        router.push(Route.DASHBOARD);
+      } else {
+        setApiError("Login failed. Please check your credentials.");
+
+      }
+    } catch (error) {
+      setApiError("An error occurred while logging in. Please try again.");
+
+    }
+  };
+  const CustomTextField = styled(TextField)({
+    '& .MuiOutlinedInput-root': {
+      height: "47px",
+      borderRadius: '8px',
+      borderColor: '#666666',
+      fontSize: '20px',
+      padding: '10px 0px',
+      fontFamily: "var(--text-mada)",
+      '& fieldset': {
+        borderColor: '666666',
+      },
+      '&:hover fieldset': {
+        borderColor: '666666',
+      },
+      '&.Mui-focused fieldset': {
+        borderColor: '#666666',
+      },
+    },
+    '& .MuiInputBase-input': {
+      color: '#333',
+      fontSize: '20px',
+    },
+  });
+
+  return (
+    <main>
+      <Navbar showBtn={false} />
+      <ContentBox mt={8}>
+        <Grid
+          pb={2}
+          container
+          rowGap={5}
+          columnSpacing={0.5}
+          height={"100%"}
+          flexDirection={{ xs: "column-reverse", md: "row" }}
+          justifyContent={{ xs: "flex-start", md: "space-evenly" }}
+          alignItems={"center"}
+        >
+          <Box display="flex" width={{ xs: "100%", sm: "auto" }}>
+            <Box width={{ xs: "90%", sm: "430px", md: "370px", lg: "430px" }} m={"auto"}>
+              <Text fontWeight="700" fontSize="42px">Welcome Back!</Text>
+              <Box component={"div"} width="100%" my={3}>
+                <Text fontSize="16px" fontWeight="600" color="var(--lightGray-color)">Email Address</Text>
+                <TextField
+                  fullWidth
+                  variant="outlined"
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  error={!!emailError}
+                  helperText={emailError}
+                />
+              </Box>
+              <Box my={3}>
+                <Box
+                  component={"div"}
+                  m={0}
+                  p={0}
+                  display={"flex"}
+                  justifyContent={"space-between"}
+                  width="100%"
+                >
+                  <Text fontSize="16px" fontWeight="600" color="var(--lightGray-color)">Your password</Text>
+                  {hidePassword ? (
+                    <Text
+                      color ="var(--lightGray-color)"
+                      onClick={() => setHidePassword(false)}
+                      style={{ cursor: "pointer", display: "flex", alignItems: "center", gap: 3 }}
+                      fontSize="18px"
+                      fontWeight="600"
+                    >
+                      <RemoveRedEyeIcon /> Show
+                    </Text>
+                  ) : (
+                    <Text
+                      color="var(--lightGray-color)"
+                      onClick={() => setHidePassword(true)}
+                      style={{ cursor: "pointer", display: "flex", alignItems: "center", gap: 3 }}
+                      fontSize="18px"
+                      fontWeight="600"
+                    >
+                      <VisibilityOffIcon /> Hide
+                    </Text>
+                  )}
+                </Box>
+                <TextField
+                  fullWidth
+                  variant="outlined"
+                  type={hidePassword ? "password" : "text"}
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  error={!!passwordError}
+                  helperText={passwordError}
+                />
+                <Text
+                  fontSize="16px"
+                  fontWeight="600"
+                  style={{ marginLeft: "auto", cursor: "pointer", borderBottom: "1px solid #000000", width: "fit-content", marginTop: '15px' }}
+                >
+                  Forget your password
+                </Text>
+              </Box>
+              <Box display={"flex"} alignItems={"center"} gap={1}>
+                <Checkbox defaultChecked sx={{ color: "#121212", m: 0, p: 0 }} />
+                <Text fontSize="16px" fontWeight="600">Keep me signed in until I sign out</Text>
+              </Box>
+              {apiError && <Text color="red" fontSize="14px">{apiError}</Text>}
+              <Box display={"flex"} flexDirection={"column"} justifyContent={"center"} alignItems={"center"} my={1} maxWidth={"450px"}>
+                <Button
+                  style={{ margin: "20px 0" }}
+                  fontSize={18}
+                  color="#fff"
+                  fontWeight="600"
+                  backgroundColor="var(--secondary-color)"
+                  borderRadius={25}
+                  width={"300px"}
+                  height={"50px"}
+                  onClick={handleLogin}
+                >
+                  Login
+                </Button>
+                <Box my={1} display={"flex"} justifyContent={"center"} alignItems={"center"} gap={3}>
+                  <hr style={{ width: '40px', borderColor: "#cdcdcd", borderWidth: "1px", borderStyle: "solid" }} />
+                  <Text fontSize="14px" fontWeight="500" color="#cdcdcd">Or Login With</Text>
+                  <hr style={{ width: '40px', borderColor: "#cdcdcd", borderWidth: "1px", borderStyle: "solid" }} />
+                </Box>
+                <Box display={"flex"} alignItems={"center"} columnGap={2}>
+                  <Box component={"img"} sx={{ cursor: 'pointer', transition: "transform 0.3s ease", "&:hover": { transform: "scale(1.2)", } }} src={Assests.Google.src} alt="icon_here" />
+                  <Box component={"img"} sx={{ cursor: 'pointer', transition: "transform 0.3s ease", "&:hover": { transform: "scale(1.2)", } }} src={Assests.Facebook.src} alt="icon_here" />
+                  <Box component={"img"} sx={{ cursor: 'pointer', transition: "transform 0.3s ease", "&:hover": { transform: "scale(1.2)", } }} src={Assests.Instagram.src} alt="icon_here" />
+                  <Box component={"img"} sx={{ cursor: 'pointer', transition: "transform 0.3s ease", "&:hover": { transform: "scale(1.2)", } }} src={Assests.Linkedin.src} alt="icon_here" />
+                </Box>
+                <Text color="#cdcdcd" fontSize="14px" fontWeight="500" marginTop={20}>
+                  Don’t have an account? <Link href={Route.SIGNUP} style={{ color: "var(--secondary-color)", cursor: 'pointer' }}>Sign up</Link>
+                </Text>
+              </Box>
+            </Box>
+          </Box>
+          <Box component={"img"} width={{ xs: "90%", sm: "430px", lg: "auto" }} src={Assests.LoginImg.src} alt="img_here" />
+        </Grid>
+      </ContentBox>
+    </main>
+  );
+};
+
+export default Login;
