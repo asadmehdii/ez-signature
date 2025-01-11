@@ -60,8 +60,9 @@ const Login: FC = () => {
       console.log("API Response:", response);
   
       if (response.status === 200 || response.status === 201) {
-        localStorage.setItem('user', JSON.stringify({ name: response.data.name }));
-
+       // Save user data
+       const { name, email,password } = response.data;
+       localStorage.setItem('user', JSON.stringify({ name, email,password}));
         router.push(Route.DASHBOARD);
       } else {
         setApiError("Login failed. Please check your credentials.");

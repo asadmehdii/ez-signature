@@ -20,6 +20,58 @@
     cursor: pointer;
 }
 
+.border_padding {
+  padding: 15px;
+}
+
+.signature_card {
+  background: linear-gradient(to right, #E8EFF6, rgba(215, 215, 217, 0.35)),
+  url(../assests/images/background.png);  
+  padding: 20px;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px; /* Gap between cards */
+  width: 320px;
+}
+
+.signature_header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.signature_title {
+  font-size: 1rem;
+  font-weight: bold;
+  color: #000;
+  margin-bottom: 5px;
+}
+
+.edit_link {
+  font-size: 0.875rem;
+  color: blue;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.signature_content {
+  text-align: right;
+}
+
+.signature_text {
+  font-size: 30px;
+  font-family: "Great Vibes", cursive;
+  font-style: italic;
+  color: #000;
+}
+
+.initials_text {
+  font-size: 40px; /* Larger font size for initials */
+}
+
+  
+  
 @media screen and (max-width: 768px){
     .card1{
         width: 88% !important;

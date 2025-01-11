@@ -9,6 +9,7 @@ import Text from "@/app/components/text";
 import Route from "@/app/utils/routes";
 import Assests from "@/app/assests/images";
 import Button from "@/app/components/button";
+
 const SandboxBussiness: React.FC = () => {
   return (
     <main>
@@ -25,7 +26,7 @@ const SandboxBussiness: React.FC = () => {
           <InputText lable="Workplace URL" type="text" mt={4} />
           <Box mt={4} display={"flex"} gap={2} justifyContent={"space-between"}>
             <Button width={201} borderRadius={32} color="#fff" fontWeight="500" fontSize={22} backgroundColor="#A0A0A0" to={Route.SANDBOX_ACCOUNT_API}>Back</Button>  
-            <Button width={306} borderRadius={32} backgroundColor="var(--secondary-color)" color="#fff" fontWeight="500" fontSize={22}>Start Using</Button>  
+            <Button width={306} borderRadius={32} backgroundColor="var(--secondary-color)" color="#fff" fontWeight="500"  fontSize={22}>Start Using</Button>  
           </Box>    
        </Box>
        <Box component={"img"} width={{xs:"80%",md:"320px",lg:"auto"}} src={Assests.SignUpImage.src} alt="img_here"/>

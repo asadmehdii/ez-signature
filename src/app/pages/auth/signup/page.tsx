@@ -14,9 +14,24 @@ import Button from "@/app/components/button";
 import Link from "next/link";
 import ContentBox from "@/app/components/contentBox";
 import Route from "@/app/utils/routes";
+import { useRouter } from 'next/navigation'; // Updated import
 
 const SignUp:FC = ()=>{
-const [hidePassword,setHidePassword] = useState<boolean>(true)
+  const router = useRouter(); // Use the router from next/navigation
+
+const [hidePassword,setHidePassword] = useState<boolean>(true);
+const [formData, setFormData] = useState({
+  name: "",
+  email: "",
+  password: "",
+});
+const [errors, setErrors] = useState({
+  name: "",
+  email: "",
+  password: "",
+});
+const [isSubmitting, setIsSubmitting] = useState(false);
+
     const CustomTextField = styled(TextField)({
         '& .MuiOutlinedInput-root': {
           height:"47px",  
@@ -40,6 +55,54 @@ const [hidePassword,setHidePassword] = useState<boolean>(true)
           fontSize: '20px',
         },
       });
+      const validateForm = () => {
+        const newErrors = { name: "", email: "", password: "" };
+        if (!formData.name) newErrors.name = "Username is required.";
+        if (!formData.email) {
+          newErrors.email = "Email is required.";
+        } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+          newErrors.email = "Invalid email address.";
+        }
+        if (!formData.password) {
+          newErrors.password = "Password is required.";
+        } else if (formData.password.length < 5) {
+          newErrors.password = "Password must be at least 5 characters.";
+        }
+        setErrors(newErrors);
+        return !Object.values(newErrors).some((error) => error !== "");
+      };
+    
+      const handleInputChange = (field: string, value: string) => {
+        setFormData({ ...formData, [field]: value });
+        setErrors({ ...errors, [field]: "" });
+      };
+    
+      const handleSubmit = async () => {
+        if (!validateForm()) return;
+    
+        setIsSubmitting(true);
+        try {
+          const response = await fetch("http://localhost:4000/user/signup", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(formData),
+          });
+    
+          if (response.ok) {
+            alert("Account created successfully!");
+            router.push(Route.LOGIN);
+
+          } else {
+            const errorData = await response.json();
+            alert(errorData.message || "Failed to create an account.");
+          }
+        } catch (error) {
+          alert("An error occurred. Please try again later.");
+        } finally {
+          setIsSubmitting(false);
+        }
+      };
+    
     return(
         <main >
         <Navbar showBtn={false}/>
@@ -50,11 +113,21 @@ const [hidePassword,setHidePassword] = useState<boolean>(true)
           <Text fontWeight="700" textAlign="center" fontSize="42px">Create an account</Text>
           <Box component={"div"} my={3}>
            <Text fontSize="16px" fontWeight="600" color="var(--lightGray-color)" >Username</Text>
-           <CustomTextField fullWidth variant="outlined" type="text"/>  
+           <TextField fullWidth variant="outlined" type="text" 
+           value={formData.name}
+           onChange={(e) => handleInputChange("name", e.target.value)}
+           error={!!errors.name}
+           helperText={errors.name}
+           />  
           </Box>
           <Box component={"div"} my={3}>
            <Text fontSize="16px" fontWeight="600" color="var(--lightGray-color)">Email Address</Text>
-           <CustomTextField fullWidth variant="outlined" type="email"/>  
+           <TextField fullWidth variant="outlined" type="email"
+            value={formData.email}
+            onChange={(e) => handleInputChange("email", e.target.value)}
+            error={!!errors.email}
+            helperText={errors.email}
+           />  
           </Box>
           <Box my={3}>
            <Box component={"div"} m={0} p={0} display={"flex"} justifyContent={"space-between"} maxWidth={"450px"}>
@@ -63,7 +136,12 @@ const [hidePassword,setHidePassword] = useState<boolean>(true)
            (<Text color="var(--lightGray-color)" onclick={()=>setHidePassword(true)} style={{cursor:"pointer",display:"flex",alignItems:"center",gap:3}} fontSize="18px" fontWeight="600" ><VisibilityOffIcon sx={{color:"red"}}/> Hide</Text>)
            }
            </Box>
-           <CustomTextField fullWidth variant="outlined" type={hidePassword?"password":"text"}/>  
+           <TextField fullWidth variant="outlined" type={hidePassword?"password":"text"}
+            value={formData.password}
+            onChange={(e) => handleInputChange("password", e.target.value)}
+            error={!!errors.password}
+            helperText={errors.password}
+           />  
            <Text  color="var(--lightGray-color)" fontSize="14px" fontWeight="600" style={{marginTop:'7px'}}>Use 8 or more characters with a mix of letters, numbers & symbols</Text>
           </Box>
           <Typography fontFamily={"var(--text-mada)"} variant="body1" fontSize="16px" color="var(--lightGray-color)" fontWeight="500" sx={{maxWidth:"300px",marginX:{xs:"auto",sm:0}}}>By creating an account, you agree to our <Link href={Route.TERM_CONDITION} style={{fontWeight:"700",color:"#111111",textDecoration:'underline'}}> Terms of use </Link> and <Link href={Route.PRIVACY_POLICY} style={{fontWeight:"700",color:"#111111",textDecoration:'underline'}}>Privacy Policy</Link> </Typography>
@@ -75,7 +153,9 @@ const [hidePassword,setHidePassword] = useState<boolean>(true)
           <Image src={Assests.Recaptcha} alt="image_here" width={35} height={35} />
           </Box>
           <Box display={"flex"} flexDirection={"column"} justifyContent={"center"} alignItems={"center"} my={1} maxWidth={"450px"}>
-             <Button style={{margin:"20px 0"}} fontSize={18} color="#fff" fontWeight="600" backgroundColor="var(--secondary-color)" borderRadius={25} width={"300px"} height={"50px"}>Create an account</Button>
+             <Button style={{margin:"20px 0"}} fontSize={18} color="#fff" fontWeight="600" backgroundColor="var(--secondary-color)" borderRadius={25} width={"300px"} height={"50px"}
+               onClick={handleSubmit}
+               disabled={isSubmitting}>{isSubmitting ? "Creating..." : "Create an account"}</Button>
              <Box my={1} color={"#cdcdcd"} display={"flex"} justifyContent={"center"} alignItems={"center"} gap={3}>
              <hr style={{ width: '30px', borderColor: "#cdcdcd", borderWidth: "1px", borderStyle: "solid" }} />
              <Text fontSize="14px" fontWeight="500" color="#cdcdcd">Or Sign up With</Text>
@@ -98,4 +178,4 @@ const [hidePassword,setHidePassword] = useState<boolean>(true)
     )
 }
 
-export default SignUp
+export default SignUp;

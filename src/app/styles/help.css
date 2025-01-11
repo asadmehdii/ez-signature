@@ -4,8 +4,8 @@
 }
 
 .helpPage .grid_1 .head_1 {
-  font-size: 97px;
-  font-weight: 800;
+  font-size: 70px;
+  font-weight: 700;
   color: var(--text-color);
 }
 .helpPage .grid_1 .button {
@@ -27,9 +27,9 @@
     font-size: 40px !important;
   }
   .helpPage .trustedElect .text_1 {
-    font-size: 18px;
+    font-size: 16px;
   }
   .helpPage .trustedElect .head_1 {
-    font-size: 40px !important;
+    font-size: 30px !important;
   }
 }

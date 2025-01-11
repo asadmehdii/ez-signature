@@ -11,6 +11,7 @@
     * - Modification    : 
 **/
 "use client"; 
+import React, { useEffect, useState } from 'react';
 import Button from '@/app/components/button';
 import Card from '@/app/components/card';
 import Link from 'next/link';
@@ -22,12 +23,44 @@ import Text from '@/app/components/text';
 import Grid from "@mui/material/Grid2";
 import { grey } from '@mui/material/colors';
 import Topbar from '@/app/components/dashboardTopbar/topbar';
-
+import axios from 'axios';
 
 
 const Dashboard: React.FC = () => {
       const user = JSON.parse(localStorage.getItem('user') || 'null');
+      const [signature, setSignature] = useState<string | null>(null);
 
+      const fetchSignature = async () => {
+        try {
+          const response = await axios.post('http://localhost:4000/signature/default', {
+            email: user.email,
+            password: user.password,
+          });
+      
+          console.log('Full response:', response);
+      
+          if (response.data && response.data.signature) {
+            const signatureValue = response.data.signature.trim(); // Trim spaces just in case
+            console.log('Setting signature:', signatureValue);
+            setSignature(signatureValue); // Set the signature data
+          } else {
+            console.log('No valid signature found in the response.');
+          }
+        } catch (error) {
+          console.error('Failed to fetch signature:', error);
+        }
+      };
+      
+      useEffect(() => {
+        if (user?.email) {
+          fetchSignature();
+        }
+      }, [user]);
+    
+      useEffect(() => {
+        console.log('Signature state after update:', signature); // Log state after update
+      }, [signature]);
+    
     return(
         <Topbar title='Dashboard' buttonText='Quick Actions' isCaretIcon isBellIcon>
               <Grid 
@@ -167,21 +200,46 @@ const Dashboard: React.FC = () => {
             borderColor="#cccccc"
             borderRadius={3}
           >
-            <div>
-            <Text margin={12} fontSize='20px'>My Signature</Text>
-           <div
-            style={{
-              fontSize: "40px",
-              fontFamily: "'Great Vibes', cursive", 
-              fontStyle: "italic",
-              margin: "20px 0",
-              color: "#000",
-            }}
-          >
-            {user?.name || "No User"}
-          </div>
-            <Text margin={9} fontSize='16px' color='blue' style={{textDecoration: 'underline'}}>Edit</Text>
-            </div>
+    <div className="border_padding">
+  {/* My Signature */}
+  <div className="signature_card">
+    <div className="signature_header">
+      <div>
+        <span className="signature_title">My Signature</span>
+        <br />
+        <span className="edit_link">Edit</span>
+      </div>
+      <div className="signature_content">
+        <span className="signature_text">{signature ? signature : "No signature available"}</span>
+      </div>
+    </div>
+  </div>
+
+  {/* My Initials */}
+  <div className="signature_card">
+    <div className="signature_header">
+      <div>
+        <span className="signature_title">My Initials</span>
+        <br />
+        <span className="edit_link">Edit</span>
+      </div>
+      <div className="signature_content">
+        <span className="signature_text initials_text">
+          {user?.name
+            ? user.name
+                .split(" ") // Split the name into parts
+                .map((part) => part[0]?.toUpperCase()) // Get the first letter of each part
+                .join("") // Join them as initials
+            : "No User"}
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+           
           </Card>
           <Card
             className="card2"

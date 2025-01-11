@@ -8,13 +8,13 @@
   align-items: center;
 }
 .feature .grid_1 .head_1 {
-  font-size: 87px;
-  font-weight: 800;
+  font-size: 70px;
+  font-weight: 700;
   color: var(--text-color);
 }
 .feature .grid_1 .text_1 {
-  font-size: 19px;
-  font-weight: 700 !important;
+  font-size: 15px;
+  font-weight: 600 !important;
   color: var(--text-color);
   width: 980px;
 }

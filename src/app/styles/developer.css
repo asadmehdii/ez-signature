@@ -5,14 +5,14 @@
   object-fit: contain;
 }
 .developer .grid_1 .head_1 {
-  font-size: 97px;
-  font-weight: 800;
+  font-size: 70px;
+  font-weight: 700;
   line-height: 90px;
   color: var(--text-color);
 }
 .developer .grid_1 .text_1 {
-  font-size: 22px;
-  font-weight: 700 !important;
+  font-size: 18px;
+  font-weight: 600 !important;
   margin: 25px auto !important;
   color: var(--text-color);
   max-width: 722px;
@@ -68,6 +68,7 @@
 @media screen and (max-width: 900px) {
   .developer .grid_1 .text_1 {
     font-size: 18px;
+    
   }
   .developer .grid_1 .head_1 {
     font-size: 46px;

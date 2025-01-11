@@ -75,4 +75,4 @@ const Pricing:FC = ()=>{
 
 
 
-export default Pricing
+export default Pricing;

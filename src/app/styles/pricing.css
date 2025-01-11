@@ -8,14 +8,14 @@
   align-items: center;
 }
 .pricing .grid_1 .head_1 {
-  font-size: 97px;
-  font-weight: 800;
+  font-size: 60px;
+  font-weight: 700;
   max-width: 1000px;
   color: var(--text-color);
 }
 .pricing .grid_1 .text_1 {
-  font-size: 22px;
-  font-weight: 700 !important;
+  font-size: 18px;
+  font-weight: 600 !important;
   margin: 25px auto !important;
   color: var(--text-color);
   max-width: 750px;

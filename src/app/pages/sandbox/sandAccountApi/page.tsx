@@ -21,9 +21,14 @@ const SandAccountAPI: React.FC = () => {
        <Grid container flexDirection={{xs:"column",lg:"row"}} justifyContent={"space-between"} alignItems={"center"} rowSpacing={5}>    
       <Text fontSize="55px" fontWeight="700" className="head_1">Volume EzSignature API Pricing</Text>
       <Button width={201} borderRadius={32} color="#fff" fontWeight="500" fontSize={22} backgroundColor="#A0A0A0" to={Route.SANDBOX_ACCOUNT}>Back</Button>  
+
     </Grid>
     <Grid container mt={6} justifyContent={{xs:"flex-start",xl:"center"}} rowSpacing={4} columnSpacing={6}>
     {APIPricingCardContent.map((value)=><APIPricingCard key={value.text} props={value}/>)} 
+    <Box mt={4} width="100%" display={"flex"} gap={2} justifyContent={"space-between"}>
+            <Button width={201} borderRadius={32} color="#fff" fontWeight="500" fontSize={22} backgroundColor="#A0A0A0" to={Route.SANDBOX_ACCOUNT}>Back</Button>  
+            <Button width={201} borderRadius={32} backgroundColor="var(--secondary-color)" color="#fff" fontWeight="500" fontSize={22} to={Route.SANDBOX_BUSSINESS}>Proceed</Button>  
+          </Box> 
     </Grid> 
     </Box>
     </ContentBox>

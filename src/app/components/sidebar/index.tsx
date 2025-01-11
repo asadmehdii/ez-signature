@@ -6,8 +6,8 @@ import  Grid  from '@mui/material/Grid2';
 import Button from '../button';
 import Link from "next/link";
 import DonutSmallOutlinedIcon from "@mui/icons-material/DonutSmallOutlined";
-import SidebarData from "./content"
-
+import SidebarData from "./content";
+import DropDown from "../dropDown";
 
 const drawerWidth = 220;
 
@@ -23,8 +23,12 @@ export default function Sidebar({children,open,onToggle}: Props) {
   const drawerContent = (
     <Grid container>
      <Grid m={"auto"} px={2} width={"100%"} height={"100%"}>
-     <Link href={"/"} style={{ textAlign: "center" }}>           
-     <h1 className="logo"> {user ? ` ${user.name}` : ''}</h1>
+       {/* drropdown */}
+       <DropDown />
+     <Link href={"/"} style={{ textAlign: "center" }}> 
+     {/* <h1 className="logo"> {user ? ` ${user.name}` : ''}</h1> */}
+
+     <h1 className="logo"> EzSignature</h1>          
      </Link>
       <Button backgroundColor="var(--secondary-color)" height={60} width={'79%'} borderRadius={15} style={{ margin: "0 auto" }} >Upgrade!</Button>
          <Grid component={"div"} container >
