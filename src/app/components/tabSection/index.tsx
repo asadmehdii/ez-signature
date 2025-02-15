@@ -22,8 +22,8 @@ interface TabSectionProp {
   activeTab: number;
   tabLabels: string[];
   handleTabChange: (event: React.SyntheticEvent, newValue: number) => void;
-  contacts?: Contact[]; // Optional for non-contact pages
-  pageType: "generic" | "contacts"; // Determines behavior
+  contacts?: Contact[]; 
+  pageType: "generic" | "contacts"; 
 }
 
 const TabSection: React.FC<TabSectionProp> = ({

@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
+
+
 const mada = localFont({
   src: "./assests/fonts/Mada-VariableFont_wght.ttf",
   variable: "--font-mada",

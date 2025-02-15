@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import { ToggleButtonGroup, ToggleButton, IconButton, Button, Box} from "@mui/material";
+import { ToggleButtonGroup, ToggleButton, IconButton, Button, Box,Typography} from "@mui/material";
 import Checkbox from '@mui/material/Checkbox';
 import Grid from "@mui/material/Grid2";
 import DropBoxIcon from "@mui/icons-material/Storage"; // Placeholder for Dropbox
@@ -17,11 +17,26 @@ import { Diversity1Outlined, PersonOutlineOutlined, ClearOutlined, DraftsOutline
 import { grey } from '@mui/material/colors';
 import CustomPopover from "@/app/components/popover";
 import ModelToggle from "@/app/components/modelToggle";
+import { useRouter } from "next/navigation"; // Use `next/navigation` instead of `next/router`
 
 
 export default function NewDocumentPage() {
   const [selection, setSelection] = useState("me-only");
+  const [uploadedFiles, setUploadedFiles] = useState([]);
+  const router = useRouter(); // Initialize the router from `next/navigation`
 
+  const handleFileUpload = (event) => {
+    const files = Array.from(event.target.files);
+    const filePreviews = files.map((file) => ({
+      name: file.name,
+      preview: URL.createObjectURL(file),
+    }));
+    setUploadedFiles((prev) => [...prev, ...filePreviews]);
+  };
+
+  const removeFile = (index) => {
+    setUploadedFiles((prev) => prev.filter((_, i) => i !== index));
+  };
   const handleSelectionChange = (
     event: React.MouseEvent<HTMLElement>,
     newSelection: string
@@ -44,8 +59,12 @@ const signerOptions =[
   "Signer",
   "CC",
 ]
+const handlePrepareClick = () => {
+  router.push("/pages/prepare"); // Navigate to the "Prepare" page
+};
   return (
-    <Topbar  title='New Document' buttonText='prepare' secondText='Quick Send' outlinedBtn='Save Draft'>
+    <Topbar  title='New Document' buttonText='prepare' secondText='Quick Send' outlinedBtn='Save Draft'       onFirstBtnClick={handlePrepareClick} // Pass the navigation function
+>
       <Grid component={"section"} marginLeft={"30px"} marginRight={"30px"} paddingBottom={"20px"}>
         <form>
             <ToggleButtonGroup
@@ -107,48 +126,163 @@ const signerOptions =[
 
        {/* File Upload Section */}
        <Grid
-        component={"div"}
-        container
-        direction={"column"}
-        marginTop={"30px"}
-        border={"1px solid #d7d7d9"}
-        borderRadius={"3px"}
-        gap={2}
+      container
+      direction="column"
+      marginTop="30px"
+      border="1px solid #d7d7d9"
+      borderRadius="3px"
+      gap={2}
+    >
+      {/* Upload Section */}
+   {/* Upload Section */}
+<Grid
+  container
+  direction="row"
+  padding="15px 20px"
+  justifyContent="space-between"
+  alignItems="center"
+  borderBottom="1px solid #d7d7d9"
+>
+  <Grid container direction="column">
+    <Button
+      component="label"
+      sx={{color: "var(--secondary-color)", padding:"0 28px",  display:"flex", alignItems:"center", fontWeight: "500", fontSize:"16",  borderRadius: "20px", border:"1px solid var(--secondary-color)", height:"35px", width:"fit-content" }}
+    >
+      Choose Files
+      <input hidden type="file" multiple onChange={handleFileUpload} />
+    </Button>
+    <Typography
+      color="rgb(123 129 145)"
+      fontSize="0.75rem"
+      margin="5px 0 0 0"
+    >
+      Supported formats: .pdf, .docx, .txt, .png, .jpg, .ppt. You can find
+      more details about File Upload{" "}
+      <Link
+        href="#"
+        style={{ color: "rgb(2 6 168)", fontWeight: 400 }}
       >
-        <Grid  component={"section"} container direction={"row"} padding={"15px 20px"} justifyContent={"space-between"} borderBottom={"1px solid #d7d7d9"}>
-          <Grid  component={"div"} container direction={"column"}>
-         <Button component="label"
-          sx={{color: "var(--secondary-color)", padding:"0 28px",  display:"flex", alignItems:"center", fontWeight: "500", fontSize:"16",  borderRadius: "20px", border:"1px solid var(--secondary-color)", height:"35px", width:"fit-content" }}>
-        Choose Files
-        <input hidden type="file" multiple />
-          </Button>
-        <Text color="rgb(123 129 145)" fontSize="0.75rem" margin={5}>
-          Supported formats: .pdf, .docx, .txt, .png, .jpg, .ppt. You can find more details about File Upload 
-          <Link href="" style={{color: "rgb(2 6 168)", fontWeight: "400"}}>  here.</Link> 
-        </Text>
+        here.
+      </Link>
+    </Typography>
+  </Grid>
 
-          </Grid>
-        <Grid
-          component={"div"}
-          container
-          alignItems={"center"}
-          gap={2}
-        >
-          <IconButton>
-            <DropBoxIcon />
-          </IconButton>
-          <IconButton>
-            <GoogleDriveIcon />
-          </IconButton>
-        <CustomButton color="#fff" fontWeight="500" fontSize={16} borderRadius={20} borderWidth={1} borderColor="var(--secondary-color)" height={"35px"} width={"fit-content"} style={{padding:"0 28px", display:"flex",alignItems:"center"}}>New Template</CustomButton>
-        </Grid>
-        </Grid>
-          {/* Add other cloud storage icons here */}
-        <Grid  component={"section"} container direction={"row"} padding={"15px 20px"} justifyContent={"center"} color="rgb(123 129 145)" borderBottom={"1px solid #d7d7d9"}>
-          Drag files here
-        
-        </Grid>
-      </Grid>
+  {/* Cloud Services Section */}
+  <Grid container alignItems="center" gap={2}>
+    <IconButton>
+      <DropBoxIcon />
+    </IconButton>
+    <IconButton>
+      <GoogleDriveIcon />
+    </IconButton>
+    <Button
+      sx={{
+        color: "#fff",
+        fontWeight: 500,
+        fontSize: 16,
+        borderRadius: 20,
+        borderWidth: 1,
+        borderColor: "var(--secondary-color)",
+        height: "35px",
+        width: "fit-content",
+        padding: "0 28px",
+        display: "flex",
+        alignItems: "center",
+        background: "var(--secondary-color)",
+        transition: "background-color 0.3s ease",
+        "&:hover": {
+          backgroundColor: "var(--secondary-color-hover)",
+        },
+      }}
+    >
+      New Template
+    </Button>
+  </Grid>
+</Grid>
+
+{/* Drag and Drop Section */}
+<Grid
+  container
+  justifyContent="center"
+  alignItems="center"
+  padding="15px 20px"
+  color="rgb(123 129 145)"
+  borderBottom="1px solid #d7d7d9"
+  sx={{
+    cursor: "pointer",
+    backgroundColor: "#f8f9fa",
+    borderRadius: "4px",
+    "&:hover": {
+      backgroundColor: "#e9ecef",
+    },
+  }}
+>
+  Drag files here
+</Grid>
+
+{/* Uploaded Files Section */}
+<Grid container direction="row" padding="15px" gap={2}>
+  {uploadedFiles.map((file, index) => (
+    <Box
+      key={index}
+      sx={{
+        border: "1px solid #d7d7d9",
+        borderRadius: "4px",
+        padding: "10px",
+        position: "relative",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        gap: "5px",
+      }}
+    >
+      <img
+        src={file.preview}
+        alt={file.name}
+        style={{
+          width: "100px",
+          height: "100px",
+          objectFit: "cover",
+          borderRadius: "4px",
+        }}
+      />
+      <Typography
+        variant="body2"
+        sx={{
+          whiteSpace: "nowrap",
+          overflow: "hidden",
+          textOverflow: "ellipsis",
+          maxWidth: "100px",
+          textAlign: "center",
+        }}
+        title={file.name} // Tooltip on hover
+      >
+        {file.name}
+      </Typography>
+      <IconButton
+        sx={{
+          position: "absolute",
+          top: "5px",
+          right: "5px",
+          background: "#fff",
+          boxShadow: "0 1px 3px rgba(0,0,0,0.2)",
+          "&:hover": {
+            backgroundColor: "#f1f1f1",
+          },
+        }}
+        size="small"
+        onClick={() => removeFile(index)}
+      >
+        ✕
+      </IconButton>
+    </Box>
+  ))}
+</Grid>
+
+     
+
+   
+    </Grid>
 
       {/* -----------------------signers & CC------------------------- */}
         <Grid component={"div"} container marginTop={"30px"} border= {"1px solid #d7d7d9"} borderRadius={"3px"} >

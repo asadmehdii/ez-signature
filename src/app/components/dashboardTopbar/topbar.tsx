@@ -186,6 +186,7 @@ const Topbar: FC<TopbarProps> = ({
                   }}
                 >
                   {typeof buttonText === "string" ? buttonText : buttonText}
+                  
                 </Button>
               )}
               {secondText && (
