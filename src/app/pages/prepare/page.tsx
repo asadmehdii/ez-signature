@@ -24,7 +24,7 @@ import sampleImage from "@/app/assests/images/u.png";
 
 const PreparePage = () => {
   const [fields, setFields] = useState([]);
-  const [selectedField, setSelectedField] = useState(null);
+  // Removed: const [selectedField, setSelectedField] = useState(null);
   const [fileType, setFileType] = useState("image"); // Tracks whether the file is an image or PDF
   const [numPages, setNumPages] = useState(null);
 
@@ -32,9 +32,9 @@ const PreparePage = () => {
     setNumPages(numPages);
   };
 
-  const handleFieldClick = (fieldId) => {
-    setSelectedField(fields.find((field) => field.id === fieldId));
-  };
+  // Removed: const handleFieldClick = (fieldId) => {
+  //   setSelectedField(fields.find((field) => field.id === fieldId));
+  // };
 
   const updateField = (fieldId, updates) => {
     setFields((prevFields) =>
@@ -75,7 +75,8 @@ const PreparePage = () => {
   };
 
   // Replace the PDF URL with any publicly available PDF file
-  const onlinePDFUrl = "https://www.w3.org/WAI/WCAG21/quickref/files/pdf/WCAG2.0-QuickRef.pdf"; // Example public PDF
+  const onlinePDFUrl =
+    "https://www.w3.org/WAI/WCAG21/quickref/files/pdf/WCAG2.0-QuickRef.pdf"; // Example public PDF
 
   return (
     <Topbar title="New Document" secondText=" Send" outlinedBtn="Save Draft">
@@ -146,14 +147,11 @@ const PreparePage = () => {
                   width: "100%",
                   height: "100%",
                   objectFit: "contain",
-                  zIndex: 0, // Make sure the image stays at the bottom
+                  zIndex: 0,
                 }}
               />
             ) : (
-              <Document
-                file={onlinePDFUrl}  // Use the online PDF URL here
-                onLoadSuccess={onDocumentLoadSuccess}
-              >
+              <Document file={onlinePDFUrl} onLoadSuccess={onDocumentLoadSuccess}>
                 {Array.from(new Array(numPages), (el, index) => (
                   <Page key={`page_${index + 1}`} pageNumber={index + 1} />
                 ))}
@@ -168,8 +166,8 @@ const PreparePage = () => {
                 left: 0,
                 right: 0,
                 bottom: 0,
-                pointerEvents: "none", // Allow image interactions but keep fields on top
-                zIndex: 1, // Ensure fields are on top
+                pointerEvents: "none",
+                zIndex: 1,
               }}
             >
               {fields.map((field) => (
@@ -182,9 +180,7 @@ const PreparePage = () => {
                     height: field.height,
                   }}
                   bounds="parent"
-                  onDragStop={(e, data) =>
-                    updateField(field.id, { x: data.x, y: data.y })
-                  }
+                  onDragStop={(e, data) => updateField(field.id, { x: data.x, y: data.y })}
                   onResizeStop={(e, direction, ref, delta, position) => {
                     updateField(field.id, {
                       width: parseFloat(ref.style.width),
@@ -203,7 +199,7 @@ const PreparePage = () => {
                     pointerEvents: "auto",
                     color: "black",
                     fontWeight: "bold",
-                    textDecoration: field.type === "Signature" ? "underline" : "none", // Underline for signature
+                    textDecoration: field.type === "Signature" ? "underline" : "none",
                   }}
                   enableResizing={{
                     top: true,
@@ -230,7 +226,6 @@ const PreparePage = () => {
                     },
                   }}
                 >
-                  {/* Content Rendering */}
                   {field.type === "Signature" && field.content === "" ? (
                     <Typography sx={{ fontSize: "1.2rem" }}>xSign</Typography>
                   ) : (
@@ -239,23 +234,19 @@ const PreparePage = () => {
                       fullWidth
                       value={field.content}
                       placeholder={field.type}
-                      maxRows={4} // Allows wrapping up to 4 lines
+                      maxRows={4}
                       multiline
-                    
-                      onChange={(e) =>
-                        updateField(field.id, { content: e.target.value })
-                      }
+                      onChange={(e) => updateField(field.id, { content: e.target.value })}
                       sx={{
                         backgroundColor: "transparent",
                         fontSize: "0.9rem",
                         textAlign: "center",
                         "& .MuiOutlinedInput-root": {
                           "& fieldset": {
-                            border: "none", // Remove the border of the text field
+                            border: "none",
                           },
                         },
-                        overflowWrap: "break-word", // Ensures text wraps
- 
+                        overflowWrap: "break-word",
                       }}
                     />
                   )}
@@ -292,19 +283,18 @@ const PreparePage = () => {
               No Signer
             </Button>
             <Button
-  variant="outlined"
-  fullWidth
-  sx={{
-    display: 'flex',
-    justifyContent: 'space-between',  // Aligns "K" and "Signer" to opposite sides
-    backgroundColor: '#e8f5e9',
-    textTransform: 'none',
-  }}
->
-  <Box sx={{ textTransform: 'uppercase', fontWeight: 'bold' }}>K</Box>
-  <Box sx={{ textAlign: 'right' }}>Signer</Box>
-</Button>
-
+              variant="outlined"
+              fullWidth
+              sx={{
+                display: "flex",
+                justifyContent: "space-between",
+                backgroundColor: "#e8f5e9",
+                textTransform: "none",
+              }}
+            >
+              <Box sx={{ textTransform: "uppercase", fontWeight: "bold" }}>K</Box>
+              <Box sx={{ textAlign: "right" }}>Signer</Box>
+            </Button>
           </Box>
 
           <Typography variant="h6" sx={{ mb: 2 }}>
@@ -333,34 +323,34 @@ const PreparePage = () => {
                   justifyContent: "flex-start",
                   textTransform: "none",
                   mt: 1,
-                  height: "50px", 
-                  borderColor: "#c9d2e3", 
-                  backgroundColor: "#f7f9fc", 
+                  height: "50px",
+                  borderColor: "#c9d2e3",
+                  backgroundColor: "#f7f9fc",
                   padding: 0,
                 }}
               >
                 <Box
                   sx={{
-                    width: "50px", // Fixed width for the icon container
-                    height: "100%", // Ensures it stretches full height of the button
+                    width: "50px",
+                    height: "100%",
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
-                    backgroundColor: "#ebeff5", // Matches icon background in the image
-                    borderRight: "1px solid #c9d2e3", // Divider between icon and text
+                    backgroundColor: "#ebeff5",
+                    borderRight: "1px solid #c9d2e3",
                   }}
                 >
                   {field.icon}
                 </Box>
                 <Box
                   sx={{
-                    flexGrow: 5, // Ensures the label text takes up the remaining space
+                    flexGrow: 5,
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "flex-start",
-                    paddingLeft: "16px", // Padding between the text and the icon divider
-                    color: "#1f2937", // Text color
-                    fontWeight: "600", // Slightly bolder text
+                    paddingLeft: "16px",
+                    color: "#1f2937",
+                    fontWeight: "600",
                   }}
                 >
                   {field.label}
@@ -375,4 +365,3 @@ const PreparePage = () => {
 };
 
 export default PreparePage;
-

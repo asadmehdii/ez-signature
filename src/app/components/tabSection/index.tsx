@@ -13,7 +13,8 @@ import MailOutlineIcon from "@mui/icons-material/MailOutline";
 
 interface Contact {
   id: string;
-  name: string;
+  firstName: string; // added
+  lastName: string;  // added
   email: string;
   archived: boolean;
 }
@@ -22,8 +23,8 @@ interface TabSectionProp {
   activeTab: number;
   tabLabels: string[];
   handleTabChange: (event: React.SyntheticEvent, newValue: number) => void;
-  contacts?: Contact[]; 
-  pageType: "generic" | "contacts"; 
+  contacts?: Contact[];
+  pageType: "generic" | "contacts";
 }
 
 const TabSection: React.FC<TabSectionProp> = ({
@@ -52,9 +53,7 @@ const TabSection: React.FC<TabSectionProp> = ({
       {/* Tabs Section */}
       <Grid
         container
-        justifyContent={
-          pageType === "contacts" ? "space-between" : "flex-end"
-        }
+        justifyContent={pageType === "contacts" ? "space-between" : "flex-end"}
         alignItems="center"
         sx={{ marginBottom: "10px" }}
       >

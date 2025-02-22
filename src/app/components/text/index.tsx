@@ -23,7 +23,7 @@ type TextProps = {
   paddingTop?: number;
   padding?: number;
   textAlign?:"center"|"left"|"right"
-  onclick?:()=>void
+  onClick?: () => void; // Updated prop name
   id?:string
 };
 
@@ -50,7 +50,7 @@ const Text: FC<TextProps> = (props) => {
     paddingTop,
     padding = 0,
     textAlign,
-    onclick,
+    onClick, // Updated destructuring
     id,
   } = props;
 
@@ -59,7 +59,7 @@ const Text: FC<TextProps> = (props) => {
     <p
       id={id}
       className={className}
-      onClick={onclick}
+      onClick={onClick} // Updated usage
       style={{
         margin: `${margin}px`,
         padding: `${padding}px`,

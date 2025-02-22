@@ -20,10 +20,11 @@ type ButtonProps = {
   borderWidth?: number;
   borderColor?: string;
   color?: string;
-  borderRadius?: number|string;
+  borderRadius?: number | string;
   to?: string;
   sx?: SxProps<Theme>;
-  hoverStyle?:SxProps<Theme>
+  hoverStyle?: SxProps<Theme>;
+  disabled?: boolean;
 };
 
 const Button: FC<ButtonProps> = ({
@@ -46,22 +47,29 @@ const Button: FC<ButtonProps> = ({
   style,
   to,
   sx,
+  disabled = false,
 }) => {
   const [isPressed, setIsPressed] = useState(false);
   const router = useRouter();
 
-  const handleMouseDown = () => setIsPressed(true);
-  const handleMouseUp = () => setIsPressed(false);
+  const handleMouseDown = () => {
+    if (!disabled) setIsPressed(true);
+  };
+  const handleMouseUp = () => {
+    if (!disabled) setIsPressed(false);
+  };
 
   const buttonStyle = {
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    cursor: "pointer",
+    cursor: disabled ? "not-allowed" : "pointer",
     transition: "all 0.4s ease",
     transform: isPressed ? "scale(0.95)" : "scale(1)",
-    border: type === "outlined" ? `${borderWidth}px solid ${borderColor}` : "none",
-    backgroundColor: type != "contained" ? "transparent" : backgroundColor,
+    border:
+      type === "outlined" ? `${borderWidth}px solid ${borderColor}` : "none",
+    backgroundColor:
+      type !== "contained" ? "transparent" : disabled ? "#ccc" : backgroundColor,
     color: color,
     padding: "10px",
     height,
@@ -69,8 +77,9 @@ const Button: FC<ButtonProps> = ({
     fontSize,
     fontWeight,
     borderRadius,
+    opacity: disabled ? 0.5 : 1,
     ...sx,
-    ":hover": hoverStyle,
+    ":hover": !disabled ? hoverStyle : {},
   };
 
   return (
@@ -78,6 +87,7 @@ const Button: FC<ButtonProps> = ({
       component="button"
       className={className}
       onClick={() => {
+        if (disabled) return;
         if (to) router.push(to);
         if (onClick) onClick();
       }}
@@ -88,6 +98,7 @@ const Button: FC<ButtonProps> = ({
       onMouseDown={handleMouseDown}
       onMouseUp={handleMouseUp}
       onMouseLeave={handleMouseUp}
+      disabled={disabled}
     >
       {children}
     </Box>

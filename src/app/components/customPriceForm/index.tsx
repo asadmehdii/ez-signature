@@ -35,7 +35,7 @@ const CustomForm: FC<formProps> = ({ title, text, mt, textWidth }) => {
   });
 
   const [loading, setLoading] = useState(false);
-  const [success, setSuccess] = useState(false);
+  // Removed unused state: success
 
   const handleInputChange = (field: string, newValue: number | string) => {
     setFormValues((prevValues) => ({
@@ -72,7 +72,7 @@ const CustomForm: FC<formProps> = ({ title, text, mt, textWidth }) => {
     if (!validateForm()) return;
 
     setLoading(true);
-    setSuccess(false);
+    // Removed: setSuccess(false);
 
     const payload = {
       apiDocuments: formValues.apiDocuments,
@@ -92,13 +92,13 @@ const CustomForm: FC<formProps> = ({ title, text, mt, textWidth }) => {
       });
 
       if (response.ok) {
-        setSuccess(true);
+        // Removed: setSuccess(true);
         alert("Request sent successfully!");
       } else {
         const errorData = await response.json();
         alert(errorData.message || "Something went wrong. Please try again.");
       }
-    } catch (err) {
+    } catch {
       alert("Network error. Please check your connection.");
     } finally {
       setLoading(false);

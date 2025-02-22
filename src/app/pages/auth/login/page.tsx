@@ -1,7 +1,6 @@
 "use client";
 import Navbar from "@/app/components/navbar";
-import TextField from "@mui/material/TextField";
-import { Box, Checkbox } from "@mui/material";
+import { TextField, Box, Checkbox } from "@mui/material";
 import styled from "@emotion/styled/base";
 import Grid from "@mui/material/Grid2";
 import { FC, useState } from "react";
@@ -14,10 +13,34 @@ import Link from "next/link";
 import ContentBox from "@/app/components/contentBox";
 import Route from "@/app/utils/routes";
 import axios from "axios";
-import { useRouter } from 'next/navigation'; // Updated import
+import { useRouter } from 'next/navigation';
+
+const CustomTextField = styled(TextField)({
+  '& .MuiOutlinedInput-root': {
+    height: "47px",
+    borderRadius: '8px',
+    borderColor: '#666666',
+    fontSize: '20px',
+    padding: '10px 0px',
+    fontFamily: "var(--text-mada)",
+    '& fieldset': {
+      borderColor: '666666',
+    },
+    '&:hover fieldset': {
+      borderColor: '666666',
+    },
+    '&.Mui-focused fieldset': {
+      borderColor: '#666666',
+    },
+  },
+  '& .MuiInputBase-input': {
+    color: '#333',
+    fontSize: '20px',
+  },
+});
 
 const Login: FC = () => {
-  const router = useRouter(); // Use the router from next/navigation
+  const router = useRouter();
   const [hidePassword, setHidePassword] = useState<boolean>(true);
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
@@ -48,6 +71,7 @@ const Login: FC = () => {
 
     return valid;
   };
+
   const handleLogin = async () => {
     if (!validateInputs()) return;
 
@@ -60,42 +84,18 @@ const Login: FC = () => {
       console.log("API Response:", response);
   
       if (response.status === 200 || response.status === 201) {
-       // Save user data
-       const { name, email,password } = response.data;
-       localStorage.setItem('user', JSON.stringify({ name, email,password}));
+        // Save user data
+        const { name, email, password } = response.data;
+        localStorage.setItem('user', JSON.stringify({ name, email, password }));
         router.push(Route.DASHBOARD);
       } else {
         setApiError("Login failed. Please check your credentials.");
-
       }
     } catch (error) {
+      console.error(error);
       setApiError("An error occurred while logging in. Please try again.");
-
     }
   };
-  const CustomTextField = styled(TextField)({
-    '& .MuiOutlinedInput-root': {
-      height: "47px",
-      borderRadius: '8px',
-      borderColor: '#666666',
-      fontSize: '20px',
-      padding: '10px 0px',
-      fontFamily: "var(--text-mada)",
-      '& fieldset': {
-        borderColor: '666666',
-      },
-      '&:hover fieldset': {
-        borderColor: '666666',
-      },
-      '&.Mui-focused fieldset': {
-        borderColor: '#666666',
-      },
-    },
-    '& .MuiInputBase-input': {
-      color: '#333',
-      fontSize: '20px',
-    },
-  });
 
   return (
     <main>
@@ -116,7 +116,7 @@ const Login: FC = () => {
               <Text fontWeight="700" fontSize="42px">Welcome Back!</Text>
               <Box component={"div"} width="100%" my={3}>
                 <Text fontSize="16px" fontWeight="600" color="var(--lightGray-color)">Email Address</Text>
-                <TextField
+                <CustomTextField
                   fullWidth
                   variant="outlined"
                   type="email"
@@ -138,7 +138,7 @@ const Login: FC = () => {
                   <Text fontSize="16px" fontWeight="600" color="var(--lightGray-color)">Your password</Text>
                   {hidePassword ? (
                     <Text
-                      color ="var(--lightGray-color)"
+                      color="var(--lightGray-color)"
                       onClick={() => setHidePassword(false)}
                       style={{ cursor: "pointer", display: "flex", alignItems: "center", gap: 3 }}
                       fontSize="18px"
@@ -158,7 +158,7 @@ const Login: FC = () => {
                     </Text>
                   )}
                 </Box>
-                <TextField
+                <CustomTextField
                   fullWidth
                   variant="outlined"
                   type={hidePassword ? "password" : "text"}
@@ -200,10 +200,10 @@ const Login: FC = () => {
                   <hr style={{ width: '40px', borderColor: "#cdcdcd", borderWidth: "1px", borderStyle: "solid" }} />
                 </Box>
                 <Box display={"flex"} alignItems={"center"} columnGap={2}>
-                  <Box component={"img"} sx={{ cursor: 'pointer', transition: "transform 0.3s ease", "&:hover": { transform: "scale(1.2)", } }} src={Assests.Google.src} alt="icon_here" />
-                  <Box component={"img"} sx={{ cursor: 'pointer', transition: "transform 0.3s ease", "&:hover": { transform: "scale(1.2)", } }} src={Assests.Facebook.src} alt="icon_here" />
-                  <Box component={"img"} sx={{ cursor: 'pointer', transition: "transform 0.3s ease", "&:hover": { transform: "scale(1.2)", } }} src={Assests.Instagram.src} alt="icon_here" />
-                  <Box component={"img"} sx={{ cursor: 'pointer', transition: "transform 0.3s ease", "&:hover": { transform: "scale(1.2)", } }} src={Assests.Linkedin.src} alt="icon_here" />
+                  <Box component={"img"} sx={{ cursor: 'pointer', transition: "transform 0.3s ease", "&:hover": { transform: "scale(1.2)" } }} src={Assests.Google.src} alt="icon_here" />
+                  <Box component={"img"} sx={{ cursor: 'pointer', transition: "transform 0.3s ease", "&:hover": { transform: "scale(1.2)" } }} src={Assests.Facebook.src} alt="icon_here" />
+                  <Box component={"img"} sx={{ cursor: 'pointer', transition: "transform 0.3s ease", "&:hover": { transform: "scale(1.2)" } }} src={Assests.Instagram.src} alt="icon_here" />
+                  <Box component={"img"} sx={{ cursor: 'pointer', transition: "transform 0.3s ease", "&:hover": { transform: "scale(1.2)" } }} src={Assests.Linkedin.src} alt="icon_here" />
                 </Box>
                 <Text color="#cdcdcd" fontSize="14px" fontWeight="500" marginTop={20}>
                   Don’t have an account? <Link href={Route.SIGNUP} style={{ color: "var(--secondary-color)", cursor: 'pointer' }}>Sign up</Link>
