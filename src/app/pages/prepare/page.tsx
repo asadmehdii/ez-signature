@@ -74,7 +74,6 @@ const PreparePage = () => {
     ]);
   };
 
-  // Replace the PDF URL with any publicly available PDF file
   const onlinePDFUrl =
     "https://www.w3.org/WAI/WCAG21/quickref/files/pdf/WCAG2.0-QuickRef.pdf"; // Example public PDF
 
@@ -141,7 +140,7 @@ const PreparePage = () => {
             {/* Image or PDF */}
             {fileType === "image" ? (
               <Image
-                src={sampleImage}
+                src="/images/u.png"
                 alt="Document Viewer"
                 style={{
                   width: "100%",

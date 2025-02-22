@@ -27,30 +27,44 @@ import axios from 'axios';
 
 
 const Dashboard: React.FC = () => {
-      const user = JSON.parse(localStorage.getItem('user') || 'null');
+  const [user, setUser] = useState<{ email: string } | null>(null);
       const [signature, setSignature] = useState<string | null>(null);
-
+      useEffect(() => {
+        try {
+          const storedUser = localStorage.getItem('user');
+          if (storedUser) {
+            setUser(JSON.parse(storedUser));
+          }
+        } catch (error) {
+          console.error('Error parsing user from local storage:', error);
+        }
+      }, []);
+      useEffect(() => {
+        try {
+          const storedUser = localStorage.getItem('user');
+          if (storedUser) {
+            setUser(JSON.parse(storedUser));
+          }
+        } catch (error) {
+          console.error('Error parsing user from local storage:', error);
+        }
+      }, []);
       const fetchSignature = async () => {
         try {
           const response = await axios.post('http://localhost:4000/signature/default', {
-            email: user.email,
-            password: user.password,
+            email: user?.email,
           });
-      
-          console.log('Full response:', response);
-      
-          if (response.data && response.data.signature) {
-            const signatureValue = response.data.signature.trim(); // Trim spaces just in case
-            console.log('Setting signature:', signatureValue);
-            setSignature(signatureValue); // Set the signature data
+    
+          if (response.data?.signature) {
+            setSignature(response.data.signature.trim());
           } else {
-            console.log('No valid signature found in the response.');
+            console.warn('No valid signature found.');
           }
         } catch (error) {
           console.error('Failed to fetch signature:', error);
         }
       };
-      
+    
       useEffect(() => {
         if (user?.email) {
           fetchSignature();

@@ -17,11 +17,17 @@ import {
 } from '@mui/icons-material';
 
 export default function DropDown() {
-  // const [user, setUser] = React.useState<string | null>(null);
-  const user = JSON.parse(localStorage.getItem('user') || 'null');
+    const [user, setUser] = React.useState<{ name: string } | null>(null);
 
+  React.useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const storedUser = localStorage.getItem('user');
+      setUser(storedUser ? JSON.parse(storedUser) : null);
+    }
+  }, []);
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
+
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
