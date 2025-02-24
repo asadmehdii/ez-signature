@@ -24,10 +24,10 @@ const CustomTextField = styled(TextField)({
     padding: '10px 0px',
     fontFamily: "var(--text-mada)",
     '& fieldset': {
-      borderColor: '666666',
+      borderColor: '#666666',
     },
     '&:hover fieldset': {
-      borderColor: '666666',
+      borderColor: '#666666',
     },
     '&.Mui-focused fieldset': {
       borderColor: '#666666',
@@ -80,20 +80,19 @@ const Login: FC = () => {
         email,
         password,
       });
-  
+
       console.log("API Response:", response);
-  
+
       if (response.status === 200 || response.status === 201) {
-        // Save user data
-        const { name, email, password } = response.data;
-        localStorage.setItem('user', JSON.stringify({ name, email, password }));
+        const { name, email } = response.data;
+        localStorage.setItem('user', JSON.stringify({ name, email }));
         router.push(Route.DASHBOARD);
       } else {
         setApiError("Login failed. Please check your credentials.");
       }
-    } catch (error) {
-      console.error(error);
-      setApiError("An error occurred while logging in. Please try again.");
+    } catch (error: any) {
+      console.error("Login error:", error.response?.data || error.message);
+      setApiError(error.response?.data?.message || "An error occurred while logging in. Please try again.");
     }
   };
 
@@ -129,34 +128,20 @@ const Login: FC = () => {
               <Box my={3}>
                 <Box
                   component={"div"}
-                  m={0}
-                  p={0}
                   display={"flex"}
                   justifyContent={"space-between"}
                   width="100%"
                 >
                   <Text fontSize="16px" fontWeight="600" color="var(--lightGray-color)">Your password</Text>
-                  {hidePassword ? (
-                    <Text
-                      color="var(--lightGray-color)"
-                      onClick={() => setHidePassword(false)}
-                      style={{ cursor: "pointer", display: "flex", alignItems: "center", gap: 3 }}
-                      fontSize="18px"
-                      fontWeight="600"
-                    >
-                      <RemoveRedEyeIcon /> Show
-                    </Text>
-                  ) : (
-                    <Text
-                      color="var(--lightGray-color)"
-                      onClick={() => setHidePassword(true)}
-                      style={{ cursor: "pointer", display: "flex", alignItems: "center", gap: 3 }}
-                      fontSize="18px"
-                      fontWeight="600"
-                    >
-                      <VisibilityOffIcon /> Hide
-                    </Text>
-                  )}
+                  <Text
+                    color="var(--lightGray-color)"
+                    onClick={() => setHidePassword(!hidePassword)}
+                    style={{ cursor: "pointer", display: "flex", alignItems: "center", gap: 3 }}
+                    fontSize="18px"
+                    fontWeight="600"
+                  >
+                    {hidePassword ? <RemoveRedEyeIcon /> : <VisibilityOffIcon />} {hidePassword ? "Show" : "Hide"}
+                  </Text>
                 </Box>
                 <CustomTextField
                   fullWidth
@@ -170,14 +155,14 @@ const Login: FC = () => {
                 <Text
                   fontSize="16px"
                   fontWeight="600"
-                  style={{ marginLeft: "auto", cursor: "pointer", borderBottom: "1px solid #000000", width: "fit-content", marginTop: '15px' }}
+                  style={{ marginLeft: "auto", cursor: "pointer", borderBottom: "1px solid #000", width: "fit-content", marginTop: '15px' }}
                 >
-                  Forget your password
+                  Forget your password?
                 </Text>
               </Box>
               <Box display={"flex"} alignItems={"center"} gap={1}>
                 <Checkbox defaultChecked sx={{ color: "#121212", m: 0, p: 0 }} />
-                <Text fontSize="16px" fontWeight="600">Keep me signed in until I sign out</Text>
+                <Text fontSize="16px" fontWeight="600">Keep me signed in</Text>
               </Box>
               {apiError && <Text color="red" fontSize="14px">{apiError}</Text>}
               <Box display={"flex"} flexDirection={"column"} justifyContent={"center"} alignItems={"center"} my={1} maxWidth={"450px"}>
@@ -194,24 +179,13 @@ const Login: FC = () => {
                 >
                   Login
                 </Button>
-                <Box my={1} display={"flex"} justifyContent={"center"} alignItems={"center"} gap={3}>
-                  <hr style={{ width: '40px', borderColor: "#cdcdcd", borderWidth: "1px", borderStyle: "solid" }} />
-                  <Text fontSize="14px" fontWeight="500" color="#cdcdcd">Or Login With</Text>
-                  <hr style={{ width: '40px', borderColor: "#cdcdcd", borderWidth: "1px", borderStyle: "solid" }} />
-                </Box>
-                <Box display={"flex"} alignItems={"center"} columnGap={2}>
-                  <Box component={"img"} sx={{ cursor: 'pointer', transition: "transform 0.3s ease", "&:hover": { transform: "scale(1.2)" } }} src={Assests.Google.src} alt="icon_here" />
-                  <Box component={"img"} sx={{ cursor: 'pointer', transition: "transform 0.3s ease", "&:hover": { transform: "scale(1.2)" } }} src={Assests.Facebook.src} alt="icon_here" />
-                  <Box component={"img"} sx={{ cursor: 'pointer', transition: "transform 0.3s ease", "&:hover": { transform: "scale(1.2)" } }} src={Assests.Instagram.src} alt="icon_here" />
-                  <Box component={"img"} sx={{ cursor: 'pointer', transition: "transform 0.3s ease", "&:hover": { transform: "scale(1.2)" } }} src={Assests.Linkedin.src} alt="icon_here" />
-                </Box>
                 <Text color="#cdcdcd" fontSize="14px" fontWeight="500" marginTop={20}>
                   Don’t have an account? <Link href={Route.SIGNUP} style={{ color: "var(--secondary-color)", cursor: 'pointer' }}>Sign up</Link>
                 </Text>
               </Box>
             </Box>
           </Box>
-          <Box component={"img"} width={{ xs: "90%", sm: "430px", lg: "auto" }} src={Assests.LoginImg.src} alt="img_here" />
+          <Box component={"img"} width={{ xs: "90%", sm: "430px", lg: "auto" }} src={Assests.LoginImg.src} alt="Login Illustration" />
         </Grid>
       </ContentBox>
     </main>

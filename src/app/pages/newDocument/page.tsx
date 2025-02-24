@@ -236,7 +236,7 @@ const handlePrepareClick = () => {
         gap: "5px",
       }}
     >
-      <img
+      <Image 
         src={file.preview}
         alt={file.name}
         style={{

@@ -2,6 +2,8 @@
 import React, { useState, useEffect } from "react";
 import Topbar from "@/app/components/dashboardTopbar/topbar";
 import SignatureModal from "../../pages/signature/signature";
+import Image from 'next/image';
+
 
 export default function DocumentPage() {
   const [activeTab, setActiveTab] = useState("Signature");
@@ -176,7 +178,7 @@ export default function DocumentPage() {
                       color: "#333",
                     }}
                   >
-                    <img src={sig.image} alt={sig.content} style={{ maxWidth: "150px" }} />
+                    <Image  src={sig.image} alt={sig.content} style={{ maxWidth: "150px" }} />
                   </div>
                   <div style={{ textAlign: "right" }}>
                     <span

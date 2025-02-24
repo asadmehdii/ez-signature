@@ -35,7 +35,6 @@ const CustomForm: FC<formProps> = ({ title, text, mt, textWidth }) => {
   });
 
   const [loading, setLoading] = useState(false);
-  // Removed unused state: success
 
   const handleInputChange = (field: string, newValue: number | string) => {
     setFormValues((prevValues) => ({
@@ -72,7 +71,6 @@ const CustomForm: FC<formProps> = ({ title, text, mt, textWidth }) => {
     if (!validateForm()) return;
 
     setLoading(true);
-    // Removed: setSuccess(false);
 
     const payload = {
       apiDocuments: formValues.apiDocuments,
@@ -92,7 +90,6 @@ const CustomForm: FC<formProps> = ({ title, text, mt, textWidth }) => {
       });
 
       if (response.ok) {
-        // Removed: setSuccess(true);
         alert("Request sent successfully!");
       } else {
         const errorData = await response.json();

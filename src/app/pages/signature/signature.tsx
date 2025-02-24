@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import SignatureCanvas from "react-signature-canvas";
 import axios from "axios";
+import Image from 'next/image';
 
 const SignatureModal = ({ isOpen, modalType, onClose }) => {
   const [signatureText, setSignatureText] = useState("");
@@ -417,7 +418,7 @@ const SignatureModal = ({ isOpen, modalType, onClose }) => {
       onDragOver={(e) => e.preventDefault()}
     >
       {uploadedImage ? (
-        <img
+        <Image 
           src={uploadedImage}
           alt="Preview"
           style={{ maxHeight: "100%", maxWidth: "100%", objectFit: "contain" }}
