@@ -1,5 +1,6 @@
-// @ts-nocheck
 "use client";
+export const dynamic = "force-dynamic"; // Forces runtime rendering
+
 import React, { useState } from "react";
 import { Box, Button, Typography, TextField } from "@mui/material";
 import { Document, Page } from "react-pdf";
@@ -25,7 +26,7 @@ import {
 const PreparePage = () => {
   const [fields, setFields] = useState([]);
   // Removed: const [selectedField, setSelectedField] = useState(null);
-  const [fileType, setFileType] = useState("image"); // Tracks whether the file is an image or PDF
+  const [fileType, setFileType] = useState("image"); 
   const [numPages, setNumPages] = useState(null);
 
   const onDocumentLoadSuccess = ({ numPages }) => {
