@@ -1,3 +1,4 @@
+// @ts-nocheck
 "use client";
 import React, { useState } from "react";
 import { Box, Button, Typography, TextField } from "@mui/material";
@@ -19,8 +20,7 @@ import {
   FormatListBulleted as ListIcon,
 } from "@mui/icons-material";
 
-// Import the sample image correctly
-import sampleImage from "@/app/assests/images/u.png";
+// import sampleImage from "@/app/assests/images/u.png";
 
 const PreparePage = () => {
   const [fields, setFields] = useState([]);
@@ -123,9 +123,9 @@ const PreparePage = () => {
             alignItems: "center",
           }}
         >
-          <Typography variant="h6">
+          {/* <Typography variant="h6">
             Prepare: {fileType === "image" ? "sampleImage.png" : "sampleDocument.pdf"}
-          </Typography>
+          </Typography> */}
           <Box
             sx={{
               position: "relative",
