@@ -13,6 +13,8 @@ import Card from "@/app/components/card"
 import APIPricingCard from "./pricingCard"
 import CustomForm from "@/app/components/customPriceForm"
 import FAQs from "@/app/components/faqs"
+import Route from "@/app/utils/routes";
+
 const Developer:FC = ()=>{
     const [activeBtn,setActiveBtn] = useState<string>("monthly")
 
@@ -24,10 +26,10 @@ return(
     <Text className="head_1">Secure & Reliable eSignature API</Text>
     <Text className="text_1">Quickly integrate secure electronic signatures into your applications and workflows using the reliable Ezsignature eSignature REST API.</Text>
     <Box  display={"flex"} flexDirection={{xs:"column",md:"row"}} justifyContent={"center"} alignItems={"center"} rowGap={1} columnGap={3}>
-    <Button className="button_1" type="outlined" color="#000">Create free Sandbox</Button>
-    <Button className="button_2">Book a Demo</Button>
+    <Button className="button_1" type="outlined" color="#000" to={Route.SANDBOX_SIGNUP}>Create free Sandbox</Button>
+    {/* <Button className="button_2">Book a Demo</Button> */}
     </Box>
-    <Text fontSize="22px" fontWeight="500" marginTop={20}>See API Documentation</Text>
+    {/* <Text fontSize="22px" fontWeight="500" marginTop={20} >See API Documentation</Text> */}
     <Box width={{xs:"300px",md:"500px"}} sx={{objectFit:"contain",position:"absolute",left:0,right:0,mx:"auto",bottom:{xs:"-100px",sm:"-100px",md:'-170px'}}} component="img" src={Assests.ApiImage.src} alt="Example" />
     </Grid>
     {/* ------------------------- */}
@@ -89,7 +91,8 @@ return(
         <Text margin={"8px 0"} fontSize="60px" fontWeight="700" className="head_1">Ready to start Integration?</Text>
         <Text color="#AEAEAE" fontSize="20px" fontWeight="600">Now is the perfect time to embed reliable EzSignature capabilities directly into your applications and workflows using the EzSignature API.</Text>
        </Box>
-       <Button borderRadius={50} backgroundColor="var(--text-color)" color="#fff" width={"300px"} height={"100px"} fontSize={25} fontWeight="700">Create Free Sandbox </Button>
+       <Button borderRadius={50} backgroundColor="var(--text-color)" color="#fff" width={"300px"} 
+       height={"100px"} fontSize={25} fontWeight="700" to={Route.SANDBOX_SIGNUP}>Create Free Sandbox </Button>
       </Grid>
     </Box>   
     <Footer/>

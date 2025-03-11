@@ -13,12 +13,15 @@ const Route = {
   BLOGS: "/blogs",
   EXTENDED_BLOGS: "/blogExtended",
   FEATURE_PAGES: "/features",
+  IN_PERSON:"/features?feature=In-Person-Signing",
+  TEMPLATES:"/features?feature=Templates",
+  ELECTRONIC_SIGNATURES: "/features?feature=Electronic-Signatures",
+  SECURITY:"/features?feature=Document-Management-&-Security",
   SANDBOX_SIGNUP: "/sandbox",
   SANDBOX_ACCOUNT: "/sandbox/sandAccount",
   SANDBOX_ACCOUNT_API: "/sandbox/sandAccountApi",
   SANDBOX_BUSINESS: "/sandbox/sandBusiness",
   API_DOCUMENTATION: "/APIDocumentation",
-  ELECTRONIC_SIGNATURES: "/electronicSignature",
 
   // Dashboard routes
   DASHBOARD: "/dashboard",

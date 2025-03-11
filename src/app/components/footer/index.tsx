@@ -9,7 +9,8 @@ import { General, Developer, PressLegal, MainFeature } from "./content";
 
 const Footer: FC = () => {
   return (
-    <Box sx={{ bgcolor: "#66EFDC", pt: 10, pb: 3 ,mt:10}}>
+    <Box sx={{ bgcolor: "#66EFDC", pt: 10, pb: 3 ,mt:2}}>{/* old color was 2191D0 */}
+      
       {/* Wrapper to center content */}
       <Box
         sx={{
@@ -26,7 +27,7 @@ const Footer: FC = () => {
           }}
         >
           <Grid size={{ xs: 12, sm: 3, md: 3, lg: 2 }}>
-            <Text color="#fff" fontWeight="700" fontSize={"24px"} marginBottom={25}>
+            <Text color="#000" fontWeight="700" fontSize={"24px"} marginBottom={25}>
               General
             </Text>
             <Box>
@@ -34,7 +35,7 @@ const Footer: FC = () => {
                 <Navigate
                   key={item.text}
                   sx={{ mb: 1.5 }}
-                  color="#fff"
+                  color="#000"
                   fontSize={18}
                   fontWeight="500"
                   text={item.text}
@@ -44,7 +45,7 @@ const Footer: FC = () => {
             </Box>
           </Grid>
           <Grid size={{ xs: 12, sm: 4.5, md: 3, lg: 2.5 }}>
-            <Text color="#fff" fontWeight="700" fontSize={"24px"} marginBottom={25}>
+            <Text color="#000" fontWeight="700" fontSize={"24px"} marginBottom={25}>
               Main Features
             </Text>
             <Box>
@@ -52,7 +53,7 @@ const Footer: FC = () => {
                 <Navigate
                   key={item.text}
                   sx={{ mb: 1.5 }}
-                  color="#fff"
+                  color="#000"
                   fontSize={18}
                   fontWeight="500"
                   text={item.text}
@@ -62,7 +63,7 @@ const Footer: FC = () => {
             </Box>
           </Grid>
           <Grid size={{ xs: 12, sm: 4, md: 3, lg: 2.5 }}>
-            <Text color="#fff" fontWeight="700" fontSize={"24px"} marginBottom={25}>
+            <Text color="#000" fontWeight="700" fontSize={"24px"} marginBottom={25}>
               Developer
             </Text>
             <Box>
@@ -70,7 +71,7 @@ const Footer: FC = () => {
                 <Navigate
                   key={item.text}
                   sx={{ mb: 1.5 }}
-                  color="#fff"
+                  color="#000"
                   fontSize={18}
                   fontWeight="500"
                   text={item.text}
@@ -80,7 +81,7 @@ const Footer: FC = () => {
             </Box>
           </Grid>
           <Grid size={{ xs: 12, sm: 4, md: 3, lg: 2 }}>
-            <Text color="#fff" fontWeight="700" fontSize={"24px"} marginBottom={25}>
+            <Text color="#000" fontWeight="700" fontSize={"24px"} marginBottom={25}>
               Press & Legal
             </Text>
             <Box>
@@ -88,7 +89,7 @@ const Footer: FC = () => {
                 <Navigate
                   key={item.text}
                   sx={{ mb: 1.5 }}
-                  color="#fff"
+                  color="#000"
                   fontSize={18}
                   fontWeight="500"
                   text={item.text}
@@ -98,10 +99,10 @@ const Footer: FC = () => {
             </Box>
           </Grid>
           <Grid size={{ xs: 12, sm: 7, md: 12, lg: 3 }}>
-            <Text color="#fff" fontWeight="700" fontSize={"24px"} marginBottom={30}>
+            <Text color="#000" fontWeight="700" fontSize={"24px"} marginBottom={30}>
               Subscribe
             </Text>
-            <Text color="#fff" fontWeight="500" fontSize={"18px"} marginBottom={30}>
+            <Text color="#000" fontWeight="500" fontSize={"18px"} marginBottom={30}>
               Subscribe now to EzSignature and get the News & letters.
             </Text>
             <Input
@@ -137,13 +138,13 @@ const Footer: FC = () => {
           mt={8}
           component={"div"}
           sx={{
-            borderTop: "1px solid #fff",
+            borderTop: "1px solid #000",
             width: "100%",
             paddingY: "10px",
           }}
         />
         <Box>
-          <Text fontWeight="700" fontSize="18px" color="#fff">
+          <Text fontWeight="700" fontSize="18px" color="#000">
             Copyright © {new Date().getFullYear()} EzSignature
           </Text>
         </Box>

@@ -65,7 +65,7 @@ const APIPricingCardContent = [
     text: "Try API Sandbox for free",
     price: "Free",
     duration: "",
-    buttonText: "Try Free",
+    buttonText: "Sign up",
     popular: false,
     provideFeature: [
       "2 production envelopes",
@@ -97,7 +97,7 @@ const APIPricingCardContent = [
     text: "Sign up for a custom API subscription plan tailor-made for your business.",
     price: "Custom Pricing",
     duration: "",
-    buttonText: "Contact Us",
+    buttonText: "Sign Up",
     popular: false,
     provideFeature: [
       "50 API Documents",

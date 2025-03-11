@@ -281,6 +281,8 @@ const Home: FC = () => {
                 fontSize={12}
                 color="#fff"
                 fontWeight="700"
+                to={Route.SECURITY}
+
               >
                 Learn more
               </Button>
@@ -304,6 +306,8 @@ const Home: FC = () => {
                 fontSize={12}
                 color="#fff"
                 fontWeight="700"
+                to={Route.FEATURE_PAGES}
+
               >
                 Learn more
               </Button>
@@ -327,6 +331,7 @@ const Home: FC = () => {
                 fontSize={12}
                 color="#fff"
                 fontWeight="700"
+                to={Route.ELECTRONIC_SIGNATURES}
               >
                 Learn more
               </Button>
@@ -367,9 +372,9 @@ const Home: FC = () => {
                   </Box>   
                </Grid>    
                <Box pb={6} mx={"auto"}>
-                <Button color={"#fff"} style={{marginInline:'auto'}} fontSize={18} fontWeight={"600"} backgroundColor="#263238" width={183} height={56}> Check out
+                {/* <Button color={"#fff"} style={{marginInline:'auto'}} fontSize={18} fontWeight={"600"} backgroundColor="#263238" width={183} height={56}> Check out
                   <Box component="img" style={{ marginLeft: "10px" }} src={ArrowIcon.src} alt="imghere"/>
-                </Button>
+                </Button> */}
                 </Box>  
            </Box>
           </Box>
@@ -383,7 +388,10 @@ const Home: FC = () => {
       <ContentBox>
       <Grid container alignItems={"flex-end"} justifyContent={"space-between"} mt={12} columnGap={2} rowGap={4}>
         {Category.map((item)=>
-        <Box key={item.text} display={"flex"} width={{xs:"100%",sm:"200px"}} rowGap={3} flexDirection={"column"} justifyContent={"center"} alignItems={"center`"}>
+        <Box key={item.text} display={"flex"} width={{xs:"100%",sm:"200px"}} rowGap={3} 
+        flexDirection={"column"} justifyContent={"center"} alignItems={"center`"}
+         onClick={() => router.push(item.link)}
+        >
           <Box sx={{padding:4,background:`url("${Assests.CategEllipseBg.src}") no-repeat`,backgroundPosition:"bottom center" }} m={"auto"} component={"img"} src={item.icon.src} alt="img_here"/>
           <Text textAlign="center" style={{width:"100%"}} fontSize="21px" fontWeight="700">{item.text}</Text>
         </Box> 
@@ -391,7 +399,10 @@ const Home: FC = () => {
       </Grid>
       </ContentBox>
       <Box component="div" display="flex" justifyContent="center" my={12}>
-        <Button backgroundColor={"#263238"} borderRadius={"19px"} height={69} hoverStyle={{border:"1px solid var(--text-color)",bgcolor:"#fff",color:"var(--text-color)"}} width={269} color="#fff" fontSize={18} fontWeight={"700"}>
+        <Button backgroundColor={"#263238"} borderRadius={"19px"} height={69} hoverStyle={{border:"1px solid var(--text-color)",bgcolor:"#fff",
+          color:"var(--text-color)"}} width={269} color="#fff" fontSize={18} fontWeight={"700"}
+          to={Route.FEATURE_PAGES}
+          >
           Browse All Categories
         </Button>
       </Box>

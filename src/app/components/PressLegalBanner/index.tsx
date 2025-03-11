@@ -9,6 +9,7 @@ type PressLegalProps = {
   text: string;
   isButton?: boolean;
   btnText?: string;
+  onClick?:void;
   btnLink?: string; // Accept dynamic link
 };
 
