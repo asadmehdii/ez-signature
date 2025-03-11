@@ -30,7 +30,10 @@ const ElectronicSignature:React.FC = ()=> {
        <CloudBackground image={Assests.ElectSign_1.src}  mt={8} mb={8}/>
        <Box display="flex" justifyContent={"center"} alignItems={"center"} gap={3} px={2}>
        <Button backgroundColor="var(--secondary-color)" color="#fff" height={76} width={206} borderRadius={15} to={Route.SIGNUP}>Sign up for free</Button>
-       <Button borderWidth={1} borderColor="#000000" height={76} width={186} borderRadius={15}>Take a tour</Button>
+       <Button borderWidth={1} borderColor="#000000" height={76} width={186} borderRadius={15}
+          to={Route.FEATURE_PAGES}
+
+       >Take a tour</Button>
        </Box>
        <ContentBox mt={8} mb={8} sx={{bgcolor:"#F3FEFD"}}>
        <Box py={5}>

@@ -9,7 +9,7 @@ import { General, Developer, PressLegal, MainFeature } from "./content";
 
 const Footer: FC = () => {
   return (
-    <Box sx={{ bgcolor: "#2191D0", pt: 10, pb: 3 }}>
+    <Box sx={{ bgcolor: "#66EFDC", pt: 10, pb: 3 ,mt:10}}>
       {/* Wrapper to center content */}
       <Box
         sx={{
@@ -56,8 +56,8 @@ const Footer: FC = () => {
                   fontSize={18}
                   fontWeight="500"
                   text={item.text}
-                  to={`${item.navigate}?feature=${item.featureName}`}
-                />
+                  to={`${item.navigate}?feature=${item.featureName.replace(/\s+/g, "-")}`}
+                  />
               ))}
             </Box>
           </Grid>

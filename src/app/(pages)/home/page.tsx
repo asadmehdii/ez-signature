@@ -1,3 +1,4 @@
+"use client"
 import React, { FC } from "react";
 import Footer from "@/app/components/footer";
 import Navbar from "@/app/components/navbar";
@@ -32,8 +33,14 @@ import SignAnytime from "@/app/components/signAnytime";
 import ContentBox from "@/app/components/contentBox";
 import Route from "@/app/utils/routes";
 import Assests from "@/app/assests/images";
+import { useRouter } from "next/navigation"; 
 
 const Home: FC = () => {
+  const router = useRouter();
+
+  const handleTakeTour = () => {
+    router.push("/features?feature=Electronic-Signatures");
+  };
   return (
     <main className="home">
       <Navbar />
@@ -74,6 +81,7 @@ const Home: FC = () => {
               height={58}
               width={184}
               borderRadius={"15px"}
+              to={Route.FEATURE_PAGES}
             >
               Take a tour
             </Button>
@@ -225,7 +233,7 @@ const Home: FC = () => {
             <Image style={{background:`url("${Assests.SemiEllipse.src}") no-repeat`,backgroundPosition:"center bottom",padding:"3px 15px" }} src={data.icon} alt="img_here" />
             <Text fontSize="24px" fontWeight="700"> {data.title} </Text>
             <Text fontSize="16px" fontWeight="500" color="#232323">{data.text}</Text>
-            <Button fontSize={16} fontWeight="700" height={44} width={160} borderRadius={"19px"} hoverStyle={{color:"var(--text-color)",bgcolor:'#fff',border:"1px solid var(--text-color)"}} backgroundColor="#000" color="#fff"> Select Now </Button>
+            {/* <Button fontSize={16} fontWeight="700" height={44} width={160} borderRadius={"19px"} hoverStyle={{color:"var(--text-color)",bgcolor:'#fff',border:"1px solid var(--text-color)"}} backgroundColor="#000" color="#fff"> Select Now </Button> */}
           </Box>
           )})}
         </Grid>

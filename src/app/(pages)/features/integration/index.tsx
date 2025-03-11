@@ -13,7 +13,10 @@ const Integration:React.FC = ()=>{
        <CloudBackground mt={8} mb={8} image={Assests.ElectSign_1.src}/>
        <Box mb={8} display="flex" justifyContent={"center"} alignItems={"center"} gap={3} px={2}>
        <Button backgroundColor="var(--secondary-color)" color="#fff" height={76} width={206} borderRadius={15} to={Route.SIGNUP}>Sign up for free</Button>
-       <Button borderWidth={1} borderColor="#000000" height={76} width={186} borderRadius={15}>Take a tour</Button>
+       <Button borderWidth={1} borderColor="#000000" height={76} width={186} borderRadius={15}
+                     to={Route.FEATURE_PAGES}
+       
+       >Take a tour</Button>
        </Box>
        <GridView mb={8} IsBgColor image={Assests.FeatureImage_12.src} heading="AN INTEGRATION TAKES SECONDS" text="App integration processes are straightforward and sleek in design — it will take you only a few seconds to set up a connection and get started."/>
        <GridView mb={8} isImageLeft image={Assests.FeatureImage_9.src} heading="Integrate With Your Favorite Apps" text="Seamlessly connect your Xodo Sign account to popular cloud storage solutions like Dropbox, Box, OneDrive or Evernote, and even sign documents right from within Gmail, Google Drive, Google Docs and the Google Chrome browser."/>

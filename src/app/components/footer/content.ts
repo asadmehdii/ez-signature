@@ -16,14 +16,14 @@ const General = [
   ];
   
   const Developer = [
-    { text: "Developer Portal", navigate: "#" },
+    { text: "Developer Portal", navigate: Route.DEVELOPER },
     { text: "Create Free SandBox", navigate: Route.SANDBOX_SIGNUP },
-    { text: "API Pricing", navigate: "#" },
+    { text: "API Pricing", navigate: Route.PRICING },
     { text: "API Documentation", navigate: Route.API_DOCUMENTATION },
   ];
   
   const PressLegal = [
-    { text: "Contact Us", navigate: Route.CONATCT_US },
+    { text: "Contact Us", navigate: Route.CONTACT_US },
     { text: "Terms & Conditions", navigate: Route.TERM_CONDITION  },
     { text: "Privacy Policy", navigate: Route.PRIVACY_POLICY  },
     { text: "Cookie Policy", navigate: Route.COOKIE_POLICY },

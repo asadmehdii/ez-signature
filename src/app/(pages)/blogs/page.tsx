@@ -10,6 +10,7 @@ import { useState } from "react"
 import BlogsCards from "./blogsCards"
 import MoreQuestion from "@/app/components/more question"
 import SignAnytime from "@/app/components/signAnytime"
+import Route from '@/app/utils/routes'
 
 const Blogs:React.FC = ()=>{
     const [selectItem,setSelectItem] = useState<string>("API")
@@ -30,7 +31,10 @@ const Blogs:React.FC = ()=>{
             <Button backgroundColor="var(--secondary-color)" color="#fff" height={76} width={206} borderRadius={15}>
               Sign up for free
             </Button>
-            <Button borderWidth={1} borderColor="#000000" height={76} width={206} borderRadius={15}>
+            <Button borderWidth={1} borderColor="#000000" height={76} width={206} borderRadius={15}
+                                 to={Route.FEATURE_PAGES}
+            
+            >
               Take a tour
             </Button>
           </Box>

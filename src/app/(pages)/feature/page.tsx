@@ -13,6 +13,8 @@ import Card from "@/app/components/card";
 import FAQs from "@/app/components/faqs";
 import Assests from "@/app/assests/images";
 import ContentBox from "@/app/components/contentBox";
+import Route from "@/app/utils/routes";
+
 const Features:FC= ()=>{
     return(
         <main className="feature">
@@ -21,7 +23,11 @@ const Features:FC= ()=>{
               <Grid paddingX={3} paddingY={6} component={"div"} className="grid_1" justifyContent={"center"} alignItems={"center"} textAlign={"center"} >
                    <Text className="head_1">Features at a Glance</Text>
                    <Text className="text_1">Your EzSignature experience will not stop at eSignatures — you&apos;ll be given all the tools you need to securely manage your documents in the cloud, keep your team in the loop, manage business contacts and to automate your work with a fully-fledged REST API.</Text>
-                   <Button color="#fff" className="button" backgroundColor="var(--secondary-color)" hoverStyle={{color:"var(--secondary-color)",bgcolor:"#F4F4F4",border:"1px solid var(--secondary-color)"}}>Start Tour</Button>
+                   <Button color="#fff" className="button" backgroundColor="var(--secondary-color)"
+                    hoverStyle={{color:"var(--secondary-color)",bgcolor:"#F4F4F4",
+                  border:"1px solid var(--secondary-color)"}}              
+                   to={Route.FEATURE_PAGES}
+                   >Start Tour</Button>
               </Grid>
             {/* --------------------------------- */}
           <ContentBox>

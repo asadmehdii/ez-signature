@@ -1,40 +1,38 @@
-
-
 const Route = {
-    HOME: "/",
-    FEATURE: "/pages/features",
-    PRICING: "/pages/pricing",
-    DEVELOPER: "/pages/developer",
-    HELP: "/pages/help",
-    LOGIN: "/pages/auth/login",
-    SIGNUP: "/pages/auth/signup",
-    TERM_CONDITION: "/pages/term&condition",
-    CONATCT_US: "/pages/contactUs",
-    COOKIE_POLICY: "/pages/cookiePolicy",
-    PRIVACY_POLICY: "/pages/privacyPolicy",
-    BLOGS: "/pages/blogs",
-    EXTENDED_BLOGS: "/pages/blogExtended",
-    FEATURE_PAGES: "/pages/featuresPages",
-    SANDBOX_SIGNUP: "/pages/sandbox",
-    SANDBOX_ACCOUNT: "/pages/sandbox/sandAccount",
-    SANDBOX_ACCOUNT_API: "/pages/sandbox/sandAccountApi",
-    SANDBOX_BUSSINESS: "/pages/sandbox/sandBussiness",
-    API_DOCUMENTATION: "/pages/APIDocumentation",
-  
-    // Dashboard routes defined here
-    DASHBOARD: "/pages/dashboard",
-    DOCUMENT: "/pages/documents",
-    TEMPLATE: "/pages/templates",
-    CONTACT: "/pages/contacts",
-    TEAM: "/pages/teams",
-    TRASH: "/pages/trash",
-    SETTINGS: "/pages/settings",
-    NEW_CONTACT: "/pages/contacts/newContact",
-    NEW__TEAM_MEMBER: "/pages/newTeamMember",
-    NEW_DOCUMENT: "/pages/newDocument",
-    NEW_TEMPLATE: "/pages/newTemplate",
-    GENERALPREFERENCES: "/pages/generalPreferences",
-  };
-  
-  export default Route;
-  
+  HOME: "/",
+  FEATURE: "/feature",
+  PRICING: "/pricing",
+  DEVELOPER: "/developer",
+  HELP: "/help",
+  LOGIN: "/login",
+  SIGNUP: "/signup",
+  TERM_CONDITION: "/term&condition",
+  CONTACT_US: "/contactUs",
+  COOKIE_POLICY: "/cookiePolicy",
+  PRIVACY_POLICY: "/privacyPolicy",
+  BLOGS: "/blogs",
+  EXTENDED_BLOGS: "/blogExtended",
+  FEATURE_PAGES: "/features",
+  SANDBOX_SIGNUP: "/sandbox",
+  SANDBOX_ACCOUNT: "/sandbox/sandAccount",
+  SANDBOX_ACCOUNT_API: "/sandbox/sandAccountApi",
+  SANDBOX_BUSINESS: "/sandbox/sandBusiness",
+  API_DOCUMENTATION: "/APIDocumentation",
+  ELECTRONIC_SIGNATURES: "/electronicSignature",
+
+  // Dashboard routes
+  DASHBOARD: "/dashboard",
+  DOCUMENT: "/documents",
+  TEMPLATE: "/templates",
+  CONTACT: "/contacts",
+  TEAM: "/teams",
+  TRASH: "/trash",
+  SETTINGS: "/settings",
+  NEW_CONTACT: "/contacts/newContact",
+  NEW_TEAM_MEMBER: "/newTeamMember",
+  NEW_DOCUMENT: "/newDocument",
+  NEW_TEMPLATE: "/newTemplate",
+  GENERAL_PREFERENCES: "/generalPreferences",
+};
+
+export default Route;
