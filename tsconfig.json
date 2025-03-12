@@ -9,6 +9,7 @@
     "skipLibCheck": true,
     "strict": false, // Disable strict mode
     "noEmit": false, // Allow emitting files
+    "noUncheckedIndexedAccess": false,
     "esModuleInterop": true,
     "module": "esnext",
     "moduleResolution": "bundler",
