@@ -40,7 +40,7 @@ const handlePrev = () => {
     const searchValue = searchParams.get("feature");
     if (searchValue) {
       const index = CarouselData.findIndex(
-        (value) => value.heading.toLowerCase() === searchValue.toLowerCase()
+        (value) => value.heading?.toLowerCase() === searchValue.toLowerCase()
       );
       setCurrentIndex(index !== -1 ? index : 0);
     }
@@ -58,11 +58,11 @@ const handlePrev = () => {
     <Box sx={{position: "relative", width: "100%", margin: "0 auto",marginTop:5}}>
     <Grid rowSpacing={4} flexWrap={{sm:"wrap",md:"nowrap"}} container flexDirection={{xs:"column-reverse",md:"row"}} alignItems={"center"} justifyContent={"space-between"}>
      <Box maxWidth={636} width={"100%"}>
-       <Typography sx={Styles.featureName}>Features &gt; <span style={{color:"var(--secondary-color)"}}>{CarouselData[currentIndex].feature}</span></Typography>        
-       <Typography sx={Styles.heading}>{CarouselData[currentIndex].heading}</Typography>        
-       <Typography sx={Styles.text}>{CarouselData[currentIndex].text}</Typography>        
+       <Typography sx={Styles.featureName}>Features &gt; <span style={{color:"var(--secondary-color)"}}>{CarouselData[currentIndex]?.feature ||"Feature Not Found"}</span></Typography>        
+       <Typography sx={Styles.heading}>{CarouselData[currentIndex]?.heading || "Feature Not Found"}</Typography>        
+       <Typography sx={Styles.text}>{CarouselData[currentIndex]?.text || ""}</Typography>        
      </Box>
-        <Box maxWidth={580} width={"100%"} height={431} sx={{objectFit:"contain"}} component={"img"} src={CarouselData[currentIndex].image} alt="img_here"/>
+        <Box maxWidth={580} width={"100%"} height={431} sx={{objectFit:"contain"}} component={"img"} src={CarouselData[currentIndex]?.image || "/fallback-image.png"} alt="img_here"/>
     </Grid>
     {/* -----Navigation Buttons----- */}
     <IconButton onClick={handlePrev} sx={Styles.leftBtn}><KeyboardBackspaceIcon /> </IconButton>
