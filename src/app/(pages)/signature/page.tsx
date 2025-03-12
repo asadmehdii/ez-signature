@@ -2,7 +2,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import Topbar from "@/app/components/dashboardTopbar/topbar";
-import SignatureModal from "../../pages/signature/signature";
+import SignatureModal from "../../(pages)/signature/signature";
 import Image from 'next/image';
 
 
