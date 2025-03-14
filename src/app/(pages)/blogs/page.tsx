@@ -1,4 +1,5 @@
 "use client"
+import React from "react"
 import Footer from "@/app/components/footer"
 import Navbar from "@/app/components/navbar"
 import { Box, Grid2 as Grid, Typography } from "@mui/material"
@@ -28,7 +29,7 @@ const Blogs:React.FC = ()=>{
             Securely approve, send and sign documents online with EzSignature
           </Typography>
           <Box component={"div"} display={"flex"} columnGap={2}>
-            <Button backgroundColor="var(--secondary-color)" color="#fff" height={76} width={206} borderRadius={15}>
+            <Button  to={Route.SIGNUP} backgroundColor="var(--secondary-color)" color="#fff" height={76} width={206} borderRadius={15}>
               Sign up for free
             </Button>
             <Button borderWidth={1} borderColor="#000000" height={76} width={206} borderRadius={15}

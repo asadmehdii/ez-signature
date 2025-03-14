@@ -1,5 +1,5 @@
 "use client"
-import React, { FC } from "react";
+import React, { FC,useState } from "react";
 import Footer from "@/app/components/footer";
 import Navbar from "@/app/components/navbar";
 import Grid from "@mui/material/Grid2";
@@ -8,7 +8,7 @@ import Button from "@/app/components/button";
 import { Box } from "@mui/material";
 import Image from "next/image";
 import Card from "@/app/components/card";
-import {PaperlessCard, financtionalDepartments, Category} from "./content"
+import {PaperlessCard, financialDepartments, salesDepartments, legalDepartments, hrDepartments,Category } from "./content";
 
 // imoprt Image here
 import CardImage_1 from "../../assests/images/home/cardImage1.png";
@@ -35,8 +35,19 @@ import Route from "@/app/utils/routes";
 import Assests from "@/app/assests/images";
 import { useRouter } from "next/navigation"; 
 
+const businessCategories = [
+  { image: BusinessImage_1, department: "Financial", data: financialDepartments },
+  { image: BusinessImage_3, department: "Sales", data: salesDepartments },
+  { image: BusinessImage_5, department: "Legal", data: legalDepartments },
+  { image: BusinessImage_4, department: "HR", data: hrDepartments },
+
+
+
+];
 const Home: FC = () => {
   const router = useRouter();
+  const [selectedDepartment, setSelectedDepartment] = useState(salesDepartments);
+  const [selectedCategory, setSelectedCategory] = useState(null);
 
   const handleTakeTour = () => {
     router.push("/features?feature=Electronic-Signatures");
@@ -341,44 +352,144 @@ const Home: FC = () => {
       </Grid>
 
       {/* grid_5 ---- Discover how EzSignature can help you run your business & financtional department */}
-      <Grid component={"div"} className="grid_5"  mt={12} paddingX={{xs:3,lg:"100px"}}>
-        <Text fontSize="55px" fontWeight="800" className="head_1"> Discover how EzSignature can help you run your business </Text>
-        <Grid container gap={2} alignItems={"center"} mt={5} justifyContent={"center"}>
-          <Image style={{width:'146px',height:"90px",objectFit:"contain"}} src={BusinessImage_1} alt="image_here" />
-          <Image style={{width:'156px',height:"128px",objectFit:"contain"}} src={BusinessImage_2} alt="image_here" />
-          <Image style={{width:'146px',height:"90px",objectFit:"contain"}} src={BusinessImage_3} alt="image_here" />
-          <Image style={{width:'146px',height:"90px",objectFit:"contain"}} src={BusinessImage_4} alt="image_here" />
-          <Image style={{width:'146px',height:"90px",objectFit:"contain"}} src={BusinessImage_5} alt="image_here" />
-          <Image style={{width:'146px',height:"90px",objectFit:"contain"}} src={BusinessImage_6} alt="image_here" />
-          <Image style={{width:'146px',height:"90px",objectFit:"contain"}} src={BusinessImage_7} alt="image_here" />
-        </Grid>
-          <Box component={"img"} src={FinancialDeppartment.src} sx={{width:"100%", maxWidth:"700px",display:"flex",justifyContent:"center",objectFit: "contain", my:{xs:2,sm:6}, mx:"auto" }} alt="img_here"  />
-          <Box component={"div"} sx={{mx:"auto",maxWidth:"1400",width:"100%",height:"calc(fit-content + 350px)",background:"linear-gradient(101.82deg,#263238 2.51%,#66efdc 39.22%,#263238 97.85%)",borderRadius:"78px",padding:0.2}} >
-           <Box sx={{width:'100%',position:"relative",height:'100%',mx:"auto", bgcolor:"#f3fefd",borderRadius:"78px"}}> 
-               <Grid container flexDirection={{xs:"column",md:"row"}} rowGap={2} justifyContent={{xs:"flex-start",md:"space-evenly"}} alignItems={"flex-start"} py={{xs:3,md:8}} px={{xs:1,sm:3}}>
-                     <Box mt={{xs:3,sm:0}} display={"flex"} flexDirection={"column"} rowGap={2}>
-                    {financtionalDepartments.leftSide.map((item:string)=> 
-                      <Box key={item} component={"div"} display={"flex"} columnGap={{xs:1,sm:2}} alignItems="center">
-                      <Image src={Star} objectFit="cover" width={30} height={30} alt="image_here" />
-                      <Text fontSize="18px" fontWeight="600">{item}</Text>
-                    </Box>)}
-                  </Box>   
-                  <Box display={"flex"} flexDirection={"column"} rowGap={2}>
-                    {financtionalDepartments.rightSide.map((item:string)=> 
-                      <Box key={item} component={"div"} display={"flex"} columnGap={{xs:1,sm:2}} alignItems="center">
-                      <Image src={Star} objectFit="cover" width={30} height={30} alt="image_here" />
-                      <Text fontSize="18px" fontWeight="600">{item}</Text>
-                    </Box>)}
-                  </Box>   
-               </Grid>    
-               <Box pb={6} mx={"auto"}>
-                {/* <Button color={"#fff"} style={{marginInline:'auto'}} fontSize={18} fontWeight={"600"} backgroundColor="#263238" width={183} height={56}> Check out
-                  <Box component="img" style={{ marginLeft: "10px" }} src={ArrowIcon.src} alt="imghere"/>
-                </Button> */}
-                </Box>  
-           </Box>
-          </Box>
+      <Grid component={"div"} className="grid_5" mt={12} paddingX={{ xs: 3, lg: "100px" }}>
+      <h1>Discover how EzSignature can help you run your business</h1>
+
+      <Grid container gap={2} alignItems="center" mt={5} justifyContent="center">
+        {businessCategories.map((category, index) => (
+          <Image
+            key={index}
+            src={category.image}
+            alt={category.department}
+            style={{
+              width: "146px",
+              height: "90px",
+              objectFit: "contain",
+              cursor: "pointer",
+              borderRadius: 6,
+              border: "2px solid",
+              borderColor: selectedCategory === index ? "black" : "transparent",
+              backgroundColor: selectedCategory === index ? "white" : "white",
+              transition: "border 0.3s ease-in-out"
+            }}
+            onClick={() => {
+              setSelectedCategory(index);
+              setSelectedDepartment(category.data);
+            }}
+          />
+        ))}
       </Grid>
+
+      <Box textAlign="center" my={2}>
+  <Text fontWeight="bold" >
+    {selectedCategory !== null && businessCategories[selectedCategory]
+      ? `${businessCategories[selectedCategory].department} Department`
+      : 'Sales Department'}
+  </Text>
+</Box>
+
+
+
+<Box
+  component="div"
+  sx={{
+    mx: "auto",
+    maxWidth: "1400px",
+    width: "100%",
+    height: "calc(fit-content + 350px)",
+    background: "linear-gradient(101.82deg,#263238 2.51%,#66efdc 39.22%,#263238 97.85%)",
+    borderRadius: "78px",
+    padding: 0.2,
+  }}
+>
+  <Box
+    sx={{
+      width: "100%",
+      position: "relative",
+      height: "100%",
+      mx: "auto",
+      bgcolor: "#f3fefd",
+      borderRadius: "78px",
+      overflow: "hidden", // Prevent content overflow
+    }}
+  >
+    <Grid
+      container
+      flexDirection={{ xs: "column", md: "row" }}
+      rowGap={4} // Increased gap for small devices
+      justifyContent={{ xs: "center", md: "space-evenly" }}
+      alignItems={{ xs: "center", md: "flex-start" }}
+      py={{ xs: 4, md: 8 }}
+      px={{ xs: 2, sm: 4 }}
+    >
+      <Box
+        mt={{ xs: 2, sm: 0 }}
+        display="flex"
+        flexDirection="column"
+        rowGap={2}
+        width={{ xs: "100%", md: "auto" }} // Take full width on small screens
+        alignItems={{ xs: "center", md: "flex-start" }}
+      >
+        {selectedDepartment &&
+          selectedDepartment.leftSide.map((item: string) => (
+            <Box
+              key={item}
+              display="flex"
+              columnGap={1}
+              alignItems="center"
+              width="100%" // Ensures the content doesn't shrink
+            >
+              <Image src={Star} width={24} height={24} alt="image_here" />
+              <span
+                style={{
+                  fontSize: "16px", // Slightly smaller on small devices
+                  fontWeight: "600",
+                  wordBreak: "break-word", // Break long words
+                }}
+              >
+                {item}
+              </span>
+            </Box>
+          ))}
+      </Box>
+
+      <Box
+        display="flex"
+        flexDirection="column"
+        rowGap={2}
+        width={{ xs: "100%", md: "auto" }}
+        alignItems={{ xs: "center", md: "flex-start" }}
+      >
+        {selectedDepartment &&
+          selectedDepartment.rightSide.map((item: string) => (
+            <Box
+              key={item}
+              display="flex"
+              columnGap={1}
+              alignItems="center"
+              width="100%"
+            >
+              <Image src={Star} width={24} height={24} alt="image_here" />
+              <span
+                style={{
+                  fontSize: "16px",
+                  fontWeight: "600",
+                  wordBreak: "break-word",
+                }}
+              >
+                {item}
+              </span>
+            </Box>
+          ))}
+      </Box>
+    </Grid>
+  </Box>
+</Box>
+
+    </Grid>
+
+
+
       {/* ----------------- */}
       <ContentBox mt={12}>
          <SignAnytime homeScreen maxWidth={450}  imageSrc={Assests.TakeFullControl} isBtn={false} heading="Take Full Control Of Your Documents" text="The built-in document editor gives you all the tools you need to

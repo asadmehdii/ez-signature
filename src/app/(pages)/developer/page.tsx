@@ -61,7 +61,7 @@ return(
          <Text padding={6} fontSize="18px" fontWeight="700">{value.title}</Text>
          <Text padding={6} style={{maxWidth:"997px",marginTop:"10px"}} fontSize="14px" fontWeight="500">{value.text}</Text>
        </Box>
-        <Button type="outlined" className="btn">Learn More</Button>
+        <Button type="outlined" className="btn" to={Route.API_DOCUMENTATION}>Learn More</Button>
      </Card>
      ))} 
     </Grid>

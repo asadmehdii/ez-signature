@@ -9,9 +9,9 @@ const EzFeature = [
     { icon: Assests.inPersonSign,navigate:Route.FEATURE_PAGES, featureName: "In-Person Signing"},
     { icon: Assests.AuditTrail, navigate:Route.FEATURE_PAGES,featureName: "Audit Trail" },
     { icon: Assests.Templates,navigate:Route.FEATURE_PAGES, featureName: "Templates" },
-    { icon: Assests.MultiBussiness, navigate:Route.FEATURE_PAGES,featureName: "Multiple Businesses" },
-    { icon: Assests.TeamManage, navigate:Route.FEATURE_PAGES,featureName: "Team Management" },
-    { icon: Assests.ContactManage,navigate:Route.FEATURE_PAGES, featureName: "Contact Management" },
+    // { icon: Assests.MultiBussiness, navigate:Route.FEATURE_PAGES,featureName: "Multiple Businesses" },
+    // { icon: Assests.TeamManage, navigate:Route.FEATURE_PAGES,featureName: "Team Management" },
+    // { icon: Assests.ContactManage,navigate:Route.FEATURE_PAGES, featureName: "Contact Management" },
     { icon: Assests.AppIntegration, navigate:Route.FEATURE_PAGES,featureName: "App Integrations" },
     { icon: Assests.esignatureAPI, navigate:Route.FEATURE_PAGES,featureName: "eSignature API" },
 ];

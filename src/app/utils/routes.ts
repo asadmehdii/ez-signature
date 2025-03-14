@@ -15,13 +15,16 @@ const Route = {
   FEATURE_PAGES: "/features",
   IN_PERSON:"/features?feature=In-Person-Signing",
   TEMPLATES:"/features?feature=Templates",
-  ELECTRONIC_SIGNATURES: "/features?feature=Electronic-Signatures",
+  ELECTRONIC_SIGNATURES:"/features?feature=Electronic-Signatures",
   SECURITY:"/features?feature=Document-Management-&-Security",
   SANDBOX_SIGNUP: "/sandbox",
   SANDBOX_ACCOUNT: "/sandbox/sandAccount",
   SANDBOX_ACCOUNT_API: "/sandbox/sandAccountApi",
   SANDBOX_BUSINESS: "/sandbox/sandBusiness",
   API_DOCUMENTATION: "/APIDocumentation",
+  DOCUMENT_EDITOR:"/features?feature=Document-Editor",
+  AUDIT_TRAIL:"/features?feature=Audit-Trail",
+  APP_INTEGRATION:"/features?feature=Integration",
 
   // Dashboard routes
   DASHBOARD: "/dashboard",

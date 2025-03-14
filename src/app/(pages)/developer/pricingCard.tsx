@@ -3,6 +3,8 @@ import Text from "@/app/components/text"
 import React from "react"
 import Button from "@/app/components/button"
 import { APICardProps } from "./content"
+import Route from "@/app/utils/routes"
+
 const APIPricingCard = (data:{props:APICardProps})=>{
     const {title,text,price,duration,buttonText,provideFeature, popular} = data.props
     return(
@@ -14,7 +16,7 @@ const APIPricingCard = (data:{props:APICardProps})=>{
           <Text color="#2F455C" fontSize="48px" fontWeight="800" style={{borderBottom:'1px solid #18395B',width:"90%"}}>{title}</Text>
           <Text textAlign="center" fontSize="20px" fontWeight="700" marginTop={35} style={{padding:"0 30px"}}>{text}</Text>
           <Text textAlign="center" color="#2F455C" fontSize="48px" fontWeight="800" style={{margin:'auto 0'}}>{price}<span style={{fontSize:"14px",marginLeft:'10px', color:"#2F455C"}}>{duration && duration}</span></Text>
-          <Button style={{marginTop:popular? "30px" :"0"}} borderRadius={20} width={300} height={52} color="#fff" backgroundColor="#2F455C">{buttonText}</Button> 
+          <Button to={Route.SIGNUP} style={{marginTop:popular? "30px" :"0"}} borderRadius={20} width={300} height={52} color="#fff" backgroundColor="#2F455C">{buttonText}</Button> 
         </Box>
         </Box>
         </Box>

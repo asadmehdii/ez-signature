@@ -1,8 +1,11 @@
 import Assests from "@/app/assests/images";
+import Route from "@/app/utils/routes";
+
 export interface TrustedSignatureProps{
  title:string;
  text:string;
  icon:any;
+ to?: string; 
 }
 export interface ProArticleProps{
  title:string;
@@ -13,21 +16,28 @@ const TrustedSignature = [
         icon:Assests.EzBooks,
         title:"I want to know more about Ezsignature and e-signatures",
         text:"If you are a beginner with this topic, you get all the necessary info here",
+        to:Route.API_DOCUMENTATION
     },
     {
         icon:Assests.EzSignature,
         title:"I want to sign a Document",
         text:"You received a Document that you need to sign? This article will help you get started",
+        to:Route.API_DOCUMENTATION
+
     },
     {
         icon:Assests.EzBooks,
         title:"I want to send a document / create a template",
         text:"Have any questions? Find the answers to all of them",
+        to:Route.API_DOCUMENTATION
+
     },
     {
         icon:Assests.EzSignature,
         title:"I want to manage my account / business",
         text:"One-stop shop for Admins on how to manage your account settings",
+        to:Route.API_DOCUMENTATION
+
     },
 ]
 

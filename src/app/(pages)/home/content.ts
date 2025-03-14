@@ -20,14 +20,13 @@ const PaperlessCard = [
   },
 ];
 
-const financtionalDepartments = {
+const financialDepartments = {
   leftSide: [
     "NDAs",
     "Asset Purchase Agreements",
     "Engagement Letters",
     "Independent Contractor Agreements",
     "Employment Contracts",
-    "Practice Continuation Agreements",
   ],
   rightSide: [
     "Practice Continuation Agreements",
@@ -40,21 +39,51 @@ const financtionalDepartments = {
 
 const salesDepartments = {
   leftSide: [
-    "NDAs",
-    "Asset Purchase Agreements",
-    "Engagement Letters",
-    "Independent Contractor Agreements",
-    "Employment Contracts",
-    "Practice Continuation Agreements",
+    "New Hire Paperwork",
+"Offer Letters",
+"Business Contracts",
+"Customer Deals",
   ],
   rightSide: [
-    "Practice Continuation Agreements",
-    "Power of Attorney Agreements",
-    "Business Contracts",
-    "Vendor Contracts",
-    "Document Approvals",
+  "Price Quotes",
+"Sales Proposals",
+"Partner Agreements"
+
   ],
 };
+
+const legalDepartments = {
+  leftSide: [
+  "NDAs",
+"Shareholder Agreements",
+"Board Consents",
+"Asset Purchase Agreements",
+"Business Contracts"
+  ],
+  rightSide: [
+   "Retention & Fee Agreements",
+"Merger and Acquisition Agreements",
+"class Action Communications",
+"Employment Contracts",
+"Document Approvals"
+
+  ],
+};
+
+const hrDepartments = {
+  leftSide: [
+    "NDAs",
+"PTO Contracts",
+"New Hire Paperwork",
+  ],
+  rightSide: [
+   "Employment Contracts",
+"Independent Contractor Agreements",
+"Separation Agreements"
+
+  ],
+};
+
 const Category = [
   {
     icon: Assests.Categ_1,
@@ -78,5 +107,4 @@ const Category = [
   },
 ];
 
-export { PaperlessCard, financtionalDepartments, salesDepartments,Category };
-
+export { PaperlessCard, financialDepartments, salesDepartments, legalDepartments, hrDepartments, Category };

@@ -37,17 +37,37 @@ const InputStyle = {
             <Text className="text_1" fontSize="24px" fontWeight="600">Take your electronic signatures to the next level with Ezsignature API, used by developers 
              worldwide to fully automate eSignature workflows.</Text>
             <Grid container justifyContent={{xs:"center",sm:"space-between"}} component={"div"} rowSpacing={3} mt={3}>
-             {TrustedSignature.map((value:TrustedSignatureProps)=>{
-                return(
-             <Box key={value.title} className="trustedElectCard" component="div" sx={{borderRadius:"60px 60px 40px 40px",display:"flex",flexDirection:"column",justifyContent:"flex-start",alignItems:"center",width:{xs:"300px",sm:"320px"}, height:"300px", border:"1px solid #25252540"}}>
-               <Image style={{marginTop:'40px',marginBottom:'20px'}} src={value.icon} alt="icon_here"/>
-               <Box style={{width:'250px'}}>
-               <Text color="#222222" textAlign="center" fontSize="18px"  fontWeight="700">{value.title}</Text>
-               <Text color="#232323" textAlign="center" fontSize="16px" marginTop={12} fontWeight="500">{value.text}</Text>
-               </Box>
-            </Box>
-                )
-             })}
+            {TrustedSignature.map((value:TrustedSignatureProps) => {
+  return (
+    <Link href={value.to || "#"} key={value.title} style={{ textDecoration: 'none' }}>
+      <Box 
+        className="trustedElectCard"
+        component="div"
+        sx={{
+          borderRadius: "60px 60px 40px 40px",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "flex-start",
+          alignItems: "center",
+          width: { xs: "300px", sm: "320px" },
+          height: "300px",
+          border: "1px solid #25252540",
+          cursor: "pointer", // Optional: make it clear it's clickable
+          transition: "0.3s",
+          "&:hover": {
+            boxShadow: "0px 8px 16px rgba(0,0,0,0.2)",
+          }
+        }}
+      >
+        <Image style={{ marginTop: '40px', marginBottom: '20px' }} src={value.icon} alt="icon_here" />
+        <Box style={{ width: '250px' }}>
+          <Text color="#222222" textAlign="center" fontSize="18px" fontWeight="700">{value.title}</Text>
+          <Text color="#232323" textAlign="center" fontSize="16px" marginTop={12} fontWeight="500">{value.text}</Text>
+        </Box>
+      </Box>
+    </Link>
+  )
+})}
             </Grid>
             </Box>
             {/* --------------------------------- */}

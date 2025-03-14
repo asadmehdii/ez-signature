@@ -21,6 +21,10 @@ const Route = {
   SANDBOX_ACCOUNT_API: "/sandbox/sandAccountApi",
   SANDBOX_BUSINESS: "/sandbox/sandBusiness",
   API_DOCUMENTATION: "/APIDocumentation",
+  ELECTRONIC_SIGNATURES:"/features?feature=Electronic-Signatures",
+ DOCUMENT_EDITOR:"/features?feature=Document-Editor",
+ AUDIT_TRAIL:"/features?feature=Audit-Trail",
+APP_INTEGRATION:"/features?feature=Integration",
 
   // Dashboard routes
   DASHBOARD: "/dashboard",

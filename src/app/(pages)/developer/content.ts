@@ -79,6 +79,7 @@ const APIPricingCardContent = [
     price: "$59.99",
     duration: "per month",
     buttonText: "Sign Up",
+    
     popular: true,
     provideFeature: [
       "50 API Documents",
