@@ -127,7 +127,7 @@ const SignUp: FC = () => {
                   Username
                 </Text>
                 {/* Use CustomTextField here */}
-                <CustomTextField
+                <TextField
                   fullWidth
                   variant="outlined"
                   type="text"
