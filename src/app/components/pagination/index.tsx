@@ -26,6 +26,9 @@ import Grid from "@mui/material/Grid2";
   container
   alignItems={"center"}
   justifyContent={"space-between"}
+  sx={{ mt: 3 }}  
+
+
 >
       {/* Pagination  */}
       <Pagination
@@ -39,7 +42,7 @@ import Grid from "@mui/material/Grid2";
       />
 
       {/* Rows Per Page Selector */}
-      <Box display="flex" alignItems="center" sx={{ ml: 2 }}>
+      <Box display="flex"  alignItems="center" sx={{ ml: 2 }}>
         <Typography sx={{ mr: 1 }}>Number of Results:</Typography>
         <Select
           value={rowsPerPage}

@@ -83,7 +83,7 @@ const CustomForm: FC<formProps> = ({ title, text, mt, textWidth }) => {
     };
 
     try {
-      const response = await fetch("http://localhost:4000/requests", {
+      const response = await fetch("https://ezsignature-backend-production.up.railway.app/requests", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),

@@ -43,7 +43,7 @@ export default function Sidebar({ children, open, onToggle }: Props) {
             {SidebarData.map((data) => (
               <Link
                 key={data.title}
-                href={`/pages/${data.title.toLowerCase()}`}
+                href={`/${data.title.toLowerCase()}`}
                 style={{
                   display: "flex",
                   alignItems: "center",
@@ -58,7 +58,7 @@ export default function Sidebar({ children, open, onToggle }: Props) {
           </Box>
         </Grid>
         <Link
-          href="/pages/help-center"
+          href="/help-center"
           style={{
             fontSize: "1.5rem",
             position: "absolute",

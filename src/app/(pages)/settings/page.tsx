@@ -45,23 +45,23 @@ export default function SettingsPage() {
 
                     {/* 2nd grid */}
                     <Grid component={"section"} container marginTop={"20px"} flex={"0 0 auto"} border={"1px solid #E8EFF6"} borderRadius={"3px"} minWidth={"0"} direction={"column"}>
-                    <Link href="/pages/generalPreferences" className="settings_link">
+                    <Link href="/generalPreferences" className="settings_link">
                     <InsertDriveFileOutlined sx={{color: "rgb(51, 51, 51)", fontWeight: "100"}} />
                         <Text fontWeight="400" color="rgb(51, 51, 51)">General Preferences</Text>
                     </Link>
-                    <Link href="/pages/signingPreferences" className="settings_link" >
+                    <Link href="/signingPreferences" className="settings_link" >
                     <SaveAsOutlined  sx={{color: "rgb(51, 51, 51)"}} />
                         <Text fontWeight="400" color="rgb(51, 51, 51)">Signing Preferences</Text>
                     </Link>
-                    <Link href="/pages/deliveryPreferences" className="settings_link">
+                    <Link href="/deliveryPreferences" className="settings_link">
                     <Telegram  sx={{color: "rgb(51, 51, 51)"}} />
                         <Text fontWeight="400" color="rgb(51, 51, 51)">Delivery Preferences</Text>
                     </Link>
-                    <Link href="/pages/expiration" className="settings_link">
+                    <Link href="/expiration" className="settings_link">
                     <AccessTimeOutlined  sx={{color: "rgb(51, 51, 51)"}} />
                         <Text fontWeight="400" color="rgb(51, 51, 51)">Expirations & Reminders</Text>
                     </Link>
-                    <Link href="/pages/branding" className="settings_link">
+                    <Link href="/branding" className="settings_link">
                         <ColorLens  sx={{color: "rgb(51, 51, 51)"}}/>
                         <Text fontWeight="400" color="rgb(51, 51, 51)">Branding</Text>
                     </Link>

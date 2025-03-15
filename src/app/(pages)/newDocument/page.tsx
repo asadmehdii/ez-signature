@@ -60,7 +60,7 @@ const signerOptions =[
   "CC",
 ]
 const handlePrepareClick = () => {
-  router.push("/pages/prepare"); // Navigate to the "Prepare" page
+  router.push("/prepare"); // Navigate to the "Prepare" page
 };
   return (
     <Topbar  title='New Document' buttonText='prepare' secondText='Quick Send' outlinedBtn='Save Draft'       onFirstBtnClick={handlePrepareClick} // Pass the navigation function

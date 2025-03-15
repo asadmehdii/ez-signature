@@ -29,7 +29,7 @@ export default function ContactsPage() {
     const fetchContacts = async () => {
       try {
         setIsLoading(true);
-        const response = await fetch("http://localhost:4000/contacts");
+        const response = await fetch("https://ezsignature-backend-production.up.railway.app/contacts");
         if (!response.ok) {
           throw new Error("Failed to fetch contacts");
         }
@@ -71,6 +71,7 @@ export default function ContactsPage() {
           handleTabChange={handleTabChange}
           contacts={filteredContacts}
           pageType="contacts"
+
         />
         <PaginationBar />
       </Grid>

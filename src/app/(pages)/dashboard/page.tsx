@@ -51,7 +51,7 @@ const Dashboard: React.FC = () => {
       }, []);
       const fetchSignature = async () => {
         try {
-          const response = await axios.post('http://localhost:4000/signature/default', {
+          const response = await axios.post('https://ezsignature-backend-production.up.railway.app/signature/default', {
             email: user?.email,
           });
     

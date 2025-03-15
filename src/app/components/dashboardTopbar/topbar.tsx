@@ -10,6 +10,7 @@ import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 interface TopbarProps {
   children: ReactNode;
   isBellIcon?: boolean;
+  onButtonClick?: () => void | Promise<void>;
   buttonText?: string | ReactNode; // Allow ReactNode
   secondText?: string;
   outlinedBtn?: string;

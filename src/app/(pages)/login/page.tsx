@@ -74,18 +74,23 @@ const Login: FC = () => {
 
   const handleLogin = async () => {
     if (!validateInputs()) return;
-
+  
     try {
-      const response = await axios.post("http://localhost:4000/user/login", {
+      const response = await axios.post("https://ezsignature-backend-production.up.railway.app/user/login", {
         email,
         password,
       });
-
+  
       console.log("API Response:", response);
-
+  
       if (response.status === 200 || response.status === 201) {
-        const { name, email } = response.data;
-        localStorage.setItem('user', JSON.stringify({ name, email }));
+        const { token, userId, name, email } = response.data; // Destructure correctly
+  
+        localStorage.setItem("token", token); // Store token
+        localStorage.setItem("userId", userId); // Store userId
+        localStorage.setItem("user", JSON.stringify({ name, email })); // Store user details
+  
+        console.log("User ID:", userId); // Debugging
         router.push(Route.DASHBOARD);
       } else {
         setApiError("Login failed. Please check your credentials.");
@@ -95,6 +100,7 @@ const Login: FC = () => {
       setApiError(error.response?.data?.message || "An error occurred while logging in. Please try again.");
     }
   };
+  
 
   return (
     <main>

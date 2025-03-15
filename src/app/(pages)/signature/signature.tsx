@@ -59,7 +59,7 @@ const SignatureModal = ({ isOpen, modalType, onClose }) => {
 
     try {
       const response = await axios.post(
-        "http://localhost:4000/modalsignature/createsignature",
+        "https://ezsignature-backend-production.up.railway.app/modalsignature/createsignature",
         payload
       );
 
@@ -84,7 +84,7 @@ const SignatureModal = ({ isOpen, modalType, onClose }) => {
     const payload = { image: signatureImage };
   
     try {
-      const response = await axios.post("http://localhost:4000/draw", payload);
+      const response = await axios.post("https://ezsignature-backend-production.up.railway.app/draw", payload);
   
       // Check if the response status is 200 or 201
       if (response.status === 200 || response.status === 201) {
@@ -118,7 +118,7 @@ const SignatureModal = ({ isOpen, modalType, onClose }) => {
     formData.append("file", blob, "signature.png"); // Append the file with a custom name
   
     try {
-      const response = await axios.post("http://localhost:4000/upload/signature", formData, {
+      const response = await axios.post("https://ezsignature-backend-production.up.railway.app/upload/signature", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },

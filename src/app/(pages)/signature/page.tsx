@@ -14,7 +14,7 @@ export default function DocumentPage() {
   const [signatures, setSignatures] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:4000/modalsignature/getallsignature")
+    fetch("https://ezsignature-backend-production.up.railway.app/modalsignature/getallsignature")
       .then((response) => response.json())
       .then((data) => setSignatures(data))
       .catch((error) => console.error("Error fetching signatures:", error));
