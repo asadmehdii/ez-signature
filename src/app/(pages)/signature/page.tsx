@@ -3,8 +3,7 @@
 import React, { useState, useEffect } from "react";
 import Topbar from "@/app/components/dashboardTopbar/topbar";
 import SignatureModal from "../../(pages)/signature/signature";
-import Image from 'next/image';
-
+import Image from "next/image";
 
 export default function DocumentPage() {
   const [activeTab, setActiveTab] = useState("Signature");
@@ -14,9 +13,18 @@ export default function DocumentPage() {
   const [signatures, setSignatures] = useState([]);
 
   useEffect(() => {
-    fetch("https://ezsignature-backend-production.up.railway.app/modalsignature/getallsignature")
+    fetch("https://ezsignature-backend-production.up.railway.app/signatures")
       .then((response) => response.json())
-      .then((data) => setSignatures(data))
+      .then((data) => {
+        console.log("Fetched data:", data);
+
+        const allSignatures = [
+          ...(Array.isArray(data.drawSignatures) ? data.drawSignatures : []),
+          ...(Array.isArray(data.typedSignatures) ? data.typedSignatures : []),
+        ];
+
+        setSignatures(allSignatures);
+      })
       .catch((error) => console.error("Error fetching signatures:", error));
   }, []);
 
@@ -179,7 +187,13 @@ export default function DocumentPage() {
                       color: "#333",
                     }}
                   >
-                    <Image  src={sig.image} alt={sig.content} style={{ maxWidth: "150px" }} />
+                    <Image
+                      src={sig.image}
+                      alt={sig.content}
+                      width={150} // Explicit width
+                      height={75} // Explicit height
+                      style={{ maxWidth: "150px", objectFit: "contain" }}
+                    />
                   </div>
                   <div style={{ textAlign: "right" }}>
                     <span
@@ -220,38 +234,12 @@ export default function DocumentPage() {
               ))}
             </div>
           )}
-
-          {activeTab === "Initials" && (
-            <div
-              style={{
-                padding: "20px",
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-              }}
-            >
-              <div
-                style={{
-                  fontFamily: "'Cedarville Cursive', cursive",
-                  fontSize: "20px",
-                  color: "#333",
-                }}
-              >
-                AAZ
-              </div>
-              <div></div>
-            </div>
-          )}
         </div>
       </Topbar>
 
       {/* Modal */}
       {isModalOpen && (
-        <SignatureModal
-          isOpen={isModalOpen}
-          modalType={modalType}
-          onClose={closeModal}
-        />
+        <SignatureModal isOpen={isModalOpen} modalType={modalType} onClose={closeModal} />
       )}
     </>
   );

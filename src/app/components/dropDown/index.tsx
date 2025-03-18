@@ -145,7 +145,7 @@ export default function DropDown() {
             },
           }}
         >
-          <Link href="/pages/signature" style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+          <Link href="/signature" style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
             <HistoryEduOutlined sx={{ color: grey[800] }} />
             Signature
           </Link>

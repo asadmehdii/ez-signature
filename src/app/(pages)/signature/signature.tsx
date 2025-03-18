@@ -8,19 +8,17 @@ const SignatureModal = ({ isOpen, modalType, onClose }) => {
   const [activeTab, setActiveTab] = useState("type");
   const [sigPad, setSigPad] = useState(null);
   const [uploadedImage, setUploadedImage] = useState(null);
-  const [selectedFont, setSelectedFont] = useState("DancingScript");
+  const [selectedFont, setSelectedFont] = useState("AlexBrush");
 
   const fontStyles = [
-    { fontFamily: "'Dancing Script', cursive" },
-    { fontFamily: "'Pacifico', cursive" },
-    { fontFamily: "'Satisfy', cursive" },
-    { fontFamily: "'Great Vibes', cursive" },
-    { fontFamily: "'Cookie', cursive" },
-    { fontFamily: "'Alex Brush', cursive" },
-    { fontFamily: "'Allura', cursive" },
-    { fontFamily: "'Parisienne', cursive" },
-    { fontFamily: "'Herr Von Muellerhoff', cursive" },
-    { fontFamily: "'Sacramento', cursive" },
+    { fontFamily: "Arial" },
+    { fontFamily: "Birthstone" },
+    { fontFamily: "AlexBrush" },
+    { fontFamily: "Ephesis" },
+    { fontFamily: "EpicRide" },
+    { fontFamily: "GreatVibes" },
+    { fontFamily: "Helvetica" },
+    { fontFamily: "Kalam" },
   ];
 
   if (!isOpen) return null;
@@ -51,18 +49,30 @@ const SignatureModal = ({ isOpen, modalType, onClose }) => {
       alert("Please type your signature before saving.");
       return;
     }
-
+  
+    const userId = localStorage.getItem("userId");
+    if (!userId) {
+      alert("User ID not found. Please log in again.");
+      return;
+    }
+  
     const payload = {
       content: signatureText,
       font: selectedFont,
+      userId: userId,
     };
-
+  
     try {
       const response = await axios.post(
-        "https://ezsignature-backend-production.up.railway.app/modalsignature/createsignature",
-        payload
+        "https://ezsignature-backend-production.up.railway.app/signature/create",
+        payload,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
       );
-
+  
       if (response.status === 200 || response.status === 201) {
         alert("Typed signature saved successfully.");
         onClose(); // Close the modal after successful save
@@ -74,6 +84,7 @@ const SignatureModal = ({ isOpen, modalType, onClose }) => {
       alert("An error occurred while saving the typed signature.");
     }
   };
+  
   const handleSaveDrawnSignature = async () => {
     if (sigPad.isEmpty()) {
       alert("Please draw your signature before saving.");
@@ -233,7 +244,7 @@ const SignatureModal = ({ isOpen, modalType, onClose }) => {
                 fontSize: "50px",
                 padding: "35px",
                 marginBottom: "20px",
-                fontFamily: selectedFont || "'Great Vibes', cursive", 
+                fontFamily: selectedFont || "'AlexBrush", 
               }}
             >
               {signatureText || "Your Signature"}

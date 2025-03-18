@@ -1,6 +1,62 @@
 @import "./styles/index.css";
 @import url('https://fonts.googleapis.com/css2?family=Alex+Brush&family=Allura&family=Cookie&family=Dancing+Script&family=Great+Vibes&family=Herr+Von+Muellerhoff&family=Pacifico&family=Parisienne&family=Sacramento&family=Satisfy&display=swap');
 
+@font-face {
+  font-family: "AlexBrush";
+  src: url("/fonts/AlexBrush-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Arial";
+  src: url("/fonts/Arial.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Birthstone";
+  src: url("/fonts/Birthstone-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Ephesis";
+  src: url("/fonts/Ephesis-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "EpicRide";
+  src: url("/fonts/epicride.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "GreatVibes";
+  src: url("/fonts/GreatVibes-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Helvetica";
+  src: url("/fonts/Helvetica.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Kalam";
+  src: url("/fonts/Kalam-Bold.ttf") format("truetype");
+  font-weight: bold;
+  font-style: normal;
+}
+
+
 
 /* From Uiverse.io by Ali-Tahmazi99 */ 
 .navbar input[type = "checkbox"] {
