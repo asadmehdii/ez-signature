@@ -11,30 +11,57 @@ export default function DocumentPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalType, setModalType] = useState("");
   const [signatures, setSignatures] = useState([]);
-
+  const defaultSignature = signatures.find(sig => sig.isDefault);
   useEffect(() => {
     const userId = localStorage.getItem("userId");
-
+  
     if (!userId) {
       console.error("User ID not found in localStorage");
       return;
     }
-
-    fetch(`https://ezsignature-backend-production.up.railway.app/signatures/user/${userId}`)
-      .then((response) => response.json())
-      .then((data) => {
-        console.log("Fetched data:", data);
-
+  
+    const fetchSignatures = async () => {
+      try {
+        const response = await fetch(
+          `https://ezsignature-backend-production.up.railway.app/signatures/user/${userId}`
+        );
+        const data = await response.json();
+  
+        console.log("Fetched signatures:", data);
+  
         const allSignatures = [
           ...(Array.isArray(data.drawSignatures) ? data.drawSignatures : []),
           ...(Array.isArray(data.typedSignatures) ? data.typedSignatures : []),
           ...(Array.isArray(data.uploadedSignatures) ? data.uploadedSignatures : []),
         ];
-
-        setSignatures(allSignatures);
-      })
-      .catch((error) => console.error("Error fetching signatures:", error));
+  
+        // Fetch the default signature
+        const defaultResponse = await fetch(
+          `https://ezsignature-backend-production.up.railway.app/signatures/default/${userId}`
+        );
+        const defaultData = await defaultResponse.json();
+  
+        console.log("Default Signature Data:", defaultData);
+  
+        // The default signature ID comes from `signatureId`, not `_id`
+        const defaultSignatureId = defaultData?.signatureId || null;
+  
+        // Update signatures array with isDefault flag
+        const updatedSignatures = allSignatures.map((sig) => ({
+          ...sig,
+          isDefault: sig._id === defaultSignatureId, // Corrected check
+        }));
+  
+        console.log("Updated Signatures Array:", updatedSignatures);
+        setSignatures(updatedSignatures);
+      } catch (error) {
+        console.error("Error fetching signatures:", error);
+      }
+    };
+  
+    fetchSignatures();
   }, []);
+  
 
   const handleDropdownClick = (type) => {
     setIsDropdownOpen(false);
@@ -46,6 +73,46 @@ export default function DocumentPage() {
     setIsModalOpen(false);
     setModalType("");
   };
+
+  const handleMakeDefault = async (signatureId) => {
+    const userId = localStorage.getItem("userId");
+  
+    if (!userId) {
+      console.error("User ID not found in localStorage");
+      return;
+    }
+  
+    try {
+      const response = await fetch("https://ezsignature-backend-production.up.railway.app/signatures/default", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ userId, signatureId }),
+      });
+  
+      const result = await response.json();
+      console.log("Make Default Response:", result);
+  
+      if (response.ok) {
+        setSignatures((prevSignatures) =>
+          prevSignatures.map((sig) => ({
+            ...sig,
+            isDefault: sig._id === signatureId, // Set selected signature as default
+          }))
+        );
+        alert("Signature set as default successfully!");
+      } else {
+        alert("Failed to set signature as default: " + result.message);
+      }
+    } catch (error) {
+      console.error("Error setting default signature:", error);
+      alert("An error occurred while setting the default signature.");
+    }
+  };
+  
+  
+
 
   return (
     <>
@@ -204,40 +271,29 @@ export default function DocumentPage() {
                     />
                   </div>
                   <div style={{ textAlign: "right" }}>
-                    <span
-                      style={{
-                        fontSize: "12px",
-                        color: "#5b6dab",
-                        marginBottom: "10px",
-                        display: "block",
-                      }}
-                    >
-                      {sig.font}
-                    </span>
-                    <button
-                      style={{
-                        padding: "8px 15px",
-                        backgroundColor: "#e7ecf7",
-                        border: "1px solid #d1d5db",
-                        borderRadius: "4px",
-                        color: "#5b6dab",
-                        cursor: "pointer",
-                        fontSize: "14px",
-                      }}
-                    >
-                      Make Default
-                      <span
-                        style={{
-                          marginLeft: "5px",
-                          display: "inline-block",
-                          transform: "rotate(90deg)",
-                          fontSize: "10px",
-                        }}
-                      >
-                        ▼
-                      </span>
-                    </button>
-                  </div>
+  {sig.isDefault ? (
+    <span style={{ fontSize: "14px", color: "#5b6dab", fontWeight: "bold" }}>
+      Default Signature
+    </span>
+  ) : (
+    <button
+      style={{
+        padding: "8px 15px",
+        backgroundColor: "#e7ecf7",
+        border: "1px solid #d1d5db",
+        borderRadius: "4px",
+        color: "#5b6dab",
+        cursor: "pointer",
+        fontSize: "14px",
+      }}
+      onClick={() => handleMakeDefault(sig._id)}
+    >
+      Make Default
+    </button>
+  )}
+</div>
+
+
                 </div>
               ))}
             </div>
