@@ -91,16 +91,32 @@ const SignatureModal = ({ isOpen, modalType, onClose }) => {
       return;
     }
   
-    const signatureImage = sigPad.toDataURL("image/png"); // Convert the canvas to Base64
-    const payload = { image: signatureImage };
+    const userId = localStorage.getItem("userId"); 
+    if (!userId) {
+      alert("User ID not found. Please log in again.");
+      return;
+    }
+  
+    const signatureImage = sigPad.toDataURL("image/png"); 
+    const payload = {
+      userId: userId,
+      image: signatureImage,
+    };
   
     try {
-      const response = await axios.post("https://ezsignature-backend-production.up.railway.app/draw", payload);
+      const response = await axios.post(
+        "https://ezsignature-backend-production.up.railway.app/draw",
+        payload,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
   
-      // Check if the response status is 200 or 201
       if (response.status === 200 || response.status === 201) {
         alert("Signature saved successfully.");
-        onClose(); // Close the modal after successful save
+        onClose(); // Close modal after successful save
       } else {
         alert("Failed to save the signature. Please try again.");
       }
@@ -109,10 +125,17 @@ const SignatureModal = ({ isOpen, modalType, onClose }) => {
       alert("An error occurred while saving the signature.");
     }
   };
+  
 
   const handleSaveUploadedSignature = async () => {
     if (!uploadedImage) {
       alert("Please upload a signature image before saving.");
+      return;
+    }
+  
+    const userId = localStorage.getItem("userId"); // Retrieve userId from localStorage
+    if (!userId) {
+      alert("User ID not found. Please log in again.");
       return;
     }
   
@@ -126,18 +149,23 @@ const SignatureModal = ({ isOpen, modalType, onClose }) => {
     const blob = new Blob([buffer], { type: mimeString });
   
     const formData = new FormData();
-    formData.append("file", blob, "signature.png"); // Append the file with a custom name
+    formData.append("userId", userId); // Append userId from localStorage
+    formData.append("file", blob, "signature.png"); // Append file with custom name
   
     try {
-      const response = await axios.post("https://ezsignature-backend-production.up.railway.app/upload/signature", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
+      const response = await axios.post(
+        "https://ezsignature-backend-production.up.railway.app/upload",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
   
       if (response.status === 200 || response.status === 201) {
         alert("Signature uploaded successfully.");
-        onClose(); // Close the modal after successful save
+        onClose(); // Close modal after successful save
       } else {
         alert("Failed to upload the signature. Please try again.");
       }
@@ -394,8 +422,7 @@ const SignatureModal = ({ isOpen, modalType, onClose }) => {
           color: "#1a73e8",
           fontSize: "14px",
           fontWeight: "500",
-          marginBottom: "20px", // Added margin below the button and text
-
+          marginBottom: "20px",
         }}
       >
         Choose Image
@@ -432,6 +459,8 @@ const SignatureModal = ({ isOpen, modalType, onClose }) => {
         <Image 
           src={uploadedImage}
           alt="Preview"
+          width={150} // Specify width
+          height={150} // Specify height
           style={{ maxHeight: "100%", maxWidth: "100%", objectFit: "contain" }}
         />
       ) : (
@@ -453,36 +482,37 @@ const SignatureModal = ({ isOpen, modalType, onClose }) => {
       representation of my signature.
     </p>
     <div style={{ textAlign: "right", marginTop: "20px" }}>
-          <button
-            style={{
-              padding: "10px 15px",
-              backgroundColor: "#5b6dab",
-              border: "none",
-              borderRadius: "4px",
-              color: "#fff",
-              cursor: "pointer",
-              marginRight: "10px",
-            }}
-            onClick={handleSaveUploadedSignature}
-            >
-            Save
-          </button>
-          <button
-            style={{
-              padding: "10px 15px",
-              backgroundColor: "#e7ecf7",
-              border: "1px solid #d1d5db",
-              borderRadius: "4px",
-              color: "#333",
-              cursor: "pointer",
-            }}
-            onClick={onClose}
-          >
-            Cancel
-          </button>
-        </div>
+      <button
+        style={{
+          padding: "10px 15px",
+          backgroundColor: "#5b6dab",
+          border: "none",
+          borderRadius: "4px",
+          color: "#fff",
+          cursor: "pointer",
+          marginRight: "10px",
+        }}
+        onClick={handleSaveUploadedSignature}
+      >
+        Save
+      </button>
+      <button
+        style={{
+          padding: "10px 15px",
+          backgroundColor: "#e7ecf7",
+          border: "1px solid #d1d5db",
+          borderRadius: "4px",
+          color: "#333",
+          cursor: "pointer",
+        }}
+        onClick={onClose}
+      >
+        Cancel
+      </button>
+    </div>
   </div>
 )}
+
 
 
 

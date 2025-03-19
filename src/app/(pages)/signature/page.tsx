@@ -13,7 +13,14 @@ export default function DocumentPage() {
   const [signatures, setSignatures] = useState([]);
 
   useEffect(() => {
-    fetch("https://ezsignature-backend-production.up.railway.app/signatures")
+    const userId = localStorage.getItem("userId");
+
+    if (!userId) {
+      console.error("User ID not found in localStorage");
+      return;
+    }
+
+    fetch(`https://ezsignature-backend-production.up.railway.app/signatures/user/${userId}`)
       .then((response) => response.json())
       .then((data) => {
         console.log("Fetched data:", data);
@@ -21,6 +28,7 @@ export default function DocumentPage() {
         const allSignatures = [
           ...(Array.isArray(data.drawSignatures) ? data.drawSignatures : []),
           ...(Array.isArray(data.typedSignatures) ? data.typedSignatures : []),
+          ...(Array.isArray(data.uploadedSignatures) ? data.uploadedSignatures : []),
         ];
 
         setSignatures(allSignatures);
