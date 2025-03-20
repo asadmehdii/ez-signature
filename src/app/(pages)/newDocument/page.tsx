@@ -63,7 +63,7 @@ const handlePrepareClick = () => {
   router.push("/prepare"); // Navigate to the "Prepare" page
 };
   return (
-    <Topbar  title='New Document' buttonText='prepare' secondText='Quick Send' outlinedBtn='Save Draft'       onFirstBtnClick={handlePrepareClick} // Pass the navigation function
+    <Topbar  title='New Document' buttonText='prepare' secondText='Quick Send' outlinedBtn='Save Draft' onFirstBtnClick={handlePrepareClick} // Pass the navigation function
 >
       <Grid component={"section"} marginLeft={"30px"} marginRight={"30px"} paddingBottom={"20px"}>
         <form>
@@ -237,15 +237,17 @@ const handlePrepareClick = () => {
       }}
     >
       <Image 
-        src={file.preview}
-        alt={file.name}
-        style={{
-          width: "100px",
-          height: "100px",
-          objectFit: "cover",
-          borderRadius: "4px",
-        }}
-      />
+  src={file.preview}
+  alt={file.name}
+  width={100}
+  height={100}
+  layout="intrinsic" 
+  style={{
+    objectFit: "cover",
+    borderRadius: "4px",
+  }}
+/>
+
       <Typography
         variant="body2"
         sx={{

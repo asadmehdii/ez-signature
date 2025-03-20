@@ -75,6 +75,7 @@ const TabSection: React.FC<TabSectionProp> = ({
     : [];
     const Route = {
       NEW_TEAM_MEMBER: "/newTeamMember",
+      NEW_CONTACT: "/newContact",
     };
     
     const navigate = useRouter();
@@ -97,6 +98,28 @@ const TabSection: React.FC<TabSectionProp> = ({
     
       navigate.push(`${path}?${query}`);
     };
+    
+    const handleEditContact = (contact: any) => {
+      console.log("Editing Contact:", contact); 
+    
+      if (!contact || !contact._id) {  // Use '_id' instead of 'id'
+        console.error("Contact ID is missing!", contact);
+        return;
+      }
+    
+      const path = "/contacts/newContact"; 
+      const query = new URLSearchParams({
+        id: contact._id,  // Use '_id'
+        firstName: contact.firstName,
+        lastName: contact.lastName,
+        email: contact.email,
+      }).toString();
+    
+      navigate.push(`${path}?${query}`);
+    };
+    
+    
+    
     
     
     
@@ -162,7 +185,10 @@ const TabSection: React.FC<TabSectionProp> = ({
                     {contact.email}
                   </Typography>
                 </Box>
-                <Button variant="outlined" sx={{ textTransform: "none", fontSize: "12px", borderColor: "#007bff", color: "#007bff" }}>
+                <Button variant="outlined" sx={{ textTransform: "none", fontSize: "12px", 
+                  borderColor: "#007bff", color: "#007bff" }}
+                  onClick={() => handleEditContact(contact)} 
+                  >
                   Edit
                 </Button>
                 <Button variant="outlined" sx={{ textTransform: "none", fontSize: "12px", marginLeft: "8px", borderColor: "#007bff", color: "#007bff" }}>

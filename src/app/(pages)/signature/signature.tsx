@@ -15,7 +15,6 @@ const SignatureModal = ({ isOpen, modalType, onClose }) => {
     { fontFamily: "Birthstone" },
     { fontFamily: "AlexBrush" },
     { fontFamily: "Ephesis" },
-    { fontFamily: "EpicRide" },
     { fontFamily: "GreatVibes" },
     { fontFamily: "Helvetica" },
     { fontFamily: "Kalam" },

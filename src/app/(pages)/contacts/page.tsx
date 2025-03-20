@@ -27,9 +27,12 @@ export default function ContactsPage() {
 
   useEffect(() => {
     const fetchContacts = async () => {
+       
+    const userId = localStorage.getItem("userId");
+   
       try {
         setIsLoading(true);
-        const response = await fetch("https://ezsignature-backend-production.up.railway.app/contacts");
+        const response = await fetch(`https://ezsignature-backend-production.up.railway.app/contacts/user/${userId}`);
         if (!response.ok) {
           throw new Error("Failed to fetch contacts");
         }

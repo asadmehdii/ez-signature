@@ -32,6 +32,11 @@ const AddNewContact: React.FC = () => {
   const countryCode = getCountryCode(selectCountry);
 
   const handleSubmit = async () => {
+    const userId = localStorage.getItem("userId");
+    if (!userId) {
+      alert("User ID not found. Please log in again.");
+      return;
+    }
     const data = {
       firstName,
       lastName,
@@ -48,6 +53,7 @@ const AddNewContact: React.FC = () => {
       state,
       city,
       countryAddress,
+      userId: userId,
     };
 
     try {
