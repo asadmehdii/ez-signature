@@ -29,8 +29,10 @@ export default function NewDocumentPage() {
     const files = Array.from(event.target.files);
     const filePreviews = files.map((file) => ({
       name: file.name,
-      preview: URL.createObjectURL(file),
+      preview: URL.createObjectURL(new Blob([file], { type: file.type })),
     }));
+    
+    
     setUploadedFiles((prev) => [...prev, ...filePreviews]);
   };
 
@@ -222,7 +224,8 @@ const handlePrepareClick = () => {
 
 {/* Uploaded Files Section */}
 <Grid container direction="row" padding="15px" gap={2}>
-  {uploadedFiles.map((file, index) => (
+{uploadedFiles.map((file, index) => { const isImage = file.name.match(/.(jpeg|jpg|png|gif)$/i); const isPDF = file.name.match(/.pdf$/i);
+return (
     <Box
       key={index}
       sx={{
@@ -236,17 +239,51 @@ const handlePrepareClick = () => {
         gap: "5px",
       }}
     >
-      <Image 
-  src={file.preview}
-  alt={file.name}
-  width={100}
-  height={100}
-  layout="intrinsic" 
-  style={{
-    objectFit: "cover",
-    borderRadius: "4px",
-  }}
-/>
+         {isImage ? (
+      <Image
+        src={file.preview}
+        alt={file.name}
+        width={100}
+        height={100}
+        style={{
+          objectFit: "cover",
+          borderRadius: "4px",
+        }}
+      />
+    ) : isPDF ? (
+      <iframe
+      src={`${file.preview}#toolbar=0&navpanes=0&scrollbar=0`}
+      width={100}
+      height={100}
+      style={{
+        border: "none",
+        overflow: "hidden",
+      }}
+      title={file.name}
+    />
+    
+
+    ) : (
+      <Box
+        width={100}
+        height={100}
+        display="flex"
+        alignItems="center"
+        justifyContent="center"
+        sx={{
+          backgroundColor: "#f0f0f0",
+          borderRadius: "4px",
+          fontSize: "12px",
+          color: "#888",
+          textAlign: "center",
+          padding: "5px",
+        }}
+      >
+        No Preview
+      </Box>
+    )}
+
+
 
       <Typography
         variant="body2"
@@ -278,7 +315,8 @@ const handlePrepareClick = () => {
         ✕
       </IconButton>
     </Box>
-  ))}
+    );
+ })}
 </Grid>
 
      
@@ -393,4 +431,3 @@ const handlePrepareClick = () => {
     </Topbar>
   );
 };
-
