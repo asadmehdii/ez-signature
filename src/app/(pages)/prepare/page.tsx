@@ -1,7 +1,9 @@
 'use client';
 import React, { useEffect, useRef, useState } from 'react';
 import { Box, Typography, Paper, Divider, Button } from '@mui/material';
-import { Person, Edit, CalendarToday, TextFields, Business, Work, Email, CheckBox } from '@mui/icons-material'; import * as pdfjsLib from 'pdfjs-dist'; import 'pdfjs-dist/build/pdf.worker.entry'; import Topbar from "@/app/components/dashboardTopbar/topbar";
+import { Person, Edit, CalendarToday, TextFields, Business, Work, Email, CheckBox } from '@mui/icons-material';
+ import * as pdfjsLib from 'pdfjs-dist'; 
+ import 'pdfjs-dist/build/pdf.worker.entry'; import Topbar from "@/app/components/dashboardTopbar/topbar";
 
 const fields = [{ label: 'Signature', icon: <Person fontSize="small" />, type: 'signature' }, { label: 'Initials', icon: <Edit fontSize="small" />, type: 'initials' }, { label: 'Date Signed', icon: <CalendarToday fontSize="small" />, type: 'date' }, { label: 'Text', icon: <TextFields fontSize="small" />, type: 'text' }, { label: 'Full Name', icon: <Person fontSize="small" />, type: 'fullname' }, { label: 'Company', icon: <Business fontSize="small" />, type: 'company' }, { label: 'Title', icon: <Work fontSize="small" />, type: 'title' }, { label: 'Email', icon: <Email fontSize="small" />, type: 'email' }, { label: 'Checkbox', icon: <CheckBox fontSize="small" />, type: 'checkbox' }];
 
