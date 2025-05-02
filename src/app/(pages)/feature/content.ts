@@ -38,13 +38,13 @@ const FeatureFaqsQuestion = [
   ]
 
 const SignCardContent = [
-    {   icon:Assests.legalValidity,
-        heading:"Legal Validity & Compliance",
-        text:"eSignatures made by EzSignature meet all the strict security and authentication requirements defined in the United States and Europe.",
-        buttonText:"Learn More",
-        to: Route.FEATURE_PAGES 
+    // {   icon:Assests.legalValidity,
+    //     heading:"Legal Validity & Compliance",
+    //     text:"eSignatures made by EzSignature meet all the strict security and authentication requirements defined in the United States and Europe.",
+    //     buttonText:"Learn More",
+    //     to: Route.FEATURE_PAGES 
 
-    },
+    // },
     {   icon:Assests.ElectronicSign,
         heading:"Electronic Signatures",
         text:"Whether you're looking to draw your signature, type it, upload an existing one, or have our system generate a beautiful looking signature for you — after your first digital signature you will never want to go back.",

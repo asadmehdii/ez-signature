@@ -57,7 +57,7 @@ const Footer: FC = () => {
                   fontSize={18}
                   fontWeight="500"
                   text={item.text}
-                  to={`${item.navigate}?feature=${(item.featureName || "").replace(/\s+/g, "-")}`}
+                  to={item.navigate}
                   />
               ))}
             </Box>

@@ -6,12 +6,12 @@ const General = [
     { text: "Blogs", navigate: Route.BLOGS },
 ];
 const MainFeature = [
-    { text: "Electronic Signatures", navigate: Route.FEATURE_PAGES, featureName: "Electronic Signatures" },
-    { text: "Documents & Security", navigate: Route.FEATURE_PAGES, featureName: "Document Management & Security" },
-    { text: "In-Person Signing", navigate: Route.FEATURE_PAGES, featureName: "In-Person Signing" },
-    { text: "Audit Trail", navigate: Route.FEATURE_PAGES, featureName: "Audit Trail" },
-    { text: "Templates", navigate: Route.FEATURE_PAGES, featureName: "Templates" },
-    { text: "App Integrations", navigate: Route.FEATURE_PAGES, featureName: "Integration" },
+    { text: "Electronic Signatures", navigate: Route.ELECTRONIC_SIGNATURES },
+    { text: "Documents & Security", navigate: Route.SECURITY },
+    { text: "In-Person Signing", navigate: Route.IN_PERSON },
+    { text: "Audit Trail", navigate: Route.AUDIT_TRAIL },
+    { text: "Templates", navigate: Route.TEMPLATES},
+    { text: "App Integrations", navigate: Route.APP_INTEGRATION },
 ];
 const Developer = [
     { text: "Developer Portal", navigate: "#" },

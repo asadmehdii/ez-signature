@@ -6,18 +6,18 @@ import MoreQuestion from "@/app/components/more question";
 import SignAnytime from "@/app/components/signAnytime";
 import Footer from "@/app/components/footer";
 import Navbar from "@/app/components/navbar";
-import DocumentandEditor from "./document&editor";
-import AuditTrails from "./auditTrail/index";
+// import DocumentandEditor from "./document&editor";
+// import AuditTrails from "./auditTrail/index";
 import InPersonSigning from "./inPersonSigning/index";
-import ElectronicSignature from "./electronicSignature";
+// import ElectronicSignature from "./electronicSignature";
 // import { useSearchParams } from "next/navigation";
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
 import { CarouselData } from "./content";
-import DocumentManagement from "./documentManagement";
-import Templates from "./templates";
+// import DocumentManagement from "./documentManagement";
+// import Templates from "./templates";
 import MoreFeatures from "@/app/components/exploreMoreFeature";
-import Integration from "./integration";
+// import Integration from "./integration";
 
 
 
@@ -70,13 +70,13 @@ const handlePrev = () => {
     </Box>
     </ContentBox>
      {/* ---Render page accordint to the condition------------ */}
-      {feature === "Document Editor" && <DocumentandEditor/>}
-      {feature === "Audit Trail" && <AuditTrails/>}
-      {feature === "In-Person Signing" && <InPersonSigning/>}
-      {feature === "Electronic Signatures" && <ElectronicSignature/>}
-      {feature === "Document Management & Security" && <DocumentManagement/>}
-      {feature === "Templates" && <Templates/>}
-      {feature === "Integration" && <Integration/>}
+      {/* {feature === "Document Editor" && <DocumentandEditor/>} */}
+      {/* {feature === "Audit Trail" && <AuditTrails/>} */}
+      {/* {feature === "In-Person Signing" && <InPersonSigning/>} */}
+      {/* {feature === "Electronic Signatures" && <ElectronicSignature/>} */}
+      {/* {feature === "Document Management & Security" && <DocumentManagement/>} */}
+      {/* {feature === "Templates" && <Templates/>} */}
+      {/* {feature === "Integration" && <Integration/>} */}
 
      {/* ------------------------------ */}
     <MoreFeatures/>
