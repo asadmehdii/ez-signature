@@ -27,7 +27,7 @@ const Features:FC= ()=>{
                    <Button color="#fff" className="button" backgroundColor="var(--secondary-color)"
                     hoverStyle={{color:"var(--secondary-color)",bgcolor:"#F4F4F4",
                   border:"1px solid var(--secondary-color)"}}              
-                   to={Route.FEATURE_PAGES}
+                   to={Route.ELECTRONIC_SIGNATURES}
                    >Start Tour</Button>
               </Grid>
             {/* --------------------------------- */}

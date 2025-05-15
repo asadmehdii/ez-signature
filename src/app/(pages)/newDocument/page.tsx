@@ -25,16 +25,43 @@ export default function NewDocumentPage() {
   const [uploadedFiles, setUploadedFiles] = useState([]);
   const router = useRouter(); // Initialize the router from `next/navigation`
 
-  const handleFileUpload = (event) => {
-    const files = Array.from(event.target.files);
-    const filePreviews = files.map((file) => ({
-      name: file.name,
-      preview: URL.createObjectURL(new Blob([file], { type: file.type })),
+  // Read file as base64 Data URL for persistence
+  const readFileAsDataURL = (file) => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = () => reject(new Error('File reading failed'));
+      reader.readAsDataURL(file);
+    });
+  }
+const handleFileUpload = async (event) => {
+  const files = Array.from(event.target.files);
+
+  // Convert files to base64 data URLs and preview objects
+  const filePreviews = await Promise.all(
+    files.map(async (file) => {
+      const base64 = await readFileAsDataURL(file);
+      return {
+        name: file.name,
+        type: file.type,
+        base64,
+      };
+    })
+  );
+
+  setUploadedFiles((prev) => [...prev, ...filePreviews]);
+
+  // Store first uploaded file base64 in localStorage for prepare page
+  if (filePreviews.length > 0) {
+    localStorage.setItem('uploadedFileData', JSON.stringify({
+      name: filePreviews[0].name,
+      type: filePreviews[0].type,
+      dataUrl: filePreviews[0].base64,
     }));
-    
-    
-    setUploadedFiles((prev) => [...prev, ...filePreviews]);
-  };
+  }
+};
+
+
 
   const removeFile = (index) => {
     setUploadedFiles((prev) => prev.filter((_, i) => i !== index));

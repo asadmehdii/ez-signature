@@ -16,7 +16,7 @@ const Route = {
   IN_PERSON:"/inPersonSigning",
   TEMPLATES:"/featurestemplates",
   ELECTRONIC_SIGNATURES:"/electronicSignature",
-  SECURITY:"/documentManagement",
+  SECURITY:"/documentSecurity",
   SANDBOX_SIGNUP: "/sandbox",
   SANDBOX_ACCOUNT: "/sandbox/sandAccount",
   SANDBOX_ACCOUNT_API: "/sandbox/sandAccountApi",

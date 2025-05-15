@@ -23,7 +23,7 @@ interface Contact {
 }
 
 interface Team {
-  id: string;
+  _id: string;
   name: string;
   role: string;
   email: string;
@@ -80,24 +80,21 @@ const TabSection: React.FC<TabSectionProp> = ({
     
     const navigate = useRouter();
 
-    const handleEdit = (teamMember: any) => {
-      console.log("teamMember:", teamMember);  // Check the object here
-    
-      if (!teamMember._id) {
-        console.error("Team member ID (_id) is missing!");
-        return;  // Stop the navigation if the _id is missing
-      }
-    
-      const path = Route.NEW_TEAM_MEMBER;
-      const query = new URLSearchParams({
-        id: teamMember._id,  // Use _id instead of id
-        name: teamMember.name,
-        role: teamMember.role,
-        email: teamMember.email,
-      }).toString();
-    
-      navigate.push(`${path}?${query}`);
-    };
+ const handleEdit = (teamMember: Team) => {
+  console.log("Editing Team Member:", teamMember);
+
+  const path = "/newTeamMember"; // Edit form route
+  const query = new URLSearchParams({
+    id: teamMember._id, // Use _id for the backend
+    email: teamMember.email,
+    role: teamMember.role,
+  }).toString();
+
+  navigate.push(`${path}?${query}`);
+};
+
+
+
     
     const handleEditContact = (contact: any) => {
       console.log("Editing Contact:", contact); 
@@ -209,7 +206,7 @@ const TabSection: React.FC<TabSectionProp> = ({
           {filteredTeams.length > 0 ? (
             filteredTeams.map((team) => (
               <Box
-                key={team.id}
+                key={team._id}
                 sx={{
                   display: "flex",
                   alignItems: "center",

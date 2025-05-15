@@ -21,7 +21,7 @@ type ButtonProps = {
   borderColor?: string;
   color?: string;
   borderRadius?: number | string;
-  to?: string;
+  to?: string; // This will be the link destination
   sx?: SxProps<Theme>;
   hoverStyle?: SxProps<Theme>;
   disabled?: boolean;
@@ -66,21 +66,67 @@ const Button: FC<ButtonProps> = ({
     cursor: disabled ? "not-allowed" : "pointer",
     transition: "all 0.4s ease",
     transform: isPressed ? "scale(0.95)" : "scale(1)",
-    border:
-      type === "outlined" ? `${borderWidth}px solid ${borderColor}` : "none",
+    border: type === "outlined" ? `${borderWidth}px solid ${borderColor}` : "none",
     backgroundColor:
       type !== "contained" ? "transparent" : disabled ? "#ccc" : backgroundColor,
     color: color,
-    padding: "10px",
+    padding: "1px",
     height,
     width,
     fontSize,
     fontWeight,
     borderRadius,
     opacity: disabled ? 0.5 : 1,
+    textDecoration: "none",
     ...sx,
     ":hover": !disabled ? hoverStyle : {},
   };
+
+  // onClick handler to navigate programmatically on left click only, preserving right click open in new tab
+  const handleClick = (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
+    if (disabled) {
+      event.preventDefault();
+      return;
+    }
+    // 0 = left click
+    // For other clicks (like right click or middle click), do nothing to allow default browser behavior
+    if (
+      to &&
+      event.button === 0 &&
+      !event.metaKey &&
+      !event.ctrlKey &&
+      !event.shiftKey &&
+      !event.altKey
+    ) {
+      event.preventDefault();
+      router.push(to);
+      if (onClick) onClick();
+    } else {
+      if (onClick) onClick();
+    }
+  };
+
+  if (to) {
+    return (
+      <Box
+        component="a"
+        href={to}
+        className={className}
+        onClick={handleClick}
+        sx={buttonStyle}
+        style={style}
+        onFocus={onFocus}
+        onBlur={onBlur}
+        onMouseDown={handleMouseDown}
+        onMouseUp={handleMouseUp}
+        onMouseLeave={handleMouseUp}
+        aria-disabled={disabled}
+        tabIndex={disabled ? -1 : 0}
+      >
+        {children}
+      </Box>
+    );
+  }
 
   return (
     <Box
@@ -88,17 +134,16 @@ const Button: FC<ButtonProps> = ({
       className={className}
       onClick={() => {
         if (disabled) return;
-        if (to) router.push(to);
         if (onClick) onClick();
       }}
       sx={buttonStyle}
       style={style}
+      disabled={disabled}
       onFocus={onFocus}
       onBlur={onBlur}
       onMouseDown={handleMouseDown}
       onMouseUp={handleMouseUp}
       onMouseLeave={handleMouseUp}
-      disabled={disabled}
     >
       {children}
     </Box>
@@ -106,3 +151,5 @@ const Button: FC<ButtonProps> = ({
 };
 
 export default Button;
+
+

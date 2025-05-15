@@ -29,16 +29,7 @@ import axios from 'axios';
 const Dashboard: React.FC = () => {
   const [user, setUser] = useState<{ email: string } | null>(null);
       const [signature, setSignature] = useState<string | null>(null);
-      useEffect(() => {
-        try {
-          const storedUser = localStorage.getItem('user');
-          if (storedUser) {
-            setUser(JSON.parse(storedUser));
-          }
-        } catch (error) {
-          console.error('Error parsing user from local storage:', error);
-        }
-      }, []);
+     
       useEffect(() => {
         try {
           const storedUser = localStorage.getItem('user');
@@ -51,10 +42,24 @@ const Dashboard: React.FC = () => {
       }, []);
       const fetchSignature = async () => {
         try {
-          const response = await axios.post('https://ezsignature-backend-production.up.railway.app/signature/default', {
-            email: user?.email,
-          });
-    
+          const token = localStorage.getItem('token'); // Get token from localStorage
+      
+          if (!token) {
+            console.warn('No auth token found.');
+            return;
+          }
+      
+          const response = await axios.post(
+            'http://ezsignature.org/api/signature/default',
+            { email: user?.email },
+            {
+              headers: {
+                Authorization: `Bearer ${token}`, // Include the token in the Authorization header
+                'Content-Type': 'application/json',
+              },
+            }
+          );
+      
           if (response.data?.signature) {
             setSignature(response.data.signature.trim());
           } else {
@@ -64,12 +69,14 @@ const Dashboard: React.FC = () => {
           console.error('Failed to fetch signature:', error);
         }
       };
-    
+      
       useEffect(() => {
         if (user?.email) {
+          console.log("Fetching signature for user:", user.email);
           fetchSignature();
         }
       }, [user]);
+      
     
       useEffect(() => {
         console.log('Signature state after update:', signature); // Log state after update

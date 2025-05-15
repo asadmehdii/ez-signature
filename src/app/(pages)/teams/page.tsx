@@ -13,33 +13,49 @@ export default function TeamsPage() {
   const [teamMembers, setTeamMembers] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
 
-
   const handleTabChange = (event: any, newValue: any) => {
     setActiveTab(newValue);
   };
+const formatRole = (role: string) => {
+  const map: { [key: string]: string } = {
+    super_admin: "Super Admin",
+    manager: "Manager",
+    staff: "Staff",
+    read_only: "Read-Only"
+  };
+  return map[role] || role;
+};
 
   useEffect(() => {
-    const userId = localStorage.getItem('userId');
+  const userId = localStorage.getItem('userId');
 
-    if (userId) {
-      const fetchTeamData = async () => {
-        try {
-          const response = await fetch(`https://ezsignature-backend-production.up.railway.app/teams?userId=${userId}`);
-          const data = await response.json();
-          setTeamMembers(data);
-        } catch (error) {
-          console.error('Error fetching team data:', error);
-        } finally {
-          setLoading(false);
-        }
-      };
+  if (userId) {
+   const fetchTeamData = async () => {
+  try {
+    const response = await fetch(`http://localhost:4000/api/teams/${userId}`);
+    const data = await response.json();
 
-      fetchTeamData();
-    } else {
-      console.error('No userId found in localStorage');
-      setLoading(false);
-    }
-  }, []);
+    const formatted = data.map((member: any) => ({
+      ...member,
+      role: formatRole(member.role),
+    }));
+
+    setTeamMembers(formatted);
+  } catch (error) {
+    console.error('Error fetching team data:', error);
+  } finally {
+    setLoading(false);
+  }
+};
+
+
+    fetchTeamData();
+  } else {
+    console.error('No userId found in localStorage');
+    setLoading(false);
+  }
+}, []);
+
 
   return (
     <Topbar title="Teams" buttonText="New Team Members" firstBtnUrl={Route.NEW_TEAM_MEMBER}>
@@ -55,17 +71,17 @@ export default function TeamsPage() {
           activeTab={activeTab}
           handleTabChange={handleTabChange}
           tabLabels={['All']}
-          teams={teamMembers} // Pass the team members to TabSection
-          pageType="teams" // Set pageType as "teams"
-
+          teams={teamMembers}
+          pageType="teams"
         />
 
-        {/* Team Members */}
+        {/* Fallback messages */}
         <Grid container spacing={2}>
           {loading ? <p>Loading...</p> : null}
+          {!loading && teamMembers.length === 0 && <p>No team members found.</p>}
         </Grid>
 
-        {/* Pagination Bar */}
+        {/* Pagination */}
         <PaginationBar />
       </Grid>
     </Topbar>

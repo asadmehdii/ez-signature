@@ -15,7 +15,7 @@ const Route = {
   FEATURE_PAGES: "/features",
   IN_PERSON:"/inPersonSigning",
   TEMPLATES:"/featurestemplates",
-  SECURITY:"/documentManagement",
+  SECURITY:"/documentSecurity",
   SANDBOX_SIGNUP: "/sandbox",
   SANDBOX_ACCOUNT: "/sandbox/sandAccount",
   SANDBOX_ACCOUNT_API: "/sandbox/sandAccountApi",

@@ -92,7 +92,7 @@ const Home: FC = () => {
               height={58}
               width={184}
               borderRadius={"15px"}
-              to={Route.FEATURE_PAGES}
+              to={Route.ELECTRONIC_SIGNATURES}
             >
               Take a tour
             </Button>
@@ -317,7 +317,7 @@ const Home: FC = () => {
                 fontSize={12}
                 color="#fff"
                 fontWeight="700"
-                to={Route.FEATURE_PAGES}
+                to={Route.FEATURE}
 
               >
                 Learn more
@@ -512,9 +512,9 @@ const Home: FC = () => {
       <Box component="div" display="flex" justifyContent="center" my={12}>
         <Button backgroundColor={"#263238"} borderRadius={"19px"} height={69} hoverStyle={{border:"1px solid var(--text-color)",bgcolor:"#fff",
           color:"var(--text-color)"}} width={269} color="#fff" fontSize={18} fontWeight={"700"}
-          to={Route.FEATURE_PAGES}
+          to={Route.FEATURE}
           >
-          Browse All Categories
+          Browse All Features
         </Button>
       </Box>
       <Footer />

@@ -29,26 +29,42 @@ const MoreFeatures: React.FC<Props> = ({ mt, mb }) => {
               const navigatePath = item?.navigate ? `${item.navigate}?feature=${featureName}` : "#";
 
               return (
-                <Link key={featureName} href={navigatePath} passHref>
-                  <Box
-                    component="div"
-                    sx={{
-                      width: { xs: "100%", sm: "277px" },
-                      display: { xs: "flex", sm: "block" },
-                      justifyContent: "center",
-                      alignItems: "center",
-                      flexDirection: "column",
-                      textAlign: "center",
-                    }}
-                  >
-                    {item?.icon?.src && (
-                      <Box component="img" sx={Styles.bgEllipseImage} src={item.icon.src} alt={featureName} />
-                    )}
-                    <Text fontWeight="800" fontSize="22px" marginTop={2}>
-                      {item.featureName || "Feature"}
-                    </Text>
-                  </Box>
-                </Link>
+<MuiGrid
+                  item
+                  xs={12}
+                  sm={6}
+                  md={3}
+                  key={featureName}
+                  display="flex"
+                  justifyContent="center"
+                >
+                  <Link href={navigatePath} passHref>
+                    <Box
+                      component="div"
+                      sx={{
+                        width: "100%",
+                        maxWidth: 277,
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center",
+                        textAlign: "center",
+                        cursor: "pointer",
+                      }}
+                    >
+                      {item?.icon?.src && (
+                        <Box
+                          component="img"
+                          sx={Styles.bgEllipseImage}
+                          src={item.icon.src}
+                          alt={featureName}
+                        />
+                      )}
+                      <Text fontWeight="800" fontSize="22px" marginTop={2}>
+                        {item.featureName || "Feature"}
+                      </Text>
+                    </Box>
+                  </Link>
+                </MuiGrid>
               );
             })}
         </MuiGrid>

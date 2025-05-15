@@ -76,7 +76,7 @@ const Login: FC = () => {
     if (!validateInputs()) return;
   
     try {
-      const response = await axios.post("https://ezsignature-backend-production.up.railway.app/user/login", {
+      const response = await axios.post("http://localhost:4000/api/user/login", {
         email,
         password,
       });

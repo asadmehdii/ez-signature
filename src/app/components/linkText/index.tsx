@@ -1,40 +1,61 @@
-"use client"
+"use client";
 import React, { FC } from "react";
+import Link from "next/link";
 import { Typography, SxProps, Theme } from "@mui/material";
-import { useRouter } from "next/navigation";
 
 type ResponsiveTypographyProps = {
-  text: string; 
-  fontSize?: number; 
-  color?: string; 
-  className?: string; 
-  fontWeight?:string;
-  sx?:SxProps<Theme>;
-  cursor?:string;
-  hoverColor?:string;
-  to:string;
+  text: string;
+  fontSize?: number;
+  color?: string;
+  className?: string;
+  fontWeight?: string;
+  sx?: SxProps<Theme>;
+  cursor?: string;
+  hoverColor?: string;
+  to: string;
 };
 
-
 const Navigate: FC<ResponsiveTypographyProps> = ({
-    text,
-    fontSize,
-    color = "#000",
-    className,
-    fontWeight,
-    sx,
-    hoverColor,
-    cursor = "pointer",
-    to
-    
+  text,
+  fontSize,
+  color = "#000",
+  className,
+  fontWeight,
+  sx,
+  hoverColor,
+  cursor = "pointer",
+  to,
 }) => {
-    const navigate = useRouter() 
+  if (!to || typeof to !== "string") {
+    if (process.env.NODE_ENV !== "production") {
+      console.log("passed to <Navigate />:", to);
+    }
+    return null;
+  }
+
   return (
-    <Typography sx={{...sx,cursor:cursor,transition: "all 0.4s ease",fontFamily:"var(--font-mada)","&:hover": {
-          color: hoverColor, 
-        },}} fontSize={fontSize} color = {color} fontWeight={fontWeight} onClick ={()=>{navigate.push(to)}} className={className}>
-      {text}
-    </Typography>
+    <Link
+      href={to}
+      style={{ textDecoration: "none" }}
+    >
+      <Typography
+        sx={{
+          ...sx,
+          cursor,
+          transition: "all 0.4s ease",
+          fontFamily: "var(--font-mada)",
+          "&:hover": {
+            color: hoverColor,
+          },
+        }}
+        fontSize={fontSize}
+        color={color}
+        fontWeight={fontWeight}
+        className={className}
+      >
+        {text}
+      </Typography>
+    </Link>
   );
 };
 
