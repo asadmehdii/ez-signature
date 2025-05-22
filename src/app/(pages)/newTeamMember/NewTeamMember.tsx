@@ -98,7 +98,7 @@ const handleSave = async () => {
   try {
     const url = id
       ? `http://ezsignature.org/api/teams/${id}/role` // Update role endpoint
-      : `http://ezsignature.org/api/${userId}/invite`; // Invite endpoint
+      : `http://ezsignature.org/api/teams/${userId}/invite`; // Invite endpoint
 
     const method = id ? 'PATCH' : 'POST'; // Use PATCH for updating role
     const payload = id ? { role: backendRole } : { email, role: backendRole };
