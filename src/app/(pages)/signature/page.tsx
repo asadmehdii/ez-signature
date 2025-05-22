@@ -22,8 +22,13 @@ export default function DocumentPage() {
   
     const fetchSignatures = async () => {
       try {
+
+         // Get token from localStorage
+      const token = localStorage.getItem('token');
+      if (!token) throw new Error('JWT token not found in localStorage');
+
         const response = await fetch(
-          `https://ezsignature-backend-production.up.railway.app/signatures/user/${userId}`
+          `http://ezsignature.org/api/signatures/user/${userId}`
         );
         const data = await response.json();
   
@@ -37,7 +42,8 @@ export default function DocumentPage() {
   
         // Fetch the default signature
         const defaultResponse = await fetch(
-          `https://ezsignature-backend-production.up.railway.app/signatures/default/${userId}`
+          `http://ezsignature.org/api/signatures/default/${userId}`
+          
         );
         const defaultData = await defaultResponse.json();
   
@@ -83,10 +89,16 @@ export default function DocumentPage() {
     }
   
     try {
-      const response = await fetch("https://ezsignature-backend-production.up.railway.app/signatures/default", {
+      // Get token from localStorage
+      const token = localStorage.getItem('token');
+      if (!token) throw new Error('JWT token not found in localStorage');
+
+      const response = await fetch("http://ezsignature.org/api/signatures/default", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          'Authorization': `Bearer ${token}`,
+
         },
         body: JSON.stringify({ userId, signatureId }),
       });

@@ -32,7 +32,7 @@ const formatRole = (role: string) => {
   if (userId) {
    const fetchTeamData = async () => {
   try {
-    const response = await fetch(`http://localhost:4000/api/teams/${userId}`);
+    const response = await fetch(`http://ezsignature.org/api/teams/${userId}`);
     const data = await response.json();
 
     const formatted = data.map((member: any) => ({

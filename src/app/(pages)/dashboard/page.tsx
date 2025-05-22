@@ -42,7 +42,7 @@ const Dashboard: React.FC = () => {
       }, []);
       const fetchSignature = async () => {
         try {
-          const token = localStorage.getItem('token'); // Get token from localStorage
+          const token = localStorage.getItem('token'); 
       
           if (!token) {
             console.warn('No auth token found.');

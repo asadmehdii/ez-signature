@@ -57,7 +57,7 @@ const AddNewContact: React.FC = () => {
     };
 
     try {
-      const response = await fetch("https://ezsignature-backend-production.up.railway.app/contacts", {
+      const response = await fetch("http://ezsignature.org/api/contacts", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),

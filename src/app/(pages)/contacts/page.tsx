@@ -32,7 +32,7 @@ export default function ContactsPage() {
    
       try {
         setIsLoading(true);
-        const response = await fetch(`http://localhost:4000/api/contacts/user/${userId}`);
+        const response = await fetch(`http://ezsignature.org/api/contacts/user/${userId}`);
         if (!response.ok) {
           throw new Error("Failed to fetch contacts");
         }

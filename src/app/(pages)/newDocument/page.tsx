@@ -3,8 +3,8 @@ import React, { useState } from "react";
 import { ToggleButtonGroup, ToggleButton, IconButton, Button, Box,Typography} from "@mui/material";
 import Checkbox from '@mui/material/Checkbox';
 import Grid from "@mui/material/Grid2";
-import DropBoxIcon from "@mui/icons-material/Storage"; // Placeholder for Dropbox
-import GoogleDriveIcon from "@mui/icons-material/DriveFileMove"; // Placeholder for Google Drive
+import DropBoxIcon from "@mui/icons-material/Storage"; 
+import GoogleDriveIcon from "@mui/icons-material/DriveFileMove"; 
 import Topbar from "@/app/components/dashboardTopbar/topbar";
 import who_just_me from "@/app/assests/images/who_just_me.png";
 import who_just_others from "@/app/assests/images/who_just_others.png";
@@ -17,15 +17,27 @@ import { Diversity1Outlined, PersonOutlineOutlined, ClearOutlined, DraftsOutline
 import { grey } from '@mui/material/colors';
 import CustomPopover from "@/app/components/popover";
 import ModelToggle from "@/app/components/modelToggle";
-import { useRouter } from "next/navigation"; // Use `next/navigation` instead of `next/router`
+import { useRouter } from "next/navigation"; 
 
 
 export default function NewDocumentPage() {
   const [selection, setSelection] = useState("me-only");
   const [uploadedFiles, setUploadedFiles] = useState([]);
-  const router = useRouter(); // Initialize the router from `next/navigation`
+  const router = useRouter(); 
+const [documentTitle, setDocumentTitle] = useState("");
+const [documentMessage, setDocumentMessage] = useState("");
+  const [recipient, setRecipient] = useState({ name: "", email: "" });
+const [settings, setSettings] = useState({
+  autoReminder: true,
+  requireAllSigners: true,
+  expireAfter: "3 months", 
+});
 
-  // Read file as base64 Data URL for persistence
+ const handleChange = (e) => {
+    const { name, value } = e.target;
+    setRecipient((prev) => ({ ...prev, [name]: value }));
+  };
+
   const readFileAsDataURL = (file) => {
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
@@ -37,7 +49,6 @@ export default function NewDocumentPage() {
 const handleFileUpload = async (event) => {
   const files = Array.from(event.target.files);
 
-  // Convert files to base64 data URLs and preview objects
   const filePreviews = await Promise.all(
     files.map(async (file) => {
       const base64 = await readFileAsDataURL(file);
@@ -45,13 +56,13 @@ const handleFileUpload = async (event) => {
         name: file.name,
         type: file.type,
         base64,
+        file,
       };
     })
   );
 
   setUploadedFiles((prev) => [...prev, ...filePreviews]);
 
-  // Store first uploaded file base64 in localStorage for prepare page
   if (filePreviews.length > 0) {
     localStorage.setItem('uploadedFileData', JSON.stringify({
       name: filePreviews[0].name,
@@ -88,11 +99,187 @@ const signerOptions =[
   "Signer",
   "CC",
 ]
-const handlePrepareClick = () => {
-  router.push("/prepare"); // Navigate to the "Prepare" page
+
+const expiryDaysMap = {
+  "1 day": 1,
+  "3 days": 3,
+  "7 days": 7,
+  "2 weeks": 14,
+  "3 weeks": 21,
+  "1 month": 30,
+  "3 months": 90,
+  "6 months": 180,
 };
+
+const parseExpiryToDays = (expiry) => {
+  const cleanExpiry = expiry.split(" (")[0]; // removes everything after " ("
+  return expiryDaysMap[cleanExpiry] || 30; // fallback to 30 days
+};
+;
+const handleSaveDraftClick = async () => {
+  if (uploadedFiles.length === 0) {
+    alert("Please upload a file.");
+    return;
+  }
+
+  if (!documentTitle.trim()) {
+    alert("Please enter a document title.");
+    return;
+  }
+
+  const file = uploadedFiles[0];
+
+  let currentUser  = { name: "", email: "" };
+  try {
+    const userFromStorage = localStorage.getItem("user");
+    if (userFromStorage) {
+      currentUser  = JSON.parse(userFromStorage);
+    }
+  } catch (err) {
+    console.error("Failed to parse user from localStorage", err);
+  }
+
+  const fileUrl = `https://dmiboomlaxybbzwlrohz.supabase.co/storage/v1/object/public/document/document/${file.name}`;
+
+  const dataPayload = {
+    title: documentTitle,
+    signingOption: "",
+    recipients: [],
+    message: documentMessage || (selection === "others-only" ? "Please review and sign this document" : "Please sign this document"),
+    enableAutoReminder: settings.autoReminder,
+    requireAllSigners: settings.requireAllSigners,
+    expireAfterDays: parseExpiryToDays(settings.expireAfter),
+    status: "draft", 
+    fileUrl: fileUrl,
+    fileType: file.type,
+  };
+
+  if (selection === "me-only") {
+    dataPayload.signingOption = "Me Only";
+    dataPayload.currentUser  = currentUser ;
+  } else if (selection === "me-and-others") {
+    dataPayload.signingOption = "Me & Others";
+    dataPayload.recipients = [recipient];
+    dataPayload.currentUser  = currentUser ;
+  } else if (selection === "others-only") {
+    dataPayload.signingOption = "Others Only";
+    dataPayload.recipients = [recipient];
+  }
+      const token = localStorage.getItem('token');
+      if (!token) throw new Error('JWT token not found in localStorage');
+  try {
+    const response = await fetch("http://ezsignature.org/api/document/create", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        'Authorization': `Bearer ${token}`,
+      },
+      body: JSON.stringify(dataPayload),
+    });
+
+    const result = await response.json();
+    if (response.ok) {
+      alert("Draft saved successfully.");
+      router.push("/documents"); // Redirect to drafts page or wherever appropriate
+    } else {
+      console.error("Error Data:", result);
+      alert("Failed to save draft: " + (result.message || response.statusText));
+    }
+  } catch (error) {
+    alert("Error while saving draft: " + error.message);
+  }
+};
+
+const handlePrepareClick = async () => {
+  if (uploadedFiles.length === 0) {
+    alert("Please upload a file.");
+    return;
+  }
+
+  if (!documentTitle.trim()) {
+    alert("Please enter a document title.");
+    return;
+  }
+
+  const file = uploadedFiles[0];
+
+  // ✅ Get current user from localStorage
+  let currentUser = { name: "", email: "" };
+  try {
+    const userFromStorage = localStorage.getItem("user");
+    if (userFromStorage) {
+      currentUser = JSON.parse(userFromStorage);
+    }
+  } catch (err) {
+    console.error("Failed to parse user from localStorage", err);
+  }
+
+  const fileUrl = `https://dmiboomlaxybbzwlrohz.supabase.co/storage/v1/object/public/document/document/${file.name}`;
+
+  const dataPayload = {
+  title: documentTitle,
+  signingOption: "",
+  recipients: [],
+  message:
+    documentMessage ||
+    (selection === "others-only"
+      ? "Please review and sign this document"
+      : "Please sign this document"),
+  enableAutoReminder: settings.autoReminder,
+  requireAllSigners: settings.requireAllSigners,
+  expireAfterDays: parseExpiryToDays(settings.expireAfter),
+  status: "in_process",
+  fileUrl: fileUrl,
+  fileType: file.type,
+};
+
+
+  // ✅ Populate based on selection
+  if (selection === "me-only") {
+    dataPayload.signingOption = "Me Only";
+    dataPayload.currentUser = currentUser;
+  } else if (selection === "me-and-others") {
+    dataPayload.signingOption = "Me & Others";
+    dataPayload.recipients = [recipient]; // ✅ use input state
+
+    dataPayload.currentUser = currentUser;
+  } else if (selection === "others-only") {
+    dataPayload.signingOption = "Others Only";
+     dataPayload.recipients = [recipient]; 
+
+  }
+
+  const token = localStorage.getItem('token');
+   if (!token) throw new Error('JWT token not found in localStorage');
+
+  try {
+    const response = await fetch("http://ezsignature.org/api/document/create", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        'Authorization': `Bearer ${token}`,
+
+      },
+      body: JSON.stringify(dataPayload),
+    });
+
+    const result = await response.json();
+    if (response.ok) {
+      alert("Document created successfully.");
+      router.push("/prepare");
+    } else {
+      console.error("Error Data:", result);
+      alert("Failed to create document: " + (result.message || response.statusText));
+    }
+  } catch (error) {
+    alert("Error while creating document: " + error.message);
+  }
+};
+
+
+
   return (
-    <Topbar  title='New Document' buttonText='prepare' secondText='Quick Send' outlinedBtn='Save Draft' onFirstBtnClick={handlePrepareClick} // Pass the navigation function
+    <Topbar  title='New Document' buttonText='prepare' secondText='Quick Send' outlinedBtn='Save Draft' onFirstBtnClick={handlePrepareClick}   onSecondBtnClick={handleSaveDraftClick} // Save Draft button
 >
       <Grid component={"section"} marginLeft={"30px"} marginRight={"30px"} paddingBottom={"20px"}>
         <form>
@@ -251,7 +438,10 @@ const handlePrepareClick = () => {
 
 {/* Uploaded Files Section */}
 <Grid container direction="row" padding="15px" gap={2}>
-{uploadedFiles.map((file, index) => { const isImage = file.name.match(/.(jpeg|jpg|png|gif)$/i); const isPDF = file.name.match(/.pdf$/i);
+{uploadedFiles.map((file, index) => { const isImage = file.name.match(/.(jpeg|jpg|png|gif)$/i); 
+const isPDF = file.name.match(/.pdf$/i);
+
+
 return (
     <Box
       key={index}
@@ -368,29 +558,77 @@ return (
 
 {/* 2nd div */}
 
-    <Grid component={"section"} container padding={"15px 20px"} borderBottom= {"1px solid #d7d7d9"} justifyContent={"space-between"} width={"100%"}>
-      <Grid component={"div"} container>
-        <Grid component={"div"} container direction={"row"} gap={1}>
-        <Box sx={{display:"flex", alignItems: "center",height:32,my:"auto",border:"1px solid #d7d7d9", borderRadius:"3px",}}>
-         < PersonOutlineOutlined sx={{px:0.5,color: grey[500], borderRight:"1px solid #d7d7d9", background: "rgba(25, 118, 210, 0.08)",height:32}}/>
-            <input type="text" placeholder="Signer's Name" style={{border: "none",width:"100%",height:"100%",background:"transparent",outline:"none"}} />
-          </Box>
-          <Box sx={{display:"flex", alignItems: "center",height:32,my:"auto",border:"1px solid #d7d7d9", borderRadius:"3px",}}>
-            <DraftsOutlined  sx={{px:0.5,color: grey[500], borderRight:"1px solid #d7d7d9", background: "rgba(25, 118, 210, 0.08)",height:32}}/>
-            <input type="text" placeholder="Signer's Mail" style={{border: "none",width:"100%",height:"100%",background:"transparent",outline:"none"}} />
-          </Box>
-        <CustomPopover title="Signer" options={signerOptions}/>
-        <ModelToggle/>
-        </Grid>
-      </Grid>
-      <Grid  component={"div"} container gap={1}>
-      <Box sx={{display: "flex", alignItems: "center",background: "rgba(25, 118, 210, 0.08)", border:"1px solid #d7d7d9", borderRadius:"3px", height:32,px:1,cursor:"pointer",my:"auto"}}>EN
-</Box>
-<Box sx={{display: "flex", alignItems: "center",background: "rgba(25, 118, 210, 0.08)", border:"1px solid #d7d7d9", borderRadius:"3px",height:32,my:"auto",px:0.5}}>
-  <ClearOutlined  sx={{color: grey[500]}}/>
-</Box>
-      </Grid>
+  <Grid component={"section"} container padding={"15px 20px"} borderBottom={"1px solid #d7d7d9"} justifyContent={"space-between"} width={"100%"}>
+  <Grid component={"div"} container>
+    <Grid component={"div"} container direction={"row"} gap={1}>
+      {/* Signer Name Input */}
+      <Box sx={{ display: "flex", alignItems: "center", height: 32, my: "auto", border: "1px solid #d7d7d9", borderRadius: "3px" }}>
+        <PersonOutlineOutlined
+          sx={{ px: 0.5, color: grey[500], borderRight: "1px solid #d7d7d9", background: "rgba(25, 118, 210, 0.08)", height: 32 }}
+        />
+        <input
+          type="text"
+          name="name" 
+          value={recipient.name}
+          onChange={handleChange}
+          placeholder="Signer's Name"
+          style={{ border: "none", width: "100%", height: "100%", background: "transparent", outline: "none" }}
+        />
+      </Box>
+
+      {/* Signer Email Input */}
+      <Box sx={{ display: "flex", alignItems: "center", height: 32, my: "auto", border: "1px solid #d7d7d9", borderRadius: "3px" }}>
+        <DraftsOutlined
+          sx={{ px: 0.5, color: grey[500], borderRight: "1px solid #d7d7d9", background: "rgba(25, 118, 210, 0.08)", height: 32 }}
+        />
+        <input
+          type="text"
+          name="email" // ✅ this is required for handleChange
+          value={recipient.email}
+          onChange={handleChange}
+          placeholder="Signer's Mail"
+          style={{ border: "none", width: "100%", height: "100%", background: "transparent", outline: "none" }}
+        />
+      </Box>
+
+      <CustomPopover title="Signer" options={signerOptions} />
+      <ModelToggle />
     </Grid>
+  </Grid>
+
+  <Grid component={"div"} container gap={1}>
+    <Box
+      sx={{
+        display: "flex",
+        alignItems: "center",
+        background: "rgba(25, 118, 210, 0.08)",
+        border: "1px solid #d7d7d9",
+        borderRadius: "3px",
+        height: 32,
+        px: 1,
+        cursor: "pointer",
+        my: "auto",
+      }}
+    >
+      EN
+    </Box>
+    <Box
+      sx={{
+        display: "flex",
+        alignItems: "center",
+        background: "rgba(25, 118, 210, 0.08)",
+        border: "1px solid #d7d7d9",
+        borderRadius: "3px",
+        height: 32,
+        my: "auto",
+        px: 0.5,
+      }}
+    >
+      <ClearOutlined sx={{ color: grey[500] }} />
+    </Box>
+  </Grid>
+</Grid>
+
 {/* 3rd div */}
 <Grid component={"section"} container padding={"15px 20px"} justifyContent={"space-between"} width={"100%"}>
       <CustomButton color="#fff" fontWeight="500" fontSize={16} borderRadius={20} borderWidth={1} borderColor="var(--secondary-color)" height={"35px"} width={"fit-content"} style={{padding:"0 28px", display:"flex",alignItems:"center"}}>Add Signer to CC</CustomButton>
@@ -414,12 +652,15 @@ return (
           {/* 2nd div */}
           <Grid component={"div"} container direction={"column"} padding={"15px 20px"} width={"100%"} borderBottom={"1px solid #c7c7c9"}>
             <label htmlFor="" className="title_label">Document Title</label>
-            <input type="text" className="title_input" placeholder="Please sign this document" style={{height: "35px"}}/>
+            <input     value={documentTitle} // Bind the value to the state
+    onChange={(e) => setDocumentTitle(e.target.value)} // Update state on change
+ type="text" className="title_input" placeholder="Please sign this document" style={{height: "35px"}}/>
           </Grid>
           {/* 3rd div */}
           <Grid component={"div"} container direction={"column"} padding={"15px 20px"} width={"100%"} borderBottom={"1px solid #c7c7c9"}>
             <label htmlFor="" className="title_label">Message</label>
-            <textarea rows={3}  name="" id="" placeholder="Enter Message(optional)" className="title_input" style={{padding: "5px 3px",minHeight:32}}/>
+            <textarea     value={documentMessage}      onChange={(e) => setDocumentMessage(e.target.value)} 
+ rows={3}  name="" id="" placeholder="Enter Message" className="title_input" style={{padding: "5px 3px",minHeight:32}}/>
           </Grid>
           </Grid>
 
@@ -434,12 +675,19 @@ return (
       {/* 2nd div */}
       <Grid component={"div"} container direction={"column"} padding={"15px 20px"} width={"100%"} borderBottom={"1px solid #c7c7c9"}>
       <Grid component={"div"} container alignItems={"center"}>
-        <Checkbox defaultChecked size="small" sx={{padding: "9px 9px 9px 0"}} />
+        <Checkbox  checked={settings.autoReminder}
+  onChange={(e) =>
+    setSettings((prev) => ({ ...prev, autoReminder: e.target.checked }))
+  }
+          size="small" sx={{padding: "9px 9px 9px 0"}} />
         <Text fontSize="0.875rem" color="rgb(0 8 61)">Enable auto reminders</Text>
         <Help fontSize="small" sx={{color: grey[300], marginLeft: "5px"}} />
         </Grid>
         <Grid component={"div"} container alignItems={"center"}>
-        <Checkbox defaultChecked size="small" sx={{padding: "9px 9px 9px 0"}}/>
+        <Checkbox   checked={settings.requireAllSigners} onChange={(e) =>
+    setSettings((prev) => ({ ...prev, requireAllSigners: e.target.checked }))
+  }
+size="small" sx={{padding: "9px 9px 9px 0"}}/>
         <Text fontSize="0.875rem" color="rgb(0 8 61)">Require all signers to sign to complete document</Text>
         <Help fontSize="small" sx={{color: grey[300], marginLeft: "5px"}} />
         </Grid>      
@@ -448,7 +696,15 @@ return (
           <Grid component={"div"} container direction={"column"} padding={"15px 20px"} width={"100%"} borderBottom={"1px solid #c7c7c9"}>
       <Grid component={"div"} container direction={"column"}>
         <Text marginBottom={6} fontSize="0.875rem" color="rgb(0 8 61)">Expire Document After</Text>
-       <CustomPopover options={options} title="3 months"/>
+  <CustomPopover
+  options={options}
+  title={settings.expireAfter}
+  onChange={(selected) =>
+    setSettings((prev) => ({ ...prev, expireAfter: selected }))
+  }
+/>
+
+
         </Grid>      
       </Grid>
           </Grid>

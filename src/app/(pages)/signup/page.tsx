@@ -84,7 +84,7 @@ const SignUp: FC = () => {
 
     setIsSubmitting(true);
     try {
-      const response = await fetch("https://ezsignature-backend-production.up.railway.app/user/signup", {
+      const response = await fetch("http://ezsignature.org/api/user/signup", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
