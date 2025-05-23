@@ -63,13 +63,6 @@ const handleFileUpload = async (event) => {
 
   setUploadedFiles((prev) => [...prev, ...filePreviews]);
 
-  if (filePreviews.length > 0) {
-    localStorage.setItem('uploadedFileData', JSON.stringify({
-      name: filePreviews[0].name,
-      type: filePreviews[0].type,
-      dataUrl: filePreviews[0].base64,
-    }));
-  }
 };
 
 

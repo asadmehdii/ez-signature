@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import { ToggleButtonGroup, ToggleButton, IconButton, Button, Box } from "@mui/material";
+import { ToggleButtonGroup, ToggleButton, IconButton, Button, Box , Typography } from "@mui/material";
 import Checkbox from '@mui/material/Checkbox';
 import Grid from "@mui/material/Grid2";
 import DropBoxIcon from "@mui/icons-material/Storage"; // Placeholder for Dropbox
@@ -13,6 +13,7 @@ import { Diversity1Outlined, PersonPinOutlined, AddLink, NoteOutlined, ClearOutl
 import { grey } from '@mui/material/colors';
 import CustomPopover from "@/app/components/popover";
 import { useRouter } from "next/navigation"; // Use `next/navigation` instead of `next/router`
+import Image from "next/image";
 
 
 export default function NewTemplatePage() {
@@ -24,6 +25,7 @@ export default function NewTemplatePage() {
   const [availableToStaff, setAvailableToStaff] = useState(false);
   const [lockForStaff, setLockForStaff] = useState(false);
   const router = useRouter(); // Initialize the router from `next/navigation`
+ const [uploadedFiles, setUploadedFiles] = useState([]);
 
   const handleSelectionChange = (event: React.MouseEvent<HTMLElement>, newSelection: string) => {
     if (newSelection) setSelection(newSelection);
@@ -35,6 +37,40 @@ export default function NewTemplatePage() {
     }
   };
 
+   const readFileAsDataURL = (file) => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = () => reject(new Error('File reading failed'));
+      reader.readAsDataURL(file);
+    });
+  }
+const handleFileUpload = async (event) => {
+  const files = Array.from(event.target.files);
+  console.log("Selected files:", files); // Debugging line
+  if (files.length > 0) {
+    setFile(files[0]); 
+  }
+  const filePreviews = await Promise.all(
+    files.map(async (file) => {
+      const base64 = await readFileAsDataURL(file);
+      return {
+        name: file.name,
+        type: file.type,
+        base64,
+        file,
+        preview: base64,
+      };
+    })
+  );
+  setUploadedFiles((prev) => [...prev, ...filePreviews]);
+};
+
+
+  
+  const removeFile = (index) => {
+    setUploadedFiles((prev) => prev.filter((_, i) => i !== index));
+  };
   const handleRoleChange = (index: number, value: string) => {
     const newRoles = [...roles];
     newRoles[index].rolename = value;
@@ -45,89 +81,93 @@ export default function NewTemplatePage() {
     setRoles([...roles, { rolename: "" }]);
   };
 
-  const handleSaveDraft = async () => {
-    if (!file) {
-      alert("Please select a file before saving draft.");
-      return;
+const handleSaveDraft = async () => {
+  console.log("File to be uploaded:", file); // Debugging line
+
+  if (!file) {
+    alert("Please select a file before saving draft.");
+    return;
+  }
+
+  const formData = new FormData();
+  formData.append('file', file);
+  formData.append('data', JSON.stringify({
+    title,
+    message,
+    roles,
+    availableToStaff,
+    lockForStaff,
+    status: "draft"
+  }));
+
+  try {
+    const token = localStorage.getItem("token"); // Ensure you have a valid token
+    const response = await fetch('http://ezsignature.org/api/template/create', {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${token}`
+      },
+      body: formData,
+    });
+
+    if (response.ok) {
+      const result = await response.json();
+      console.log('Draft saved successfully:', result);
+      alert('Draft saved successfully!');
+    } else {
+      const errorText = await response.text();
+      console.error('Error saving draft:', errorText);
+      alert(`Error saving draft: ${errorText}`);
     }
-    const formData = new FormData();
-    formData.append('file', file);
-    formData.append('data', JSON.stringify({
-      title,
-      message,
-      roles,
-      availableToStaff,
-      lockForStaff,
-      status: "draft"
-    }));
+  } catch (error) {
+    console.error('Error:', error);
+    alert("An error occurred while saving the draft.");
+  }
+};
 
-    try {
-      const token = localStorage.getItem("token");
-      const response = await fetch('http://ezsignature.org/api/template/create', {
-        method: 'POST',
-        headers: {
-          Authorization: `Bearer ${token}`
-        },
-        body: formData,
-      });
 
-      if (response.ok) {
-        const result = await response.json();
-        console.log('Draft saved successfully:', result);
-        alert('Draft saved successfully!');
-      } else {
-        const errorText = await response.text();
-        console.error('Error saving draft:', errorText);
-        alert(`Error saving draft: ${errorText}`);
-      }
-    } catch (error) {
-      console.error('Error:', error);
-      alert("An error occurred while saving the draft.");
-    }
-  };
+const handlePrepareClick = async () => {
+  if (!file) {
+    alert("Please select a file before saving.");
+    return;
+  }
+  const formData = new FormData();
+  formData.append('file', file);
+  formData.append('data', JSON.stringify({
+    title,
+    message,
+    roles,
+    availableToStaff,
+    lockForStaff,
+    status: "active"
+  }));
 
-  const handlePrepareClick = async () => {
-    if (!file) {
-      alert("Please select a file before saving.");
-      return;
-    }
-    const formData = new FormData();
-    formData.append('file', file);
-    formData.append('data', JSON.stringify({
-      title,
-      message,
-      roles,
-      availableToStaff,
-      lockForStaff,
-      status: "active"
-    }));
+  try {
+    const token = localStorage.getItem("token"); // Ensure you still have a way to get the token
+    const response = await fetch('http://ezsignature.org/api/template/create', {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${token}`
+      },
+      body: formData,
+    });
 
-    try {
-      const token = localStorage.getItem("token");
-      const response = await fetch('http://ezsignature.org/api/template/create', {
-        method: 'POST',
-        headers: {
-          Authorization: `Bearer ${token}`
-        },
-        body: formData,
-      });
-
-      if (response.ok) {
-        const result = await response.json();
-        console.log('Saved successfully:', result);
-        alert('Saved successfully!');
+    if (response.ok) {
+      const result = await response.json();
+      console.log('Saved successfully:', result);
+      alert('Saved successfully!');
       router.push("/prepare");
-
-      } else {
-        const errorText = await response.text();
-        console.error('Error saving:', errorText);
-        alert(`Error saving: ${errorText}`);
-      }
-    } catch (error) {
-      console.error('Error:', error);
-      alert("An error occurred while saving.");
+    } else {
+      const errorText = await response.text();
+      console.error('Error saving:', errorText);
+      alert(`Error saving: ${errorText}`);
     }
-  };
+  } catch (error) {
+    console.error('Error:', error);
+    alert("An error occurred while saving.");
+  }
+};
+
 
   return (
     <Topbar
@@ -191,31 +231,191 @@ export default function NewTemplatePage() {
             borderRadius={"3px"}
             gap={2}
           >
-            <Grid component={"section"} container direction={"row"} padding={"15px 20px"} justifyContent={"space-between"} borderBottom={"1px solid #d7d7d9"}>
-              <Grid component={"div"} container direction={"column"}>
-                <Button component="label"
-                  sx={{ color: "var(--secondary-color)", padding: "0 28px", display: "flex", alignItems: "center", fontWeight: "500", fontSize: "16", borderRadius: "20px", border: "1px solid var(--secondary-color)", height: "35px", width: "fit-content" }}>
-                  Choose Files
-                  <input hidden type="file" onChange={handleFileChange} />
-                </Button>
-                <Text color="rgb(123 129 145)" fontSize="0.75rem" margin={5}>
-                  Supported formats: .pdf, .docx, .txt, .png, .jpg, .ppt. You can find more details about File Upload
-                  <Link href="" style={{ color: "rgb(2 6 168)", fontWeight: "400" }}> here.</Link>
-                </Text>
-              </Grid>
-              <Grid component={"div"} container alignItems={"center"} gap={2}>
-                <IconButton>
-                  <DropBoxIcon />
-                </IconButton>
-                <IconButton>
-                  <GoogleDriveIcon />
-                </IconButton>
-                <CustomButton color="#fff" fontWeight="500" fontSize={16} borderRadius={20} borderWidth={1} borderColor="var(--secondary-color)" height={"35px"} width={"fit-content"} style={{ padding: "0 28px", display: "flex", alignItems: "center" }}>New Template</CustomButton>
-              </Grid>
-            </Grid>
-            <Grid component={"section"} container direction={"row"} padding={"15px 20px"} justifyContent={"center"} color="rgb(123 129 145)" borderBottom={"1px solid #d7d7d9"}>
-              Drag files here
-            </Grid>
+           <Grid
+             container
+             direction="row"
+             padding="15px 20px"
+             justifyContent="space-between"
+             alignItems="center"
+             borderBottom="1px solid #d7d7d9"
+           >
+             <Grid container direction="column">
+               <Button
+                 component="label"
+                 sx={{color: "var(--secondary-color)", padding:"0 28px",  display:"flex", alignItems:"center", fontWeight: "500", fontSize:"16",  borderRadius: "20px", border:"1px solid var(--secondary-color)", height:"35px", width:"fit-content" }}
+               >
+                 Choose Files
+                 <input hidden type="file" multiple onChange={handleFileUpload} />
+               </Button>
+               <Typography
+                 color="rgb(123 129 145)"
+                 fontSize="0.75rem"
+                 margin="5px 0 0 0"
+               >
+                 Supported formats: .pdf, .docx, .txt, .png, .jpg, .ppt. You can find
+                 more details about File Upload{" "}
+                 <Link
+                   href="#"
+                   style={{ color: "rgb(2 6 168)", fontWeight: 400 }}
+                 >
+                   here.
+                 </Link>
+               </Typography>
+             </Grid>
+           
+             {/* Cloud Services Section */}
+             <Grid container alignItems="center" gap={2}>
+               <IconButton>
+                 <DropBoxIcon />
+               </IconButton>
+               <IconButton>
+                 <GoogleDriveIcon />
+               </IconButton>
+               <Button
+                 sx={{
+                   color: "#fff",
+                   fontWeight: 500,
+                   fontSize: 16,
+                   borderRadius: 20,
+                   borderWidth: 1,
+                   borderColor: "var(--secondary-color)",
+                   height: "35px",
+                   width: "fit-content",
+                   padding: "0 28px",
+                   display: "flex",
+                   alignItems: "center",
+                   background: "var(--secondary-color)",
+                   transition: "background-color 0.3s ease",
+                   "&:hover": {
+                     backgroundColor: "var(--secondary-color-hover)",
+                   },
+                 }}
+               >
+                 New Template
+               </Button>
+             </Grid>
+           </Grid>
+           
+           {/* Drag and Drop Section */}
+           <Grid
+             container
+             justifyContent="center"
+             alignItems="center"
+             padding="15px 20px"
+             color="rgb(123 129 145)"
+             borderBottom="1px solid #d7d7d9"
+             sx={{
+               cursor: "pointer",
+               backgroundColor: "#f8f9fa",
+               borderRadius: "4px",
+               "&:hover": {
+                 backgroundColor: "#e9ecef",
+               },
+             }}
+           >
+             Drag files here
+           </Grid>
+           
+           {/* Uploaded Files Section */}
+           <Grid container direction="row" padding="15px" gap={2}>
+           {uploadedFiles.map((file, index) => {
+             const isImage = file.name.match(/.(jpeg|jpg|png|gif)$/i); 
+           const isPDF = file.name.match(/.pdf$/i);
+           
+           
+           return (
+               <Box
+                 key={index}
+                 sx={{
+                   border: "1px solid #d7d7d9",
+                   borderRadius: "4px",
+                   padding: "10px",
+                   position: "relative",
+                   display: "flex",
+                   flexDirection: "column",
+                   alignItems: "center",
+                   gap: "5px",
+                 }}
+               >
+                    {isImage ? (
+                 <Image
+                   src={file.preview}
+                   alt={file.name}
+                   width={100}
+                   height={100}
+                   style={{
+                     objectFit: "cover",
+                     borderRadius: "4px",
+                   }}
+                 />
+               ) : isPDF ? (
+                 <iframe
+                 src={`${file.preview}#toolbar=0&navpanes=0&scrollbar=0`}
+                 width={100}
+                 height={100}
+                 style={{
+                   border: "none",
+                   overflow: "hidden",
+                 }}
+                 title={file.name}
+               />
+               
+           
+               ) : (
+                 <Box
+                   width={100}
+                   height={100}
+                   display="flex"
+                   alignItems="center"
+                   justifyContent="center"
+                   sx={{
+                     backgroundColor: "#f0f0f0",
+                     borderRadius: "4px",
+                     fontSize: "12px",
+                     color: "#888",
+                     textAlign: "center",
+                     padding: "5px",
+                   }}
+                 >
+                   No Preview
+                 </Box>
+               )}
+           
+           
+           
+                 <Typography
+                   variant="body2"
+                   sx={{
+                     whiteSpace: "nowrap",
+                     overflow: "hidden",
+                     textOverflow: "ellipsis",
+                     maxWidth: "100px",
+                     textAlign: "center",
+                   }}
+                   title={file.name} // Tooltip on hover
+                 >
+                   {file.name}
+                 </Typography>
+                 <IconButton
+                   sx={{
+                     position: "absolute",
+                     top: "5px",
+                     right: "5px",
+                     background: "#fff",
+                     boxShadow: "0 1px 3px rgba(0,0,0,0.2)",
+                     "&:hover": {
+                       backgroundColor: "#f1f1f1",
+                     },
+                   }}
+                   size="small"
+                   onClick={() => removeFile(index)}
+                 >
+                   ✕
+                 </IconButton>
+               </Box>
+               );
+            })}
+           </Grid>
           </Grid>
 
           {/* Roles */}
