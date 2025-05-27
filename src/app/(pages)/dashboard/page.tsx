@@ -52,7 +52,7 @@ const fetchSignature = async () => {
       return;
     }
 
-    const response = await axios.get('http://localhost:4000/api/signatures/default', {
+    const response = await axios.get('http://ezsignature.org/api/signatures/default', {
       headers: {
         Authorization: `Bearer ${token}`,
         'Content-Type': 'application/json',
