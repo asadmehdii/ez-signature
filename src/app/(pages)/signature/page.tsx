@@ -4,6 +4,8 @@ import React, { useState, useEffect } from "react";
 import Topbar from "@/app/components/dashboardTopbar/topbar";
 import SignatureModal from "../../(pages)/signature/signature";
 import Image from "next/image";
+import axios from 'axios';
+
 
 export default function DocumentPage() {
   const [activeTab, setActiveTab] = useState("Signature");
@@ -12,61 +14,53 @@ export default function DocumentPage() {
   const [modalType, setModalType] = useState("");
   const [signatures, setSignatures] = useState([]);
   const defaultSignature = signatures.find(sig => sig.isDefault);
-  useEffect(() => {
-    const userId = localStorage.getItem("userId");
-  
-    if (!userId) {
-      console.error("User ID not found in localStorage");
-      return;
+
+useEffect(() => {
+  const userId = localStorage.getItem("userId");
+
+  if (!userId) {
+    console.error("User ID not found in localStorage");
+    return;
+  }
+
+  const fetchSignatures = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      if (!token) throw new Error("JWT token not found in localStorage");
+
+      const response = await axios.get("http://ezsignature.org/api/signatures/me", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      });
+
+      const data = response.data;
+      console.log("Fetched signatures:", data);
+
+      const allSignatures = [
+        ...(Array.isArray(data.drawSignatures) ? data.drawSignatures : []),
+        ...(Array.isArray(data.typedSignatures) ? data.typedSignatures : []),
+        ...(Array.isArray(data.uploadedSignatures) ? data.uploadedSignatures : []),
+      ];
+
+      const defaultSignatureId = data?.defaultSignatureId || null;
+
+      const updatedSignatures = allSignatures.map((sig) => ({
+        ...sig,
+        isDefault: sig._id === defaultSignatureId,
+      }));
+
+      console.log("Updated Signatures Array:", updatedSignatures);
+      setSignatures(updatedSignatures);
+    } catch (error) {
+      console.error("Error fetching signatures:", error);
     }
-  
-    const fetchSignatures = async () => {
-      try {
+  };
 
-         // Get token from localStorage
-      const token = localStorage.getItem('token');
-      if (!token) throw new Error('JWT token not found in localStorage');
+  fetchSignatures();
+}, []);
 
-        const response = await fetch(
-          `http://ezsignature.org/api/signatures/user/${userId}`
-        );
-        const data = await response.json();
-  
-        console.log("Fetched signatures:", data);
-  
-        const allSignatures = [
-          ...(Array.isArray(data.drawSignatures) ? data.drawSignatures : []),
-          ...(Array.isArray(data.typedSignatures) ? data.typedSignatures : []),
-          ...(Array.isArray(data.uploadedSignatures) ? data.uploadedSignatures : []),
-        ];
-  
-        // Fetch the default signature
-        const defaultResponse = await fetch(
-          `http://ezsignature.org/api/signatures/default/${userId}`
-          
-        );
-        const defaultData = await defaultResponse.json();
-  
-        console.log("Default Signature Data:", defaultData);
-  
-        // The default signature ID comes from `signatureId`, not `_id`
-        const defaultSignatureId = defaultData?.signatureId || null;
-  
-        // Update signatures array with isDefault flag
-        const updatedSignatures = allSignatures.map((sig) => ({
-          ...sig,
-          isDefault: sig._id === defaultSignatureId, // Corrected check
-        }));
-  
-        console.log("Updated Signatures Array:", updatedSignatures);
-        setSignatures(updatedSignatures);
-      } catch (error) {
-        console.error("Error fetching signatures:", error);
-      }
-    };
-  
-    fetchSignatures();
-  }, []);
   
 
   const handleDropdownClick = (type) => {
@@ -110,10 +104,11 @@ export default function DocumentPage() {
         setSignatures((prevSignatures) =>
           prevSignatures.map((sig) => ({
             ...sig,
-            isDefault: sig._id === signatureId, // Set selected signature as default
+            isDefault: sig._id === signatureId, 
           }))
         );
         alert("Signature set as default successfully!");
+        
       } else {
         alert("Failed to set signature as default: " + result.message);
       }
@@ -277,8 +272,8 @@ export default function DocumentPage() {
                     <Image
                       src={sig.image}
                       alt={sig.content}
-                      width={150} // Explicit width
-                      height={75} // Explicit height
+                      width={150}
+                      height={75} 
                       style={{ maxWidth: "150px", objectFit: "contain" }}
                     />
                   </div>

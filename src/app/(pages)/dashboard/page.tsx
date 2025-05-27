@@ -29,7 +29,8 @@ import axios from 'axios';
 const Dashboard: React.FC = () => {
   const [user, setUser] = useState<{ email: string } | null>(null);
       const [signature, setSignature] = useState<string | null>(null);
-     
+     const [signatureImage, setSignatureImage] = useState<string | null>(null);
+
       useEffect(() => {
         try {
           const storedUser = localStorage.getItem('user');
@@ -40,35 +41,50 @@ const Dashboard: React.FC = () => {
           console.error('Error parsing user from local storage:', error);
         }
       }, []);
-      const fetchSignature = async () => {
-        try {
-          const token = localStorage.getItem('token'); 
-      
-          if (!token) {
-            console.warn('No auth token found.');
-            return;
-          }
-      
-          const response = await axios.post(
-            'http://ezsignature.org/api/signature/default',
-            { email: user?.email },
-            {
-              headers: {
-                Authorization: `Bearer ${token}`, // Include the token in the Authorization header
-                'Content-Type': 'application/json',
-              },
-            }
-          );
-      
-          if (response.data?.signature) {
-            setSignature(response.data.signature.trim());
-          } else {
-            console.warn('No valid signature found.');
-          }
-        } catch (error) {
-          console.error('Failed to fetch signature:', error);
-        }
-      };
+     
+     
+const fetchSignature = async () => {
+  try {
+    const token = localStorage.getItem('token'); 
+
+    if (!token) {
+      console.warn('No auth token found.');
+      return;
+    }
+
+    const response = await axios.get('http://localhost:4000/api/signatures/default', {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+    });
+
+    const signatureData = response.data;
+
+    if (!signatureData) {
+      console.warn('No signature data found.');
+      return;
+    }
+
+    if (signatureData.type === 'typed' && signatureData.content) {
+      setSignature(signatureData.content.trim());
+      setSignatureImage(null);
+    } else if ((signatureData.type === 'draw' || signatureData.type === 'upload') && signatureData.image) {
+      setSignatureImage(signatureData.image);
+      setSignature(null);
+    } else {
+      console.warn('Unsupported signature type or missing data.');
+      setSignature(null);
+      setSignatureImage(null);
+    }
+
+  } catch (error) {
+    console.error('Failed to fetch signature:', error);
+  }
+};
+
+
+
       
       useEffect(() => {
         if (user?.email) {
@@ -79,7 +95,7 @@ const Dashboard: React.FC = () => {
       
     
       useEffect(() => {
-        console.log('Signature state after update:', signature); // Log state after update
+        console.log('Signature state after update:', signature); 
       }, [signature]);
     
     return(
@@ -223,18 +239,23 @@ const Dashboard: React.FC = () => {
           >
     <div className="border_padding">
   {/* My Signature */}
-  <div className="signature_card">
-    <div className="signature_header">
-      <div>
-        <span className="signature_title">My Signature</span>
-        <br />
-        <span className="edit_link">Edit</span>
-      </div>
-      <div className="signature_content">
+ <div className="signature_card">
+  <div className="signature_header">
+    <div>
+      <span className="signature_title">My Signature</span>
+      <br />
+      <span className="edit_link">Edit</span>
+    </div>
+    <div className="signature_content">
+      {signatureImage ? (
+        <img src={signatureImage} alt="My Signature" style={{ maxHeight: '50px' }} />
+      ) : (
         <span className="signature_text">{signature ? signature : "No signature available"}</span>
-      </div>
+      )}
     </div>
   </div>
+</div>
+
 
   {/* My Initials */}
   <div className="signature_card">

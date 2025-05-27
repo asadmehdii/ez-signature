@@ -404,7 +404,7 @@
               alignItems="center"
               height="300px"
             >
-      <Typography variant="body1">Loading...</Typography> {/* Updated loading message */}
+      <Typography variant="body1">Loading...</Typography> 
             </Grid>
           ) : filteredContacts.length > 0 ? (
             filteredContacts.map((contact) => (

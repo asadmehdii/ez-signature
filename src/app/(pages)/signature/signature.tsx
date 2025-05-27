@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import SignatureCanvas from "react-signature-canvas";
 import axios from "axios";
 import Image from 'next/image';
+import { supabase } from '../../utils/supabase'; 
 
 const SignatureModal = ({ isOpen, modalType, onClose }) => {
   const [signatureText, setSignatureText] = useState("");
@@ -58,16 +59,18 @@ const SignatureModal = ({ isOpen, modalType, onClose }) => {
     const payload = {
       content: signatureText,
       font: selectedFont,
-      userId: userId,
     };
   
     try {
+    const token = localStorage.getItem("token");
       const response = await axios.post(
-        "https://ezsignature-backend-production.up.railway.app/signature/create",
+        "http://ezsignature.org/api/signature/create",
         payload,
         {
           headers: {
             "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+
           },
         }
       );
@@ -84,46 +87,74 @@ const SignatureModal = ({ isOpen, modalType, onClose }) => {
     }
   };
   
-  const handleSaveDrawnSignature = async () => {
-    if (sigPad.isEmpty()) {
-      alert("Please draw your signature before saving.");
-      return;
-    }
-  
-    const userId = localStorage.getItem("userId"); 
-    if (!userId) {
-      alert("User ID not found. Please log in again.");
-      return;
-    }
-  
-    const signatureImage = sigPad.toDataURL("image/png"); 
-    const payload = {
-      userId: userId,
-      image: signatureImage,
-    };
-  
-    try {
-      const response = await axios.post(
-        "https://ezsignature-backend-production.up.railway.app/draw",
-        payload,
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
-  
-      if (response.status === 200 || response.status === 201) {
-        alert("Signature saved successfully.");
-        onClose(); // Close modal after successful save
-      } else {
-        alert("Failed to save the signature. Please try again.");
+const handleSaveDrawnSignature = async () => {
+  if (sigPad.isEmpty()) {
+    alert("Please draw your signature before saving.");
+    return;
+  }
+
+  const userId = localStorage.getItem("userId");
+  const token = localStorage.getItem("token");
+
+  if (!userId || !token) {
+    alert("User ID or token not found. Please log in again.");
+    return;
+  }
+
+  // 1. Convert canvas to Blob
+  const dataUrl = sigPad.toDataURL("image/png");
+  const blob = await (await fetch(dataUrl)).blob();
+
+  // 2. Upload blob to Supabase Storage
+  const fileName = `${Date.now()}-draw-${userId}.png`;
+
+  const { data, error } = await supabase.storage
+    .from("document/draw-signatures")
+    .upload(fileName, blob, {
+      contentType: "image/png",
+      upsert: false,
+    });
+
+  if (error) {
+    console.error("Supabase upload error:", error.message);
+    alert("Failed to upload signature. Please try again.");
+    return;
+  }
+
+  const imageUrl = `https://dmiboomlaxybbzwlrohz.supabase.co/storage/v1/object/public/document/draw-signatures/${fileName}`;
+
+  // 3. Send the image URL to your API
+  const payload = { image: imageUrl };
+
+  try {
+    const response = await axios.post(
+      "http://ezsignature.org/api/draw",
+      payload,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
       }
-    } catch (error) {
-      console.error("Error saving signature:", error);
-      alert("An error occurred while saving the signature.");
+    );
+
+    if (response.status === 200 || response.status === 201) {
+      const savedImageUrl = response.data?.data?.image;
+
+      alert("Signature saved successfully.");
+      console.log("Saved signature URL:", savedImageUrl);
+      setUploadedImage(savedImageUrl); // Optional display
+      onClose(); // Close modal
+    } else {
+      alert("Failed to save the signature. Please try again.");
     }
-  };
+  } catch (error) {
+    console.error("Error saving signature:", error);
+    alert("An error occurred while saving the signature.");
+  }
+};
+
+
   
 
   const handleSaveUploadedSignature = async () => {
@@ -152,19 +183,21 @@ const SignatureModal = ({ isOpen, modalType, onClose }) => {
     formData.append("file", blob, "signature.png"); // Append file with custom name
   
     try {
+    const token = localStorage.getItem("token");
       const response = await axios.post(
-        "https://ezsignature-backend-production.up.railway.app/upload",
+        "http://ezsignature.org/api/upload",
         formData,
         {
           headers: {
             "Content-Type": "multipart/form-data",
+             Authorization: `Bearer ${token}`,
           },
         }
       );
   
       if (response.status === 200 || response.status === 201) {
         alert("Signature uploaded successfully.");
-        onClose(); // Close modal after successful save
+        onClose(); 
       } else {
         alert("Failed to upload the signature. Please try again.");
       }

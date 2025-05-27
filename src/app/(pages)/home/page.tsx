@@ -11,7 +11,7 @@ import Card from "@/app/components/card";
 import {PaperlessCard, financialDepartments, salesDepartments, legalDepartments, hrDepartments,Category } from "./content";
 
 // imoprt Image here
-import CardImage_1 from "../../assests/images/home/cardImage1.png";
+import CardImage_1 from "../../assests/images/home/cardImage1.svg";
 import CardImage_2 from "../../assests/images/home/cardImage2.png";
 import CardImage_3 from "../../assests/images/home/cardImage3.png";
 import CardImage_4 from "../../assests/images/home/cardImage4.png";

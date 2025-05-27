@@ -8,7 +8,10 @@ const nextConfig = {
     ignoreBuildErrors: true, // Ignore TypeScript errors during builds
   },
   experimental: {
-    appDir: false, // Disable appDir to suppress the warning (Next.js 14 manages it by default)
+    appDir: false, // Disable appDir to suppress warning (if needed)
+  },
+  images: {
+    domains: ['dmiboomlaxybbzwlrohz.supabase.co'], // Add your Supabase image domain here
   },
   async headers() {
     return [
@@ -26,4 +29,3 @@ const nextConfig = {
 };
 
 module.exports = nextConfig;
-
