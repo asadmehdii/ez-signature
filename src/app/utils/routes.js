@@ -25,6 +25,7 @@ const Route = {
  DOCUMENT_EDITOR:"/document&editor",
  AUDIT_TRAIL:"/auditTrail",
 APP_INTEGRATION:"/integration",
+    SIGNATURE: "/signature",
 
   // Dashboard routes
   DASHBOARD: "/dashboard",

@@ -39,6 +39,8 @@ const Route = {
   NEW_DOCUMENT: "/newDocument",
   NEW_TEMPLATE: "/newTemplate",
   GENERAL_PREFERENCES: "/generalPreferences",
+    SIGNATURE: "/signature",
+
 };
 
 export default Route;

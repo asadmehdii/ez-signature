@@ -24,6 +24,7 @@ import Grid from "@mui/material/Grid2";
 import { grey } from '@mui/material/colors';
 import Topbar from '@/app/components/dashboardTopbar/topbar';
 import axios from 'axios';
+import Route from '@/app/utils/routes'
 
 
 const Dashboard: React.FC = () => {
@@ -45,7 +46,7 @@ const Dashboard: React.FC = () => {
      
 const fetchSignature = async () => {
   try {
-    const token = localStorage.getItem('token'); 
+    const token = localStorage.getItem('token');
 
     if (!token) {
       console.warn('No auth token found.');
@@ -121,16 +122,16 @@ const fetchSignature = async () => {
           >
             <h2 style={{backgroundColor: 'rgba(25, 118, 210, 0.08)', margin: '0', padding: '11px'}}>Documents</h2>
             <div style={{padding: '21px', }}>
-               <Link href='' style={{backgroundColor: 'rgba(25, 118, 210, 0.08)', display: 'flex', marginBottom: '11px', alignItems: "center", borderRadius: "5px"}}>
+               <Link href={{ pathname: '/documents', query: { tab: 'I need to sign' } }} style={{backgroundColor: 'rgba(25, 118, 210, 0.08)', display: 'flex', marginBottom: '11px', alignItems: "center", borderRadius: "5px"}}>
                 <Box component={"div"} sx={{display: 'flex', backgroundColor: '#D60D31', padding: '12px 7px', borderEndStartRadius: "6px", borderStartStartRadius: "6px", }}>
                 <WarningAmberIcon sx={{ color: grey[100] }} />
                 </Box>
                 <div style={{display: 'flex', justifyContent: 'space-between', flex: '1 1 0%', padding: '0 12px', fontSize: "0.875rem"}}>
                     <p>Awaiting my Signature</p>
-                    <p>0</p>
+                    <p>Show All</p>
                 </div>
                </Link>
-               <Link href='' style={{backgroundColor: 'rgba(25, 118, 210, 0.08)', display: 'flex', marginBottom: '11px', alignItems: "center", borderRadius: "5px"}}>
+               <Link  href={{ pathname: '/documents', query: { tab: 'In Process' } }} style={{backgroundColor: 'rgba(25, 118, 210, 0.08)', display: 'flex', marginBottom: '11px', alignItems: "center", borderRadius: "5px"}}>
                <Box sx={{display: 'flex', backgroundColor: '#7B8191', padding: '12px 7px', borderEndStartRadius: "6px", borderStartStartRadius: "6px" }}>
                 <AlarmOutlinedIcon sx={{ color: grey[100] }} />
                 </Box>
@@ -139,7 +140,7 @@ const fetchSignature = async () => {
                     <p>Show all</p>
                 </div>
                </Link>
-               <Link href='' style={{backgroundColor: 'rgba(25, 118, 210, 0.08)', display: 'flex', marginBottom: '11px', alignItems: "center", borderRadius: "5px"}}>
+               <Link href={{ pathname: '/documents', query: { tab: 'completed' } }}  style={{backgroundColor: 'rgba(25, 118, 210, 0.08)', display: 'flex', marginBottom: '11px', alignItems: "center", borderRadius: "5px"}}>
                 <Box sx={{display: 'flex', backgroundColor: '#0206A8', padding: '12px 7px', borderEndStartRadius: "6px", borderStartStartRadius: "6px" }}>
                 <TaskAltOutlinedIcon sx={{ color: grey[100] }} />
                 </Box>
@@ -244,7 +245,8 @@ const fetchSignature = async () => {
     <div>
       <span className="signature_title">My Signature</span>
       <br />
-      <span className="edit_link">Edit</span>
+      <span className="edit_link">
+          <Link href={Route.SIGNATURE}>Edit</Link></span>
     </div>
     <div className="signature_content">
       {signatureImage ? (
@@ -313,6 +315,42 @@ const fetchSignature = async () => {
           </Grid>
           </Card>
             </Grid>
+             <Grid container direction={"row"} component={"div"} marginLeft={"30px"} marginRight={"30px"} paddingBottom={"20px"} gap={2}>
+                  <Grid component={"section"} container direction={"row"} width={"49%"} marginTop={"30px"} border= {"1px solid #d7d7d9"} borderRadius={"3px"} >
+                    <Grid component={"div"} container gap={1} alignItems={"center"} borderBottom={"1px solid #e8e8e9"} sx={{background: "rgba(25, 118, 210, 0.08)"}} height={"50%"} width={"100%"} padding= {"10px 20px"}>
+                          <Text fontSize="1rem" color="rgb(0 8 61)">Most Used Templates</Text>
+                      </Grid>
+                      <Link href=''>
+                      <Grid container direction={"row"} padding={"10px 20px"}>
+                        <Text
+                         color='#0206A8'
+                         fontSize='16px'
+                        >
+                            document Appointment Leter.pdf
+                        </Text>
+                      <Text  color='#0206A8'
+                         fontSize='16px'>08-10-2024</Text>
+                      </Grid>
+                        </Link>
+                    </Grid>
+                    <Grid component={"section"} container direction={"row"} width={"49%"} marginTop={"30px"} border= {"1px solid #d7d7d9"} borderRadius={"3px"} >
+                    <Grid component={"div"} container gap={1} alignItems={"center"} borderBottom={"1px solid #e8e8e9"} sx={{background: "rgba(25, 118, 210, 0.08)"}} height={"50%"} width={"100%"} padding= {"10px 20px"}>
+                          <Text fontSize="1rem" color="rgb(0 8 61)">Recent Drafts</Text>
+                      </Grid>
+                      <Link href=''>
+                      <Grid container direction={"row"} padding={"10px 20px"}>
+                        <Text
+                         color='#0206A8'
+                         fontSize='16px'
+                        >
+                            document Appointment Leter.pdf
+                        </Text>
+                      <Text  color='#0206A8'
+                         fontSize='16px'>08-10-2024</Text>
+                      </Grid>
+                        </Link>
+                    </Grid>
+                  </Grid>
         </Topbar>
     )
 }
