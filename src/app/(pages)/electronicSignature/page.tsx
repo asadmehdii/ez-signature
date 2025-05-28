@@ -83,7 +83,7 @@ const ElectronicSignature:React.FC = ()=> {
     </Box>
     </ContentBox>
 
-       <CloudBackground image={Assests.ElectSign_1.src}  mt={8} mb={8}/>
+       <CloudBackground image={Assests.Electron2.src}  mt={12} mb={10}/>
        <Box display="flex" justifyContent={"center"} alignItems={"center"} gap={3} px={2}>
        
        </Box>

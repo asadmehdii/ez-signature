@@ -12,9 +12,9 @@ import {PaperlessCard, financialDepartments, salesDepartments, legalDepartments,
 
 // imoprt Image here
 import CardImage_1 from "../../assests/images/home/cardImage1.svg";
-import CardImage_2 from "../../assests/images/home/cardImage2.png";
-import CardImage_3 from "../../assests/images/home/cardImage3.png";
-import CardImage_4 from "../../assests/images/home/cardImage4.png";
+import CardImage_2 from "../../assests/images/home/cardImage2.svg";
+import CardImage_3 from "../../assests/images/home/cardImage3.svg";
+import CardImage_4 from "../../assests/images/home/cardImage4.svg";
 import BusinessImage_1 from "../../assests/images/home/bussinessImage1.png";
 import BusinessImage_2 from "../../assests/images/home/bussinessImage2.png";
 import BusinessImage_3 from "../../assests/images/home/bussinessImage3.png";

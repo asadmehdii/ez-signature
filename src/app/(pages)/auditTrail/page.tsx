@@ -65,7 +65,7 @@ return(
             <IconButton onClick={handleNext} sx={Styles.rightBtn}> <ArrowForwardIcon /> </IconButton> 
             </Box>
             </ContentBox>
-    <CloudBackground image={Assests.ElectSign_1.src} mt={8} mb={8}/>
+    <CloudBackground image={Assests.Audit.src} mt={12} mb={8}/>
     <GridView isImageLeft IsBgColor mb={8} image={Assests.FeatureImage_7.src} heading="ENSURE COMPLIANCE" text="Storing and being able to submit comprehensive and detailed audit trails for every internal and outgoing contractual business transaction ensures your compliance to external auditors when undergoing a compliance audit. Auditors may demand records for every instance where important contracts or agreements are touched."/>
     <TextOnImage mb={8} bgImage={Assests.EzFeatureBanner_1.src} heading="RETENTION" text="Completed documents and audit trails are stored by Xodo Sign's closely monitored server infrastructure, providing you with immediate and secure access." />
    

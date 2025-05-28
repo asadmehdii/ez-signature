@@ -68,7 +68,7 @@ const Integration:React.FC = ()=>{
     <IconButton onClick={handleNext} sx={Styles.rightBtn}> <ArrowForwardIcon /> </IconButton> 
     </Box>
     </ContentBox>
-       <CloudBackground mt={8} mb={8} image={Assests.ElectSign_1.src}/>
+       <CloudBackground mt={12} mb={8} image={Assests.Integration_1.src}/>
        <Box mb={8} display="flex" justifyContent={"center"} alignItems={"center"} gap={3} px={2}>
        <Button backgroundColor="var(--secondary-color)" color="#fff" height={76} width={206} borderRadius={15} to={Route.SIGNUP}>Sign up for free</Button>
        <Button borderWidth={1} borderColor="#000000" height={76} width={186} borderRadius={15}

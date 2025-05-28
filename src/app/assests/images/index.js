@@ -97,7 +97,22 @@ import APIDashboard from "./apiDashboard.png";
 import APIRequestUrl from "./apirequrestUrl.svg";
 import BussinessSelectionUrl from "./bussinessSelectionAPi.svg";
 import SandboxAPI from "./sandboxApi.svg";
+import Electron1 from "../images/electrosign.svg";
+import Electron2 from "./electrosign1.svg";
+import Electron3 from "./electrosign2.svg";
+import InPerson from "./inperson.svg";
+import Audit from "./audit.svg";
+import Templates_1 from "./templates.svg";
+import Integration_1 from "./Integration.svg";
+
 const Assests = {
+    Electron1,
+    Integration_1,
+    Audit,
+    Templates_1,
+    InPerson,
+    Electron2,
+    Electron3,
     DocumentIcon,
     SandboxAPI,
     BussinessIcon,
