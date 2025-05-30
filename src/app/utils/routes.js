@@ -26,6 +26,8 @@ const Route = {
  AUDIT_TRAIL:"/auditTrail",
 APP_INTEGRATION:"/integration",
     SIGNATURE: "/signature",
+        RECENTACTIVITY:"/recentActivity",
+    
 
   // Dashboard routes
   DASHBOARD: "/dashboard",

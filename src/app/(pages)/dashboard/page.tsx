@@ -44,6 +44,18 @@ const Dashboard: React.FC = () => {
       }, []);
      
      
+  // New state for recent activities
+  const [recentActivities, setRecentActivities] = useState<
+    {
+      _id: string;
+      documentTitle: string;
+      action: string;
+      documentStatus: string;
+      performedBy: string;
+  createdAt: Date;  // or string if that's what it is
+    }[]
+  >([]);
+  
 const fetchSignature = async () => {
   try {
     const token = localStorage.getItem('token');
@@ -84,6 +96,30 @@ const fetchSignature = async () => {
   }
 };
 
+ // New function to fetch recent activities
+ const fetchRecentActivities = async () => {
+  try {
+    const token = localStorage.getItem('token');
+    const response = await axios.get('http://ezsignature.org/api/document/activity', {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+    });
+    console.log('Full response:', response);
+    console.log('Response data:', response.data);
+
+    if (Array.isArray(response.data)) {
+      setRecentActivities(response.data);
+    } else {
+      console.warn('Response data is not an array:', response.data);
+      setRecentActivities([]);
+    }
+  } catch (error) {
+    console.error('Failed to fetch recent activities:', error);
+  }
+};
+
 
 
       
@@ -91,6 +127,7 @@ const fetchSignature = async () => {
         if (user?.email) {
           console.log("Fetching signature for user:", user.email);
           fetchSignature();
+        fetchRecentActivities();
         }
       }, [user]);
       
@@ -99,6 +136,11 @@ const fetchSignature = async () => {
         console.log('Signature state after update:', signature); 
       }, [signature]);
     
+
+         useEffect(() => {
+       console.log('Recent Activities:', recentActivities);
+   }, [recentActivities]);
+   
     return(
         <Topbar title='Dashboard' buttonText='Quick Actions' isCaretIcon isBellIcon>
               <Grid 
@@ -162,59 +204,38 @@ const fetchSignature = async () => {
           >
             <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', backgroundColor: 'rgba(25, 118, 210, 0.08)', margin: '0', padding: '0 19px'}}>
             <h3>Recent Activity</h3>
-            <Link href=''>View Activity log</Link>
+            <Link href='/recentActivity'>View Activity log</Link>
             </div>
            <Grid component={"div"} container flexDirection={"column"} alignItems={"center"} overflow={"hidden"}>
-            <Link href='' className='card-section' style={{padding: "1rem", borderBottom: "1px solid #E8EFF6"}}>
-            <Text
-             color='#0206A8'
-             fontSize='16px'
-             style={{overflow: "hidden", whiteSpace: "nowrap", textOverflow: "ellipsis"}}
-             
-            >
-                Oct 09 2024- document Appointment Leter.pdf completed by user@gmail.com
-            </Text>
-            </Link>
-            <Link href='' className='card-section' style={{padding: "1rem", borderBottom: "1px solid #E8EFF6"}}>
-            <Text
-             color='#0206A8'
-             
-            //  paddingLeft={5}
-            //  paddingTop={5}
-            //  paddingBottom={5}
-             fontSize='16px'
-             style={{overflow: "hidden", whiteSpace: "nowrap", textOverflow: "ellipsis"}}
-             
-            >
-                Oct 09 2024- document Appointment Leter.pdf completed by user@gmail.com
-            </Text>
-            </Link>
-            <Link href='' className='card-section' style={{padding: "1rem", borderBottom: "1px solid #E8EFF6"}}>
-            <Text
-             color='#0206A8'
-            //  paddingLeft={5}
-            //  paddingTop={5}
-            //  paddingBottom={5}
-             fontSize='16px'
-             style={{overflow: "hidden", whiteSpace: "nowrap", textOverflow: "ellipsis"}}
-             
-            >
-                Oct 09 2024- document Appointment Leter.pdf completed by user@gmail.com
-            </Text>
-            </Link>
-            <Link href='' className='card-section' style={{padding: "1rem", borderBottom: "1px solid #E8EFF6"}}>
-            <Text
-             color='#0206A8'
-            //  paddingLeft={5}
-            //  paddingTop={5}
-            //  paddingBottom={5}
-             fontSize='16px'
-             style={{overflow: "hidden", whiteSpace: "nowrap", textOverflow: "ellipsis"}}
-            >
-                Oct 09 2024- document Appointment Leter.pdf completed by user@gmail.com
-            </Text>
-            </Link>
-           </Grid>
+  {recentActivities.length === 0 ? (
+    <Link href='' className='card-section' style={{padding: "1rem", borderBottom: "1px solid #E8EFF6"}}>
+      <Text
+       color='#0206A8'
+       fontSize='16px'
+       style={{overflow: "hidden", whiteSpace: "nowrap", textOverflow: "ellipsis"}}
+      >
+        No Document Recent Activity
+      </Text>     
+    </Link>
+  ) : (
+    recentActivities.slice(0, 4).map((activity) => (
+      <Link key={activity._id} href='/documents' className='card-section' style={{padding: "1rem", borderBottom: "1px solid #E8EFF6"}}>
+        <Text
+          color='#0206A8'
+          fontSize='16px'
+          style={{overflow: "hidden", whiteSpace: "nowrap", textOverflow: "ellipsis"}}
+        >
+          {new Date(activity.createdAt).toLocaleDateString(undefined, {
+            year: 'numeric',
+            month: 'short',
+            day: 'numeric',
+          })} - document {`${activity.documentTitle}  ${activity.documentStatus} by ${activity.performedBy}`}
+        </Text>
+      </Link>
+    ))
+  )}
+</Grid>
+
           </Card>
             </Grid>
             {/* 2nd card senction */}

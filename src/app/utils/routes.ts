@@ -40,6 +40,7 @@ const Route = {
   NEW_TEMPLATE: "/newTemplate",
   GENERAL_PREFERENCES: "/generalPreferences",
     SIGNATURE: "/signature",
+    RECENTACTIVITY:"/recentActivity",
 
 };
 
