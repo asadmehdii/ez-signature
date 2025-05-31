@@ -10,7 +10,7 @@
     * - Author          : 
     * - Modification    : 
 **/
-"use client"; 
+"use client";
 import React, { useEffect, useState } from 'react';
 import Button from '@/app/components/button';
 import Card from '@/app/components/card';
@@ -29,22 +29,25 @@ import Route from '@/app/utils/routes'
 
 const Dashboard: React.FC = () => {
   const [user, setUser] = useState<{ email: string } | null>(null);
-      const [signature, setSignature] = useState<string | null>(null);
-     const [signatureImage, setSignatureImage] = useState<string | null>(null);
+  const [signature, setSignature] = useState<string | null>(null);
+  const [signatureImage, setSignatureImage] = useState<string | null>(null);
+  const [recentDrafts, setRecentDrafts] = useState([]);
+  const [mostUsedTemplates, setMostUsedTemplates] = useState([
+    { title: 'Document Appointment Letter.pdf', date: '08-10-2024' },
+    // Add more templates as needed
+  ]);
+  useEffect(() => {
+    try {
+      const storedUser = localStorage.getItem('user');
+      if (storedUser) {
+        setUser(JSON.parse(storedUser));
+      }
+    } catch (error) {
+      console.error('Error parsing user from local storage:', error);
+    }
+  }, []);
 
-      useEffect(() => {
-        try {
-          const storedUser = localStorage.getItem('user');
-          if (storedUser) {
-            setUser(JSON.parse(storedUser));
-          }
-        } catch (error) {
-          console.error('Error parsing user from local storage:', error);
-        }
-      }, []);
-     
-     
-  // New state for recent activities
+
   const [recentActivities, setRecentActivities] = useState<
     {
       _id: string;
@@ -52,327 +55,409 @@ const Dashboard: React.FC = () => {
       action: string;
       documentStatus: string;
       performedBy: string;
-  createdAt: Date;  // or string if that's what it is
+      createdAt: Date;
     }[]
   >([]);
-  
-const fetchSignature = async () => {
-  try {
-    const token = localStorage.getItem('token');
 
-    if (!token) {
-      console.warn('No auth token found.');
-      return;
+  const fetchSignature = async () => {
+    try {
+      const token = localStorage.getItem('token');
+
+      if (!token) {
+        console.warn('No auth token found.');
+        return;
+      }
+
+      const response = await axios.get('http://ezsignature.org/api/signatures/default', {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+      });
+
+      const signatureData = response.data;
+
+      if (!signatureData) {
+        console.warn('No signature data found.');
+        return;
+      }
+
+      if (signatureData.type === 'typed' && signatureData.content) {
+        setSignature(signatureData.content.trim());
+        setSignatureImage(null);
+      } else if ((signatureData.type === 'draw' || signatureData.type === 'upload') && signatureData.image) {
+        setSignatureImage(signatureData.image);
+        setSignature(null);
+      } else {
+        console.warn('Unsupported signature type or missing data.');
+        setSignature(null);
+        setSignatureImage(null);
+      }
+
+    } catch (error) {
+      console.error('Failed to fetch signature:', error);
     }
+  };
 
-    const response = await axios.get('http://ezsignature.org/api/signatures/default', {
-      headers: {
-        Authorization: `Bearer ${token}`,
-        'Content-Type': 'application/json',
-      },
-    });
+  const fetchRecentActivities = async () => {
+    try {
+      const token = localStorage.getItem('token');
+      const response = await axios.get('http://ezsignature.org/api/document/activity', {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+      });
+      console.log('Full response:', response);
+      console.log('Response data:', response.data);
 
-    const signatureData = response.data;
-
-    if (!signatureData) {
-      console.warn('No signature data found.');
-      return;
+      if (Array.isArray(response.data)) {
+        setRecentActivities(response.data);
+      } else {
+        console.warn('Response data is not an array:', response.data);
+        setRecentActivities([]);
+      }
+    } catch (error) {
+      console.error('Failed to fetch recent activities:', error);
     }
+  };
 
-    if (signatureData.type === 'typed' && signatureData.content) {
-      setSignature(signatureData.content.trim());
-      setSignatureImage(null);
-    } else if ((signatureData.type === 'draw' || signatureData.type === 'upload') && signatureData.image) {
-      setSignatureImage(signatureData.image);
-      setSignature(null);
-    } else {
-      console.warn('Unsupported signature type or missing data.');
-      setSignature(null);
-      setSignatureImage(null);
+  const fetchRecentDrafts = async () => {
+    try {
+      const token = localStorage.getItem('token');
+      const response = await axios.get('http://ezsignature.org/api/document/activity', {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (response.status !== 200) {
+        console.error(`Error fetching drafts: ${response.status} ${response.statusText}`);
+        return;
+      }
+
+      const allActivities = response.data;
+
+      const drafts = Array.isArray(allActivities)
+        ? allActivities.filter((doc) => doc.documentStatus === 'draft')
+        : [];
+
+      setRecentDrafts(drafts);
+    } catch (error) {
+      console.error('Failed to fetch recent drafts:', error);
     }
+  };
 
-  } catch (error) {
-    console.error('Failed to fetch signature:', error);
-  }
-};
 
- // New function to fetch recent activities
- const fetchRecentActivities = async () => {
-  try {
-    const token = localStorage.getItem('token');
-    const response = await axios.get('http://ezsignature.org/api/document/activity', {
-      headers: {
-        Authorization: `Bearer ${token}`,
-        'Content-Type': 'application/json',
-      },
-    });
-    console.log('Full response:', response);
-    console.log('Response data:', response.data);
+  useEffect(() => {
+    fetchRecentDrafts();
+  }, []);
 
-    if (Array.isArray(response.data)) {
-      setRecentActivities(response.data);
-    } else {
-      console.warn('Response data is not an array:', response.data);
-      setRecentActivities([]);
+
+
+  useEffect(() => {
+    if (user?.email) {
+      console.log("Fetching signature for user:", user.email);
+      fetchSignature();
+      fetchRecentActivities();
     }
-  } catch (error) {
-    console.error('Failed to fetch recent activities:', error);
-  }
-};
+  }, [user]);
 
 
+  useEffect(() => {
+    console.log('Signature state after update:', signature);
+  }, [signature]);
 
-      
-      useEffect(() => {
-        if (user?.email) {
-          console.log("Fetching signature for user:", user.email);
-          fetchSignature();
-        fetchRecentActivities();
-        }
-      }, [user]);
-      
-    
-      useEffect(() => {
-        console.log('Signature state after update:', signature); 
-      }, [signature]);
-    
 
-         useEffect(() => {
-       console.log('Recent Activities:', recentActivities);
-   }, [recentActivities]);
-   
-    return(
-        <Topbar title='Dashboard' buttonText='Quick Actions' isCaretIcon isBellIcon>
-              <Grid 
-              component={"div"}
-              container
-              width={"100%"}
-              justifyContent={"space-evenly"}
-              flexDirection={{xs: "column", md: "row"}}
-              alignItems={{xs: "center"}}
-              flexWrap={"nowrap"}
-              size={{xs: 12}}
-            >
-            <Card
-            className="card1"
-            padding={"0px"}
-            width={"45%"} 
-            height={"100%"}
-            borderWidth={1}
-            borderColor="#cccccc"
-            borderRadius={3}
-          >
-            <h2 style={{backgroundColor: 'rgba(25, 118, 210, 0.08)', margin: '0', padding: '11px'}}>Documents</h2>
-            <div style={{padding: '21px', }}>
-               <Link href={{ pathname: '/documents', query: { tab: 'I need to sign' } }} style={{backgroundColor: 'rgba(25, 118, 210, 0.08)', display: 'flex', marginBottom: '11px', alignItems: "center", borderRadius: "5px"}}>
-                <Box component={"div"} sx={{display: 'flex', backgroundColor: '#D60D31', padding: '12px 7px', borderEndStartRadius: "6px", borderStartStartRadius: "6px", }}>
+  useEffect(() => {
+    console.log('Recent Activities:', recentActivities);
+  }, [recentActivities]);
+
+  return (
+    <Topbar title='Dashboard' buttonText='Quick Actions' isCaretIcon isBellIcon>
+      <Grid
+        component={"div"}
+        container
+        width={"100%"}
+        justifyContent={"space-evenly"}
+        flexDirection={{ xs: "column", md: "row" }}
+        alignItems={{ xs: "center" }}
+        flexWrap={"nowrap"}
+        size={{ xs: 12 }}
+      >
+        <Card
+          className="card1"
+          padding={"0px"}
+          width={"45%"}
+          height={"100%"}
+          borderWidth={1}
+          borderColor="#cccccc"
+          borderRadius={3}
+        >
+          <h2 style={{ backgroundColor: 'rgba(25, 118, 210, 0.08)', margin: '0', padding: '11px' }}>Documents</h2>
+          <div style={{ padding: '21px', }}>
+            <Link href={{ pathname: '/documents', query: { tab: 'I need to sign' } }} style={{ backgroundColor: 'rgba(25, 118, 210, 0.08)', display: 'flex', marginBottom: '11px', alignItems: "center", borderRadius: "5px" }}>
+              <Box component={"div"} sx={{ display: 'flex', backgroundColor: '#D60D31', padding: '12px 7px', borderEndStartRadius: "6px", borderStartStartRadius: "6px", }}>
                 <WarningAmberIcon sx={{ color: grey[100] }} />
-                </Box>
-                <div style={{display: 'flex', justifyContent: 'space-between', flex: '1 1 0%', padding: '0 12px', fontSize: "0.875rem"}}>
-                    <p>Awaiting my Signature</p>
-                    <p>Show All</p>
-                </div>
-               </Link>
-               <Link  href={{ pathname: '/documents', query: { tab: 'In Process' } }} style={{backgroundColor: 'rgba(25, 118, 210, 0.08)', display: 'flex', marginBottom: '11px', alignItems: "center", borderRadius: "5px"}}>
-               <Box sx={{display: 'flex', backgroundColor: '#7B8191', padding: '12px 7px', borderEndStartRadius: "6px", borderStartStartRadius: "6px" }}>
+              </Box>
+              <div style={{ display: 'flex', justifyContent: 'space-between', flex: '1 1 0%', padding: '0 12px', fontSize: "0.875rem" }}>
+                <p>Awaiting my Signature</p>
+                <p>Show All</p>
+              </div>
+            </Link>
+            <Link href={{ pathname: '/documents', query: { tab: 'In Process' } }} style={{ backgroundColor: 'rgba(25, 118, 210, 0.08)', display: 'flex', marginBottom: '11px', alignItems: "center", borderRadius: "5px" }}>
+              <Box sx={{ display: 'flex', backgroundColor: '#7B8191', padding: '12px 7px', borderEndStartRadius: "6px", borderStartStartRadius: "6px" }}>
                 <AlarmOutlinedIcon sx={{ color: grey[100] }} />
-                </Box>
-                <div style={{display: 'flex', justifyContent: 'space-between', flex: '1 1 0%', padding: '0 12px', fontSize: "0.875rem"}}>
-                    <p>Waiting for Others</p>
-                    <p>Show all</p>
-                </div>
-               </Link>
-               <Link href={{ pathname: '/documents', query: { tab: 'completed' } }}  style={{backgroundColor: 'rgba(25, 118, 210, 0.08)', display: 'flex', marginBottom: '11px', alignItems: "center", borderRadius: "5px"}}>
-                <Box sx={{display: 'flex', backgroundColor: '#0206A8', padding: '12px 7px', borderEndStartRadius: "6px", borderStartStartRadius: "6px" }}>
+              </Box>
+              <div style={{ display: 'flex', justifyContent: 'space-between', flex: '1 1 0%', padding: '0 12px', fontSize: "0.875rem" }}>
+                <p>Waiting for Others</p>
+                <p>Show all</p>
+              </div>
+            </Link>
+            <Link href={{ pathname: '/documents', query: { tab: 'completed' } }} style={{ backgroundColor: 'rgba(25, 118, 210, 0.08)', display: 'flex', marginBottom: '11px', alignItems: "center", borderRadius: "5px" }}>
+              <Box sx={{ display: 'flex', backgroundColor: '#0206A8', padding: '12px 7px', borderEndStartRadius: "6px", borderStartStartRadius: "6px" }}>
                 <TaskAltOutlinedIcon sx={{ color: grey[100] }} />
-                </Box>
-                <div style={{display: 'flex', justifyContent: 'space-between', flex: '1 1 0%', padding: '0 12px'}}>
-                    <p>Completed</p>
-                    <p>Show all</p>
-                </div>
-               </Link>
-            </div>
-          </Card>
-          <Card
-            className="card1 card-Activity"
-            padding={"0px"}
-            width={"45%"} 
-            height={"100%"}
-            borderWidth={1}
-            borderColor="#cccccc"
-            borderRadius={3}
-          >
-            <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', backgroundColor: 'rgba(25, 118, 210, 0.08)', margin: '0', padding: '0 19px'}}>
+              </Box>
+              <div style={{ display: 'flex', justifyContent: 'space-between', flex: '1 1 0%', padding: '0 12px' }}>
+                <p>Completed</p>
+                <p>Show all</p>
+              </div>
+            </Link>
+          </div>
+        </Card>
+        <Card
+          className="card1 card-Activity"
+          padding={"0px"}
+          width={"45%"}
+          height={"100%"}
+          borderWidth={1}
+          borderColor="#cccccc"
+          borderRadius={3}
+        >
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', backgroundColor: 'rgba(25, 118, 210, 0.08)', margin: '0', padding: '0 19px' }}>
             <h3>Recent Activity</h3>
             <Link href='/recentActivity'>View Activity log</Link>
-            </div>
-           <Grid component={"div"} container flexDirection={"column"} alignItems={"center"} overflow={"hidden"}>
-  {recentActivities.length === 0 ? (
-    <Link href='' className='card-section' style={{padding: "1rem", borderBottom: "1px solid #E8EFF6"}}>
-      <Text
-       color='#0206A8'
-       fontSize='16px'
-       style={{overflow: "hidden", whiteSpace: "nowrap", textOverflow: "ellipsis"}}
+          </div>
+          <Grid component={"div"} container flexDirection={"column"} alignItems={"center"} overflow={"hidden"}>
+            {recentActivities.length === 0 ? (
+              <Link href='' className='card-section' style={{ padding: "1rem", borderBottom: "1px solid #E8EFF6" }}>
+                <Text
+                  color='#0206A8'
+                  fontSize='16px'
+                  style={{ overflow: "hidden", whiteSpace: "nowrap", textOverflow: "ellipsis" }}
+                >
+                  No Document Recent Activity
+                </Text>
+              </Link>
+            ) : (
+              recentActivities.slice(0, 4).map((activity) => (
+                <Link key={activity._id} href='/documents' className='card-section' style={{ padding: "1rem", borderBottom: "1px solid #E8EFF6" }}>
+                  <Text
+                    color='#0206A8'
+                    fontSize='16px'
+                    style={{ overflow: "hidden", whiteSpace: "nowrap", textOverflow: "ellipsis" }}
+                  >
+                    {new Date(activity.createdAt).toLocaleDateString(undefined, {
+                      year: 'numeric',
+                      month: 'short',
+                      day: 'numeric',
+                    })} - document {`${activity.documentTitle}  ${activity.documentStatus} by ${activity.performedBy}`}
+                  </Text>
+                </Link>
+              ))
+            )}
+          </Grid>
+
+        </Card>
+      </Grid>
+      {/* 2nd card senction */}
+      <Grid
+        component={"div"}
+        container
+        width={"100%"}
+        justifyContent={"center"}
+        flexDirection={{ xs: "column", sm: "row" }}
+        alignItems={{ xs: "center" }}
+        flexWrap={"nowrap"}
+        size={{ xs: 12 }}
+        marginTop={"20px"}
       >
-        No Document Recent Activity
-      </Text>     
-    </Link>
-  ) : (
-    recentActivities.slice(0, 4).map((activity) => (
-      <Link key={activity._id} href='/documents' className='card-section' style={{padding: "1rem", borderBottom: "1px solid #E8EFF6"}}>
-        <Text
-          color='#0206A8'
-          fontSize='16px'
-          style={{overflow: "hidden", whiteSpace: "nowrap", textOverflow: "ellipsis"}}
+        <Card
+          className="card2 "
+          padding={"0px"}
+          width={"31%"}
+          height={"250px"}
+          borderWidth={1}
+          borderColor="#cccccc"
+          borderRadius={3}
         >
-          {new Date(activity.createdAt).toLocaleDateString(undefined, {
-            year: 'numeric',
-            month: 'short',
-            day: 'numeric',
-          })} - document {`${activity.documentTitle}  ${activity.documentStatus} by ${activity.performedBy}`}
-        </Text>
-      </Link>
-    ))
-  )}
-</Grid>
-
-          </Card>
-            </Grid>
-            {/* 2nd card senction */}
-            <Grid 
-              component={"div"}
-              container
-              width={"100%"}
-              justifyContent={"center"}
-              flexDirection={{xs: "column", sm: "row"}}
-              alignItems={{xs: "center"}}
-              flexWrap={"nowrap"}
-              size={{xs: 12}}
-              marginTop={"20px"}
-            >
-            <Card
-            className="card2 "
-            padding={"0px"}
-            width={"31%"} 
-            height={"250px"}
-            borderWidth={1}
-            borderColor="#cccccc"
-            borderRadius={3}
-          >
-    <div className="border_padding">
-  {/* My Signature */}
- <div className="signature_card">
-  <div className="signature_header">
-    <div>
-      <span className="signature_title">My Signature</span>
-      <br />
-      <span className="edit_link">
-          <Link href={Route.SIGNATURE}>Edit</Link></span>
-    </div>
-    <div className="signature_content">
-      {signatureImage ? (
-        <img src={signatureImage} alt="My Signature" style={{ maxHeight: '50px' }} />
-      ) : (
-        <span className="signature_text">{signature ? signature : "No signature available"}</span>
-      )}
-    </div>
-  </div>
-</div>
-
-
-  {/* My Initials */}
-  <div className="signature_card">
-    <div className="signature_header">
-      <div>
-        <span className="signature_title">My Initials</span>
-        <br />
-        <span className="edit_link">Edit</span>
-      </div>
-      <div className="signature_content">
-        <span className="signature_text initials_text">
-          {user?.name
-            ? user.name
-                .split(" ") // Split the name into parts
-                .map((part) => part[0]?.toUpperCase()) // Get the first letter of each part
-                .join("") // Join them as initials
-            : "No User"}
-        </span>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-
-           
-          </Card>
-          <Card
-            className="card2"
-            padding={"12px"}
-            width={"31%"} 
-            height={"250px"}
-            borderWidth={1}
-            borderColor="#cccccc"
-            borderRadius={3}
-          >
-            <div>
-            <Text margin={12} fontSize='17px'>Document send this month</Text>
-            <Button backgroundColor="var(--secondary-color)" height={52} width={150} color='#fff' borderRadius={"15px"} sx={{ml:1}}>Upgrade</Button>
+          <div className="border_padding">
+            {/* My Signature */}
+            <div className="signature_card">
+              <div className="signature_header">
+                <div>
+                  <span className="signature_title">My Signature</span>
+                  <br />
+                  <span className="edit_link">
+                    <Link href={Route.SIGNATURE}>Edit</Link></span>
+                </div>
+                <div className="signature_content">
+                  {signatureImage ? (
+                    <img src={signatureImage} alt="My Signature" style={{ maxHeight: '50px' }} />
+                  ) : (
+                    <span className="signature_text">{signature ? signature : "No signature available"}</span>
+                  )}
+                </div>
+              </div>
             </div>
-          </Card>
-          <Card
-            className="card2"
-            padding={"0px"}
-            width={"31%"} 
-            height={"250px"}
-            borderWidth={1}
-            borderColor="#cccccc"
-            borderRadius={3}
-          >
-            <Grid>
+
+
+            {/* My Initials */}
+            <div className="signature_card">
+              <div className="signature_header">
+                <div>
+                  <span className="signature_title">My Initials</span>
+                  <br />
+                  <span className="edit_link">Edit</span>
+                </div>
+                <div className="signature_content">
+                  <span className="signature_text initials_text">
+                    {user?.name
+                      ? user.name
+                        .split(" ") 
+                        .map((part) => part[0]?.toUpperCase()) 
+                        .join("") 
+                      : "No User"}
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </Card>
+        <Card
+          className="card2"
+          padding={"12px"}
+          width={"31%"}
+          height={"250px"}
+          borderWidth={1}
+          borderColor="#cccccc"
+          borderRadius={3}
+        >
+          <div>
+            <Text margin={12} fontSize='17px'>Document send this month</Text>
+            <Button backgroundColor="var(--secondary-color)" height={52} width={150} color='#fff' borderRadius={"15px"} sx={{ ml: 1 }}>Upgrade</Button>
+          </div>
+        </Card>
+        <Card
+          className="card2"
+          padding={"0px"}
+          width={"31%"}
+          height={"250px"}
+          borderWidth={1}
+          borderColor="#cccccc"
+          borderRadius={3}
+        >
+          <Grid>
             <Text margin={12} fontSize='20px' fontWeight='700'>Business Account</Text>
             <Text margin={9} fontSize='16px' fontWeight='400'>Business Subscription: Free Plan</Text>
             <Text margin={9} fontSize='16px' fontWeight='400'>Logged in as: </Text>
           </Grid>
-          </Card>
+        </Card>
+      </Grid>
+      {/** Template and recent draft */}
+      <Grid container direction={"row"} component={"div"} marginLeft={"30px"} marginRight={"30px"} paddingBottom={"20px"} gap={2}>
+        <Grid component={"section"} container direction={"row"} width={"49%"} marginTop={"30px"} border={"1px solid #d7d7d9"} borderRadius={"3px"} >
+          <Grid component={"div"} container gap={1} alignItems={"center"} borderBottom={"1px solid #e8e8e9"} sx={{ background: "rgba(25, 118, 210, 0.08)" }} height={"50%"} width={"100%"} padding={"10px 20px"}>
+            <Text fontSize="1rem" color="rgb(0 8 61)">Most Used Templates</Text>
+          </Grid>
+          <Link href=''>
+            <Grid container direction={"row"} padding={"10px 20px"}>
+              <Text
+                color='#0206A8'
+                fontSize='16px'
+              >
+                document Appointment Leter.pdf
+              </Text>
+              <Text color='#0206A8'
+                fontSize='16px'>08-10-2024</Text>
             </Grid>
-             <Grid container direction={"row"} component={"div"} marginLeft={"30px"} marginRight={"30px"} paddingBottom={"20px"} gap={2}>
-                  <Grid component={"section"} container direction={"row"} width={"49%"} marginTop={"30px"} border= {"1px solid #d7d7d9"} borderRadius={"3px"} >
-                    <Grid component={"div"} container gap={1} alignItems={"center"} borderBottom={"1px solid #e8e8e9"} sx={{background: "rgba(25, 118, 210, 0.08)"}} height={"50%"} width={"100%"} padding= {"10px 20px"}>
-                          <Text fontSize="1rem" color="rgb(0 8 61)">Most Used Templates</Text>
-                      </Grid>
-                      <Link href=''>
-                      <Grid container direction={"row"} padding={"10px 20px"}>
-                        <Text
-                         color='#0206A8'
-                         fontSize='16px'
-                        >
-                            document Appointment Leter.pdf
-                        </Text>
-                      <Text  color='#0206A8'
-                         fontSize='16px'>08-10-2024</Text>
-                      </Grid>
-                        </Link>
-                    </Grid>
-                    <Grid component={"section"} container direction={"row"} width={"49%"} marginTop={"30px"} border= {"1px solid #d7d7d9"} borderRadius={"3px"} >
-                    <Grid component={"div"} container gap={1} alignItems={"center"} borderBottom={"1px solid #e8e8e9"} sx={{background: "rgba(25, 118, 210, 0.08)"}} height={"50%"} width={"100%"} padding= {"10px 20px"}>
-                          <Text fontSize="1rem" color="rgb(0 8 61)">Recent Drafts</Text>
-                      </Grid>
-                      <Link href=''>
-                      <Grid container direction={"row"} padding={"10px 20px"}>
-                        <Text
-                         color='#0206A8'
-                         fontSize='16px'
-                        >
-                            document Appointment Leter.pdf
-                        </Text>
-                      <Text  color='#0206A8'
-                         fontSize='16px'>08-10-2024</Text>
-                      </Grid>
-                        </Link>
-                    </Grid>
-                  </Grid>
-        </Topbar>
-    )
+          </Link>
+        </Grid>
+<Grid
+  component="section"
+  container
+  direction="row"
+  flexWrap="wrap"
+  width="49%"
+  marginTop="30px"
+  border="1px solid #d7d7d9"
+  borderRadius="3px"
+
+>
+  <Grid
+    container
+    gap={1}
+    alignItems="center"
+    borderBottom="1px solid #e8e8e9"
+    sx={{ background: 'rgba(25, 118, 210, 0.08)' }}
+    height="50px"
+    width="100%"
+    padding="10px 20px"
+  >
+    <Text fontSize="1rem" color="rgb(0 8 61)">
+      Recent Drafts
+    </Text>
+  </Grid>
+
+  {recentDrafts.length === 0 ? (
+    <Grid
+      container
+      padding="10px 20px"
+      justifyContent="center"
+      alignItems="center"
+      sx={{ width: '100%', height: '50px' }} // Maintain height
+    >
+      <Text color="#0206A8" fontSize="16px">
+        No Recent Drafts Available
+      </Text>
+    </Grid>
+  ) : (
+    recentDrafts.map((draft) => {
+      const draftDate = draft.createdAt;
+      const formattedDate = draftDate
+        ? new Date(draftDate).toLocaleDateString('en-GB')
+        : 'Date not available';
+
+      return (
+        <Link
+          key={draft._id}
+          href={draft.fileUrl || '#'}
+          style={{ textDecoration: 'none', width: '100%', display: 'block' }}
+        >
+          <Grid
+            container
+            direction="row"
+            padding="10px 20px"
+            justifyContent="space-between"
+            borderBottom="1px solid #eee"
+            sx={{ width: '100%' }}
+          >
+            <Text color="#0206A8" fontSize="16px">
+              document {draft.documentTitle}
+            </Text>
+            <Text color="#0206A8" fontSize="16px">
+              {formattedDate}
+            </Text>
+          </Grid>
+        </Link>
+      );
+    })
+  )}
+</Grid>
+
+      </Grid>
+    </Topbar>
+  )
 }
 export default Dashboard;
