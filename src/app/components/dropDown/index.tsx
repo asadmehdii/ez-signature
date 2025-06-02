@@ -129,7 +129,7 @@ export default function DropDown() {
             },
           }}
         >
-          <Link href="" style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+          <Link href="/user" style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
             <Construction sx={{ color: grey[800] }} />
             User Settings
           </Link>
@@ -159,7 +159,7 @@ export default function DropDown() {
             },
           }}
         >
-          <Link href="" style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+          <Link href="/account/edit" style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
             <LockOutlined sx={{ color: grey[800] }} />
             Account
           </Link>
@@ -219,20 +219,25 @@ export default function DropDown() {
             <ViewInAr sx={{ color: grey[800] }} /> Connected Apps
           </Link>
         </MenuItem>
-        <MenuItem
-          onClick={handleClose}
-          sx={{
-            background: '#E8EFF6',
-            paddingLeft: '7px',
-            '&:hover': {
-              backgroundColor: '#ced4da',
-            },
-          }}
-        >
-          <Link href="" style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-            <SettingsPower sx={{ color: grey[800] }} /> Logout
-          </Link>
-        </MenuItem>
+      <MenuItem
+  onClick={() => {
+    localStorage.clear();
+    window.location.href = '/';
+  }}
+  sx={{
+    background: '#E8EFF6',
+    paddingLeft: '7px',
+    '&:hover': {
+      backgroundColor: '#ced4da',
+    },
+  }}
+>
+  <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+    <SettingsPower sx={{ color: grey[800] }} />
+    Logout
+  </div>
+</MenuItem>
+
       </Menu>
     </div>
   );

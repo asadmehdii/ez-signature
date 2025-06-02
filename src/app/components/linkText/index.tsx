@@ -28,7 +28,7 @@ const Navigate: FC<ResponsiveTypographyProps> = ({
 }) => {
   if (!to || typeof to !== "string") {
     if (process.env.NODE_ENV !== "production") {
-      console.log("passed to <Navigate />:", to);
+      console.log("passed");
     }
     return null;
   }

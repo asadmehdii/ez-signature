@@ -41,6 +41,8 @@ const Route = {
   GENERAL_PREFERENCES: "/generalPreferences",
     SIGNATURE: "/signature",
     RECENTACTIVITY:"/recentActivity",
+  ACCOUNT:"/account/edit",
+  USER:"/user"
 
 };
 

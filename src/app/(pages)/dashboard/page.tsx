@@ -28,14 +28,13 @@ import Route from '@/app/utils/routes'
 
 
 const Dashboard: React.FC = () => {
-  const [user, setUser] = useState<{ email: string } | null>(null);
+  const [user, setUser] = useState<{ email: string,name: string  } | null>(null);
   const [signature, setSignature] = useState<string | null>(null);
   const [signatureImage, setSignatureImage] = useState<string | null>(null);
   const [recentDrafts, setRecentDrafts] = useState([]);
-  const [mostUsedTemplates, setMostUsedTemplates] = useState([
-    { title: 'Document Appointment Letter.pdf', date: '08-10-2024' },
-    // Add more templates as needed
-  ]);
+  const [totalContacts, setTotalContacts] = useState<number | null>(null);
+const [totalTemplates, setTotalTemplates] = useState<number | null>(null);
+
   useEffect(() => {
     try {
       const storedUser = localStorage.getItem('user');
@@ -137,12 +136,11 @@ const Dashboard: React.FC = () => {
         return;
       }
 
-      const allActivities = response.data;
 
+      const allActivities = response.data;
       const drafts = Array.isArray(allActivities)
         ? allActivities.filter((doc) => doc.documentStatus === 'draft')
         : [];
-
       setRecentDrafts(drafts);
     } catch (error) {
       console.error('Failed to fetch recent drafts:', error);
@@ -154,6 +152,55 @@ const Dashboard: React.FC = () => {
     fetchRecentDrafts();
   }, []);
 
+const fetchTotalContacts = async () => {
+  try {
+    const token = localStorage.getItem('token');
+    const response = await axios.get('http://ezsignature.org/api/contacts?status=all', {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+    });
+
+    if (response.status === 200) {
+      const contactsData = response.data;
+      setTotalContacts(contactsData.total); // Use the 'total' field from the response
+    } else {
+      console.error(`Error fetching contacts: ${response.status} ${response.statusText}`);
+    }
+  } catch (error) {
+    console.error('Failed to fetch total contacts:', error);
+  }
+};
+
+useEffect(() => {
+  fetchTotalContacts();
+}, []);
+
+
+const fetchTotalTemplates = async () => {
+  try {
+    const token = localStorage.getItem('token');
+    const response = await axios.get('http://ezsignature.org/api/template/all', {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+    });
+
+    if (response.status === 200) {
+      const templatesData = response.data;
+      setTotalTemplates(templatesData.total); // Use the 'total' field from the response
+    } else {
+      console.error(`Error fetching templates: ${response.status} ${response.statusText}`);
+    }
+  } catch (error) {
+    console.error('Failed to fetch total templates:', error);
+  }
+};
+useEffect(() => {
+  fetchTotalTemplates();
+}, []);
 
 
   useEffect(() => {
@@ -325,9 +372,9 @@ const Dashboard: React.FC = () => {
                   <span className="signature_text initials_text">
                     {user?.name
                       ? user.name
-                        .split(" ") 
-                        .map((part) => part[0]?.toUpperCase()) 
-                        .join("") 
+                        .split(" ")
+                        .map((part) => part[0]?.toUpperCase())
+                        .join("")
                       : "No User"}
                   </span>
                 </div>
@@ -336,19 +383,63 @@ const Dashboard: React.FC = () => {
           </div>
         </Card>
         <Card
-          className="card2"
-          padding={"12px"}
-          width={"31%"}
-          height={"250px"}
-          borderWidth={1}
-          borderColor="#cccccc"
-          borderRadius={3}
-        >
-          <div>
-            <Text margin={12} fontSize='17px'>Document send this month</Text>
-            <Button backgroundColor="var(--secondary-color)" height={52} width={150} color='#fff' borderRadius={"15px"} sx={{ ml: 1 }}>Upgrade</Button>
-          </div>
-        </Card>
+  className="card2"
+  padding={"12px"}
+  width={"31%"}
+  height={"250px"}
+  borderWidth={1}
+  borderColor="#cccccc"
+  borderRadius={3}
+>
+  <div>
+    <div
+  style={{
+    display: 'flex',
+    alignItems: 'center',
+    marginTop: 30,
+    marginLeft: 12,
+    marginRight: 12,
+    marginBottom: 12,
+  }}
+>
+  <Text fontSize='17px'>Document send this month</Text>
+  <Button
+    backgroundColor="var(--secondary-color)"
+    height={30}
+    width={100}
+    color='#fff'
+    borderRadius={"15px"}
+    sx={{ ml: 1 }}
+  >
+    Upgrade
+  </Button>
+</div>
+
+
+   <div style={{ marginTop: 30, display: 'flex', justifyContent: 'center' }}>
+  <svg width="200" height="110">
+    <defs>
+      <linearGradient id="gaugeBg" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0%" stopColor="#eaf0f6" />
+        <stop offset="100%" stopColor="#eaf0f6" />
+      </linearGradient>
+    </defs>
+    <path
+      d="M20,90 A80,80 0 0,1 180,90"
+      fill="none"
+      stroke="url(#gaugeBg)"
+      strokeWidth="18"
+    />
+    <text x="100" y="70" textAnchor="middle" fontSize="18" fill="#333">0</text>
+    <text x="100" y="85" textAnchor="middle" fontSize="14" fill="#333">Documents Sent</text>
+    <text x="20" y="95" fontSize="13" fill="#333">0</text>
+    <text x="175" y="95" fontSize="13" fill="#333">3</text>
+  </svg>
+</div>
+
+  </div>
+</Card>
+
         <Card
           className="card2"
           padding={"0px"}
@@ -359,104 +450,203 @@ const Dashboard: React.FC = () => {
           borderRadius={3}
         >
           <Grid>
-            <Text margin={12} fontSize='20px' fontWeight='700'>Business Account</Text>
-            <Text margin={9} fontSize='16px' fontWeight='400'>Business Subscription: Free Plan</Text>
-            <Text margin={9} fontSize='16px' fontWeight='400'>Logged in as: </Text>
+            <Text margin={5} fontSize='20px' fontWeight='700'>Business Account</Text>
+            <Text margin={3} fontSize='16px' fontWeight='400'>Business Subscription: Free Plan</Text>
+        <Text margin={3} fontSize='16px' fontWeight='400'> Logged in as: {user?.name || "Guest"}</Text>
+<hr style={{ width: '100%', marginTop: '6x', height: '1px', backgroundColor: '#eee', border: 'none' }} />
+           <Text margin={5} fontSize='20px' fontWeight='700'>{user?.name || "Guest"}</Text>
+<Text margin={3} fontSize='16px' fontWeight='400'>Total Templates: {totalTemplates !== null ? totalTemplates : "Loading..."}</Text>
+<Text margin={3} fontSize='16px' fontWeight='400'>Contacts: {totalContacts !== null ? totalContacts : "Loading..."}</Text>
+
+<hr style={{ width: '100%', marginTop: '6px', height: '1px', backgroundColor: '#eee', border: 'none' }} />
+
+         <Text margin={5} fontSize='20px' fontWeight='700'>API</Text>
+            <Text margin={3} fontSize='16px' fontWeight='400'>API Requests this month: </Text>
+
           </Grid>
         </Card>
       </Grid>
       {/** Template and recent draft */}
-      <Grid container direction={"row"} component={"div"} marginLeft={"30px"} marginRight={"30px"} paddingBottom={"20px"} gap={2}>
-        <Grid component={"section"} container direction={"row"} width={"49%"} marginTop={"30px"} border={"1px solid #d7d7d9"} borderRadius={"3px"} >
-          <Grid component={"div"} container gap={1} alignItems={"center"} borderBottom={"1px solid #e8e8e9"} sx={{ background: "rgba(25, 118, 210, 0.08)" }} height={"50%"} width={"100%"} padding={"10px 20px"}>
-            <Text fontSize="1rem" color="rgb(0 8 61)">Most Used Templates</Text>
-          </Grid>
-          <Link href=''>
-            <Grid container direction={"row"} padding={"10px 20px"}>
-              <Text
-                color='#0206A8'
-                fontSize='16px'
-              >
-                document Appointment Leter.pdf
-              </Text>
-              <Text color='#0206A8'
-                fontSize='16px'>08-10-2024</Text>
-            </Grid>
-          </Link>
-        </Grid>
-<Grid
-  component="section"
-  container
-  direction="row"
-  flexWrap="wrap"
-  width="49%"
-  marginTop="30px"
-  border="1px solid #d7d7d9"
-  borderRadius="3px"
 
->
-  <Grid
-    container
-    gap={1}
-    alignItems="center"
-    borderBottom="1px solid #e8e8e9"
-    sx={{ background: 'rgba(25, 118, 210, 0.08)' }}
-    height="50px"
-    width="100%"
-    padding="10px 20px"
-  >
-    <Text fontSize="1rem" color="rgb(0 8 61)">
-      Recent Drafts
-    </Text>
-  </Grid>
 
-  {recentDrafts.length === 0 ? (
-    <Grid
-      container
-      padding="10px 20px"
-      justifyContent="center"
-      alignItems="center"
-      sx={{ width: '100%', height: '50px' }} // Maintain height
-    >
-      <Text color="#0206A8" fontSize="16px">
-        No Recent Drafts Available
-      </Text>
-    </Grid>
-  ) : (
-    recentDrafts.map((draft) => {
-      const draftDate = draft.createdAt;
-      const formattedDate = draftDate
-        ? new Date(draftDate).toLocaleDateString('en-GB')
-        : 'Date not available';
-
-      return (
-        <Link
-          key={draft._id}
-          href={draft.fileUrl || '#'}
-          style={{ textDecoration: 'none', width: '100%', display: 'block' }}
+      <Grid
+        component={"div"}
+        container
+        width={"100%"}
+        justifyContent={"space-evenly"}
+        flexDirection={{ xs: "column", md: "row" }}
+        alignItems={{ xs: "center" }}
+        flexWrap={"nowrap"}
+        marginTop={"30px"}
+        size={{ xs: 12 }}
+      >
+        {/* First Card */}
+        <Card
+          className="card1 card-Activity"
+          padding={"0px"}
+          width={"45%"}
+          height={"100%"}
+          borderWidth={1}
+          borderColor="#cccccc"
+          borderRadius={3}
         >
-          <Grid
-            container
-            direction="row"
-            padding="10px 20px"
-            justifyContent="space-between"
-            borderBottom="1px solid #eee"
-            sx={{ width: '100%' }}
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              backgroundColor: 'rgba(25, 118, 210, 0.08)',
+              margin: '0',
+              padding: '0 19px',
+            }}
           >
-            <Text color="#0206A8" fontSize="16px">
-              document {draft.documentTitle}
-            </Text>
-            <Text color="#0206A8" fontSize="16px">
-              {formattedDate}
-            </Text>
+            <h3>Most Used Templates</h3>
+            {/* <Link href="/recentActivity">View Activity log</Link> */}
+          </div>
+          <Grid
+            component={"div"}
+            container
+            flexDirection={"column"}
+            alignItems={"center"}
+            overflow={"hidden"}
+          >
+            <Link
+              href=""
+              className="card-section"
+              style={{ padding: "1rem", borderBottom: "1px solid #E8EFF6" }}
+            >
+              <Text
+                color="#0206A8"
+                fontSize="16px"
+                style={{
+                  overflow: "hidden",
+                  whiteSpace: "nowrap",
+                  textOverflow: "ellipsis",
+                }}
+              >
+                No most used templates
+              </Text>
+            </Link>
           </Grid>
-        </Link>
-      );
-    })
-  )}
-</Grid>
+        </Card>
 
+        {/* Second Card */}
+        <Card
+          className="card1 card-Activity"
+          padding={"0px"}
+          width={"45%"}
+          height={"100%"}
+          borderWidth={1}
+          borderColor="#cccccc"
+          borderRadius={3}
+        >
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              backgroundColor: 'rgba(25, 118, 210, 0.08)',
+              margin: '0',
+              padding: '0 19px',
+            }}
+          >
+            <h3>Recent Drafts</h3>
+            <Link href={{ pathname: '/documents', query: { tab: 'Draft' } }} >View Recent Drafts</Link>
+          </div>
+          <Grid
+            component={"div"}
+            container
+            flexDirection={"column"}
+            alignItems={"center"}
+            overflow={"hidden"}
+          >
+            {recentDrafts.length === 0 ? (
+              <Link
+                href=""
+                className="card-section"
+                style={{ padding: "1rem", borderBottom: "1px solid #E8EFF6" }}
+              >
+                <Text
+                  color="#0206A8"
+                  fontSize="16px"
+                  style={{
+                    overflow: "hidden",
+                    whiteSpace: "nowrap",
+                    textOverflow: "ellipsis",
+                  }}
+                >
+                  No Document Recent Drafts
+                </Text>
+              </Link>
+            ) : (
+             
+    recentDrafts
+      .filter(draft => draft.documentStatus === 'draft') 
+      .slice(0, 4)
+      .map((draft) => {
+                const draftDate = draft.createdAt;
+                const formattedDate = draftDate
+                  ? new Date(draftDate).toLocaleDateString("en-GB")
+                  : "Date not available";
+                return (
+                  <Link
+                    key={draft._id}
+                    href={draft.fileUrl || "#"}
+                    className="card-section"
+                    style={{
+                      padding: "1rem",
+                      borderBottom: "1px solid #E8EFF6",
+                      width: "100%",
+                      textDecoration: "none",
+                      paddingRight: "2.5rem",
+                      boxSizing: "border-box",
+                    }}
+                  >
+                    <div
+                      style={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                        alignItems: "center",
+                        width: "100%",
+                        paddingRight: "0.5rem",
+                        paddingLeft: "0.5rem",
+
+                      }}
+                    >
+                      <Text
+                        color="#0206A8"
+                        fontSize="16px"
+                        style={{
+                          overflow: "hidden",
+                          whiteSpace: "nowrap",
+                          textOverflow: "ellipsis",
+                          maxWidth: "70%",
+                        }}
+                      >
+                        document {draft.documentTitle}
+                      </Text>
+                      <Text
+                        color="#0206A8"
+                        fontSize="16px"
+                        style={{
+                          whiteSpace: "nowrap",
+
+                        }}
+                      >
+                        {formattedDate}
+                      </Text>
+                    </div>
+                  </Link>
+
+
+                );
+              })
+            )}
+          </Grid>
+        </Card>
       </Grid>
+
+
     </Topbar>
   )
 }

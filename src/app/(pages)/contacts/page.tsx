@@ -23,35 +23,43 @@ export default function ContactsPage() {
   const tabLabels: string[] = ["Archived", "All Contacts"];
   
   useEffect(() => {
-    const fetchContacts = async () => {
-      setError(null);
-      const status = activeTab === 0 ? "archived" : "all";
+   const fetchContacts = async () => {
+  setError(null);
+  const status = activeTab === 0 ? "archived" : "all";
 
-      try {
-        const token = localStorage.getItem("token");
-        if (!token) {
-          throw new Error("No token found");
-        }
+  try {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      throw new Error("No token found");
+    }
 
-        const response = await fetch(`http://ezsignature.org/api/contacts?status=${status}`, {
-          method: 'GET',
-          headers: {
-            Authorization: `Bearer ${token}`
-          },
-        });
+    const response = await fetch(`http://ezsignature.org/api/contacts?status=${status}`, {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${token}`
+      },
+    });
 
-        if (!response.ok) {
-          throw new Error(`Failed to fetch ${status} contacts: ${response.statusText}`);
-        }
+    if (!response.ok) {
+      throw new Error(`Failed to fetch ${status} contacts: ${response.statusText}`);
+    }
 
-        const data = await response.json() as Contact[];
-        console.log(data); // Log the fetched data
-        setContacts(data);
-      } catch (err: unknown) {
-        console.error("Error fetching contacts:", err);
-        setError("Failed to fetch contacts");
-      }
-    };
+    const data = await response.json();
+    console.log(data); // Log the fetched data
+
+    // Check if the response contains contacts
+    if (data && Array.isArray(data.contacts)) {
+      setContacts(data.contacts); // Set contacts from the response
+    } else {
+      console.error("Contacts data is not an array:", data.contacts);
+      setContacts([]); // Set to empty array if not valid
+    }
+  } catch (err: unknown) {
+    console.error("Error fetching contacts:", err);
+    setError("Failed to fetch contacts");
+  }
+};
+
 
     fetchContacts();
   }, [activeTab]);

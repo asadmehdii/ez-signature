@@ -42,6 +42,8 @@ APP_INTEGRATION:"/integration",
   NEW_DOCUMENT: "/newDocument",
   NEW_TEMPLATE: "/newTemplate",
   GENERAL_PREFERENCES: "/generalPreferences",
+  ACCOUNT:"/account/edit",
+  USER:"/user"
 };
 
 export default Route;

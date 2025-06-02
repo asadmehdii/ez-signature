@@ -10,7 +10,7 @@ import Route from '@/app/utils/routes';
 import axios from 'axios';
 
 export default function TemplatesPage() {
-  const [activeTab, setActiveTab] = useState(0);
+  const [activeTab, setActiveTab] = useState(1);
   const [templates, setTemplates] = useState([]);
   const [loading, setLoading] = useState(false);
 
@@ -46,10 +46,6 @@ useEffect(() => {
 
   fetchTemplates();
 }, [activeTab]);
-
-
-
- 
 
 
   return (
