@@ -237,7 +237,6 @@ export default function DropDown() {
     Logout
   </div>
 </MenuItem>
-
       </Menu>
     </div>
   );
