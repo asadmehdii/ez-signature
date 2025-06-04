@@ -5,6 +5,8 @@ import { Person, Edit, CalendarToday, TextFields, Business, Work, Email, CheckBo
 import * as pdfjsLib from 'pdfjs-dist';
 import 'pdfjs-dist/build/pdf.worker.entry';
 import Topbar from "@/app/components/dashboardTopbar/topbar";
+import { useParams } from 'next/navigation';
+import { supabase } from '@/app/utils/supabase'; // Adjust the import path as needed
 
 const fields = [
   { label: 'Signature', icon: <Person fontSize="small" />, type: 'signature' },
@@ -18,6 +20,13 @@ const fields = [
   { label: 'Checkbox', icon: <CheckBox fontSize="small" />, type: 'checkbox' }
 ];
 
+// Define recipient colors
+const recipientColors = [
+  { id: 1, name: 'Recipient 1', color: '#dff5e1' }, // Light green
+  { id: 2, name: 'Recipient 2', color: '#e7ecff' }, // Light blue
+  // Add more recipients and their colors as needed
+];
+
 export default function DocumentSignerUI() {
   const [pdfDoc, setPdfDoc] = useState<any>(null);
   const [thumbnails, setThumbnails] = useState<string[]>([]);
@@ -27,9 +36,11 @@ export default function DocumentSignerUI() {
   const [storedFile, setStoredFile] = useState<any>(null);
   const previewRef = useRef<HTMLDivElement>(null);
   const [isMounted, setIsMounted] = useState(false);
-
+  const [documentData, setDocumentData] = useState(null);
+  const [selectedRecipientIndex, setSelectedRecipientIndex] = useState<number | null>(null);
   const [draggingIndex, setDraggingIndex] = useState<number | null>(null);
   const dragOffset = useRef<{ x: number, y: number }>({ x: 0, y: 0 });
+  const { id } = useParams(); // Get the document ID from the URL
 
   useEffect(() => {
     setIsMounted(true);
@@ -46,6 +57,29 @@ export default function DocumentSignerUI() {
   const isPDF = fileType === "application/pdf";
   const isImage = fileType.startsWith("image/");
 
+  useEffect(() => {
+    if (id) {
+      const token = localStorage.getItem('token'); // Get token from localStorage
+
+      fetch(`http://localhost:4000/api/document/${id}`, {
+        headers: {
+          'Authorization': `Bearer ${token}`, // Add token to Authorization header
+        },
+      })
+        .then(response => response.json())
+        .then(data => {
+          setDocumentData(data);
+          setStoredFile({
+            type: data.fileType,
+            dataUrl: data.fileUrl,
+          });
+        })
+        .catch(error => {
+          console.error("Error fetching document:", error);
+        });
+    }
+  }, [id]);
+
   function base64ToUint8Array(base64: string) {
     const base64Data = base64.split(",")[1];
     const raw = atob(base64Data);
@@ -60,8 +94,9 @@ export default function DocumentSignerUI() {
     async function loadPdf() {
       if (storedFile && isPDF) {
         try {
-          const pdfData = base64ToUint8Array(storedFile.dataUrl);
-          const loadingTask = pdfjsLib.getDocument({ data: pdfData });
+          const response = await fetch(storedFile.dataUrl);
+          const arrayBuffer = await response.arrayBuffer();
+          const loadingTask = pdfjsLib.getDocument({ data: arrayBuffer });
           const pdf = await loadingTask.promise;
           setPdfDoc(pdf);
 
@@ -141,12 +176,14 @@ export default function DocumentSignerUI() {
     setDroppedFields(prev => [
       ...prev,
       {
-        ...field,
-        x,
-        y,
-        page: selectedPage,
-        text: '' // initialize empty text
-      }
+  ...field,
+  x,
+  y,
+  page: selectedPage,
+  text: '',
+  recipientId: selectedRecipientIndex !== null ? recipientColors[selectedRecipientIndex].id : null
+}
+
     ]);
   };
 
@@ -162,69 +199,69 @@ export default function DocumentSignerUI() {
     });
   };
 
-const handleDragStart = (e: React.DragEvent, index: number) => {
-  setDraggingIndex(index);
+  const handleDragStart = (e: React.DragEvent, index: number) => {
+    setDraggingIndex(index);
 
-  const target = e.currentTarget.getBoundingClientRect();
-  dragOffset.current = {
-    x: e.clientX - target.left,
-    y: e.clientY - target.top,
+    const target = e.currentTarget.getBoundingClientRect();
+    dragOffset.current = {
+      x: e.clientX - target.left,
+      y: e.clientY - target.top,
+    };
+
+    e.dataTransfer.effectAllowed = "move";
+    e.dataTransfer.setData("text/plain", "dragging-field");
+
+    // Prevent ghost image
+    const dragImg = document.createElement("div");
+    dragImg.style.width = "0px";
+    dragImg.style.height = "0px";
+    document.body.appendChild(dragImg);
+    e.dataTransfer.setDragImage(dragImg, 0, 0);
+    setTimeout(() => document.body.removeChild(dragImg), 0);
   };
-
-  e.dataTransfer.effectAllowed = "move";
-  e.dataTransfer.setData("text/plain", "dragging-field");
-
-  // Prevent ghost image
-  const dragImg = document.createElement("div");
-  dragImg.style.width = "0px";
-  dragImg.style.height = "0px";
-  document.body.appendChild(dragImg);
-  e.dataTransfer.setDragImage(dragImg, 0, 0);
-  setTimeout(() => document.body.removeChild(dragImg), 0);
-};
-
 
   const handleDragOverField = (e: React.DragEvent) => {
     e.preventDefault();
   };
 
+  const handleDropOnField = (e: React.DragEvent) => {
+    e.preventDefault();
 
-const handleDropOnField = (e: React.DragEvent) => {
-  e.preventDefault();
+    const previewRect = previewRef.current?.getBoundingClientRect();
+    if (!previewRect) return;
 
-  const previewRect = previewRef.current?.getBoundingClientRect();
-  if (!previewRect) return;
+    const x = e.clientX - previewRect.left;
+    const y = e.clientY - previewRect.top;
 
-  const x = e.clientX - previewRect.left;
-  const y = e.clientY - previewRect.top;
+    if (draggingIndex !== null) {
+      // Move existing field
+      setDroppedFields(prev => {
+        const copy = [...prev];
+        copy[draggingIndex].x = Math.max(0, Math.min(x - dragOffset.current.x, previewRect.width));
+        copy[draggingIndex].y = Math.max(0, Math.min(y - dragOffset.current.y, previewRect.height));
+        return copy;
+      });
+      setDraggingIndex(null);
+    } else {
+      // Handle new field drop
+      const fieldData = e.dataTransfer.getData("application/json");
+      if (!fieldData) return;
 
-  if (draggingIndex !== null) {
-    // Move existing field
-    setDroppedFields(prev => {
-      const copy = [...prev];
-      copy[draggingIndex].x = Math.max(0, Math.min(x - dragOffset.current.x, previewRect.width));
-      copy[draggingIndex].y = Math.max(0, Math.min(y - dragOffset.current.y, previewRect.height));
-      return copy;
-    });
-    setDraggingIndex(null);
-  } else {
-    // Handle new field drop
-    const fieldData = e.dataTransfer.getData("application/json");
-    if (!fieldData) return;
-
-    const field = JSON.parse(fieldData);
-    setDroppedFields(prev => [
-      ...prev,
+      const field = JSON.parse(fieldData);
+      setDroppedFields(prev => [
+        ...prev,
       {
-        ...field,
-        x,
-        y,
-        page: selectedPage,
-        text: ''
-      }
-    ]);
-  }
-};
+  ...field,
+  x,
+  y,
+  page: selectedPage,
+  text: '',
+  recipientId: selectedRecipientIndex !== null ? recipientColors[selectedRecipientIndex].id : null
+}
+
+      ]);
+    }
+  };
 
   if (!isMounted) {
     return <Typography>Loading...</Typography>;
@@ -253,7 +290,10 @@ const handleDropOnField = (e: React.DragEvent) => {
             <Divider />
             <Box px={2} py={1}>
               <Typography variant="body2" color="text.secondary">
-                {storedFile?.name || "No file loaded"} ({thumbnails.length})
+                {storedFile?.dataUrl
+                  ? `${storedFile.dataUrl.split('/').pop()?.split('?')[0]}`  // Extract file name
+                  : "No file loaded"}{" "}
+                ({thumbnails.length})
               </Typography>
               <Typography variant="caption">Pages: {thumbnails.length}</Typography>
             </Box>
@@ -291,9 +331,10 @@ const handleDropOnField = (e: React.DragEvent) => {
             mx={2}
             display="flex"
             justifyContent="center"
-            alignItems="center"
+            alignItems="flex-start" // Align to top
             bgcolor="#f4f4f4"
             overflow="auto"
+            pt={1} // Add top padding/margin
           >
             <Box
               ref={previewRef}
@@ -306,93 +347,111 @@ const handleDropOnField = (e: React.DragEvent) => {
                 boxShadow: 3,
                 bgcolor: '#fff',
                 overflow: 'hidden',
-                position: 'relative'
+                position: 'relative',
+                mb: 4 // Optional: Add bottom margin
               }}
             >
               {isPDF && pageImage ? (
                 <img
                   src={pageImage}
                   alt={`Page ${selectedPage + 1}`}
-                  style={{ width: '100%', height: '100%', objectFit: 'contain', pointerEvents: 'none' }}
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'contain',
+                    pointerEvents: 'none'
+                  }}
                 />
               ) : isImage && storedFile ? (
                 <img
                   src={storedFile.dataUrl}
                   alt="Document Preview"
-                  style={{ width: '100%', height: '100%', objectFit: 'contain', pointerEvents: 'none' }}
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'contain',
+                    pointerEvents: 'none'
+                  }}
                 />
               ) : (
                 <Typography>Loading...</Typography>
               )}
 
               {/* Dropped Fields */}
-              {droppedFields
-                .filter(f => f.page === selectedPage)
-                .map((field, idx) => (
-                  <Box
-                    key={idx}
-                    sx={{
-                      position: 'absolute',
-                      top: field.y,
-                      left: field.x,
-                      px: 1,
-                      py: 0.5,
-                      bgcolor: 'transparent',
-                      color: '#000',
-                      fontSize: '12px',
-                      borderRadius: 1,
-                      cursor: 'move',
-                      minWidth: 80,
-                      display: 'flex',
-                      alignItems: 'center',
-                      boxShadow: '0 0 0 1px rgba(0,0,0,0.2)'
-                    }}
-                    draggable
-                    onDragStart={e => handleDragStart(e, idx)}
-                    onDragOver={handleDragOverField}
-                    onDrop={handleDropOnField}
-                  >
-                    {field.type === 'checkbox' ? (
-  <input
-    type="checkbox"
-    checked={field.text === 'true'}
-    onChange={(e) => handleFieldChange(idx, e.target.checked ? 'true' : 'false')}
-    style={{ transform: 'scale(1.2)' }}
-  />
-) : field.type === 'date' || field.type === 'date-signed' ? (
-  <input
-    type="date"
-    value={field.text}
-    onChange={(e) => handleFieldChange(idx, e.target.value)}
-    style={{
-      border: 'none',
-      background: 'transparent',
-      fontSize: '12px',
-      outline: 'none',
-      color: '#000'
-    }}
-  />
-) : (
-  <input
-    type="text"
-    value={field.text}
-    onChange={(e) => handleFieldChange(idx, e.target.value)}
-    placeholder={field.label}
-    style={{
-      flexGrow: 1,
-      width: '100%',
-      border: 'none',
-      background: 'transparent',
-      color: '#000',
-      fontSize: '12px',
-      outline: 'none',
-      textAlign: 'left'
-    }}
-  />
-)}
+             {droppedFields
+  .filter(f => f.page === selectedPage)
+  .map((field, idx) => {
+    const recipient = recipientColors.find(r => r.id === field.recipientId);
+    const recipientColor = recipient ? recipient.color : 'transparent';
 
-                  </Box>
-                ))}
+    return (
+      <Box
+        key={idx}
+        sx={{
+          position: 'absolute',
+          top: field.y,
+          left: field.x,
+          px: 1,
+          py: 0.5,
+          bgcolor: recipientColor,
+          color: '#000',
+          fontSize: '12px',
+          borderRadius: 1,
+          cursor: 'move',
+          minWidth: 80,
+          display: 'flex',
+          alignItems: 'center',
+          boxShadow: '0 0 0 1px rgba(0,0,0,0.2)'
+        }}
+        draggable
+        onDragStart={e => handleDragStart(e, idx)}
+        onDragOver={handleDragOverField}
+        onDrop={handleDropOnField}
+      >
+        {field.type === 'checkbox' ? (
+          <input
+            type="checkbox"
+            checked={field.text === 'true'}
+            onChange={(e) =>
+              handleFieldChange(idx, e.target.checked ? 'true' : 'false')
+            }
+            style={{ transform: 'scale(1.2)' }}
+          />
+        ) : field.type === 'date' ? (
+          <input
+            type="date"
+            value={field.text}
+            onChange={(e) => handleFieldChange(idx, e.target.value)}
+            style={{
+              border: 'none',
+              background: 'transparent',
+              fontSize: '12px',
+              outline: 'none',
+              color: '#000'
+            }}
+          />
+        ) : (
+          <input
+            type="text"
+            value={field.text}
+            onChange={(e) => handleFieldChange(idx, e.target.value)}
+            placeholder={field.label}
+            style={{
+              flexGrow: 1,
+              width: '100%',
+              border: 'none',
+              background: 'transparent',
+              color: '#000',
+              fontSize: '12px',
+              outline: 'none',
+              textAlign: 'left'
+            }}
+          />
+        )}
+      </Box>
+    );
+  })}
+
             </Box>
           </Box>
 
@@ -410,28 +469,70 @@ const handleDropOnField = (e: React.DragEvent) => {
             <Box p={2}>
               <Typography variant="subtitle2" color="text.secondary">RECIPIENTS</Typography>
             </Box>
+
             <Box display="flex" flexDirection="column" px={2} pb={2} gap={1}>
-              <Button variant="outlined" size="small" sx={{ textTransform: 'none' }}>
-                No Signer
-              </Button>
+              {/* No Signer - selectable */}
               <Box
-                display="flex"
-                alignItems="center"
-                justifyContent="space-between"
-                bgcolor="#dff5e1"
-                p={1}
-                borderRadius={1}
+                onClick={() => setSelectedRecipientIndex(null)}
+                sx={{
+                  border: selectedRecipientIndex === null ? '2px solid #4a90e2' : '2px solid transparent',
+                  borderRadius: 1,
+                  cursor: 'pointer',
+                  transition: 'border 0.2s ease-in-out',
+                }}
               >
-                <Typography variant="body2">ALI A.</Typography>
-                <Button variant="text" size="small" sx={{ textTransform: 'none' }}>
-                  Signer
+                <Button
+                  fullWidth
+                  variant="outlined"
+                  size="small"
+                  sx={{
+                    textTransform: 'none',
+                    bgcolor: selectedRecipientIndex === null ? '#f0f8ff' : '#fff'
+                  }}
+                >
+                  No Signer
                 </Button>
               </Box>
+
+              {/* List of recipients */}
+              {documentData?.recipients?.map((recipient, index) => {
+                const isSelected = index === selectedRecipientIndex;
+                const isFirst = index === 0;
+
+                return (
+                  <Box
+                    key={recipient._id}
+                    display="flex"
+                    alignItems="center"
+                    justifyContent="space-between"
+                    bgcolor={isFirst ? '#dff5e1' : '#e7ecff'}
+                    p={1}
+                    borderRadius={1}
+                    mb={1}
+                    sx={{
+                      cursor: 'pointer',
+                      border: isSelected ? '2px solid #4a90e2' : '2px solid transparent',
+                      transition: 'border 0.2s ease-in-out',
+                    }}
+                    onClick={() => setSelectedRecipientIndex(index)}
+                  >
+                    <Typography variant="body2">
+                      {recipient.name}
+                    </Typography>
+                    <Button variant="text" size="small" sx={{ textTransform: 'none' }}>
+                      Signer
+                    </Button>
+                  </Box>
+                );
+              })}
             </Box>
+
             <Divider />
+
             <Box p={2}>
               <Typography variant="subtitle2" color="text.secondary">FIELDS</Typography>
             </Box>
+
             <Box display="flex" flexDirection="column" px={2} pb={2} gap={1}>
               {fields.map((field, index) => (
                 <Box
@@ -445,7 +546,7 @@ const handleDropOnField = (e: React.DragEvent) => {
                   gap={1.5}
                   sx={{
                     p: 1,
-                    bgcolor: '#f9f9f9',
+                    bgcolor: '# f9f9f9',
                     borderRadius: 1,
                     cursor: 'grab',
                     '&:hover': { bgcolor: '#f0f0f0' }
@@ -469,6 +570,7 @@ const handleDropOnField = (e: React.DragEvent) => {
               ))}
             </Box>
           </Paper>
+
         </Box>
       </Box>
     </Topbar>

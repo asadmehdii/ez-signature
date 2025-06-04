@@ -18,6 +18,7 @@ import { grey } from '@mui/material/colors';
 import CustomPopover from "@/app/components/popover";
 import ModelToggle from "@/app/components/modelToggle";
 import { useRouter } from "next/navigation"; 
+import { supabase } from "@/app/utils/supabase"; // adjust path if needed
 
 
 export default function NewDocumentPage() {
@@ -105,10 +106,12 @@ const expiryDaysMap = {
 };
 
 const parseExpiryToDays = (expiry) => {
-  const cleanExpiry = expiry.split(" (")[0]; // removes everything after " ("
-  return expiryDaysMap[cleanExpiry] || 30; // fallback to 30 days
+  const cleanExpiry = expiry.split(" (")[0]; 
+  return expiryDaysMap[cleanExpiry] || 30; 
 };
 ;
+
+
 const handleSaveDraftClick = async () => {
   if (uploadedFiles.length === 0) {
     alert("Please upload a file.");
@@ -121,46 +124,66 @@ const handleSaveDraftClick = async () => {
   }
 
   const file = uploadedFiles[0];
+  const fileName = `${Date.now()}-${file.name}`;
 
-  let currentUser  = { name: "", email: "" };
+  let currentUser = { name: "", email: "" };
   try {
     const userFromStorage = localStorage.getItem("user");
     if (userFromStorage) {
-      currentUser  = JSON.parse(userFromStorage);
+      currentUser = JSON.parse(userFromStorage);
     }
   } catch (err) {
     console.error("Failed to parse user from localStorage", err);
   }
 
-  const fileUrl = `https://dmiboomlaxybbzwlrohz.supabase.co/storage/v1/object/public/document/document/${file.name}`;
-
-  const dataPayload = {
-    title: documentTitle,
-    signingOption: "",
-    recipients: [],
-    message: documentMessage || (selection === "others-only" ? "Please review and sign this document" : "Please sign this document"),
-    enableAutoReminder: settings.autoReminder,
-    requireAllSigners: settings.requireAllSigners,
-    expireAfterDays: parseExpiryToDays(settings.expireAfter),
-    status: "draft", 
-    fileUrl: fileUrl,
-    fileType: file.type,
-  };
-
-  if (selection === "me-only") {
-    dataPayload.signingOption = "Me Only";
-    dataPayload.currentUser  = currentUser ;
-  } else if (selection === "me-and-others") {
-    dataPayload.signingOption = "Me & Others";
-    dataPayload.recipients = [recipient];
-    dataPayload.currentUser  = currentUser ;
-  } else if (selection === "others-only") {
-    dataPayload.signingOption = "Others Only";
-    dataPayload.recipients = [recipient];
+  const token = localStorage.getItem('token');
+  if (!token) {
+    alert("Authentication token not found.");
+    return;
   }
-      const token = localStorage.getItem('token');
-      if (!token) throw new Error('JWT token not found in localStorage');
+
   try {
+    // Upload to Supabase
+const { data, error } = await supabase.storage
+  .from("document")
+  .upload(`document/${fileName}`, file.file, {
+    cacheControl: "3600",
+    upsert: true,
+  });
+
+    if (error) {
+      console.error("Supabase upload error:", error);
+      alert("File upload failed.");
+      return;
+    }
+
+const fileUrl = `https://dmiboomlaxybbzwlrohz.supabase.co/storage/v1/object/public/document/document/${fileName}`;
+
+    const dataPayload = {
+      title: documentTitle,
+      signingOption: "",
+      recipients: [],
+      message: documentMessage || (selection === "others-only" ? "Please review and sign this document" : "Please sign this document"),
+      enableAutoReminder: settings.autoReminder,
+      requireAllSigners: settings.requireAllSigners,
+      expireAfterDays: parseExpiryToDays(settings.expireAfter),
+      status: "draft",
+      fileUrl: fileUrl,
+      fileType: file.type,
+    };
+
+    if (selection === "me-only") {
+      dataPayload.signingOption = "Me Only";
+      dataPayload.currentUser = currentUser;
+    } else if (selection === "me-and-others") {
+      dataPayload.signingOption = "Me & Others";
+      dataPayload.recipients = [recipient];
+      dataPayload.currentUser = currentUser;
+    } else if (selection === "others-only") {
+      dataPayload.signingOption = "Others Only";
+      dataPayload.recipients = [recipient];
+    }
+
     const response = await fetch("http://ezsignature.org/api/document/create", {
       method: "POST",
       headers: {
@@ -171,15 +194,22 @@ const handleSaveDraftClick = async () => {
     });
 
     const result = await response.json();
+
     if (response.ok) {
-      alert("Draft saved successfully.");
-      router.push("/documents"); // Redirect to drafts page or wherever appropriate
+      if (result && result._id) {
+        alert("Draft saved successfully.");
+              router.push("/documents"); // Redirect to drafts page or wherever appropriate
+
+      } else {
+        alert("Document created but no ID returned.");
+      }
     } else {
-      console.error("Error Data:", result);
-      alert("Failed to save draft: " + (result.message || response.statusText));
+      console.error("Create API Error:", result);
+      alert("Failed to create document.");
     }
   } catch (error) {
-    alert("Error while saving draft: " + error.message);
+    console.error("Error in handleSaveDraftClick:", error);
+    alert("Error while saving document: " + error.message);
   }
 };
 
@@ -195,8 +225,8 @@ const handlePrepareClick = async () => {
   }
 
   const file = uploadedFiles[0];
+  const fileName = `${Date.now()}-${file.name}`;
 
-  // ✅ Get current user from localStorage
   let currentUser = { name: "", email: "" };
   try {
     const userFromStorage = localStorage.getItem("user");
@@ -207,67 +237,83 @@ const handlePrepareClick = async () => {
     console.error("Failed to parse user from localStorage", err);
   }
 
-  const fileUrl = `https://dmiboomlaxybbzwlrohz.supabase.co/storage/v1/object/public/document/document/${file.name}`;
-
-  const dataPayload = {
-  title: documentTitle,
-  signingOption: "",
-  recipients: [],
-  message:
-    documentMessage ||
-    (selection === "others-only"
-      ? "Please review and sign this document"
-      : "Please sign this document"),
-  enableAutoReminder: settings.autoReminder,
-  requireAllSigners: settings.requireAllSigners,
-  expireAfterDays: parseExpiryToDays(settings.expireAfter),
-  status: "in_process",
-  fileUrl: fileUrl,
-  fileType: file.type,
-};
-
-
-  // ✅ Populate based on selection
-  if (selection === "me-only") {
-    dataPayload.signingOption = "Me Only";
-    dataPayload.currentUser = currentUser;
-  } else if (selection === "me-and-others") {
-    dataPayload.signingOption = "Me & Others";
-    dataPayload.recipients = [recipient]; // ✅ use input state
-
-    dataPayload.currentUser = currentUser;
-  } else if (selection === "others-only") {
-    dataPayload.signingOption = "Others Only";
-     dataPayload.recipients = [recipient]; 
-
+  const token = localStorage.getItem('token');
+  if (!token) {
+    alert("Authentication token not found.");
+    return;
   }
 
-  const token = localStorage.getItem('token');
-   if (!token) throw new Error('JWT token not found in localStorage');
-
   try {
+    // Upload to Supabase
+const { data, error } = await supabase.storage
+  .from("document")
+  .upload(`document/${fileName}`, file.file, {
+    cacheControl: "3600",
+    upsert: true,
+  });
+
+    if (error) {
+      console.error("Supabase upload error:", error);
+      alert("File upload failed.");
+      return;
+    }
+
+const fileUrl = `https://dmiboomlaxybbzwlrohz.supabase.co/storage/v1/object/public/document/document/${fileName}`;
+
+    const dataPayload = {
+      title: documentTitle,
+      signingOption: "",
+      recipients: [],
+      message: documentMessage || (selection === "others-only" ? "Please review and sign this document" : "Please sign this document"),
+      enableAutoReminder: settings.autoReminder,
+      requireAllSigners: settings.requireAllSigners,
+      expireAfterDays: parseExpiryToDays(settings.expireAfter),
+      status: "in_process",
+      fileUrl: fileUrl,
+      fileType: file.type,
+    };
+
+    if (selection === "me-only") {
+      dataPayload.signingOption = "Me Only";
+      dataPayload.currentUser = currentUser;
+    } else if (selection === "me-and-others") {
+      dataPayload.signingOption = "Me & Others";
+      dataPayload.recipients = [recipient];
+      dataPayload.currentUser = currentUser;
+    } else if (selection === "others-only") {
+      dataPayload.signingOption = "Others Only";
+      dataPayload.recipients = [recipient];
+    }
+
     const response = await fetch("http://ezsignature.org/api/document/create", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         'Authorization': `Bearer ${token}`,
-
       },
       body: JSON.stringify(dataPayload),
     });
 
     const result = await response.json();
+
     if (response.ok) {
-      alert("Document created successfully.");
-      router.push("/prepare");
+      if (result && result._id) {
+        alert("Document created successfully.");
+        router.push(`/prepare/${result._id}`);
+      } else {
+        alert("Document created but no ID returned.");
+      }
     } else {
-      console.error("Error Data:", result);
-      alert("Failed to create document: " + (result.message || response.statusText));
+      console.error("Create API Error:", result);
+      alert("Failed to create document.");
     }
   } catch (error) {
+    console.error("Error in handlePrepareClick:", error);
     alert("Error while creating document: " + error.message);
   }
 };
+
+
 
 
 
