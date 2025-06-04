@@ -42,6 +42,18 @@ export default function DocumentSignerUI() {
   const dragOffset = useRef<{ x: number, y: number }>({ x: 0, y: 0 });
   const { id } = useParams(); // Get the document ID from the URL
 
+
+let currentUser = { name: "", email: "" };
+
+try {
+  const userFromStorage = localStorage.getItem("user");
+  if (userFromStorage) {
+    currentUser = JSON.parse(userFromStorage);
+  }
+} catch (err) {
+  console.error("Failed to parse user from localStorage:", err);
+}
+
   useEffect(() => {
     setIsMounted(true);
   }, []);
