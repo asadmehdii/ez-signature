@@ -73,7 +73,7 @@ try {
     if (id) {
       const token = localStorage.getItem('token'); // Get token from localStorage
 
-      fetch(`http://localhost:4000/api/document/${id}`, {
+      fetch(`http://ezsignature.org/api/document/${id}`, {
         headers: {
           'Authorization': `Bearer ${token}`, // Add token to Authorization header
         },
