@@ -7,6 +7,10 @@ import 'pdfjs-dist/build/pdf.worker.entry';
 import Topbar from "@/app/components/dashboardTopbar/topbar";
 import { useParams } from 'next/navigation';
 import { supabase } from '@/app/utils/supabase'; // Adjust the import path as needed
+import SignatureModal from "../../signature/signature";
+import { PDFDocument, rgb } from 'pdf-lib'; // Import PDFDocument from pdf-lib
+import { Rnd } from 'react-rnd';
+
 
 const fields = [
   { label: 'Signature', icon: <Person fontSize="small" />, type: 'signature' },
@@ -41,7 +45,11 @@ export default function DocumentSignerUI() {
   const [draggingIndex, setDraggingIndex] = useState<number | null>(null);
   const dragOffset = useRef<{ x: number, y: number }>({ x: 0, y: 0 });
   const { id } = useParams(); // Get the document ID from the URL
+  const [recipients, setRecipients] = React.useState([]); // new state for recipients
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
 
+
+const [isSignatureModalOpen, setSignatureModalOpen] = useState(false);
 
 let currentUser = { name: "", email: "" };
 
@@ -81,6 +89,7 @@ try {
         .then(response => response.json())
         .then(data => {
           setDocumentData(data);
+        setRecipients(data.recipients || []); //
           setStoredFile({
             type: data.fileType,
             dataUrl: data.fileUrl,
@@ -91,16 +100,6 @@ try {
         });
     }
   }, [id]);
-
-  function base64ToUint8Array(base64: string) {
-    const base64Data = base64.split(",")[1];
-    const raw = atob(base64Data);
-    const uint8Array = new Uint8Array(raw.length);
-    for (let i = 0; i < raw.length; i++) {
-      uint8Array[i] = raw.charCodeAt(i);
-    }
-    return uint8Array;
-  }
 
   useEffect(() => {
     async function loadPdf() {
@@ -236,51 +235,259 @@ try {
     e.preventDefault();
   };
 
-  const handleDropOnField = (e: React.DragEvent) => {
-    e.preventDefault();
+const handleDropOnField = (e: React.DragEvent) => {
+  e.preventDefault();
 
-    const previewRect = previewRef.current?.getBoundingClientRect();
-    if (!previewRect) return;
+  const previewRect = previewRef.current?.getBoundingClientRect();
+  if (!previewRect) return;
 
-    const x = e.clientX - previewRect.left;
-    const y = e.clientY - previewRect.top;
+  const x = e.clientX - previewRect.left;
+  const y = e.clientY - previewRect.top;
 
-    if (draggingIndex !== null) {
-      // Move existing field
-      setDroppedFields(prev => {
-        const copy = [...prev];
-        copy[draggingIndex].x = Math.max(0, Math.min(x - dragOffset.current.x, previewRect.width));
-        copy[draggingIndex].y = Math.max(0, Math.min(y - dragOffset.current.y, previewRect.height));
-        return copy;
-      });
-      setDraggingIndex(null);
-    } else {
-      // Handle new field drop
-      const fieldData = e.dataTransfer.getData("application/json");
-      if (!fieldData) return;
+  const fieldData = e.dataTransfer.getData("application/json");
+  if (!fieldData) return;
 
-      const field = JSON.parse(fieldData);
-      setDroppedFields(prev => [
-        ...prev,
+  const field = JSON.parse(fieldData);
+
+  // Get selected recipient from recipients state
+  const selectedRecipient = selectedRecipientIndex !== null
+    ? recipients[selectedRecipientIndex]
+    : null;
+
+  const selectedRecipientColor = selectedRecipientIndex !== null
+    ? recipientColors[selectedRecipientIndex]
+    : null;
+
+  if (
+    field.type === 'signature' &&
+    selectedRecipient?.email === documentData?.ownerEmail
+  ) {
+    setSignatureModalOpen(true);
+  } else {
+    setDroppedFields(prev => [
+      ...prev,
       {
-  ...field,
-  x,
-  y,
-  page: selectedPage,
-  text: '',
-  recipientId: selectedRecipientIndex !== null ? recipientColors[selectedRecipientIndex].id : null
-}
+        ...field,
+        x,
+        y,
+        page: selectedPage,
+        text: '',
+        recipientId: selectedRecipientColor?.id ?? null,
+      }
+    ]);
+  }
+};
 
-      ]);
-    }
-  };
+
+
 
   if (!isMounted) {
     return <Typography>Loading...</Typography>;
   }
 
+
+const handleSendDocument = async () => {
+  if (!storedFile) {
+    alert("No file to send!");
+    return;
+  }
+
+  try {
+    // Fetch the original PDF
+    const response = await fetch(storedFile.dataUrl);
+    const originalPdfBytes = await response.arrayBuffer();
+
+    // Load the original PDF
+    const pdfDoc = await PDFDocument.load(originalPdfBytes);
+    const page = pdfDoc.getPage(0); // Assuming you want to modify the first page
+
+    // Add dropped fields to the PDF
+   for (const field of droppedFields) {
+  const { x, y, type, text } = field;
+  const pageHeight = page.getHeight();
+  const adjustedY = pageHeight - y;
+
+  switch (type) {
+    case 'signature': {
+      const imgBytes = await fetch(text).then(res => res.arrayBuffer());
+      const img = await pdfDoc.embedPng(imgBytes);
+      page.drawImage(img, {
+        x,
+        y: adjustedY,
+        width: 100,
+        height: 50,
+      });
+      break;
+    }
+    case 'text': {
+      page.drawText(text, {
+        x,
+        y: adjustedY,
+        size: 12,
+        color: rgb(0, 0, 0),
+      });
+      break;
+    }
+    case 'checkbox': {
+      // Draw a simple box
+      page.drawRectangle({
+        x,
+        y: adjustedY,
+        width: 12,
+        height: 12,
+        borderColor: rgb(0, 0, 0),
+        borderWidth: 1,
+      });
+
+      // Optional: draw a checkmark (X) if field.checked is true
+      if (field.checked) {
+        page.drawText('✓', {
+          x: x + 1,
+          y: adjustedY + 1,
+          size: 10,
+          color: rgb(0, 0, 0),
+        });
+      }
+      break;
+    }
+    case 'date': {
+      const formattedDate = new Date().toLocaleDateString();
+      page.drawText(formattedDate, {
+        x,
+        y: adjustedY,
+        size: 12,
+        color: rgb(0, 0, 0),
+      });
+      break;
+    }
+    default:
+      console.warn(`Unhandled field type: ${type}`);
+  }
+}
+
+
+    const pdfBytes = await pdfDoc.save();
+
+    const storagePath = `do as cument/${Date.now()}_final_document.pdf`;
+    const { error: uploadError } = await supabase.storage
+      .from('document')
+      .upload(storagePath, pdfBytes, {
+        contentType: 'application/pdf',
+      });
+
+    if (uploadError) {
+      throw uploadError;
+    }
+
+    const { data: publicUrlData } = supabase
+      .storage
+      .from('document')
+      .getPublicUrl(storagePath);
+
+    const fileDownloadUrl = publicUrlData?.publicUrl;
+
+    if (!fileDownloadUrl) {
+      throw new Error("Failed to get public URL");
+    }
+
+const allRecipientEmails = recipients.map(r => r.email);
+await sendEmail(allRecipientEmails, fileDownloadUrl, 'Final Document');
+
+    alert("Document sent successfully!");
+
+  } catch (error) {
+    console.error("Error sending document:", error);
+    alert("Error sending document.");
+  }
+};
+
+
+async function sendEmail(recipients, fileUrl, fileName) {
+  const token = localStorage.getItem('token');
+  const emailApiUrl = 'http://ezsignature.org/api/email/send';
+
+  const emailData = {
+    recipients, 
+    subject: "Your Document",
+    text: "Please find the attached document.",
+    filePath: fileUrl,
+    fileName,
+  };
+
+  const response = await fetch(emailApiUrl, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`,
+    },
+    body: JSON.stringify(emailData)
+  });
+
+  if (!response.ok) {
+    console.error("Error sending email:", response.status, response.statusText);
+    throw new Error(`Failed to send email: ${response.status} ${response.statusText}`);
+  }
+
+  const responseData = await response.json();
+  console.log("Email sent successfully:", responseData);
+}
+
+
+const handleResizeStart = (e, index, corner) => {
+  e.preventDefault();
+  e.stopPropagation();
+
+  const initialWidth = droppedFields[index].width || 100;
+  const initialHeight = droppedFields[index].height || 50;
+  const initialX = droppedFields[index].x;
+  const initialY = droppedFields[index].y;
+
+  const initialMouseX = e.clientX;
+  const initialMouseY = e.clientY;
+
+  const handleMouseMove = (moveEvent) => {
+    const dx = moveEvent.clientX - initialMouseX;
+    const dy = moveEvent.clientY - initialMouseY;
+
+    let newWidth = initialWidth;
+    let newHeight = initialHeight;
+
+    if (corner.includes('right')) {
+      newWidth = initialWidth + dx;
+    }
+    if (corner.includes('bottom')) {
+      newHeight = initialHeight + dy;
+    }
+    if (corner.includes('left')) {
+      newWidth = initialWidth - dx;
+      newWidth = newWidth < 10 ? 10 : newWidth; // Minimum width
+    }
+    if (corner.includes('top')) {
+      newHeight = initialHeight - dy;
+      newHeight = newHeight < 10 ? 10 : newHeight; // Minimum height
+    }
+
+    setDroppedFields(prev => {
+      const updatedFields = [...prev];
+      updatedFields[index] = { ...updatedFields[index], width: newWidth, height: newHeight };
+      return updatedFields;
+    });
+  };
+
+  const handleMouseUp = () => {
+    window.removeEventListener('mousemove', handleMouseMove);
+    window.removeEventListener('mouseup', handleMouseUp);
+  };
+
+  window.addEventListener('mousemove', handleMouseMove);
+  window.addEventListener('mouseup', handleMouseUp);
+};
+
+
+
   return (
-    <Topbar title="Prepare" secondText="Send" outlinedBtn="Save Draft">
+    <>
+    <Topbar title="Prepare" secondText="Send" outlinedBtn="Save Draft"   onSecondBtnClick={handleSendDocument} >
       <Box sx={{ minHeight: '100vh', bgcolor: '#f0f2f5', p: 2 }}>
         <Box display="flex" height="calc(100vh - 32px)">
 
@@ -343,10 +550,10 @@ try {
             mx={2}
             display="flex"
             justifyContent="center"
-            alignItems="flex-start" // Align to top
+            alignItems="flex-start" 
             bgcolor="#f4f4f4"
             overflow="auto"
-            pt={1} // Add top padding/margin
+            pt={1} 
           >
             <Box
               ref={previewRef}
@@ -390,80 +597,173 @@ try {
               )}
 
               {/* Dropped Fields */}
-             {droppedFields
-  .filter(f => f.page === selectedPage)
-  .map((field, idx) => {
-    const recipient = recipientColors.find(r => r.id === field.recipientId);
-    const recipientColor = recipient ? recipient.color : 'transparent';
+{droppedFields.map((field, idx) => {
+  const recipient = recipientColors.find(r => r.id === field.recipientId);
+  const recipientColor = recipient ? recipient.color : 'transparent';
 
-    return (
-      <Box
-        key={idx}
-        sx={{
-          position: 'absolute',
-          top: field.y,
-          left: field.x,
-          px: 1,
-          py: 0.5,
-          bgcolor: recipientColor,
-          color: '#000',
-          fontSize: '12px',
-          borderRadius: 1,
-          cursor: 'move',
-          minWidth: 80,
-          display: 'flex',
-          alignItems: 'center',
-          boxShadow: '0 0 0 1px rgba(0,0,0,0.2)'
-        }}
-        draggable
-        onDragStart={e => handleDragStart(e, idx)}
-        onDragOver={handleDragOverField}
-        onDrop={handleDropOnField}
-      >
-        {field.type === 'checkbox' ? (
-          <input
-            type="checkbox"
-            checked={field.text === 'true'}
-            onChange={(e) =>
-              handleFieldChange(idx, e.target.checked ? 'true' : 'false')
-            }
-            style={{ transform: 'scale(1.2)' }}
-          />
-        ) : field.type === 'date' ? (
-          <input
-            type="date"
-            value={field.text}
-            onChange={(e) => handleFieldChange(idx, e.target.value)}
-            style={{
-              border: 'none',
-              background: 'transparent',
-              fontSize: '12px',
-              outline: 'none',
-              color: '#000'
-            }}
-          />
-        ) : (
-          <input
-            type="text"
-            value={field.text}
-            onChange={(e) => handleFieldChange(idx, e.target.value)}
-            placeholder={field.label}
-            style={{
-              flexGrow: 1,
-              width: '100%',
-              border: 'none',
-              background: 'transparent',
-              color: '#000',
-              fontSize: '12px',
-              outline: 'none',
-              textAlign: 'left'
-            }}
-          />
-        )}
-      </Box>
-    );
-  })}
+  const width = field.width || 100;
+  const height = field.height || 40;
 
+  return (
+    field.page === selectedPage && (
+     <Rnd
+  key={idx}
+  size={{ width, height }}
+  position={{ x: field.x, y: field.y }}
+  bounds="parent"
+  minWidth={80}
+  minHeight={30}
+  enableResizing={{
+    topLeft: true,
+    topRight: true,
+    bottomLeft: true,
+    bottomRight: true,
+    top: false,
+    right: false,
+    bottom: false,
+    left: false,
+  }}
+handleComponent={{
+  topLeft: <div style={{
+    width: 10,
+    height: 10,
+    background: '#fff',
+    border: '2px solid red',
+    position: 'absolute',
+    top: -6,
+    left: -6,
+    cursor: 'nwse-resize',
+  }} />,
+  topRight: <div style={{
+    width: 10,
+    height: 10,
+    background: '#fff',
+    border: '2px solid red',
+    position: 'absolute',
+    top: -6,
+    right: -6,
+    cursor: 'nesw-resize',
+  }} />,
+  bottomLeft: <div style={{
+    width: 10,
+    height: 10,
+    background: '#fff',
+    border: '2px solid red',
+    position: 'absolute',
+    bottom: -6,
+    left: -6,
+    cursor: 'nesw-resize',
+  }} />,
+  bottomRight: <div style={{
+    width: 10,
+    height: 10,
+    background: '#fff',
+    border: '2px solid red',
+    position: 'absolute',
+    bottom: -6,
+    right: -6,
+    cursor: 'nwse-resize',
+  }} />,
+}}
+
+  onDragStop={(e, d) => {
+    setDroppedFields(prev => {
+      const updatedFields = [...prev];
+      updatedFields[idx] = { ...updatedFields[idx], x: d.x, y: d.y };
+      return updatedFields;
+    });
+  }}
+  onResizeStop={(e, direction, ref, delta, position) => {
+    setDroppedFields(prev => {
+      const updatedFields = [...prev];
+      updatedFields[idx] = {
+        ...updatedFields[idx],
+        width: ref.offsetWidth,
+        height: ref.offsetHeight,
+        x: position.x,
+        y: position.y,
+      };
+      return updatedFields;
+    });
+  }}
+  style={{ zIndex: 10 }}
+>
+        <Box
+          sx={{
+            width: '100%',
+            height: '100%',
+            px: 1,
+            py: 0.5,
+            bgcolor: recipientColor,
+            color: '#000',
+            fontSize: `${Math.max(10, height * 0.3)}px`,
+            borderRadius: 1,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            border: '1px solid rgba(0,0,0,0.2)',
+            overflow: 'hidden',
+          }}
+        >
+          {field.type === 'signature' ? (
+            <img
+              src={field.text}
+              alt="Signature"
+              style={{
+                maxHeight: '100%',
+                maxWidth: '100%',
+                objectFit: 'contain',
+              }}
+            />
+          ) : field.type === 'checkbox' ? (
+            <input
+              type="checkbox"
+              checked={field.text === 'true'}
+              onChange={(e) =>
+                handleFieldChange(idx, e.target.checked ? 'true' : 'false')
+              }
+              style={{
+                transform: `scale(${Math.min(width, height) / 40})`,
+              }}
+            />
+          ) : field.type === 'date' ? (
+            <input
+              type="date"
+              value={field.text}
+              onChange={(e) => handleFieldChange(idx, e.target.value)}
+              style={{
+                border: 'none',
+                background: 'transparent',
+                fontSize: `${Math.max(10, height * 0.3)}px`,
+                outline: 'none',
+                color: '#000',
+                width: '100%',
+              }}
+            />
+          ) : (
+            <input
+              type="text"
+              value={field.text}
+              onChange={(e) => handleFieldChange(idx, e.target.value)}
+              placeholder={field.label}
+              style={{
+                flexGrow: 1,
+                width: '100%',
+                border: 'none',
+                background: 'transparent',
+                color: '#000',
+                fontSize: `${Math.max(10, height * 0.3)}px`,
+                outline: 'none',
+                textAlign: 'left',
+              }}
+            />
+          )}
+        </Box>
+      </Rnd>
+    )
+  );
+})}
+                                         
             </Box>
           </Box>
 
@@ -586,5 +886,28 @@ try {
         </Box>
       </Box>
     </Topbar>
+
+   <SignatureModal
+  isOpen={isSignatureModalOpen}
+  modalType="signature" 
+  onClose={() => setSignatureModalOpen(false)}
+  onSignatureSave={(signatureData) => {
+  setDroppedFields(prev => [
+    ...prev,
+    {
+      type: 'signature',
+      x: 100, 
+      y: 100, 
+      page: selectedPage,
+      text: signatureData.image,
+      recipientId: selectedRecipientIndex !== null ? recipientColors[selectedRecipientIndex].id : null
+    }
+  ]);
+  setSignatureModalOpen(false);
+}}
+
+/>
+
+</>
   );
 }

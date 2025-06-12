@@ -1,15 +1,17 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import SignatureCanvas from "react-signature-canvas";
 import axios from "axios";
 import Image from 'next/image';
 import { supabase } from '../../utils/supabase'; 
 
-const SignatureModal = ({ isOpen, modalType, onClose }) => {
+const SignatureModal = ({ isOpen, modalType, onClose, onSignatureSave }) => {
   const [signatureText, setSignatureText] = useState("");
   const [activeTab, setActiveTab] = useState("type");
   const [sigPad, setSigPad] = useState(null);
   const [uploadedImage, setUploadedImage] = useState(null);
   const [selectedFont, setSelectedFont] = useState("AlexBrush");
+  const [signatures, setSignatures] = useState([]);
+  const [selectedSignature, setSelectedSignature] = useState(null);
 
   const fontStyles = [
     { fontFamily: "Arial" },
@@ -21,6 +23,58 @@ const SignatureModal = ({ isOpen, modalType, onClose }) => {
     { fontFamily: "Kalam" },
   ];
 
+
+  useEffect(() => {
+    const userId = localStorage.getItem("userId");
+  
+    if (!userId) {
+      console.error("User ID not found in localStorage");
+      return;
+    }
+  
+    const fetchSignatures = async () => {
+      try {
+        const token = localStorage.getItem("token");
+        if (!token) throw new Error("JWT token not found in localStorage");
+  
+        const response = await axios.get("http://ezsignature.org/api/signatures/me", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        });
+  
+        const data = response.data;
+        console.log("Fetched signatures:", data);
+  
+        const allSignatures = [
+          ...(Array.isArray(data.drawSignatures) ? data.drawSignatures : []),
+          ...(Array.isArray(data.typedSignatures) ? data.typedSignatures : []),
+          ...(Array.isArray(data.uploadedSignatures) ? data.uploadedSignatures : []),
+        ];
+  
+        const defaultSignatureId = data?.defaultSignatureId || null;
+  
+        const updatedSignatures = allSignatures.map((sig) => ({
+          ...sig,
+          isDefault: sig._id === defaultSignatureId,
+        }));
+  
+        console.log("Updated Signatures Array:", updatedSignatures);
+        setSignatures(updatedSignatures);
+      } catch (error) {
+        console.error("Error fetching signatures:", error);
+      }
+    };
+  
+    fetchSignatures();
+  }, []);
+  // Set first signature as default on mount or when signatures change
+  useEffect(() => {
+    if (signatures.length > 0) {
+      setSelectedSignature(signatures[0]);
+    }
+  }, [signatures]);
   if (!isOpen) return null;
 
   const clearCanvas = () => sigPad.clear();
@@ -163,7 +217,7 @@ const handleSaveDrawnSignature = async () => {
       return;
     }
   
-    const userId = localStorage.getItem("userId"); // Retrieve userId from localStorage
+    const userId = localStorage.getItem("userId"); 
     if (!userId) {
       alert("User ID not found. Please log in again.");
       return;
@@ -259,6 +313,19 @@ const handleSaveDrawnSignature = async () => {
           }}
         >
           <button
+  style={{
+    background: activeTab === "saved" ? "#f0f0f0" : "none",
+    border: "none",
+    padding: "10px",
+    cursor: "pointer",
+    fontSize: "12px",
+  }}
+  onClick={() => setActiveTab("saved")}
+>
+  Saved Signature
+</button>
+
+          <button
             style={{
               background: activeTab === "type" ? "#f0f0f0" : "none",
               border: "none",
@@ -295,6 +362,120 @@ const handleSaveDrawnSignature = async () => {
             Upload Signature
           </button>
         </div>
+
+        {activeTab === "saved" && (
+  <div style={{ marginTop: "20px" }}>
+    {signatures.length === 0 ? (
+      <p>No saved signatures found.</p>
+    ) : (
+      <div>
+        {/* Selected Signature Preview */}
+        {selectedSignature && (
+          <div
+            style={{
+              border: "2px dashed #ccc",
+              padding: "10px",
+              width: "fit-content",
+              marginBottom: "15px",
+              fontFamily: selectedSignature.font || "Arial",
+              fontSize: "26px",
+            }}
+          >
+            {selectedSignature.type === "typed" ? (
+              selectedSignature.content
+            ) : (
+              <img src={selectedSignature.image} alt="Selected Signature" style={{ maxHeight: "80px" }} />
+            )}
+          </div>
+        )}
+
+        {/* Scrollable Signature List */}
+        <div
+          style={{
+            display: "flex",
+            overflowX: "auto",
+            gap: "10px",
+            padding: "10px 0",
+          }}
+        >
+          {signatures.map((sig) => (
+            <div
+              key={sig._id}
+              onClick={() => {
+                setSelectedSignature(sig);
+                // Call onSignatureSave with the selected signature data
+                onSignatureSave(sig); // Pass the selected signature data
+              }}
+              style={{
+                border: "1px solid #ccc",
+                borderRadius: "4px",
+                padding: "10px",
+                minWidth: "100px",
+                cursor: "pointer",
+                fontFamily: sig.font || "Arial",
+                fontSize: "20px",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                background: selectedSignature?._id === sig._id ? "#f5f5f5" : "white",
+              }}
+            >
+              {sig.type === "typed" ? (
+                sig.content
+              ) : (
+                <img
+                  src={sig.image}
+                  alt="Signature"
+                  style={{ maxHeight: "60px", maxWidth: "100px" }}
+                />
+              )}
+            </div>
+          ))}
+        </div>
+
+        {/* Agreement Text */}
+        <p style={{ fontSize: "12px", marginTop: "15px" }}>
+          By clicking the button below I understand and agree that this is a legal representation of my signature.
+        </p>
+
+        {/* Buttons */}
+        <div style={{ display: "flex", gap: "10px" }}>
+          <button
+            onClick={() => {
+              if (selectedSignature) {
+                onSignatureSave(selectedSignature); // Call onSignatureSave when signing
+                onClose();
+              }
+            }}
+            style={{
+              background: "#0046ff",
+              color: "white",
+              border: "none",
+              padding: "8px 20px",
+              borderRadius: "4px",
+              cursor: "pointer",
+            }}
+          >
+            Sign
+          </button>
+          <button
+            onClick={onClose}
+            style={{
+              background: "transparent",
+              border: "none",
+              color: "#333",
+              cursor: "pointer",
+              padding: "8px 16px",
+            }}
+          >
+            Cancel
+          </button>
+        </div>
+      </div>
+    )}
+  </div>
+)}
+    
 
        
         {activeTab === "type" && (

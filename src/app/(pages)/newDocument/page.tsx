@@ -28,6 +28,8 @@ export default function NewDocumentPage() {
 const [documentTitle, setDocumentTitle] = useState("");
 const [documentMessage, setDocumentMessage] = useState("");
   const [recipient, setRecipient] = useState({ name: "", email: "" });
+    const [file, setFile] = useState<File | null>(null);
+  
 const [settings, setSettings] = useState({
   autoReminder: true,
   requireAllSigners: true,
@@ -38,8 +40,7 @@ const [settings, setSettings] = useState({
     const { name, value } = e.target;
     setRecipient((prev) => ({ ...prev, [name]: value }));
   };
-
-  const readFileAsDataURL = (file) => {
+const readFileAsDataURL = (file) => {
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
       reader.onload = () => resolve(reader.result);
@@ -47,9 +48,13 @@ const [settings, setSettings] = useState({
       reader.readAsDataURL(file);
     });
   }
+
 const handleFileUpload = async (event) => {
   const files = Array.from(event.target.files);
-
+  console.log("Selected files:", files); // Debugging line
+  if (files.length > 0) {
+    setFile(files[0]); 
+  }
   const filePreviews = await Promise.all(
     files.map(async (file) => {
       const base64 = await readFileAsDataURL(file);
@@ -58,13 +63,13 @@ const handleFileUpload = async (event) => {
         type: file.type,
         base64,
         file,
+        preview: base64,
       };
     })
   );
-
   setUploadedFiles((prev) => [...prev, ...filePreviews]);
-
 };
+
 
 
 
@@ -476,105 +481,105 @@ const fileUrl = `https://dmiboomlaxybbzwlrohz.supabase.co/storage/v1/object/publ
 </Grid>
 
 {/* Uploaded Files Section */}
-<Grid container direction="row" padding="15px" gap={2}>
-{uploadedFiles.map((file, index) => { const isImage = file.name.match(/.(jpeg|jpg|png|gif)$/i); 
-const isPDF = file.name.match(/.pdf$/i);
-
-
-return (
-    <Box
-      key={index}
-      sx={{
-        border: "1px solid #d7d7d9",
-        borderRadius: "4px",
-        padding: "10px",
-        position: "relative",
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        gap: "5px",
-      }}
-    >
-         {isImage ? (
-      <Image
-        src={file.preview}
-        alt={file.name}
-        width={100}
-        height={100}
-        style={{
-          objectFit: "cover",
-          borderRadius: "4px",
-        }}
-      />
-    ) : isPDF ? (
-      <iframe
-      src={`${file.preview}#toolbar=0&navpanes=0&scrollbar=0`}
-      width={100}
-      height={100}
-      style={{
-        border: "none",
-        overflow: "hidden",
-      }}
-      title={file.name}
-    />
-    
-
-    ) : (
-      <Box
-        width={100}
-        height={100}
-        display="flex"
-        alignItems="center"
-        justifyContent="center"
-        sx={{
-          backgroundColor: "#f0f0f0",
-          borderRadius: "4px",
-          fontSize: "12px",
-          color: "#888",
-          textAlign: "center",
-          padding: "5px",
-        }}
-      >
-        No Preview
-      </Box>
-    )}
-
-
-
-      <Typography
-        variant="body2"
-        sx={{
-          whiteSpace: "nowrap",
-          overflow: "hidden",
-          textOverflow: "ellipsis",
-          maxWidth: "100px",
-          textAlign: "center",
-        }}
-        title={file.name} // Tooltip on hover
-      >
-        {file.name}
-      </Typography>
-      <IconButton
-        sx={{
-          position: "absolute",
-          top: "5px",
-          right: "5px",
-          background: "#fff",
-          boxShadow: "0 1px 3px rgba(0,0,0,0.2)",
-          "&:hover": {
-            backgroundColor: "#f1f1f1",
-          },
-        }}
-        size="small"
-        onClick={() => removeFile(index)}
-      >
-        ✕
-      </IconButton>
-    </Box>
-    );
- })}
-</Grid>
-
+ <Grid container direction="row" padding="15px" gap={2}>
+           {uploadedFiles.map((file, index) => {
+             const isImage = file.name.match(/.(jpeg|jpg|png|gif)$/i); 
+           const isPDF = file.name.match(/.pdf$/i);
+           
+           
+           return (
+               <Box
+                 key={index}
+                 sx={{
+                   border: "1px solid #d7d7d9",
+                   borderRadius: "4px",
+                   padding: "10px",
+                   position: "relative",
+                   display: "flex",
+                   flexDirection: "column",
+                   alignItems: "center",
+                   gap: "5px",
+                 }}
+               >
+                    {isImage ? (
+                 <Image
+                   src={file.preview}
+                   alt={file.name}
+                   width={100}
+                   height={100}
+                   style={{
+                     objectFit: "cover",
+                     borderRadius: "4px",
+                   }}
+                 />
+               ) : isPDF ? (
+                 <iframe
+                 src={`${file.preview}#toolbar=0&navpanes=0&scrollbar=0`}
+                 width={100}
+                 height={100}
+                 style={{
+                   border: "none",
+                   overflow: "hidden",
+                 }}
+                 title={file.name}
+               />
+               
+           
+               ) : (
+                 <Box
+                   width={100}
+                   height={100}
+                   display="flex"
+                   alignItems="center"
+                   justifyContent="center"
+                   sx={{
+                     backgroundColor: "#f0f0f0",
+                     borderRadius: "4px",
+                     fontSize: "12px",
+                     color: "#888",
+                     textAlign: "center",
+                     padding: "5px",
+                   }}
+                 >
+                   No Preview
+                 </Box>
+               )}
+           
+           
+           
+                 <Typography
+                   variant="body2"
+                   sx={{
+                     whiteSpace: "nowrap",
+                     overflow: "hidden",
+                     textOverflow: "ellipsis",
+                     maxWidth: "100px",
+                     textAlign: "center",
+                   }}
+                   title={file.name} // Tooltip on hover
+                 >
+                   {file.name}
+                 </Typography>
+                 <IconButton
+                   sx={{
+                     position: "absolute",
+                     top: "5px",
+                     right: "5px",
+                     background: "#fff",
+                     boxShadow: "0 1px 3px rgba(0,0,0,0.2)",
+                     "&:hover": {
+                       backgroundColor: "#f1f1f1",
+                     },
+                   }}
+                   size="small"
+                   onClick={() => removeFile(index)}
+                 >
+                   ✕
+                 </IconButton>
+               </Box>
+               );
+            })}
+           </Grid>
      
 
    
