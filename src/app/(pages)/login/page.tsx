@@ -87,13 +87,14 @@ const handleLogin = async () => {
       localStorage.setItem("token", token);
       localStorage.setItem("userId", userId);
       localStorage.setItem("user", JSON.stringify({ name, email }));
+    localStorage.setItem("subdomain", subdomain);
 
       const isLocalhost = window.location.hostname.includes("localhost");
 
       if (isLocalhost) {
         window.location.href = `http://${subdomain}.localhost:3000/dashboard`;
       } else {
-        window.location.href = `https://${subdomain}.ezsignature.org/dashboard`;
+        window.location.href = `http://${subdomain}.ezsignature.org/dashboard`;
       }
     } else {
       setApiError("Login failed. Please check your credentials.");
