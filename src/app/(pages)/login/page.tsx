@@ -72,38 +72,34 @@ const Login: FC = () => {
     return valid;
   };
 
-const handleLogin = async () => {
-  if (!validateInputs()) return;
-
-  try {
-    const response = await axios.post("http://localhost:4000/api/user/login", {
-      email,
-      password,
-    });
-
-    if (response.status === 200 || response.status === 201) {
-      const { token, userId, name, email, subdomain } = response.data;
-
-      localStorage.setItem("token", token);
-      localStorage.setItem("userId", userId);
-      localStorage.setItem("user", JSON.stringify({ name, email }));
-    localStorage.setItem("subdomain", subdomain);
-
-      const isLocalhost = window.location.hostname.includes("localhost");
-
-      if (isLocalhost) {
-        window.location.href = `http://${subdomain}.localhost:3000/dashboard`;
+  const handleLogin = async () => {
+    if (!validateInputs()) return;
+  
+    try {
+      const response = await axios.post("http://ezsignature.org/api/user/login", {
+        email,
+        password,
+      });
+  
+      console.log("API Response:", response);
+  
+      if (response.status === 200 || response.status === 201) {
+        const { token, userId, name, email } = response.data; // Destructure correctly
+  
+        localStorage.setItem("token", token); // Store token
+        localStorage.setItem("userId", userId); // Store userId
+        localStorage.setItem("user", JSON.stringify({ name, email })); // Store user details
+  
+        console.log("User ID:", userId); // Debugging
+        router.push(Route.DASHBOARD);
       } else {
-        window.location.href = `http://${subdomain}.ezsignature.org/dashboard`;
+        setApiError("Login failed. Please check your credentials.");
       }
-    } else {
-      setApiError("Login failed. Please check your credentials.");
+    } catch (error: any) {
+      console.error("Login error:", error.response?.data || error.message);
+      setApiError(error.response?.data?.message || "An error occurred while logging in. Please try again.");
     }
-  } catch (error: any) {
-    setApiError(error.response?.data?.message || "An error occurred during login.");
-  }
-};
-
+  };
   
 
   return (
