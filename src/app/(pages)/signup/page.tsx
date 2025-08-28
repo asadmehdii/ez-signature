@@ -100,6 +100,7 @@ const SignUp: FC = () => {
         // Persist auth for next step
         if (data?.token) localStorage.setItem('token', data.token);
         if (data?.id) localStorage.setItem('userId', data.id);
+        if (formData?.email) localStorage.setItem('signupEmail', formData.email);
         toast.success('Account created successfully! Setting up workspace...');
         router.push('/signup/workspace');
       } else {

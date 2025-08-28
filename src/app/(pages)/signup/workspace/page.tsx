@@ -139,28 +139,17 @@ export default function WorkspaceStep() {
       const workspaceData = await res.json();
       toast.success('Workspace created successfully!');
       
-      // For development, redirect to localhost with subdomain
-      // For production, this would be the actual domain
-      const isDevelopment = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
-      
-      if (isDevelopment) {
-        // Development: redirect to localhost with subdomain
-        const target = `http://${formData.subdomain}.localhost:3000/dashboard`;
-        toast.success(`Redirecting to ${target}...`);
-        
-        // Wait a moment for the toast to show, then redirect
-        setTimeout(() => {
-          window.location.href = target;
-        }, 2000);
+      const hostname = window.location.hostname;
+      const isLocalhost = hostname === 'localhost' || hostname === '127.0.0.1';
+      if (isLocalhost) {
+        const target = `http://${formData.subdomain}.localhost:3000/signup/plan?workspace=${encodeURIComponent(formData.subdomain)}`;
+        toast.success('Redirecting to plan selection...');
+        setTimeout(() => { window.location.href = target; }, 800);
       } else {
-        // Production: redirect to actual domain
         const baseDomain = process.env.NEXT_PUBLIC_BASE_DOMAIN || 'ezsignature.org';
-        const target = `https://${formData.subdomain}.${baseDomain}/dashboard`;
-        toast.success(`Redirecting to ${target}...`);
-        
-        setTimeout(() => {
-          window.location.href = target;
-        }, 2000);
+        const target = `https://${formData.subdomain}.${baseDomain}/signup/plan?workspace=${encodeURIComponent(formData.subdomain)}`;
+        toast.success('Redirecting to plan selection...');
+        setTimeout(() => { window.location.href = target; }, 800);
       }
       
     } catch (e: any) {

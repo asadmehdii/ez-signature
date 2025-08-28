@@ -97,9 +97,9 @@ const Login: FC = () => {
         const cookie = document.cookie.split('; ').find((row) => row.startsWith('workspaceSubdomain='));
         const sub = cookie ? decodeURIComponent(cookie.split('=')[1]) : '';
         if (sub) {
-          window.location.href = `https://${sub}.${baseDomain}/dashboard`;
+          window.location.href = `https://${sub}.${baseDomain}/documents`;
         } else {
-          router.push(Route.DASHBOARD);
+          router.push('/documents');
         }
       } else {
         setApiError("Login failed. Please check your credentials.");

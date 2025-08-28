@@ -12,8 +12,8 @@
 **/
 "use client";
 import { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
-import { Box, Typography, Button, Card, CardContent, Grid } from '@mui/material';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { Box, Typography, Button, Card, CardContent, Grid, Alert } from '@mui/material';
 import Navbar from "@/app/components/navbar";
 import ContentBox from "@/app/components/contentBox";
 import Text from "@/app/components/text";
@@ -21,9 +21,12 @@ import { toast } from 'react-hot-toast';
 
 export default function Dashboard() {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const [workspace, setWorkspace] = useState<any>(null);
   const [user, setUser] = useState<any>(null);
   const [loading, setLoading] = useState(true);
+  const [emailVerified, setEmailVerified] = useState<boolean>(false);
+  const [sendingVerify, setSendingVerify] = useState<boolean>(false);
 
   useEffect(() => {
     // Get workspace info from localStorage or URL
@@ -40,22 +43,13 @@ export default function Dashboard() {
     const hostname = window.location.hostname;
     const subdomain = hostname.split('.')[0];
     
-    if (subdomain === 'localhost' || subdomain === '127.0.0.1') {
-      // Development mode - get from localStorage or create mock data
-      const mockWorkspace = {
-        name: 'Development Workspace',
-        subdomain: 'dev',
-        ownerUserId: userId
-      };
-      setWorkspace(mockWorkspace);
-      setUser({ id: userId, name: 'Developer' });
-    } else {
-      // Production mode - fetch workspace data
-      fetchWorkspaceData(subdomain, token);
-    }
+    // Always fetch workspace data based on subdomain
+    fetchWorkspaceData(subdomain, token);
+    // Also fetch profile, to get email & verification status
+    fetchUserProfile(token);
     
     setLoading(false);
-  }, [router]);
+  }, [router, searchParams]);
 
   const fetchWorkspaceData = async (subdomain: string, token: string) => {
     try {
@@ -91,126 +85,56 @@ export default function Dashboard() {
     router.push('/login');
   };
 
-  if (loading) {
-    return (
-      <main>
-        <Navbar showBtn={false} />
-        <ContentBox mt={4}>
-          <Box display="flex" justifyContent="center" alignItems="center" minHeight="400px">
-            <Text fontSize="24px" color="var(--lightGray-color)">
-              Loading dashboard...
-            </Text>
-          </Box>
-        </ContentBox>
-      </main>
-    );
+  const fetchUserProfile = async (token: string) => {
+    try {
+      const apiBase = process.env.NEXT_PUBLIC_API_BASE || 'http://localhost:4000/api';
+      const res = await fetch(`${apiBase}/user/profile`, { headers: { Authorization: `Bearer ${token}` } });
+      if (res.ok) {
+        const data = await res.json();
+        setUser((prev: any) => ({ ...prev, ...data }));
+        setEmailVerified(!!data.emailVerified);
+      }
+    } catch (e) {
+      // ignore
+    }
+  };
+
+  const handleSendVerification = async () => {
+    const email = localStorage.getItem('signupEmail') || user?.email;
+    if (!email) {
+      toast.error('Missing email for verification');
+      return;
+    }
+    try {
+      setSendingVerify(true);
+      const apiBase = process.env.NEXT_PUBLIC_API_BASE || 'http://localhost:4000/api';
+      await fetch(`${apiBase}/user/send-verification`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${localStorage.getItem('token')}` },
+      });
+      toast.success('Verification email sent');
+    } catch (e) {
+      toast.error('Failed to send verification email');
+    } finally {
+      setSendingVerify(false);
+    }
+  };
+
+  const handleMarkVerified = () => {
+    setEmailVerified(true);
+    toast.success('Email verified');
+  };
+
+  // Always redirect simplified dashboard to the main app area
+  if (typeof window !== 'undefined') {
+    const hostname = window.location.hostname;
+    const subdomain = hostname.split('.')[0];
+    const base = subdomain && subdomain !== 'localhost' && subdomain !== '127.0.0.1'
+      ? `https://${subdomain}.${window.location.host.split(':')[0].split('.').slice(1).join('.')}`
+      : '';
+    const target = base ? `${window.location.protocol}//${subdomain}.${window.location.host.split(':')[0].split('.').slice(1).join('.')}/documents` : '/documents';
+    window.location.replace(target);
+    return null;
   }
-
-  return (
-    <main>
-      <Navbar showBtn={false} />
-      <ContentBox mt={4}>
-        {/* Header */}
-        <Box mb={4}>
-          <Text fontWeight="700" textAlign="center" fontSize="42px" mb={2}>
-            Welcome to {workspace?.name || 'Your Workspace'}
-          </Text>
-          <Text fontSize="18px" textAlign="center" color="var(--lightGray-color)" mb={4}>
-            Manage your documents and signatures
-          </Text>
-        </Box>
-
-        {/* Workspace Info */}
-        <Card sx={{ mb: 4, backgroundColor: 'var(--secondary-color)', color: 'white' }}>
-          <CardContent>
-            <Text fontSize="24px" fontWeight="600" mb={2}>
-              Workspace Information
-            </Text>
-            <Grid container spacing={2}>
-              <Grid item xs={12} md={6}>
-                <Text fontSize="16px" color="rgba(255,255,255,0.9)">
-                  <strong>Name:</strong> {workspace?.name || 'N/A'}
-                </Text>
-              </Grid>
-              <Grid item xs={12} md={6}>
-                <Text fontSize="16px" color="rgba(255,255,255,0.9)">
-                  <strong>Subdomain:</strong> {workspace?.subdomain || 'N/A'}
-                </Text>
-              </Grid>
-              <Grid item xs={12} md={6}>
-                <Text fontSize="16px" color="rgba(255,255,255,0.9)">
-                  <strong>Owner:</strong> {user?.name || 'N/A'}
-                </Text>
-              </Grid>
-              <Grid item xs={12} md={6}>
-                <Text fontSize="16px" color="rgba(255,255,255,0.9)">
-                  <strong>URL:</strong> {window.location.hostname}
-                </Text>
-              </Grid>
-            </Grid>
-          </CardContent>
-        </Card>
-
-        {/* Quick Actions */}
-        <Grid container spacing={3} mb={4}>
-          <Grid item xs={12} md={4}>
-            <Card sx={{ height: '200px', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', cursor: 'pointer', transition: 'transform 0.2s', '&:hover': { transform: 'scale(1.02)' } }}>
-              <CardContent>
-                <Text fontSize="20px" fontWeight="600" textAlign="center" mb={2}>
-                  📄 Create Document
-                </Text>
-                <Text fontSize="14px" color="var(--lightGray-color)" textAlign="center">
-                  Start a new document for signatures
-                </Text>
-              </CardContent>
-            </Card>
-          </Grid>
-          
-          <Grid item xs={12} md={4}>
-            <Card sx={{ height: '200px', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', cursor: 'pointer', transition: 'transform 0.2s', '&:hover': { transform: 'scale(1.02)' } }}>
-              <CardContent>
-                <Text fontSize="20px" fontWeight="600" textAlign="center" mb={2}>
-                  ✍️ Manage Signatures
-                </Text>
-                <Text fontSize="14px" color="var(--lightGray-color)" textAlign="center">
-                  View and manage your signatures
-                </Text>
-              </CardContent>
-            </Card>
-          </Grid>
-          
-          <Grid item xs={12} md={4}>
-            <Card sx={{ height: '200px', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', cursor: 'pointer', transition: 'transform 0.2s', '&:hover': { transform: 'scale(1.02)' } }}>
-              <CardContent>
-                <Text fontSize="20px" fontWeight="600" textAlign="center" mb={2}>
-                  👥 Team Members
-                </Text>
-                <Text fontSize="14px" color="var(--lightGray-color)" textAlign="center">
-                  Invite and manage team members
-                </Text>
-              </CardContent>
-            </Card>
-          </Grid>
-        </Grid>
-
-        {/* Logout Button */}
-        <Box display="flex" justifyContent="center" mt={4}>
-          <Button
-            style={{ margin: "10px 0" }}
-            fontSize={16}
-            color="var(--lightGray-color)"
-            fontWeight="600"
-            backgroundColor="transparent"
-            borderRadius={25}
-            width={"200px"}
-            height={"45px"}
-            onClick={handleLogout}
-            sx={{ border: '2px solid var(--lightGray-color)' }}
-          >
-            Logout
-          </Button>
-        </Box>
-      </ContentBox>
-    </main>
-  );
+  return null;
 }
