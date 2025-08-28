@@ -76,7 +76,8 @@ const Login: FC = () => {
     if (!validateInputs()) return;
   
     try {
-      const response = await axios.post("http://ezsignature.org/api/user/login", {
+      const apiBase = process.env.NEXT_PUBLIC_API_BASE || 'http://localhost:4000/api';
+      const response = await axios.post(`${apiBase}/user/login`, {
         email,
         password,
       });
@@ -84,14 +85,22 @@ const Login: FC = () => {
       console.log("API Response:", response);
   
       if (response.status === 200 || response.status === 201) {
-        const { token, userId, name, email } = response.data; // Destructure correctly
+        const { token, userId, name, email } = response.data;
   
         localStorage.setItem("token", token); // Store token
         localStorage.setItem("userId", userId); // Store userId
         localStorage.setItem("user", JSON.stringify({ name, email })); // Store user details
   
         console.log("User ID:", userId); // Debugging
-        router.push(Route.DASHBOARD);
+        // If user has a workspaceSubdomain cookie, prefer redirecting to subdomain dashboard
+        const baseDomain = process.env.NEXT_PUBLIC_BASE_DOMAIN || 'ezsignature.org';
+        const cookie = document.cookie.split('; ').find((row) => row.startsWith('workspaceSubdomain='));
+        const sub = cookie ? decodeURIComponent(cookie.split('=')[1]) : '';
+        if (sub) {
+          window.location.href = `https://${sub}.${baseDomain}/dashboard`;
+        } else {
+          router.push(Route.DASHBOARD);
+        }
       } else {
         setApiError("Login failed. Please check your credentials.");
       }

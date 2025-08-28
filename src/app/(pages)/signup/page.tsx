@@ -15,6 +15,7 @@ import Link from "next/link";
 import ContentBox from "@/app/components/contentBox";
 import Route from "@/app/utils/routes";
 import { useRouter } from 'next/navigation';
+import { toast } from 'react-hot-toast';
 
 const SignUp: FC = () => {
   const router = useRouter();
@@ -25,11 +26,13 @@ const SignUp: FC = () => {
     email: "",
     password: "",
   });
+  
   const [errors, setErrors] = useState({
     name: "",
     email: "",
     password: "",
   });
+  
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   // CustomTextField styled from MUI's TextField.
@@ -83,21 +86,33 @@ const SignUp: FC = () => {
     if (!validateForm()) return;
 
     setIsSubmitting(true);
+
     try {
-      const response = await fetch("http://ezsignature.org/api/user/signup", {
+      const apiBase = process.env.NEXT_PUBLIC_API_BASE || 'http://localhost:4000/api';
+      const response = await fetch(`${apiBase}/user/signup`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
       });
 
       if (response.ok) {
-        alert("Account created successfully!");
-        router.push(Route.LOGIN);
+        const data = await response.json();
+        // Persist auth for next step
+        if (data?.token) localStorage.setItem('token', data.token);
+        if (data?.id) localStorage.setItem('userId', data.id);
+        toast.success('Account created successfully! Setting up workspace...');
+        router.push('/signup/workspace');
       } else {
         const errorData = await response.json();
+        if (response.status === 409) {
+          toast.error('An account with this email already exists. Please log in instead.');
+        } else {
+          toast.error(errorData.message || "Failed to create an account.");
+        }
         alert(errorData.message || "Failed to create an account.");
       }
     } catch {
+      toast.error("An error occurred. Please try again later.");
       alert("An error occurred. Please try again later.");
     } finally {
       setIsSubmitting(false);
@@ -241,7 +256,7 @@ const SignUp: FC = () => {
                 <Box display={"flex"} alignItems={"center"} gap={0.5}>
                   <Checkbox defaultChecked size="small" sx={{ color: "#121212", m: 0, p: 0 }} />
                   <Text fontSize="16px" fontWeight="600" color="var(--lightGray-color)">
-                    I’m not a robot
+                    I'm not a robot
                   </Text>
                 </Box>
                 <Image src={Assests.Recaptcha} alt="image_here" width={35} height={35} />
