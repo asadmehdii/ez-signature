@@ -5,6 +5,8 @@ import Checkbox from '@mui/material/Checkbox';
 import Grid from "@mui/material/Grid2";
 import DropBoxIcon from "@mui/icons-material/Storage"; 
 import GoogleDriveIcon from "@mui/icons-material/DriveFileMove"; 
+import BoxIcon from "@mui/icons-material/Storage";
+import OneDriveIcon from "@mui/icons-material/CloudQueue"; 
 import Topbar from "@/app/components/dashboardTopbar/topbar";
 import who_just_me from "@/app/assests/images/who_just_me.png";
 import who_just_others from "@/app/assests/images/who_just_others.png";
@@ -19,16 +21,43 @@ import CustomPopover from "@/app/components/popover";
 import ModelToggle from "@/app/components/modelToggle";
 import { useRouter } from "next/navigation"; 
 import { supabase } from "@/app/utils/supabase"; // adjust path if needed
+import CloudStorage from "@/app/components/cloudStorage";
 
+
+interface FileData {
+  name: string;
+  type: string;
+  base64: string | null;
+  file: File | null;
+  preview: string | null;
+  isCloudFile?: boolean;
+  cloudProvider?: string;
+  cloudFileId?: string;
+}
+
+interface DataPayload {
+  title: string;
+  signingOption: string;
+  recipients: any[];
+  message: string;
+  enableAutoReminder: boolean;
+  requireAllSigners: boolean;
+  expireAfterDays: any;
+  status: string;
+  fileUrl: string;
+  fileType: any;
+  currentUser: any;
+}
 
 export default function NewDocumentPage() {
   const [selection, setSelection] = useState("me-only");
-  const [uploadedFiles, setUploadedFiles] = useState([]);
+  const [uploadedFiles, setUploadedFiles] = useState<FileData[]>([]);
   const router = useRouter(); 
 const [documentTitle, setDocumentTitle] = useState("");
 const [documentMessage, setDocumentMessage] = useState("");
   const [recipient, setRecipient] = useState({ name: "", email: "" });
     const [file, setFile] = useState<File | null>(null);
+  const [showCloudStorage, setShowCloudStorage] = useState(false);
   
 const [settings, setSettings] = useState({
   autoReminder: true,
@@ -40,10 +69,10 @@ const [settings, setSettings] = useState({
     const { name, value } = e.target;
     setRecipient((prev) => ({ ...prev, [name]: value }));
   };
-const readFileAsDataURL = (file) => {
+const readFileAsDataURL = (file: File): Promise<string> => {
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
-      reader.onload = () => resolve(reader.result);
+      reader.onload = () => resolve(reader.result as string);
       reader.onerror = () => reject(new Error('File reading failed'));
       reader.readAsDataURL(file);
     });
@@ -56,12 +85,12 @@ const handleFileUpload = async (event) => {
     setFile(files[0]); 
   }
   const filePreviews = await Promise.all(
-    files.map(async (file) => {
+    files.map(async (file: File) => {
       const base64 = await readFileAsDataURL(file);
       return {
         name: file.name,
         type: file.type,
-        base64,
+        base64: base64,
         file,
         preview: base64,
       };
@@ -73,8 +102,25 @@ const handleFileUpload = async (event) => {
 
 
 
-  const removeFile = (index) => {
+  const removeFile = (index: number) => {
     setUploadedFiles((prev) => prev.filter((_, i) => i !== index));
+  };
+
+  const handleCloudFileSelect = (cloudFile: any) => {
+    // Convert cloud file to local file format for consistency
+    const mockFile: FileData = {
+      name: cloudFile.name,
+      type: cloudFile.type === 'document' ? 'application/pdf' : 'image/png',
+      base64: null, // Would be fetched from cloud storage
+      file: null, // Would be downloaded from cloud storage
+      preview: null, // Would be generated from cloud file
+      isCloudFile: true,
+      cloudProvider: cloudFile.provider,
+      cloudFileId: cloudFile.id
+    };
+    setUploadedFiles([mockFile]);
+    setFile(null); // Set to null since it's a cloud file
+    setShowCloudStorage(false);
   };
   const handleSelectionChange = (
     event: React.MouseEvent<HTMLElement>,
@@ -164,7 +210,7 @@ const { data, error } = await supabase.storage
 
 const fileUrl = `https://dmiboomlaxybbzwlrohz.supabase.co/storage/v1/object/public/document/document/${fileName}`;
 
-    const dataPayload = {
+    const dataPayload: DataPayload = {
       title: documentTitle,
       signingOption: "",
       recipients: [],
@@ -175,6 +221,7 @@ const fileUrl = `https://dmiboomlaxybbzwlrohz.supabase.co/storage/v1/object/publ
       status: "draft",
       fileUrl: fileUrl,
       fileType: file.type,
+      currentUser: currentUser,
     };
 
     if (selection === "me-only") {
@@ -265,7 +312,7 @@ const { data, error } = await supabase.storage
 
 const fileUrl = `https://dmiboomlaxybbzwlrohz.supabase.co/storage/v1/object/public/document/document/${fileName}`;
 
-    const dataPayload = {
+    const dataPayload: DataPayload = {
       title: documentTitle,
       signingOption: "",
       recipients: [],
@@ -276,6 +323,7 @@ const fileUrl = `https://dmiboomlaxybbzwlrohz.supabase.co/storage/v1/object/publ
       status: "in_process",
       fileUrl: fileUrl,
       fileType: file.type,
+      currentUser: currentUser,
     };
 
     if (selection === "me-only") {
@@ -429,11 +477,53 @@ const fileUrl = `https://dmiboomlaxybbzwlrohz.supabase.co/storage/v1/object/publ
 
   {/* Cloud Services Section */}
   <Grid container alignItems="center" gap={2}>
-    <IconButton>
+    <IconButton 
+      onClick={() => setShowCloudStorage(true)}
+      sx={{ 
+        '&:hover': { 
+          bgcolor: 'rgba(25, 118, 210, 0.08)',
+          transform: 'scale(1.1)'
+        },
+        transition: 'all 0.2s ease'
+      }}
+    >
       <DropBoxIcon />
     </IconButton>
-    <IconButton>
+    <IconButton 
+      onClick={() => setShowCloudStorage(true)}
+      sx={{ 
+        '&:hover': { 
+          bgcolor: 'rgba(25, 118, 210, 0.08)',
+          transform: 'scale(1.1)'
+        },
+        transition: 'all 0.2s ease'
+      }}
+    >
       <GoogleDriveIcon />
+    </IconButton>
+    <IconButton 
+      onClick={() => setShowCloudStorage(true)}
+      sx={{ 
+        '&:hover': { 
+          bgcolor: 'rgba(25, 118, 210, 0.08)',
+          transform: 'scale(1.1)'
+        },
+        transition: 'all 0.2s ease'
+      }}
+    >
+      <BoxIcon />
+    </IconButton>
+    <IconButton 
+      onClick={() => setShowCloudStorage(true)}
+      sx={{ 
+        '&:hover': { 
+          bgcolor: 'rgba(25, 118, 210, 0.08)',
+          transform: 'scale(1.1)'
+        },
+        transition: 'all 0.2s ease'
+      }}
+    >
+      <OneDriveIcon />
     </IconButton>
     <Button
       sx={{
@@ -635,7 +725,7 @@ const fileUrl = `https://dmiboomlaxybbzwlrohz.supabase.co/storage/v1/object/publ
         />
       </Box>
 
-      <CustomPopover title="Signer" options={signerOptions} />
+      <CustomPopover title="Signer" options={signerOptions} onChange={(selected) => console.log('Selected:', selected)} />
       <ModelToggle />
     </Grid>
   </Grid>
@@ -755,6 +845,13 @@ size="small" sx={{padding: "9px 9px 9px 0"}}/>
 
         </form>
       </Grid>
+
+      {/* Cloud Storage Dialog */}
+      <CloudStorage
+        open={showCloudStorage}
+        onClose={() => setShowCloudStorage(false)}
+        onFileSelect={handleCloudFileSelect}
+      />
     </Topbar>
   );
 };

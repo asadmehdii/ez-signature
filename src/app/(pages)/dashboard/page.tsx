@@ -44,7 +44,7 @@ export default function Dashboard() {
     const subdomain = hostname.split('.')[0];
     
     // Always fetch workspace data based on subdomain
-    fetchWorkspaceData(subdomain, token);
+      fetchWorkspaceData(subdomain, token);
     // Also fetch profile, to get email & verification status
     fetchUserProfile(token);
     
