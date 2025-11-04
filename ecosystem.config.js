@@ -1,7 +1,7 @@
 module.exports = {
   apps: [
     {
-      name: 'ez-signature-frontend',
+      name: 'ez-signature-frontend-2',
       script: './node_modules/next/dist/bin/next',
       args: 'start',
       cwd: '/home/linuxuser/ez-signature',
