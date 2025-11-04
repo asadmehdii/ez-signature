@@ -4,7 +4,7 @@ module.exports = {
       name: 'ez-signature-frontend-2',
       script: './node_modules/next/dist/bin/next',
       args: 'start',
-      cwd: '/home/linuxuser/ez-signature',
+      cwd: '/home/linuxuser/test-f/ez-signature',
       instances: 1,
       autorestart: true,
       watch: false,
