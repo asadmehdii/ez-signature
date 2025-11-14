@@ -25,12 +25,12 @@ export default function SignupPlanPage() {
     const hostname = typeof window !== 'undefined' ? window.location.hostname : '';
     const isDev = hostname === 'localhost' || hostname === '127.0.0.1';
     if (isDev && workspace) {
-      window.location.href = `https://${workspace}.ezsignature.org/documents`;
+      window.location.href = `http://${workspace}.ezsignature.org/documents`;
       return;
     }
     if (workspace) {
       const baseDomain = process.env.NEXT_PUBLIC_BASE_DOMAIN || 'ezsignature.org';
-      window.location.href = `https://${workspace}.${baseDomain}/documents`;
+      window.location.href = `http://${workspace}.${baseDomain}/documents`;
       return;
     }
     router.push('/documents');
