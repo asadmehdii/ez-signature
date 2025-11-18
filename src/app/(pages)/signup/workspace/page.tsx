@@ -139,10 +139,9 @@ export default function WorkspaceStep() {
       const workspaceData = await res.json();
       toast.success('Workspace created successfully!');
       
-      // Stay on same domain (IP-based) for plan selection
-      const target = `/signup/plan?workspace=${encodeURIComponent(formData.subdomain)}`;
-      toast.success('Redirecting to plan selection...');
-      router.push(target);
+      // Redirect to dashboard after workspace creation
+      toast.success('Redirecting to dashboard...');
+      router.push('/dashboard');
       
     } catch (e: any) {
       setError(e.message || 'Failed to create workspace');
